@@ -9,12 +9,8 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class AssetExport implements FromCollection, WithHeadings
 {
-    /** @var array<int> */
     protected $ids;
 
-    /**
-     * @param array<int>|null $ids  If provided, export only these IDs (Export Selected). Otherwise export all (Export).
-     */
     public function __construct(?array $ids = null)
     {
         $this->ids = $ids ?? [];

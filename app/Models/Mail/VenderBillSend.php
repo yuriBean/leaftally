@@ -12,21 +12,11 @@ class VenderBillSend extends Mailable
     use Queueable, SerializesModels;
     public $bill;
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
     public function __construct($bill)
     {
         $this->bill = $bill;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
     public function build()
     {
         if(\Auth::user()->type == 'super admin')

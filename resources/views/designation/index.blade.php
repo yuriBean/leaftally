@@ -110,12 +110,10 @@
 
 @push('script-page')
 <script>
-  // Match Bills behavior: keep dropdown/menu clicks from bubbling into table plugin
   $(document).on('click', '.dropdown-menu, [data-bs-toggle="dropdown"]', function(e){
     e.stopPropagation();
   });
 
-  // Fetch Departments by Branch (unchanged utility)
   $(document).on('change', '#branch_id', function() {
     var branch_id = $(this).val();
     getDepartment(branch_id);

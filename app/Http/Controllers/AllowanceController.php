@@ -23,7 +23,6 @@ class AllowanceController extends Controller
     public function store(Request $request)
     {
 
-
         if(\Auth::user()->can('create allowance'))
         {
             $validator = \Validator::make(

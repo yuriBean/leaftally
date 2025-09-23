@@ -30,7 +30,6 @@ $enable_chatgpt = !empty($chatGPT);
 <script src="{{asset('css/summernote/summernote-bs4.js')}}"></script>
 @endpush
 
-
 @section('content')
 <div class="row">
         <div class="col-md-4 col-12">
@@ -65,7 +64,7 @@ $enable_chatgpt = !empty($chatGPT);
                                         <h6 class="font-weight-bold mb-4">{{__('Variables')}}</h6>
                                         @if ($emailTemplate->slug == 'new_bill_payment')
                                         <div class="row">
-                                                <!-- <h6 class="font-weight-bold pb-3">{{ __('Bill Payment Create') }}</h6> -->
+                                                
                                                 <p class="col-6">{{ __('App Name') }} : <span
                                                                 class="pull-end text-primary">{app_name}</span></p>
                                                 <p class="col-6">{{ __('Company Name') }} : <span
@@ -85,7 +84,7 @@ $enable_chatgpt = !empty($chatGPT);
                                         </div>
                                         @elseif($emailTemplate->slug == 'customer_invoice_sent')
                                         <div class="row">
-                                                <!-- <h6 class="font-weight-bold pb-3">{{ __('Customer Invoice Send') }}</h6> -->
+                                                
                                                 <p class="col-6">{{ __('App Name') }} : <span
                                                                 class="pull-end text-primary">{app_name}</span></p>
                                                 <p class="col-6">{{ __('Company Name') }} : <span
@@ -102,7 +101,7 @@ $enable_chatgpt = !empty($chatGPT);
                                         </div>
                                         @elseif($emailTemplate->slug == 'bill_sent')
                                         <div class="row">
-                                                <!-- <h6 class="font-weight-bold pb-3">{{ __('Bill Send') }}</h6> -->
+                                                
                                                 <p class="col-6">{{ __('App Name') }} : <span
                                                                 class="pull-end text-primary">{app_name}</span></p>
                                                 <p class="col-6">{{ __('Company Name') }} : <span
@@ -119,7 +118,7 @@ $enable_chatgpt = !empty($chatGPT);
                                         </div>
                                         @elseif($emailTemplate->slug == 'new_invoice_payment')
                                         <div class="row">
-                                                <!-- <h6 class="font-weight-bold pb-3">{{ __('Invoice payment Create') }}</h6> -->
+                                                
                                                 <p class="col-6">{{ __('App Name') }} : <span
                                                                 class="pull-end text-primary">{app_name}</span></p>
                                                 <p class="col-6">{{ __('Company Name') }} : <span
@@ -140,7 +139,7 @@ $enable_chatgpt = !empty($chatGPT);
                                         </div>
                                         @elseif($emailTemplate->slug == 'invoice_sent')
                                         <div class="row">
-                                                <!-- <h6 class="font-weight-bold pb-3">{{ __('Invoice Send') }}</h6> -->
+                                                
                                                 <p class="col-6">{{ __('App Name') }} : <span
                                                                 class="pull-end text-primary">{app_name}</span></p>
                                                 <p class="col-6">{{ __('Company Name') }} : <span
@@ -157,7 +156,7 @@ $enable_chatgpt = !empty($chatGPT);
                                         </div>
                                         @elseif($emailTemplate->slug == 'payment_reminder')
                                         <div class="row">
-                                                <!-- <h6 class="font-weight-bold pb-3">{{ __('Payment Reminder') }}</h6> -->
+                                                
                                                 <p class="col-6">{{ __('App Name') }} : <span
                                                                 class="pull-end text-primary">{app_name}</span></p>
                                                 <p class="col-6">{{ __('Company Name') }} : <span
@@ -176,7 +175,7 @@ $enable_chatgpt = !empty($chatGPT);
                                         </div>
                                         @elseif($emailTemplate->slug == 'proposal_sent')
                                         <div class="row">
-                                                <!-- <h6 class="font-weight-bold pb-3">{{ __('Proposal Send') }}</h6> -->
+                                                
                                                 <p class="col-6">{{ __('App Name') }} : <span
                                                                 class="pull-end text-primary">{app_name}</span></p>
                                                 <p class="col-6">{{ __('Company Name') }} : <span
@@ -192,7 +191,7 @@ $enable_chatgpt = !empty($chatGPT);
                                         </div>
                                         @elseif($emailTemplate->slug == 'user_created')
                                         <div class="row">
-                                                <!-- <h6 class="font-weight-bold pb-3">{{ __('Create User') }}</h6> -->
+                                                
                                                 <p class="col-6">{{ __('App Name') }} : <span
                                                                 class="pull-end text-primary">{app_name}</span></p>
                                                 <p class="col-6">{{ __('Company Name') }} : <span
@@ -207,7 +206,7 @@ $enable_chatgpt = !empty($chatGPT);
                                         </div>
                                         @elseif($emailTemplate->slug == 'vendor_bill_sent')
                                         <div class="row">
-                                                <!-- <h6 class="font-weight-bold pb-3">{{ __('Vendor Bill Send') }}</h6> -->
+                                                
                                                 <p class="col-6">{{ __('App Name') }} : <span
                                                                 class="pull-end text-primary">{app_name}</span></p>
                                                 <p class="col-6">{{ __('Company Name') }} : <span
@@ -224,7 +223,7 @@ $enable_chatgpt = !empty($chatGPT);
                                         </div>
                                         @elseif($emailTemplate->slug == 'new_contract')
                                         <div class="row">
-                                                <!-- <h6 class="font-weight-bold pb-3">{{ __('Create User') }}</h6> -->
+                                                
                                                 <p class="col-6">{{ __('App Name') }} : <span
                                                                 class="pull-end text-primary">{app_name}</span></p>
                                                 <p class="col-6">{{ __('Company Name') }} : <span
@@ -246,7 +245,7 @@ $enable_chatgpt = !empty($chatGPT);
                                         </div>
                                         @elseif($emailTemplate->slug == 'retainer_sent' || $emailTemplate->slug == 'customer_retainer_sent')
                                         <div class="row">
-                                                <!-- <h6 class="font-weight-bold pb-3">{{ __('Proposal Send') }}</h6> -->
+                                                
                                                 <p class="col-6">{{ __('App Name') }} : <span
                                                                 class="pull-end text-primary">{app_name}</span></p>
                                                 <p class="col-6">{{ __('Company Name') }} : <span
@@ -262,7 +261,7 @@ $enable_chatgpt = !empty($chatGPT);
                                         </div>
                                         @elseif($emailTemplate->slug == 'new_retainer_payment')
                                         <div class="row">
-                                                <!-- <h6 class="font-weight-bold pb-3">{{ __('Invoice payment Create') }}</h6> -->
+                                                
                                                 <p class="col-6">{{ __('App Name') }} : <span
                                                                 clas="pull-end text-primary">{app_name}</span></p>
                                                 <p class="col-6">{{ __('Company Name') }} : <span

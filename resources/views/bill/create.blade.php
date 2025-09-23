@@ -38,17 +38,16 @@
                        max_size: 2048
                    });
                }
-   
-               // for item SearchBox ( this function is  custom Js )
+
                JsSearchBox();
-   
+
                $('.select2').select2();
            },
            hide: function(deleteElement) {
                if (confirm('Are you sure you want to delete this element?')) {
                    $(this).slideUp(deleteElement);
                    $(this).remove();
-   
+
                    var inputs = $(".amount");
                    var subTotal = 0;
                    for (var i = 0; i < inputs.length; i++) {
@@ -68,9 +67,9 @@
            value = JSON.parse(value);
            $repeater.setList(value);
        }
-   
+
    }
-   
+
    $(document).on('change', '#vender', function() {
        $('#vender_detail').removeClass('d-none');
        $('#vender_detail').addClass('d-block');
@@ -100,21 +99,20 @@
            },
        });
    });
-   
+
    $(document).on('click', '#remove', function() {
        $('#vender-box').removeClass('d-none');
        $('#vender-box').addClass('d-block');
        $('#vender_detail').removeClass('d-block');
        $('#vender_detail').addClass('d-none');
    })
-   
+
    $(document).on('change', '.item', function() {
-   
+
        var iteams_id = $(this).val();
        var url = $(this).data('url');
        var el = $(this);
-   
-   
+
        $.ajax({
            url: url,
            type: 'POST',
@@ -127,16 +125,15 @@
            cache: false,
            success: function(data) {
                var item = JSON.parse(data);
-               // console.log(item)
-   
+
                $(el.parent().parent().find('.quantity')).val(1);
                $(el.parent().parent().find('.price')).val(item.product.purchase_price);
                $(el.parent().parent().parent().find('.pro_description')).val(item.product
                    .description);
-   
+
                var taxes = '';
                var tax = [];
-   
+
                var totalItemTaxRate = 0;
                if (item.taxes == 0) {
                    taxes += '-';
@@ -150,23 +147,20 @@
                }
                var itemTaxPrice = parseFloat((totalItemTaxRate / 100) * (item.product
                    .purchase_price * 1));
-   
+
                $(el.parent().parent().find('.itemTaxPrice')).val(itemTaxPrice.toFixed(2));
                $(el.parent().parent().find('.itemTaxRate')).val(totalItemTaxRate.toFixed(2));
                $(el.parent().parent().find('.taxes')).html(taxes);
                $(el.parent().parent().find('.tax')).val(tax);
                $(el.parent().parent().find('.unit')).html(item.unit);
                $(el.parent().parent().find('.discount')).val(0);
-               // $(el.parent().parent().find('.amount')).html(item.totalAmount);
-   
-   
+
                var inputs = $(".amount");
                var subTotal = 0;
                for (var i = 0; i < inputs.length; i++) {
                    subTotal = parseFloat(subTotal) + parseFloat($(inputs[i]).html());
                }
-   
-   
+
                var accountinputs = $(".accountamount");
                var accountSubTotal = 0;
                for (var i = 0; i < accountinputs.length; i++) {
@@ -175,16 +169,14 @@
                        accountSubTotal += currentInputValue;
                    }
                }
-   
-   
-   
+
                var totalItemPrice = 0;
                var priceInput = $('.price');
                for (var j = 0; j < priceInput.length; j++) {
                    totalItemPrice += parseFloat(priceInput[j].value);
-   
+
                }
-   
+
                var totalItemTaxPrice = 0;
                var itemTaxPriceInput = $('.itemTaxPrice');
                for (var j = 0; j < itemTaxPriceInput.length; j++) {
@@ -192,28 +184,26 @@
                    $(el.parent().parent().find('.amount')).html(parseFloat(item.totalAmount) +
                        parseFloat(itemTaxPriceInput[j].value));
                }
-   
+
                var totalItemDiscountPrice = 0;
                var itemDiscountPriceInput = $('.discount');
                for (var k = 0; k < itemDiscountPriceInput.length; k++) {
-   
+
                    totalItemDiscountPrice += parseFloat(itemDiscountPriceInput[k].value);
                }
-   
-   
+
                $('.subTotal').html((totalItemPrice + accountSubTotal).toFixed(2));
                $('.totalTax').html(totalItemTaxPrice.toFixed(2));
                $('.totalAmount').html((parseFloat(totalItemPrice) - parseFloat(
                    totalItemDiscountPrice) + parseFloat(totalItemTaxPrice)).toFixed(2));
-   
-   
+
            },
        });
    });
-   
+
    $(document).on('keyup', '.quantity', function() {
        var quntityTotalTaxPrice = 0;
-   
+
        var el = $(this).parent().parent().parent().parent();
        var quantity = $(this).val();
        var price = $(el.find('.price')).val();
@@ -221,53 +211,37 @@
        if (discount.length <= 0) {
            discount = 0;
        }
-   
+
        var totalItemPrice = (quantity * price) - discount;
-   
-   
+
        var amount = (totalItemPrice);
-   
+
        var totalItemTaxRate = $(el.find('.itemTaxRate')).val();
        var itemTaxPrice = parseFloat((totalItemTaxRate / 100) * (totalItemPrice));
        $(el.find('.itemTaxPrice')).val(itemTaxPrice.toFixed(2));
-   
+
        $(el.find('.amount')).html(parseFloat(itemTaxPrice) + parseFloat(amount));
-   
+
        var totalItemTaxPrice = 0;
        var itemTaxPriceInput = $('.itemTaxPrice');
        for (var j = 0; j < itemTaxPriceInput.length; j++) {
            totalItemTaxPrice += parseFloat(itemTaxPriceInput[j].value);
        }
-   
-   
+
        var totalItemPrice = 0;
        var inputs_quantity = $(".quantity");
        var priceInput = $('.price');
        for (var j = 0; j < priceInput.length; j++) {
            totalItemPrice += (parseFloat(priceInput[j].value) * parseFloat(inputs_quantity[j].value));
        }
-   
-   
-       // var totalAccount = 0;
-       // var accountInput = $('.accountAmount');
-       // for (var j = 0; j < accountInput.length; j++) {
-       //     if(typeof accountInput[j].value != 'undefined')
-       //     {
-       //         var accountInputPrice = accountInput[j].value;
-       //     }
-       //     else {
-       //        var accountInputPrice = 0;
-       //     }
-       //     totalAccount += (parseFloat(accountInputPrice));
-       // }
-   
+
        var totalAccount = 0;
        var accountInput = $('.accountAmount');
-   
+
        for (var j = 0; j < accountInput.length; j++) {
            if (typeof accountInput[j].value != 'undefined') {
                var accountInputPrice = parseFloat(accountInput[j].value);
-   
+
                if (isNaN(accountInputPrice)) {
                    totalAccount = 0;
                } else {
@@ -275,67 +249,62 @@
                }
            }
        }
-   
-   
-   
+
        var inputs = $(".amount");
        var subTotal = 0;
        for (var i = 0; i < inputs.length; i++) {
            subTotal = parseFloat(subTotal) + parseFloat($(inputs[i]).html());
        }
-   
+
        console.log(totalAccount)
-   
+
        var sumAmount = totalItemPrice + totalAccount;
-   
+
        $('.subTotal').html((sumAmount).toFixed(2));
        $('.totalTax').html(totalItemTaxPrice.toFixed(2));
        $('.totalAmount').html((parseFloat(subTotal) + totalAccount).toFixed(2));
-   
+
    })
-   
+
    $(document).on('keyup change', '.price', function() {
        var el = $(this).parent().parent().parent().parent();
        var price = $(this).val();
        var quantity = $(el.find('.quantity')).val();
-   
+
        var discount = $(el.find('.discount')).val();
        if (discount.length <= 0) {
            discount = 0;
        }
        var totalItemPrice = (quantity * price) - discount;
-   
+
        var amount = (totalItemPrice);
-   
-   
+
        var totalItemTaxRate = $(el.find('.itemTaxRate')).val();
        var itemTaxPrice = parseFloat((totalItemTaxRate / 100) * (totalItemPrice));
        $(el.find('.itemTaxPrice')).val(itemTaxPrice.toFixed(2));
-   
+
        $(el.find('.amount')).html(parseFloat(itemTaxPrice) + parseFloat(amount));
-   
+
        var totalItemTaxPrice = 0;
        var itemTaxPriceInput = $('.itemTaxPrice');
        for (var j = 0; j < itemTaxPriceInput.length; j++) {
            totalItemTaxPrice += parseFloat(itemTaxPriceInput[j].value);
        }
-   
-   
+
        var totalItemPrice = 0;
        var inputs_quantity = $(".quantity");
        var priceInput = $('.price');
        for (var j = 0; j < priceInput.length; j++) {
            totalItemPrice += (parseFloat(priceInput[j].value) * parseFloat(inputs_quantity[j].value));
        }
-   
-   
+
        var totalAccount = 0;
        var accountInput = $('.accountAmount');
-   
+
        for (var j = 0; j < accountInput.length; j++) {
            if (typeof accountInput[j].value != 'undefined') {
                var accountInputPrice = parseFloat(accountInput[j].value);
-   
+
                if (isNaN(accountInputPrice)) {
                    totalAccount = 0;
                } else {
@@ -343,77 +312,71 @@
                }
            }
        }
-   
+
        var inputs = $(".amount");
        var subTotal = 0;
        for (var i = 0; i < inputs.length; i++) {
            subTotal = parseFloat(subTotal) + parseFloat($(inputs[i]).html());
        }
-   
-   
+
        $('.subTotal').html((totalItemPrice + totalAccount).toFixed(2));
        $('.totalTax').html(totalItemTaxPrice.toFixed(2));
        $('.totalAmount').html((parseFloat(subTotal) + totalAccount).toFixed(2));
-   
-   
+
    })
-   
+
    $(document).on('keyup change', '.discount', function() {
        var el = $(this).parent().parent().parent();
        var discount = $(this).val();
        if (discount.length <= 0) {
            discount = 0;
        }
-   
+
        var price = $(el.find('.price')).val();
        var quantity = $(el.find('.quantity')).val();
        var totalItemPrice = (quantity * price) - discount;
-   
-   
+
        var amount = (totalItemPrice);
-   
-   
+
        var totalItemTaxRate = $(el.find('.itemTaxRate')).val();
        var itemTaxPrice = parseFloat((totalItemTaxRate / 100) * (totalItemPrice));
        $(el.find('.itemTaxPrice')).val(itemTaxPrice.toFixed(2));
-   
+
        $(el.find('.amount')).html(parseFloat(itemTaxPrice) + parseFloat(amount));
-   
+
        var totalItemTaxPrice = 0;
        var itemTaxPriceInput = $('.itemTaxPrice');
        for (var j = 0; j < itemTaxPriceInput.length; j++) {
            totalItemTaxPrice += parseFloat(itemTaxPriceInput[j].value);
        }
-   
-   
+
        var totalItemPrice = 0;
        var inputs_quantity = $(".quantity");
-   
+
        var priceInput = $('.price');
        for (var j = 0; j < priceInput.length; j++) {
            totalItemPrice += (parseFloat(priceInput[j].value) * parseFloat(inputs_quantity[j].value));
        }
-   
+
        var inputs = $(".amount");
        var subTotal = 0;
        for (var i = 0; i < inputs.length; i++) {
            subTotal = parseFloat(subTotal) + parseFloat($(inputs[i]).html());
        }
-   
-   
+
        var totalItemDiscountPrice = 0;
        var itemDiscountPriceInput = $('.discount');
        for (var k = 0; k < itemDiscountPriceInput.length; k++) {
            totalItemDiscountPrice += parseFloat(itemDiscountPriceInput[k].value);
        }
-   
+
        var totalAccount = 0;
        var accountInput = $('.accountAmount');
-   
+
        for (var j = 0; j < accountInput.length; j++) {
            if (typeof accountInput[j].value != 'undefined') {
                var accountInputPrice = parseFloat(accountInput[j].value);
-   
+
                if (isNaN(accountInputPrice)) {
                    totalAccount = 0;
                } else {
@@ -421,29 +384,25 @@
                }
            }
        }
-   
-   
-       // $('.subTotal').html(totalItemPrice.toFixed(2));
+
        $('.subTotal').html((totalItemPrice + totalAccount).toFixed(2));
-   
+
        $('.totalTax').html(totalItemTaxPrice.toFixed(2));
-   
+
        $('.totalAmount').html((parseFloat(subTotal) + totalAccount).toFixed(2));
        $('.totalDiscount').html(totalItemDiscountPrice.toFixed(2));
-   
-   
+
    })
-   
-   
+
    $(document).on('keyup change', '.accountAmount', function() {
-   
+
        var el1 = $(this).parent().parent().parent().parent();
        var el = $(this).parent().parent().parent().parent().parent();
-   
+
        var quantityDiv = $(el.find('.quantity'));
        var priceDiv = $(el.find('.price'));
        var discountDiv = $(el.find('.discount'));
-   
+
        var itemSubTotal = 0;
        for (var p = 0; p < priceDiv.length; p++) {
            var quantity = quantityDiv[p].value;
@@ -454,28 +413,18 @@
            }
            itemSubTotal += (quantity * price) - (discount);
        }
-   
-   
-       // var totalItemTaxPrice = 0;
-       // var itemTaxPriceInput = $('.itemTaxPrice');
-       // for (var j = 0; j < itemTaxPriceInput.length; j++) {
-       //
-       //     totalItemTaxPrice += parseFloat(itemTaxPriceInput[j].value);
-       //
-       // }
-   
+
        var totalItemTaxPrice = 0;
        var itemTaxPriceInput = $('.itemTaxPrice');
-   
+
        for (var j = 0; j < itemTaxPriceInput.length; j++) {
            var parsedValue = parseFloat(itemTaxPriceInput[j].value);
-   
+
            if (!isNaN(parsedValue)) {
                totalItemTaxPrice += parsedValue;
            }
        }
-   
-   
+
        var amount = $(this).val();
        el1.find('.accountamount').html(amount);
        var totalAccount = 0;
@@ -483,24 +432,19 @@
        for (var j = 0; j < accountInput.length; j++) {
            totalAccount += (parseFloat(accountInput[j].value));
        }
-   
-   
+
        var inputs = $(".accountamount");
        var subTotal = 0;
        for (var i = 0; i < inputs.length; i++) {
-   
+
            subTotal = parseFloat(subTotal) + parseFloat($(inputs[i]).html());
        }
-   
-       // console.log(subTotal)
-   
-   
+
        $('.subTotal').text((totalAccount + itemSubTotal).toFixed(2));
        $('.totalAmount').text((parseFloat((subTotal + itemSubTotal) + (totalItemTaxPrice))).toFixed(2));
-   
-   
+
    })
-   
+
    $(document).on('change', '.item', function() {
        $('.item option').prop('hidden', false);
        $('.item :selected').each(function() {
@@ -508,7 +452,7 @@
            $(".item option[value=" + id + "]").prop("hidden", true);
        });
    });
-   
+
    $(document).on('click', '[data-repeater-create]', function() {
        $('.item option').prop('hidden', false);
        $('.item :selected').each(function() {
@@ -516,7 +460,7 @@
            $(".item option[value=" + id + "]").prop("hidden", true);
        });
    })
-   
+
    var vendorId = '{{ $vendorId }}';
    if (vendorId > 0) {
        $('#vender').val(vendorId).change();
@@ -526,15 +470,14 @@
    $(document).on('click', '[data-repeater-delete]', function() {
        $(".price").change();
        $(".discount").change();
-   
+
        $('.item option').prop('hidden', false);
        $('.item :selected').each(function () {
            var id = $(this).val();
            $(".item option[value=" + id + "]").prop("hidden", true);
        });
    });
-   
-   // for item SearchBox ( this function is  custom Js )
+
    JsSearchBox();
 </script>
 @endpush
@@ -644,12 +587,12 @@
          <div class="mt-3 table-border-style">
             <div class="table-responsive">
                <table class="table mb-0" data-repeater-list="items" id="sortable-table">
-                  
+
                   <tbody class="ui-sortable" data-repeater-item>
                     <tr>
                       <td colspan="{{ $TAX_ENABLED ? 7 : 6 }}">
                         <div class="border rounded p-3 mb-3 bg-light-subtle">
-                          
+
                           {{-- Item --}}
                           <div class="mb-3">
                             {{ Form::label('item', __('Item'), ['class' => 'form-label fw-semibold']) }}
@@ -659,7 +602,7 @@
                                 'required' => 'required'
                             ]) }}
                           </div>
-                  
+
                           {{-- Quantity --}}
                           <div class="mb-3">
                             {{ Form::label('quantity', __('Quantity'), ['class' => 'form-label fw-semibold']) }}
@@ -668,7 +611,7 @@
                               <span class="unit input-group-text bg-white"></span>
                             </div>
                           </div>
-                  
+
                           {{-- Price --}}
                           <div class="mb-3">
                             {{ Form::label('price', __('Price'), ['class' => 'form-label fw-semibold']) }}
@@ -677,7 +620,7 @@
                               <span class="input-group-text bg-white">{{ \Auth::user()->currencySymbol() }}</span>
                             </div>
                           </div>
-                  
+
                           {{-- Discount --}}
                           <div class="mb-3">
                             {{ Form::label('discount', __('Discount'), ['class' => 'form-label fw-semibold']) }}
@@ -686,7 +629,7 @@
                               <span class="input-group-text bg-white">{{ \Auth::user()->currencySymbol() }}</span>
                             </div>
                           </div>
-                  
+
                           {{-- Tax (optional) --}}
                           @if($TAX_ENABLED)
                           <div class="mb-3">
@@ -699,7 +642,7 @@
                             </div>
                           </div>
                           @endif
-                  
+
                           {{-- Chart of Account --}}
                           <div class="mb-3">
                             {{ Form::label('chart_account_id', __('Chart of Account'), ['class' => 'form-label fw-semibold']) }}
@@ -716,7 +659,7 @@
                               @endforeach
                             </select>
                           </div>
-                  
+
                           {{-- Account Amount --}}
                           <div class="mb-3">
                             {{ Form::label('accountAmount', __('Account Amount'), ['class' => 'form-label fw-semibold']) }}
@@ -725,13 +668,13 @@
                               <span class="input-group-text bg-white">{{ \Auth::user()->currencySymbol() }}</span>
                             </div>
                           </div>
-                  
+
                           {{-- Description --}}
                           <div class="mb-3">
                             {{ Form::label('description', __('Description'), ['class' => 'form-label fw-semibold']) }}
                             {{ Form::textarea('description', null, ['class'=>'form-control pro_description','rows'=>2]) }}
                           </div>
-                  
+
                           {{-- Amount + Delete --}}
                           <div class="d-flex justify-content-between align-items-center">
                             <div>
@@ -744,12 +687,12 @@
                               </a>
                             </div>
                           </div>
-                  
+
                         </div>
                       </td>
                     </tr>
                   </tbody>
-                  
+
                   <tfoot>
                      <tr>
                         <td>&nbsp;</td>
@@ -815,24 +758,25 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 <div class="modal-body">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="form-group">
-                {{ Form::label('name', __('Name'), ['class' => 'form-label']) }}<x-required></x-required>
-                <div class="form-icon-user">
-                    {{ Form::text('name', null, ['class' => 'form-control', 'required' => 'required']) }}
-                </div>
+    <div style="display: flex; flex-direction: column; gap: 1rem;">
+        <div class="form-group">
+            {{ Form::label('name', __('Name'), ['class' => 'form-label']) }}<x-required></x-required>
+            <div class="form-icon-user">
+                {{ Form::text('name', null, ['class' => 'form-control', 'required' => 'required']) }}
             </div>
         </div>
 
-        <x-mobile  div-class="col-md-12 " name="contact" label="{{ __('Contact') }} " required></x-mobile>
+        <div class="form-group">
+            {{ Form::label('contact', __('Contact'), ['class' => 'form-label']) }}<x-required></x-required>
+            <div class="form-icon-user">
+                {{ Form::text('contact', null, ['class' => 'form-control', 'required' => 'required']) }}
+            </div>
+        </div>
 
-        <div class="col-lg-12">
-            <div class="form-group">
-                {{ Form::label('email', __('Email'), ['class' => 'form-label']) }}<x-required></x-required>
-                <div class="form-icon-user">
-                    {{ Form::text('email', null, ['class' => 'form-control', 'required' => 'required']) }}
-                </div>
+        <div class="form-group">
+            {{ Form::label('email', __('Email'), ['class' => 'form-label']) }}<x-required></x-required>
+            <div class="form-icon-user">
+                {{ Form::text('email', null, ['class' => 'form-control', 'required' => 'required']) }}
             </div>
         </div>
     </div>
@@ -884,7 +828,7 @@
     <div class="row gutters-xs">
         @foreach (App\Models\Utility::templateData()['colors'] as $key => $hexNoHash)
             @php
-                $hex = '#'.$hexNoHash; // store with leading '#', same as the old color input
+                $hex = '#'.$hexNoHash;
             @endphp
             <div class="col-auto">
                 <label class="colorinput" title="{{ $hex }}">
@@ -911,7 +855,6 @@
 </div>
 @endsection
 
-
 @push('script-page')
 <script type="text/javascript">
     $("#add_vender").click(function (e) {
@@ -919,7 +862,7 @@
     $("#venderModal").modal("show");
 });
 $("#venderModal").on("hidden.bs.modal", function () {
-    $(".card").removeClass("blurred"); 
+    $(".card").removeClass("blurred");
 });
 $("#add_vender_form").submit(function (e) {
     e.preventDefault();
@@ -940,7 +883,7 @@ $("#add_vender_form").submit(function (e) {
             if (response.status == "1") {
                 show_toastr("success",response.message);
                 $("#venderModal").modal("hide");
-                $("#add_vender_form")[0].reset(); 
+                $("#add_vender_form")[0].reset();
                 $("#vender").html(response.options);
             } else {
                 $("input[type='submit']").attr("disabled",false);
@@ -975,25 +918,23 @@ $(document).on('submit',"#add_product_form",function(e){
             if (response.status == "1") {
                 show_toastr("success",response.message);
                 $("#commonModal").modal("hide");
-                $("#add_product_form")[0].reset(); 
-                
+                $("#add_product_form")[0].reset();
+
                 $("body .repeater").find(".item").each(function() {
     $(this).append(new Option(response.name, response.id));
     });
 
-
             } else {
                 $("input[type='submit']").attr("disabled",false);
-                show_toastr("error",response.message); 
+                show_toastr("error",response.message);
             }
         },
         error: function (xhr, status, error) {
             $("input[type='submit']").attr("disabled",false);
-            show_toastr("error",error.message); 
+            show_toastr("error",error.message);
         }
     });
 })
-
 
 $("#add_category").click(function (e) {
     $("#productCategoryModal").modal("show");
@@ -1016,7 +957,7 @@ $("#add_category_form").submit(function (e) {
         success: function (response) {
             if (response.status == "1") {
                 $("#productCategoryModal").modal("hide");
-                $("#add_category_form")[0].reset(); 
+                $("#add_category_form")[0].reset();
                 $("#category_id").html(response.options);
                 show_toastr("success",response.message);
             }else{
@@ -1030,7 +971,6 @@ $("#add_category_form").submit(function (e) {
     });
 });
 (function () {
-    // Toggle fields based on type
     function applyTypeUI(type) {
         if (type === 'Product') {
             $('.quantity-field').show();
@@ -1066,8 +1006,6 @@ $("#add_category_form").submit(function (e) {
     $(document).on('click', 'input[name="type"]', function () {
         applyTypeUI($(this).val());
     });
-
-
 
 })();
 </script>

@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class ChangeShippingDefaultVal extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::table(
@@ -25,7 +20,6 @@ class ChangeShippingDefaultVal extends Migration
         }
         );
 
-
         Schema::table(
             'venders', function (Blueprint $table){
             $table->string('shipping_name')->nullable()->change();
@@ -38,14 +32,8 @@ class ChangeShippingDefaultVal extends Migration
         }
         );
 
-
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::table(

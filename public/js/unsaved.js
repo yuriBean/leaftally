@@ -1,4 +1,3 @@
-// public/js/unsaved-guard.js
 (function () {
   const FORM_SELECTOR    = 'form:not([method="get"]):not([data-guard-ignore])';
   const SUBMIT_SELECTOR  = 'button[type="submit"],input[type="submit"],[data-guard-submit]';
@@ -45,7 +44,7 @@
 
   function isDirty(form) {
     if (form.hasAttribute('data-guard-ignore')) return false;
-    if (inModal(form)) return false; // never guard forms inside modals
+    if (inModal(form)) return false;
     const before = form.dataset._guardSnapshot || '';
     const now    = snapshotForm(form);
     const dirty  = before !== now;
@@ -62,7 +61,7 @@
   function shouldBypass(elem) {
     if (!elem) return false;
     if (elem.closest(SWAL_SELECTOR)) return true;
-    if (inModal(elem)) return true; // bypass everything inside modals
+    if (inModal(elem)) return true;
     if (elem.closest('[data-guard-ignore]')) return true;
     if (elem.closest('[data-guard-submitting="1"]')) return true;
     return false;
@@ -87,7 +86,7 @@
   }
 
   function attachToForm(form) {
-    if (inModal(form)) return; // don't track modal forms
+    if (inModal(form)) return;
     markPristine(form);
 
     const recheck = () => isDirty(form);
@@ -123,7 +122,6 @@
     return Promise.resolve(window.confirm(guardMessage()));
   }
 
-  // Intercept in-app LINK clicks (skip if inside modal)
   document.addEventListener('click', function (e) {
     if (e.target.closest(SWAL_SELECTOR)) return;
 
@@ -140,7 +138,7 @@
       if (to.origin === window.location.origin &&
           to.pathname === window.location.pathname &&
           to.search === window.location.search) {
-        return; // in-page anchor
+        return;
       }
     } catch (_) {}
 
@@ -151,12 +149,11 @@
     }
   }, true);
 
-  // Intercept “cancel/dismiss” buttons etc., but never inside modals
   document.addEventListener('click', function (e) {
     if (e.target.closest(SWAL_SELECTOR)) return;
 
     const submitBtn = e.target.closest(SUBMIT_SELECTOR);
-    if (submitBtn) return; // allow submit
+    if (submitBtn) return;
 
     const btn = e.target.closest('button,[data-dismiss="modal"],[data-bs-dismiss="modal"],[data-guard-leave]');
     if (!btn) return;
@@ -177,7 +174,6 @@
     document.querySelectorAll(FORM_SELECTOR)
       .forEach(f => { if (!inModal(f)) attachToForm(f); });
 
-    // If your app injects AJAX content, avoid tracking forms added inside modals
     document.addEventListener('ajax:popup:shown', function (e) {
       const root = e.detail?.root || document;
       root.querySelectorAll(FORM_SELECTOR)

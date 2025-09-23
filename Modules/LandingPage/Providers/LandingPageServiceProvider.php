@@ -7,21 +7,10 @@ use Illuminate\Database\Eloquent\Factory;
 
 class LandingPageServiceProvider extends ServiceProvider
 {
-    /**
-     * @var string $moduleName
-     */
     protected $moduleName = 'LandingPage';
 
-    /**
-     * @var string $moduleNameLower
-     */
     protected $moduleNameLower = 'landingpage';
 
-    /**
-     * Boot the application events.
-     *
-     * @return void
-     */
     public function boot()
     {
         $this->registerTranslations();
@@ -30,21 +19,11 @@ class LandingPageServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
     }
 
-    /**
-     * Register the service provider.
-     *
-     * @return void
-     */
     public function register()
     {
         $this->app->register(RouteServiceProvider::class);
     }
 
-    /**
-     * Register config.
-     *
-     * @return void
-     */
     protected function registerConfig()
     {
         $this->publishes([
@@ -55,11 +34,6 @@ class LandingPageServiceProvider extends ServiceProvider
         );
     }
 
-    /**
-     * Register views.
-     *
-     * @return void
-     */
     public function registerViews()
     {
         $viewPath = resource_path('views/modules/' . $this->moduleNameLower);
@@ -73,11 +47,6 @@ class LandingPageServiceProvider extends ServiceProvider
         $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->moduleNameLower);
     }
 
-    /**
-     * Register translations.
-     *
-     * @return void
-     */
     public function registerTranslations()
     {
         $langPath = resource_path('lang/modules/' . $this->moduleNameLower);
@@ -91,11 +60,6 @@ class LandingPageServiceProvider extends ServiceProvider
         }
     }
 
-    /**
-     * Get the services provided by the provider.
-     *
-     * @return array
-     */
     public function provides()
     {
         return [];

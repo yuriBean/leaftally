@@ -9,7 +9,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('plans', function (Blueprint $table) {
-            // --- Toggles (editable) ---
             if (!Schema::hasColumn('plans', 'user_access_management')) {
                 $table->boolean('user_access_management')->default(false);
             }
@@ -33,7 +32,6 @@ return new class extends Migration
                 $table->boolean('audit_trail_enabled')->default(false);
             }
 
-            // NEW: Manufacturing (toggle + quota)
             if (!Schema::hasColumn('plans', 'manufacturing_enabled')) {
                 $table->boolean('manufacturing_enabled')->default(false);
             }
@@ -41,7 +39,6 @@ return new class extends Migration
                 $table->integer('manufacturing_quota')->default(-1);
             }
 
-            // --- Always ON + quota ---
             if (!Schema::hasColumn('plans', 'invoice_enabled')) {
                 $table->boolean('invoice_enabled')->default(true);
             }
@@ -56,7 +53,6 @@ return new class extends Migration
                 $table->integer('product_quota')->default(-1);
             }
 
-            // Bills management (using expense_* columns)
             if (!Schema::hasColumn('plans', 'expense_tracking_enabled')) {
                 $table->boolean('expense_tracking_enabled')->default(true);
             }
@@ -78,7 +74,6 @@ return new class extends Migration
                 $table->integer('vendor_quota')->default(-1);
             }
 
-            // Inventory auto with Product (Product is always on)
             if (!Schema::hasColumn('plans', 'inventory_enabled')) {
                 $table->boolean('inventory_enabled')->default(true);
             }
@@ -89,20 +84,17 @@ return new class extends Migration
     {
         Schema::table('plans', function (Blueprint $table) {
             $cols = [
-                // editable toggles
                 'user_access_management',
                 'payroll_enabled', 'payroll_quota',
                 'budgeting_enabled',
                 'tax_management_enabled',
                 'audit_trail_enabled',
                 'manufacturing_enabled', 'manufacturing_quota',
-                // always-on + quotas
                 'invoice_enabled', 'invoice_quota',
                 'product_management_enabled', 'product_quota',
                 'expense_tracking_enabled', 'expense_quota',
                 'client_management_enabled', 'client_quota',
                 'vendor_management_enabled', 'vendor_quota',
-                // derived
                 'inventory_enabled',
             ];
             foreach ($cols as $c) {

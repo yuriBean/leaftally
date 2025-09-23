@@ -72,9 +72,6 @@ class BankController extends Controller
     return redirect()->route('banks.index')->with('success', __('Bank deleted.'));
   }
 
-  /**
-   * Bulk delete selected banks.
-   */
   public function bulkDestroy(Request $request)
   {
     if (!\Auth::user()->can('delete constant bank')) {
@@ -108,9 +105,6 @@ class BankController extends Controller
     return redirect()->back()->with($deleted ? 'success' : 'error', $message);
   }
 
-  /**
-   * Export all banks.
-   */
   public function export()
   {
     if (!\Auth::user()->can('manage constant bank')) {
@@ -124,9 +118,6 @@ class BankController extends Controller
     return Excel::download(new BankExport(), $file);
   }
 
-  /**
-   * Export selected banks.
-   */
   public function exportSelected(Request $request)
   {
     if (!\Auth::user()->can('manage constant bank')) {

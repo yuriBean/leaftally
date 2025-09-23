@@ -190,10 +190,8 @@ class LanguageController extends Controller
         $default_lang = env('default_language') ?? 'en';
         $langDir      = base_path() . '/resources/lang/';
         if (is_dir($langDir)) {
-            // remove directory and file
             Utility::delete_directory($langDir . $lang);
             unlink($langDir . $lang . '.json');
-            // update user that has assign deleted language.
             User::where('lang', 'LIKE', $lang)->update(['lang' => $default_lang]);
             Customer::where('lang', 'LIKE', $lang)->update(['lang' => $default_lang]);
             Vender::where('lang', 'LIKE', $lang)->update(['lang' => $default_lang]);

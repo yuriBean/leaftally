@@ -24,7 +24,6 @@ class JournalEntryController extends Controller
         }
     }
 
-
     public function create()
     {
         if (\Auth::user()->can('create journal entry')) {
@@ -38,7 +37,6 @@ class JournalEntryController extends Controller
             return response()->json(['error' => __('Permission denied.')], 401);
         }
     }
-
 
     public function store(Request $request)
     {
@@ -80,7 +78,6 @@ class JournalEntryController extends Controller
             $journal->description = $request->description;
             $journal->created_by  = \Auth::user()->creatorId();
             $journal->save();
-
 
             for ($i = 0; $i < count($accounts); $i++) {
                 $journalItem              = new JournalItem();
@@ -137,7 +134,6 @@ class JournalEntryController extends Controller
         }
     }
 
-
     public function show(JournalEntry $journalEntry)
     {
         if (\Auth::user()->can('show journal entry')) {
@@ -154,7 +150,6 @@ class JournalEntryController extends Controller
         }
     }
 
-
     public function edit(JournalEntry $journalEntry)
     {
         if (\Auth::user()->can('edit journal entry')) {
@@ -166,7 +161,6 @@ class JournalEntryController extends Controller
             return response()->json(['error' => __('Permission denied.')], 401);
         }
     }
-
 
     public function update(Request $request, JournalEntry $journalEntry)
     {
@@ -258,8 +252,6 @@ class JournalEntryController extends Controller
                     Utility::addTransactionLines($data);
                 }
 
-               
-
                 $journalEntry->date        = $request->date;
                 $journalEntry->reference   = $request->reference;
                 $journalEntry->description = $request->description;
@@ -292,7 +284,6 @@ class JournalEntryController extends Controller
             return redirect()->back()->with('error', __('Permission denied.'));
         }
     }
-
 
     public function destroy(JournalEntry $journalEntry)
     {

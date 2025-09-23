@@ -1,6 +1,5 @@
 <script src="{{ asset('js/unsaved.js') }}"></script>
 
-
     {{Form::model($designation,array('route' => array('designation.update', $designation->id), 'method' => 'PUT', 'class'=>'needs-validation', 'novalidate')) }}
     <div class="modal-body">
 

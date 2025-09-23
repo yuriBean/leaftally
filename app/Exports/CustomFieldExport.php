@@ -10,14 +10,8 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 
 class CustomFieldExport implements FromCollection, WithHeadings, WithMapping
 {
-    /**
-     * @var array<int>
-     */
     protected $ids;
 
-    /**
-     * @param array<int>|null $ids
-     */
     public function __construct(?array $ids = null)
     {
         $this->ids = $ids ?: [];

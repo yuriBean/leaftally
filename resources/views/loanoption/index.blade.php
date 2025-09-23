@@ -102,7 +102,6 @@
 
 @push('script-page')
 <script>
-  // Match Bills behavior: prevent dropdown/menu clicks from bubbling into datatable
   $(document).on('click', '.dropdown-menu, [data-bs-toggle="dropdown"]', function(e){
     e.stopPropagation();
   });

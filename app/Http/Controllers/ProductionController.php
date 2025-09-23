@@ -40,9 +40,6 @@ class ProductionController extends Controller
         };
     }
 
-    /**
-     * Safely resolve a product relation (works even if it wasn't eager-loaded)
-     */
     private function resolveProduct($modelWithMaybeRelation, $productId)
     {
         $loaded = method_exists($modelWithMaybeRelation, 'relationLoaded')
@@ -60,21 +57,17 @@ class ProductionController extends Controller
         return $prod;
     }
 
-    /** ===== Core transitions ===== */
-
     private function doStart(ProductionOrder $order): void
     {
         if ((int)$order->status !== 0) {
             return;
         }
 
-        // Eager-load BOM I/O with product (including soft-deleted)
         $order->load([
             'bom.inputs.product'  => fn ($q) => $q->withTrashed(),
             'bom.outputs.product' => fn ($q) => $q->withTrashed(),
         ]);
 
-        // Pre-check shortages
         $shortages = [];
         foreach ($order->bom->inputs as $in) {
             $prod = $this->resolveProduct($in, $in->product_id);
@@ -91,7 +84,6 @@ class ProductionController extends Controller
         }
 
         DB::transaction(function () use ($order) {
-            // Consume raw materials
             foreach ($order->bom->inputs as $in) {
                 $product  = $this->resolveProduct($in, $in->product_id);
                 $required = (float)$in->qty_per_batch * (float)$order->multiplier;
@@ -99,13 +91,11 @@ class ProductionController extends Controller
                 $unitCost  = (float)($product->purchase_price ?? ($product->sale_price ?? 0));
                 $totalCost = round($unitCost * $required, 2);
 
-                // Deduct stock & record movement
                 Utility::total_quantity('minus', $required, $product->id);
                 $type = 'production';
                 $desc = $required . ' ' . __('consumed for production') . ' ' . $order->code;
                 Utility::addProductStock($product->id, $required, $type, $desc, $order->id);
 
-                // Persist consumption line
                 ProductionConsumption::create([
                     'production_order_id' => $order->id,
                     'product_id'          => $product->id,
@@ -116,7 +106,6 @@ class ProductionController extends Controller
                 ]);
             }
 
-            // Seed outputs with planned quantities
             foreach ($order->bom->outputs as $out) {
                 $planned = (float)$out->qty_per_batch * (float)$order->multiplier;
                 ProductionOutput::create([
@@ -142,7 +131,6 @@ class ProductionController extends Controller
         $order->load('outputs');
 
         DB::transaction(function () use ($order, $manufacturingCost) {
-            // If no actual good qty entered, default to planned
             foreach ($order->outputs as $out) {
                 if ($out->qty_good === null && $out->qty_planned !== null) {
                     $out->qty_good  = (float)$out->qty_planned;
@@ -160,7 +148,6 @@ class ProductionController extends Controller
 
             $grand = $rawTotal + $mfgCost;
 
-            // Allocate cost to outputs and add to stock
             $outs = ProductionOutput::where('production_order_id', $order->id)->get();
             foreach ($outs as $out) {
                 $share = $totalGood > 0 ? ((float)$out->qty_good / $totalGood) : 0;
@@ -204,8 +191,6 @@ class ProductionController extends Controller
         }
         $order->update(['status' => 3]);
     }
-
-    /** ===== CRUD ===== */
 
     public function index()
     {
@@ -274,7 +259,6 @@ class ProductionController extends Controller
         $multiplier = max((float)($data['batch_multiplier'] ?? 1), 0.0001);
 
         if (in_array($action, ['start', 'finish'], true)) {
-            // Pre-check shortages against the BOM at chosen multiplier
             $bom = Bom::mine()
                 ->with(['inputs.product' => fn ($q) => $q->withTrashed(),
                         'outputs.product' => fn ($q) => $q->withTrashed()])
@@ -331,8 +315,6 @@ class ProductionController extends Controller
         }
     }
 
-   // ProductionController.php
-
 public function edit(ProductionOrder $production)
 {
     $this->authorize('edit production');
@@ -343,7 +325,6 @@ public function edit(ProductionOrder $production)
             ->with('error', __('Only Draft orders can be edited.'));
     }
 
-    // Unify with "create" UX: preload the same data the create page needs
     $bomOptions = Bom::mine()
         ->where('is_active', 1)
         ->orderBy('name')
@@ -352,7 +333,6 @@ public function edit(ProductionOrder $production)
 
     $preselected_bom_id = (int) $production->bom_id;
 
-    // (Not strictly needed for the form, but nice to have if you preview locally)
     $bom = Bom::mine()
         ->with(['inputs.product' => fn ($q) => $q->withTrashed(),
                 'outputs.product' => fn ($q) => $q->withTrashed()])
@@ -361,7 +341,6 @@ public function edit(ProductionOrder $production)
     $bomComponents = $bom?->inputs ?? collect();
     $bomOutputs    = $bom?->outputs ?? collect();
 
-    // For the blade: keep using $job for consistency
     $production->status = $this->statusToString($production->status);
 
     return view('production.edit', [
@@ -378,7 +357,6 @@ public function show(ProductionOrder $production)
     $this->authorize('manage production');
     abort_unless($production->created_by == \Auth::user()->creatorId(), 403);
 
-    // Load everything we may show
     $production->load([
         'bom.inputs.product'  => fn ($q) => $q->withTrashed(),
         'bom.outputs.product' => fn ($q) => $q->withTrashed(),
@@ -386,7 +364,6 @@ public function show(ProductionOrder $production)
         'outputs.product'     => fn ($q) => $q->withTrashed(),
     ]);
 
-    // Ensure product relation everywhere (safely)
     foreach ($production->bom->inputs as $in) {
         $in->setRelation('product', $this->resolveProduct($in, $in->product_id));
     }
@@ -404,10 +381,8 @@ public function show(ProductionOrder $production)
     $job->status = $this->statusToString($job->status);
 
     if ($job->status === 'draft') {
-        // ===== DRAFT: show PLANNED requirements and PLANNED outputs from BOM × multiplier
         $multiplier = max((float)($job->multiplier ?? 1), 0.0001);
 
-        // Planned components (from BOM inputs)
         $components = collect();
         $compTotal  = 0.0;
         foreach ($job->bom->inputs as $in) {
@@ -427,11 +402,9 @@ public function show(ProductionOrder $production)
         $job->components       = $components;
         $job->components_total = (float)$components->sum('line_cost');
 
-        // Estimated totals for draft
         $mfgCost        = (float)($job->manufacturing_cost ?? 0);
         $job->total_cost = $job->components_total + $mfgCost;
 
-        // Planned outputs (from BOM outputs)
         $totalPlannedQty = 0.0;
         foreach ($job->bom->outputs as $out) {
             $totalPlannedQty += (float)$out->qty_per_batch * $multiplier;
@@ -450,11 +423,9 @@ public function show(ProductionOrder $production)
                 'allocated_cost'  => $alloc,
             ]);
         }
-        // Replace the relation the view loops on
         $job->outputs = $outs;
 
     } else {
-        // ===== IN-PROCESS/FINISHED: show ISSUED consumptions + actual/planned outputs
         $components = $job->consumptions->map(function ($c) {
             $c->qty       = (float)$c->qty_issued;
             $c->line_cost = (float)$c->total_cost;
@@ -478,7 +449,6 @@ public function show(ProductionOrder $production)
 
     return view('production.show', compact('job'));
 }
-
 
     public function destroy(ProductionOrder $production)
     {
@@ -553,7 +523,6 @@ public function show(ProductionOrder $production)
     {
         $shortages = [];
 
-        // Ensure inputs + product are loaded (incl. soft-deleted)
         $bom->loadMissing([
             'inputs.product' => fn ($q) => $q->withTrashed(),
         ]);
@@ -571,8 +540,6 @@ public function show(ProductionOrder $production)
         return $shortages;
     }
 
-    /** ===== Export & Bulk Actions ===== */
-
     public function export()
     {
         $this->authorize('manage production');
@@ -589,7 +556,6 @@ public function show(ProductionOrder $production)
     {
         $this->authorize('manage production');
 
-        // Accept ids[] or comma string
         $ids = $request->input('ids');
         if (is_array($ids)) {
             $ids = collect($ids)->map(fn($v) => (int)$v)->filter()->unique()->values()->all();
@@ -613,7 +579,6 @@ public function show(ProductionOrder $production)
     {
         $this->authorize('delete production');
 
-        // ids[] or comma string
         $ids = $request->input('ids');
         if (is_array($ids)) {
             $ids = collect($ids)->map(fn($v) => (int)$v)->filter()->unique()->values();
@@ -655,7 +620,6 @@ public function show(ProductionOrder $production)
                 });
                 $deleted++;
             } catch (\Throwable $e) {
-                // continue with others
             }
         }
 

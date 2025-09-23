@@ -12,8 +12,6 @@
     $logo = \App\Models\Utility::get_file('uploads/landing_page_image');
 @endphp
 
-
-
 @push('css-page')
     <link rel="stylesheet" href="{{asset('css/summernote/summernote-bs4.css')}}">
 @endpush
@@ -22,12 +20,10 @@
     <script src="{{asset('css/summernote/summernote-bs4.js')}}"></script>
 @endpush
 
-
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a></li>
     <li class="breadcrumb-item">{{ __('Landing Page') }}</li>
 @endsection
-
 
 @section('content')
     <div class="row">
@@ -39,14 +35,12 @@
 
                             @include('landingpage::layouts.tab')
 
-
                         </div>
                     </div>
                 </div>
 
                 <div class="col-xl-9">
                     {{--  Start for all settings tab --}}
-
 
                     <div class="card">
                         {{ Form::open(['route' => 'faq.store', 'method' => 'post', 'enctype' => 'multipart/form-data']) }}
@@ -67,7 +61,6 @@
                                 </div>
                             </div>
                         </div>
-
 
                         <div class="card-body">
                             <div class="row">
@@ -108,8 +101,6 @@
                                     </div>
                                 </div>
 
-
-
                             </div>
                         </div>
                         <div class="card-footer text-end">
@@ -119,7 +110,6 @@
                         {{ Form::close() }}
 
                     </div>
-
 
                     <div class="card">
                         <div class="card-header">

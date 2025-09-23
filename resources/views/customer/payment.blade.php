@@ -11,9 +11,7 @@
 
 @section('action-btn')
     <div class="float-end">
-        <!-- <a class="btn btn-sm btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1" data-bs-toggle="tooltip" title="{{ __('Filter') }}">
-                <i class="ti ti-filter"></i>
-            </a> -->
+        
     </div>
 @endsection
 @section('content')

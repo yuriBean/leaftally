@@ -67,7 +67,7 @@
                                     <div class="table-responsive mt-2">
                                         <table class="table mb-0 ">
                                             <tr>
-                                                <th data-width="40" class="text-dark">#</th>
+                                                <th data-width="40" class="text-dark">
                                                 <th class="text-dark">{{__('Account')}}</th>
                                                 <th class="text-dark" width="25%">{{__('Description')}}</th>
                                                 <th class="text-dark">{{__('Debit')}}</th>

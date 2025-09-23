@@ -9,12 +9,10 @@ use App\Http\Controllers\{
 
 Route::group(['middleware' => ['verified']], function () {
 
-    // Transaction report shell
     Route::group(['middleware' => ['auth','XSS','revalidate']], function () {
         Route::get('report/transaction', [TransactionController::class, 'index'])->name('transaction.index');
     });
 
-    // Reports
     Route::group(['middleware' => ['auth','XSS','revalidate']], function () {
         Route::get('report/income-summary', [ReportController::class, 'incomeSummary'])->name('report.income.summary');
         Route::get('report/expense-summary', [ReportController::class, 'expenseSummary'])->name('report.expense.summary');
@@ -40,7 +38,6 @@ Route::group(['middleware' => ['verified']], function () {
         Route::post('export/balance-sheet', [ReportController::class, 'balanceSheetExport'])->name('balance.sheet.export');
     });
 
-    // Exports (various)
     Route::post('import/productservice', [ProductServiceController::class, 'import'])->name('productservice.import');
     Route::get('export/customer', [CustomerController::class, 'export'])->name('customer.export');
     Route::get('import/customer/file', [CustomerController::class, 'importFile'])->name('customer.file.import');
@@ -53,14 +50,10 @@ Route::group(['middleware' => ['verified']], function () {
     Route::get('export/productstock', [ReportController::class, 'stock_export'])->name('productstock.export');
     Route::get('export/payment/{date}', [PaymentController::class, 'export'])->name('payment.export');
 
-
-
-    // Budget & misc resources
     Route::resource('budget', BudgetController::class)->middleware(['auth','XSS','revalidate','feature:budgeting_enabled']);
         Route::post('goal/bulk-destroy', [GoalController::class, 'bulkDestroy'])
         ->name('goal.bulk-destroy');
 
-    // Exports
     Route::get('goal/export', [GoalController::class, 'export'])
         ->name('goal.export');
 
@@ -86,12 +79,8 @@ Route::post('account-assets/export-selected', [AssetController::class, 'exportSe
         ->name('custom-field.export-selected');
     Route::resource('custom-field', CustomFieldController::class)->middleware(['auth','XSS','revalidate']);
 
-
-    // User logs (audit)
     Route::resource('userlogs', UsersLogController::class)->middleware(['auth','XSS','revalidate','feature:user_access_management'])->name('index', 'userlogs.index');
 });
-
-
 
  Route::group(['middleware' => ['auth','XSS','revalidate','feature:payroll']], function () {
     Route::get('export/employees', [EmployeeController::class, 'export'])->name('employees.export');

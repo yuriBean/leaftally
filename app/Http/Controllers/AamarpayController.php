@@ -102,45 +102,26 @@ class AamarpayController extends Controller
                     $orderID = strtoupper(str_replace('.', '', uniqid('', true)));
                     $fields = array(
                         'store_id' => $aamarpay_store_id,
-                        //store id will be aamarpay,  contact integration@aamarpay.com for test/live id
                         'amount' => $get_amount,
-                        //transaction amount
                         'payment_type' => '',
-                        //no need to change
                         'currency' => $currency,
-                        //currenct will be USD/BDT
                         'tran_id' => $orderID,
-                        //transaction id must be unique from your end
                         'cus_name' => $authuser->name,
-                        //customer name
                         'cus_email' => $authuser->email,
-                        //customer email address
                         'cus_add1' => '',
-                        //customer address
                         'cus_add2' => '',
-                        //customer address
                         'cus_city' => '',
-                        //customer city
                         'cus_state' => '',
-                        //state
                         'cus_postcode' => '',
-                        //postcode or zipcode
                         'cus_country' => '',
-                        //country
                         'cus_phone' => '1234567890',
-                        //customer phone number
                         'success_url' => route('pay.aamarpay.success', Crypt::encrypt(['response' => 'success', 'coupon' => $coupon, 'plan_id' => $plan->id, 'price' => $get_amount, 'order_id' => $orderID])),
-                        //your success route
                         'fail_url' => route('pay.aamarpay.success', Crypt::encrypt(['response' => 'failure', 'coupon' => $coupon, 'plan_id' => $plan->id, 'price' => $get_amount, 'order_id' => $orderID])),
-                        //your fail route
                         'cancel_url' => route('pay.aamarpay.success', Crypt::encrypt(['response' => 'cancel'])),
-                        //your cancel url
                         'signature_key' => $aamarpay_signature_key,
                         'desc' => $aamarpay_description,
-                    ); //signature key will provided aamarpay, contact integration@aamarpay.com for test/live signature key
-    
-    
-    
+                    );
+
                     $fields_string = http_build_query($fields);
     
                     $ch = curl_init();
@@ -270,7 +251,6 @@ class AamarpayController extends Controller
             $aamarpay_signature_key = $payment_setting['aamarpay_signature_key'];
             $aamarpay_description = $payment_setting['aamarpay_description'];
             $currency = $setting['site_currency'];
-            // Utility::getValByName('site_currency'),
 
             if (Auth::check()) {
                 $settings = \DB::table('settings')->where('created_by', '=', \Auth::user()->creatorId())->get()->pluck('value', 'name');
@@ -280,7 +260,6 @@ class AamarpayController extends Controller
                 $settings = Utility::settingById($invoice->created_by);
             }
 
-
             $get_amount = $request->amount;
 
             $request->validate(['amount' => 'required|numeric|min:0']);
@@ -289,42 +268,25 @@ class AamarpayController extends Controller
                 $orderID = strtoupper(str_replace('.', '', uniqid('', true)));
                 $fields = array(
                     'store_id' => $aamarpay_store_id,
-                    //store id will be aamarpay,  contact integration@aamarpay.com for test/live id
                     'amount' => $get_amount,
-                    //transaction amount
                     'payment_type' => '',
-                    //no need to change
                     'currency' => $currency,
-                    //currenct will be USD/BDT
                     'tran_id' => $orderID,
-                    //transaction id must be unique from your end
                     'cus_name' => $customer['name'],
-                    //customer name
                     'cus_email' => $customer['email'],
-                    //customer email address
                     'cus_add1' => '',
-                    //customer address
                     'cus_add2' => '',
-                    //customer address
                     'cus_city' => '',
-                    //customer city
                     'cus_state' => '',
-                    //state
                     'cus_postcode' => '',
-                    //postcode or zipcode
                     'cus_country' => '',
-                    //country
                     'cus_phone' => '1234567890',
-                    //customer phone number
                     'success_url' => route('invoice.pay.aamarpay.success', Crypt::encrypt(['response' => 'success', 'invoice' => $invoice_id, 'amount' => $get_amount, 'order_id' => $orderID])),
-                    //your success route
                     'fail_url' => route('invoice.pay.aamarpay.success', Crypt::encrypt(['response' => 'failure', 'invoice' => $invoice_id, 'amount' => $get_amount, 'order_id' => $orderID])),
-                    //your fail route
                     'cancel_url' => route('invoice.pay.aamarpay.success', Crypt::encrypt(['response' => 'cancel'])),
-                    //your cancel url
                     'signature_key' => $aamarpay_signature_key,
                     'desc' => $aamarpay_description,
-                ); //signature key will provided aamarpay, contact integration@aamarpay.com for test/live signature key
+                );
 
                 $fields_string = http_build_query($fields);
                 $ch = curl_init();
@@ -357,7 +319,6 @@ class AamarpayController extends Controller
             $settings = \DB::table('settings')->where('created_by', '=', \Auth::user()->creatorId())->get()->pluck('value', 'name');
             $objUser     = Auth::user();
             $payment_setting = Utility::getAdminPaymentSetting();
-            //            $this->setApiContext();
         } else {
             $user = User::where('id', $invoice['created_by'])->first();
             $settings = Utility::settingById($invoice->created_by);
@@ -417,7 +378,6 @@ class AamarpayController extends Controller
 
             Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-            //Twilio Notification
             $setting  = Utility::settingsById($objUser->creatorId());
             $customer = Customer::find($invoice->customer_id);
             if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -433,7 +393,6 @@ class AamarpayController extends Controller
                 Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $invoice->created_by);
             }
 
-            // webhook
             $module = 'New Payment';
 
             $webhook =  Utility::webhookSetting($module, $invoice->created_by);
@@ -441,8 +400,6 @@ class AamarpayController extends Controller
             if ($webhook) {
 
                 $parameter = json_encode($invoice);
-
-                // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
 
                 $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
             }
@@ -471,7 +428,6 @@ class AamarpayController extends Controller
             $aamarpay_signature_key = $payment_setting['aamarpay_signature_key'];
             $aamarpay_description = $payment_setting['aamarpay_description'];
             $currency = $setting['site_currency'];
-            // Utility::getValByName('site_currency'),
 
             if (Auth::check()) {
                 $settings = \DB::table('settings')->where('created_by', '=', \Auth::user()->creatorId())->get()->pluck('value', 'name');
@@ -481,7 +437,6 @@ class AamarpayController extends Controller
                 $settings = Utility::settingById($retainer->created_by);
             }
 
-
             $get_amount = $request->amount;
 
             $request->validate(['amount' => 'required|numeric|min:0']);
@@ -490,42 +445,25 @@ class AamarpayController extends Controller
                 $orderID = strtoupper(str_replace('.', '', uniqid('', true)));
                 $fields = array(
                     'store_id' => $aamarpay_store_id,
-                    //store id will be aamarpay,  contact integration@aamarpay.com for test/live id
                     'amount' => $get_amount,
-                    //transaction amount
                     'payment_type' => '',
-                    //no need to change
                     'currency' => $currency,
-                    //currenct will be USD/BDT
                     'tran_id' => $orderID,
-                    //transaction id must be unique from your end
                     'cus_name' => $customer['name'],
-                    //customer name
                     'cus_email' => $customer['email'],
-                    //customer email address
                     'cus_add1' => '',
-                    //customer address
                     'cus_add2' => '',
-                    //customer address
                     'cus_city' => '',
-                    //customer city
                     'cus_state' => '',
-                    //state
                     'cus_postcode' => '',
-                    //postcode or zipcode
                     'cus_country' => '',
-                    //country
                     'cus_phone' => '1234567890',
-                    //customer phone number
                     'success_url' => route('retainer.pay.aamarpay.success', Crypt::encrypt(['response' => 'success', 'retainer' => $retainer_id, 'amount' => $get_amount, 'order_id' => $orderID])),
-                    //your success route
                     'fail_url' => route('retainer.pay.aamarpay.success', Crypt::encrypt(['response' => 'failure', 'retainer' => $retainer_id, 'amount' => $get_amount, 'order_id' => $orderID])),
-                    //your fail route
                     'cancel_url' => route('retainer.pay.aamarpay.success', Crypt::encrypt(['response' => 'cancel'])),
-                    //your cancel url
                     'signature_key' => $aamarpay_signature_key,
                     'desc' => $aamarpay_description,
-                ); //signature key will provided aamarpay, contact integration@aamarpay.com for test/live signature key
+                );
 
                 $fields_string = http_build_query($fields);
                 $ch = curl_init();
@@ -558,7 +496,6 @@ class AamarpayController extends Controller
             $settings = \DB::table('settings')->where('created_by', '=', \Auth::user()->creatorId())->get()->pluck('value', 'name');
             $objUser     = Auth::user();
             $payment_setting = Utility::getAdminPaymentSetting();
-            //            $this->setApiContext();
         } else {
             $user = User::where('id', $retainer['created_by'])->first();
             $settings = Utility::settingById($retainer->created_by);
@@ -616,7 +553,6 @@ class AamarpayController extends Controller
 
             Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-            //Twilio Notification
             $setting  = Utility::settingsById($objUser->creatorId());
             $customer = Customer::find($retainer->customer_id);
             if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -632,7 +568,6 @@ class AamarpayController extends Controller
                 Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $retainer->created_by);
             }
 
-            // webhook
             $module = 'New Payment';
 
             $webhook =  Utility::webhookSetting($module, $retainer->created_by);
@@ -640,8 +575,6 @@ class AamarpayController extends Controller
             if ($webhook) {
 
                 $parameter = json_encode($retainer);
-
-                // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
 
                 $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
             }

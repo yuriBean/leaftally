@@ -40,8 +40,8 @@
     <style type="text/css">
         :root {
             --theme-color: {{ $color }};
-            --white: #ffffff;
-            --black: #000000;
+            --white:
+            --black:
         }
 
         body {
@@ -88,8 +88,8 @@
             max-width: 700px;
             width: 100%;
             margin: 0 auto;
-            background: #ffff;
-            box-shadow: 0 0 10px #ddd;
+            background:
+            box-shadow: 0 0 10px
         }
 
         .proposal-logo {
@@ -222,7 +222,6 @@
                                     {{ __('PROPOSAL') }}
                                 </h1>
                                 <div style="font-size: 18px; font-weight: 500; margin-top: 8px; opacity: 0.9;">
-                                    #{{ \App\Models\Utility::proposalNumberFormat($settings, $proposal->proposal_id) }}
                                 </div>
                             </div>
                         </td>

@@ -27,8 +27,6 @@
             {{ Form::text('code', null, ['class' => 'form-control', 'required' => 'required']) }}
         </div>
 
-
-
         <div class="form-group col-md-6">
             {{ Form::label('is_enabled', __('Is Enabled'), ['class' => 'form-label']) }}
             <div class="form-check form-switch">
@@ -37,7 +35,6 @@
                 <label class="custom-control-label form-check-label" for="is_enabled"></label>
             </div>
         </div>
-
 
         <div class="form-group col-md-12">
             {{ Form::label('description', __('Description'), ['class' => 'form-label']) }}

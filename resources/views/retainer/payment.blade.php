@@ -6,7 +6,7 @@
             {{ Form::label('date', __('Date'),['class'=>'form-label']) }}
             <div class="form-icon-user">
                 {{Form::date('date',null,array('class'=>'form-control','required'=>'required'))}}
-                <!-- {{ Form::text('date', null, array('class' => 'form-control pc-datepicker-1','required'=>'required')) }} -->
+                
             </div>
         </div>
         <div class="form-group col-md-6">

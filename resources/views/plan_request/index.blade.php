@@ -81,13 +81,7 @@
                                             </button>
                                             <div
                                                 class="dropdown-menu dropdown-menu-end mt-0 w-[190px] bg-white border rounded-md shadow-lg text-sm p-0">
-                                                <!-- <a href="{{ route('response.request', [$prequest->id, 1]) }}"
-                                                            class="btn btn-success btn-sm me-2"
-                                                            data-bs-toggle="tooltip"
-                                                            title="{{ __('Approve') }}"
-                                                             >
-                                                            <i class="ti ti-check"></i>
-                                                        </a> -->
+                                                
                                                 <a href="{{ route('response.request', [$prequest->id, 1]) }}"
                                                     class="dropdown-item flex text-[#323232] gap-2 w-full px-4 py-2 text-left hover:bg-[#007C3812]"
                                                     data-bs-toggle="tooltip" title="{{ __('Approve') }}">

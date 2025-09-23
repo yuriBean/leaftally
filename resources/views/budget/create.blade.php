@@ -12,9 +12,7 @@
 @push('script-page')
     <script src="{{asset('js/jquery-ui.min.js')}}"></script>
     <script>
-        //Income Total
         $(document).on('keyup', '.income_data', function () {
-            //category wise total
             var el = $(this).parent().parent();
             var inputs = $(el.find('.income_data'));
 
@@ -25,7 +23,6 @@
             }
             el.find('.totalIncome').html(totalincome);
 
-            // month wise total //
             var month_income = $(this).data('month');
             var month_inputs = $(el.parent().find('.' + month_income+'_income'));
             var month_totalincome = 0;
@@ -36,7 +33,6 @@
             var month_total_income = month_income + '_total_income';
             el.parent().find('.' + month_total_income).html(month_totalincome);
 
-            //all total //
             var total_inputs = $(el.parent().find('.totalIncome'));
             console.log(total_inputs)
             var income = 0;
@@ -48,10 +44,7 @@
 
         })
 
-
-        //Expense Total
         $(document).on('keyup', '.expense_data', function () {
-            //category wise total
             var el = $(this).parent().parent();
             var inputs = $(el.find('.expense_data'));
 
@@ -62,7 +55,6 @@
             }
             el.find('.totalExpense').html(totalexpense);
 
-            // month wise total //
             var month_expense = $(this).data('month');
             var month_inputs = $(el.parent().find('.' + month_expense+'_expense'));
             var month_totalexpense = 0;
@@ -73,7 +65,6 @@
             var month_total_expense = month_expense + '_total_expense';
             el.parent().find('.' + month_total_expense).html(month_totalexpense);
 
-            //all total //
             var total_inputs = $(el.parent().find('.totalExpense'));
             console.log(total_inputs)
             var expense = 0;
@@ -85,7 +76,6 @@
 
         })
 
-        //Hide & Show
         $(document).on('change', '.period', function() {
             var period = $(this).val();
 
@@ -94,12 +84,7 @@
             $('#'+ period).removeClass('d-none');
             $('#'+ period).addClass('d-block');
 
-
-
         });
-
-
-
 
     </script>
 @endpush
@@ -137,7 +122,6 @@
         <div class="bg-white border border-[#E5E5E5] rounded-[8px] p-4 mt-4">
             <div class="card-body table-border-style">
 
-                <!---- Start Monthly Budget ------------------------------------------------------------------------>
                 <div class="table-responsive budget_plan d-block"  id="monthly">
                     <table class="table mb-0" id="dataTable-manual">
                         <thead>
@@ -150,7 +134,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <!------------------   Income Category ----------------------------------->
+                        
                         <tr>
                             <th colspan="14" class="text-dark bg-green-100 py-3 px-2 border border-[#E5E5E5]"><span>{{__('Income :')}}</span></th>
                         </tr>
@@ -180,8 +164,6 @@
                                 <span class="income text-dark">0.00</span>
                             </td>
                         </tr>
-
-                        <!------------------   Expense Category ----------------------------------->
 
                         <tr>
                             <th colspan="14" class="text-dark bg-green-100 py-3 px-2 border border-[#E5E5E5]"><span>{{__('Expense :')}}</span></th>
@@ -222,10 +204,6 @@
                     </div>
                 </div>
 
-                <!---- End Monthly Budget ----->
-
-
-                <!---- Start Quarterly Budget ----------------------------------------------------------------------->
                 <div class="table-responsive budget_plan d-none" id="quarterly">
                     <table class="table mb-0" id="dataTable-manual">
                         <thead>
@@ -238,7 +216,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <!------------------   Income Category ----------------------------------->
+                        
                         <tr>
                             <th colspan="37" class="text-dark bg-green-100 py-3 px-2 border border-[#E5E5E5]"><span>{{__('Income :')}}</span></th>
                         </tr>
@@ -269,10 +247,6 @@
                                 <span class="income  text-dark">0.00</span>
                             </td>
                         </tr>
-
-
-
-                        <!------------------   Expense Category ----------------------------------->
 
                         <tr>
                             <th colspan="14" class="text-dark bg-green-100 py-3 px-2 border border-[#E5E5E5]"><span>{{__('Expense :')}}</span></th>
@@ -314,10 +288,6 @@
                     </div>
                 </div>
 
-                <!---- End Quarterly Budget ----->
-
-
-                <!---Start Half-Yearly Budget --------------------------------------------------------------------->
                 <div class="table-responsive budget_plan d-none" id="half-yearly">
                     <table class="table  mb-0" id="dataTable-manual">
                         <thead>
@@ -330,7 +300,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <!------------------   Income Category ----------------------------------->
+                        
                         <tr>
                             <th colspan="14" class="text-dark bg-green-100 py-3 px-2 border border-[#E5E5E5]"><span>{{__('Income :')}}</span></th>
                         </tr>
@@ -360,8 +330,6 @@
                                 <span class="income text-dark">0.00</span>
                             </td>
                         </tr>
-
-                        <!------------------   Expense Category ----------------------------------->
 
                         <tr>
                             <th colspan="14" class="text-dark bg-green-100 py-3 px-2 border border-[#E5E5E5]"><span>{{__('Expense :')}}</span></th>
@@ -403,9 +371,6 @@
                     </div>
                 </div>
 
-                <!---End Half-Yearly Budget ----->
-
-                <!---Start Yearly Budget --------------------------------------------------------------------------------->
                 <div class="table-responsive budget_plan d-none" id="yearly">
                     <table class="table  mb-0" id="dataTable-manual">
                         <thead>
@@ -418,7 +383,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <!------------------   Income Category ----------------------------------->
+                        
                         <tr>
                             <th colspan="14" class="text-dark bg-green-100 py-3 px-2 border border-[#E5E5E5]"><span>{{__('Income :')}}</span></th>
                         </tr>
@@ -450,8 +415,6 @@
                                 <span class="income text-dark">0.00</span>
                             </td>
                         </tr>
-
-                        <!------------------   Expense Category ----------------------------------->
 
                         <tr>
                             <th colspan="14" class="text-dark bg-green-100 py-3 px-2 border border-[#E5E5E5]"><span>{{__('Expense :')}}</span></th>
@@ -492,10 +455,6 @@
                         <input type="submit" value="{{__('Create')}}" class="btn  btn-primary">
                     </div>
                 </div>
-
-                <!---End Yearly Budget ----->
-
-
 
             </div>
             {{ Form::close() }}

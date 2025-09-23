@@ -15,7 +15,7 @@
 @endsection
 @section('action-btn')
     <div class="flex gap-2">
-        <button data-size="md" data-url="{{ route('users.create') }}" data-ajax-popup="true" data-bs-toggle="tooltip"
+        <button data-size="lg" data-url="{{ route('users.create') }}" data-ajax-popup="true" data-bs-toggle="tooltip"
             title="{{ __('Create New User') }}"
             class="flex items-center gap-2 border border-[#007C38] text-[#007C38] bg-white px-4 py-2 rounded-[6px] text-[14px] font-[500] hover:bg-[#007C3808] transition-all duration-200 shadow-sm min-w-fit">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
@@ -26,7 +26,7 @@
         </button>
 
         @if (\Auth::user()->type == 'company')
-            <a data-size="md" href="{{ route('userlogs.index') }}" 
+            <a data-size="md" href="{{ route('userlogs.index') }}"
                class="flex items-center gap-2 bg-[#007C38] text-white px-4 py-2 rounded-[6px] text-[14px] font-[500] hover:bg-[#005f2a] transition-all duration-200 shadow-sm min-w-fit">
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M13.1263 9.00047C15.4044 9.00047 17.2513 10.8473 17.2513 13.1255C17.2513 15.4036 15.4044 17.2505 13.1263 17.2505C10.8481 17.2505 9.00127 15.4036 9.00127 13.1255C9.00127 10.8473 10.8481 9.00047 13.1263 9.00047ZM11.1414 12.8603C10.995 12.7138 10.7575 12.7138 10.6111 12.8603C10.4646 13.0067 10.4646 13.2442 10.6111 13.3906L12.1111 14.8906C12.2575 15.0371 12.495 15.0371 12.6414 14.8906L15.6414 11.8906C15.7879 11.7442 15.7879 11.5067 15.6414 11.3603C15.495 11.2138 15.2575 11.2138 15.1111 11.3603L12.3763 14.0951L11.1414 12.8603ZM9.01792 10.4999C8.7954 10.8474 8.61577 11.225 8.48647 11.6252L3.19056 11.6254C2.88037 11.6254 2.62891 11.8769 2.62891 12.1871V12.6203C2.62891 13.022 2.77224 13.4106 3.03313 13.7161C3.97311 14.8169 5.44752 15.3762 7.50127 15.3762C7.94857 15.3762 8.3685 15.3497 8.76142 15.2968C8.94532 15.668 9.17595 16.0119 9.44505 16.3216C8.84842 16.4417 8.19975 16.5012 7.50127 16.5012C5.14185 16.5012 3.35234 15.8224 2.17762 14.4467C1.74279 13.9375 1.50391 13.2899 1.50391 12.6203V12.1871C1.50391 11.2555 2.25904 10.5004 3.19056 10.5004L9.01792 10.4999ZM7.50127 1.50391C9.57232 1.50391 11.2513 3.18284 11.2513 5.25391C11.2513 7.32498 9.57232 9.00392 7.50127 9.00392C5.43018 9.00392 3.75124 7.32498 3.75124 5.25391C3.75124 3.18284 5.43018 1.50391 7.50127 1.50391ZM7.50127 2.62891C6.0515 2.62891 4.87624 3.80416 4.87624 5.25391C4.87624 6.70366 6.0515 7.87892 7.50127 7.87892C8.95102 7.87892 10.1263 6.70366 10.1263 5.25391C10.1263 3.80416 8.95102 2.62891 7.50127 2.62891Z"
@@ -68,7 +68,7 @@
 
                                             <div class="dropdown-menu dropdown-menu-end mt-0 w-[190px] bg-white border rounded-md shadow-lg text-sm p-0">
                                                 @can('edit user')
-                                                    <a href="#!" data-size="md" data-url="{{ route('users.edit', $user->id) }}"
+                                                    <a href="#!" data-size="lg" data-url="{{ route('users.edit', $user->id) }}"
                                                        data-ajax-popup="true"
                                                        class="dropdown-item flex text-[#323232] gap-2 w-full px-4 py-2 text-left hover:bg-[#007C3812]"
                                                        data-bs-original-title="{{ __('Edit') }}">
@@ -215,7 +215,6 @@
 
 @push('script-page')
 <script>
-// Password switch (existing)
 $(document).on('change', '#password_switch', function() {
     if ($(this).is(':checked')) {
         $('.ps_div').removeClass('d-none');
@@ -227,7 +226,6 @@ $(document).on('change', '#password_switch', function() {
     }
 });
 
-// Add login_enable hidden field after opening modal (existing)
 $(document).on('click', '.login_enable', function() {
     setTimeout(function() {
         $('.modal-body').append($('<input>', {
@@ -238,7 +236,6 @@ $(document).on('click', '.login_enable', function() {
     }, 2000);
 });
 
-// Avatar live preview for dynamically loaded modals
 document.addEventListener('change', function (e) {
     const input = e.target;
     if (!input.matches('input[type="file"][name="avatar"]')) return;
@@ -246,7 +243,6 @@ document.addEventListener('change', function (e) {
     const file = input.files && input.files[0];
     if (!file) return;
 
-    // Explicit selector via data-preview, else find nearest preview image
     const sel = input.getAttribute('data-preview');
     let img = sel ? document.querySelector(sel) : null;
     if (!img) {

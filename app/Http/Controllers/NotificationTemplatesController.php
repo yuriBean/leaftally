@@ -40,7 +40,6 @@ class NotificationTemplatesController extends Controller
 
         $NotiLangTemplate = NotificationTemplateLangs::where('parent_id', '=', $id)->where('lang', '=', $request->lang)->where('created_by', '=', \Auth::user()->creatorId())->first();
 
-        // if record not found then create new record else update it.
         if(empty($NotiLangTemplate))
         {
             $variables = NotificationTemplateLangs::where('parent_id', '=', $id)->where('lang', '=', $request->lang)->first()->variables;

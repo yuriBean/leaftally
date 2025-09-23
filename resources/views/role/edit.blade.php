@@ -16,7 +16,6 @@
     </div>
 
     @php
-      // Plan features
       $planFeature = \App\Services\Feature::for(\Auth::user());
       $F = fn(string $k) => $planFeature->enabled($k);
 
@@ -40,7 +39,6 @@
         'user'                 => $featUserAccess,
         'role'                 => $featUserAccess,
 
-        // Payroll-related
         'constant branch'      => $featPayroll,
         'constant designation' => $featPayroll,
         'constant department'  => $featPayroll,
@@ -48,19 +46,14 @@
         'constant deduction'   => $featPayroll,
         'constant bonus'       => $featPayroll,
 
-        // Tax
         'constant tax'         => $featTax,
 
-        // Manufacturing
         'bom'                  => $featManufacturing,
         'production'           => $featManufacturing,
       ];
 
-      // Filter to only enabled modules
       $visibleModules = array_values(array_filter($modules, fn($m) => $gateMap[$m] ?? true));
 
-      // Permissions helpers
-      // $permissions expected as [id => 'permission name']
       $permNames = array_values((array) $permissions);
     @endphp
 

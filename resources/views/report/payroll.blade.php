@@ -228,7 +228,6 @@
         </div>
     </div>
 
-
     <div id="printableArea" class="mt-2">
         <div class="row mt-3">
             <div class="col">

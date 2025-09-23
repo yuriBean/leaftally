@@ -34,7 +34,6 @@ class PaypalController extends Controller
             $payment_setting = Utility::getCompanyPaymentSetting(!empty($this->invoiceData) ? $this->invoiceData->created_by : 0);
         }
 
-
         if ($payment_setting['paypal_mode'] == 'live') {
             config([
                 'paypal.live.client_id' => isset($payment_setting['paypal_client_id']) ? $payment_setting['paypal_client_id'] : '',
@@ -49,7 +48,6 @@ class PaypalController extends Controller
             ]);
         }
     }
-
 
     public function customerPayWithPaypal(Request $request, $invoice_id)
     {
@@ -77,7 +75,6 @@ class PaypalController extends Controller
                 return redirect()->back()->with('error', __('Invalid amount.'));
             } else {
 
-
                 $orderID = strtoupper(str_replace('.', '', uniqid('', true)));
 
                 $name = Utility::invoiceNumberFormat($settings, $invoice->invoice_id);
@@ -101,9 +98,7 @@ class PaypalController extends Controller
                     ]
                 ]);
 
-                
                 if (isset($response['id']) && $response['id'] != null) {
-                    // redirect to approve href
                     foreach ($response['links'] as $links) {
                         if ($links['rel'] == 'approve') {
                             return redirect()->away($links['href']);
@@ -124,7 +119,6 @@ class PaypalController extends Controller
             return redirect()->back()->with('error', __('Permission denied.'));
         }
     }
-
 
     public function planPayWithPaypal(Request $request)
     {
@@ -185,8 +179,6 @@ class PaypalController extends Controller
                     }
                 }
 
-
-
                 $paypalToken = $provider->getAccessToken();
                 $response = $provider->createOrder([
                     "intent" => "CAPTURE",
@@ -205,7 +197,6 @@ class PaypalController extends Controller
                 ]);
 
                 if (isset($response['id']) && $response['id'] != null) {
-                    // redirect to approve href
                     foreach ($response['links'] as $links) {
                         if ($links['rel'] == 'approve') {
                             return redirect()->away($links['href']);
@@ -316,8 +307,6 @@ class PaypalController extends Controller
             ]
         );
 
-        // $this->paymentconfig();
-
         $retainer = Retainer::find($retainer_id);
 
         if (Auth::check()) {
@@ -328,9 +317,7 @@ class PaypalController extends Controller
             $settings = Utility::settingById($retainer->created_by);
         }
 
-
         $get_amount = $request->amount;
-
 
         $request->validate(['amount' => 'required|numeric|min:0']);
         $provider = new PayPalClient;
@@ -342,14 +329,11 @@ class PaypalController extends Controller
                 return redirect()->back()->with('error', __('Invalid amount.'));
             } else {
 
-
                 $orderID = strtoupper(str_replace('.', '', uniqid('', true)));
                 $name = Utility::retainerNumberFormat($settings, $retainer->retainer_id);
                 $paypalToken = $provider->getAccessToken();
 
                 $setting = Utility::settingsById($retainer->created_by);
-
-
 
                 $response = $provider->createOrder([
                     "intent" => "CAPTURE",
@@ -367,9 +351,7 @@ class PaypalController extends Controller
                     ]
                 ]);
 
-
                 if (isset($response['id']) && $response['id'] != null) {
-                    // redirect to approve href
                     foreach ($response['links'] as $links) {
                         if ($links['rel'] == 'approve') {
                             return redirect()->away($links['href']);
@@ -384,8 +366,6 @@ class PaypalController extends Controller
                         ->with('error', $response['message'] ?? 'Something went wrong.');
                 }
 
-
-                //Twilio Notification
                 $setting  = Utility::settingsById($objUser->creatorId());
                 $customer = Customer::find($retainer->customer_id);
                 if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -401,7 +381,6 @@ class PaypalController extends Controller
                     Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $retainer->created_by);
                 }
 
-                // webhook
                 $module = 'New Payment';
 
                 $webhook =  Utility::webhookSetting($module, $retainer->created_by);
@@ -410,17 +389,9 @@ class PaypalController extends Controller
 
                     $parameter = json_encode($retainer);
 
-                    // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-
                     $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
 
-                    // if ($status == true) {
-                    //     return redirect()->route('payment.index')->with('success', __('Payment successfully created.') . ((isset($smtp_error)) ? '<br> <span class="text-danger">' . $smtp_error . '</span>' : ''));
-                    // } else {
-                    //     return redirect()->back()->with('error', __('Webhook call failed.'));
-                    // }
                 }
-
 
                 return redirect()->route('customer.retainer.show', \Crypt::encrypt($retainer_id))->back()->with('error', __('Unknown error occurred'));
             }
@@ -438,8 +409,6 @@ class PaypalController extends Controller
         } else {
             $user = User::where('id', $retainer->created_by)->first();
             $settings = Utility::settingById($retainer->created_by);
-        
-
 
             $payment_id = Session::get('paypal_payment_id');
 
@@ -507,22 +476,18 @@ class PaypalController extends Controller
         }
     }
 
-
     public function customerGetPaymentStatus(Request $request, $invoice_id, $amount)
     {
-        // dd($request->all());
         $invoice = Invoice::find($invoice_id);
 
         if (Auth::check()) {
             $settings = DB::table('settings')->where('created_by', '=', \Auth::user()->creatorId())->get()->pluck('value', 'name');
             $objUser     = \Auth::user();
             $payment_setting = Utility::getCompanyPaymentSettingWithOutAuth($invoice->created_by);
-            //            $this->setApiContext();
         } else {
             $user = User::where('id', $invoice->created_by)->first();
             $settings = Utility::settingById($invoice->created_by);
             $payment_setting = Utility::getCompanyPaymentSettingWithOutAuth($invoice->created_by);
-            //            $this->non_auth_setApiContext($invoice->created_by);
             $objUser = $user;
         }
 
@@ -533,7 +498,6 @@ class PaypalController extends Controller
                 'paypal.mode' => isset($payment_setting['paypal_mode']) ? $payment_setting['paypal_mode'] : '',
             ]
         );
-
 
         $payment_id = Session::get('PayerID');
         $provider = new PayPalClient;
@@ -600,7 +564,6 @@ class PaypalController extends Controller
 
             Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-            //Twilio Notification
             $setting  = Utility::settingsById($objUser->creatorId());
             $customer = Customer::find($invoice->customer_id);
             if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -616,7 +579,6 @@ class PaypalController extends Controller
                 Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $invoice->created_by);
             }
 
-            // webhook
             $module = 'New Payment';
 
             $webhook =  Utility::webhookSetting($module, $invoice->created_by);
@@ -625,15 +587,8 @@ class PaypalController extends Controller
 
                 $parameter = json_encode($invoice);
 
-                // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-
                 $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
 
-                // if ($status == true) {
-                //     return redirect()->route('payment.index')->with('success', __('Payment successfully created.') . ((isset($smtp_error)) ? '<br> <span class="text-danger">' . $smtp_error . '</span>' : ''));
-                // } else {
-                //     return redirect()->back()->with('error', __('Webhook call failed.'));
-                // }
             }
 
             if (Auth::check()) {

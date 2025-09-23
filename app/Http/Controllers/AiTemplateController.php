@@ -67,11 +67,9 @@ class AiTemplateController extends Controller
             $ai_token = '';
             $counter = 1;
 
-
             $template = Template::where('id', $request->template_name)->first();
 
             if ($request->template_name) {
-
 
                 $required_field = array();
                 $data_field = json_decode($template->field_json);

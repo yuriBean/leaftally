@@ -23,14 +23,12 @@ class RevenueExport implements FromCollection, WithHeadings
         $query = Revenue::with(['bankAccount', 'customer', 'category'])
             ->where('created_by', $creatorId);
 
-        // Selected IDs?
         if (!empty($this->filters['ids']) && is_array($this->filters['ids'])) {
             $ids = array_values(array_unique(array_map('intval', $this->filters['ids'])));
             if (!empty($ids)) {
                 $query->whereIn('id', $ids);
             }
         } else {
-            // Date filter?
             $date = $this->filters['date'] ?? null;
             if (!empty($date)) {
                 if (str_contains($date, ' to ')) {

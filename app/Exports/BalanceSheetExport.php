@@ -15,9 +15,6 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class BalanceSheetExport implements FromArray, WithEvents, WithHeadings, WithStyles, WithColumnWidths, WithCustomStartCell
 {
-    /**
-     * @return \Illuminate\Support\Collection
-     */
 
     public function __construct($data, $startDate, $endDate, $companyName)
     {
@@ -220,7 +217,7 @@ class BalanceSheetExport implements FromArray, WithEvents, WithHeadings, WithSty
                         $row['Account Name'] == 'Total Assets' || $row['Account Name'] == '  Liabilities' || $row['Account Name'] == '  Equity' ||
                         $row['Account Name'] == '  Total Equity' || $row['Account Name'] == 'Liabilities & Equity' || $row['Account Name'] == 'Total Liabilities & Equity' ||
                         preg_match('/\bTotal\b/i', $row['Account Name']))) {
-                        $rowIndex = $index + 6; // Adjust for 1-based indexing and header row
+                        $rowIndex = $index + 6;
                         $event->sheet->getStyle('A' . $rowIndex . ':C' . $rowIndex)
                             ->applyFromArray([
                                 'font' => [

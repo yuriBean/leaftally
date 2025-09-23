@@ -22,7 +22,6 @@ class TapPaymentController extends Controller
     public $secret_key;
     public $is_enabled;
 
-
     public function paymentConfig()
     {
         if (\Auth::user()->type == 'company') {
@@ -88,9 +87,6 @@ class TapPaymentController extends Controller
                 'post' => [
                    'url' => null
                 ],
-                // 'merchant' => [
-                //    'id' => 'YOUR-MERCHANT-ID'  //Include this when you are going to live
-                // ],
                 'redirect' => [
                    'url' => route('plan.get.tap.status', [ $plan->id,
                    'amount' => $price,
@@ -106,7 +102,6 @@ class TapPaymentController extends Controller
         }
 
     }
-
 
     public function planGetTapStatus(Request $request, $plan_id)
     {
@@ -138,7 +133,6 @@ class TapPaymentController extends Controller
         $user = User::find($user->id);
 
         $assignPlan = $user->assignPlan($plan->id);
-
 
         if ($assignPlan['is_success']) {
             return redirect()->route('plans.index')->with('success', __('Plan activated Successfully.'));
@@ -182,9 +176,6 @@ class TapPaymentController extends Controller
                     'post' => [
                        'url' => null
                     ],
-                    // 'merchant' => [
-                    //    'id' => 'YOUR-MERCHANT-ID'  //Include this when you are going to live
-                    // ],
                     'redirect' => [
                        'url' => route('invoice.tap.status', [
                         'invoice_id' => $invoice->id,
@@ -242,10 +233,8 @@ class TapPaymentController extends Controller
                         $invoice->status = 3;
                         $invoice->save();
                     }
-                    //for customer balance update
                     Utility::updateUserBalance('customer', $invoice->customer_id, $request->amount, 'debit');
 
-                    //For Notification
                     $setting  = Utility::settingsById($invoice->created_by);
                     $customer = Customer::find($invoice->customer_id);
                     $notificationArr = [
@@ -253,22 +242,18 @@ class TapPaymentController extends Controller
                             'invoice_payment_type' => 'Aamarpay',
                             'customer_name' => $customer->name,
                         ];
-                    //Slack Notification
                     if(isset($settings['payment_notification']) && $settings['payment_notification'] ==1)
                     {
                         Utility::send_slack_msg('new_invoice_payment', $notificationArr,$invoice->created_by);
                     }
-                    //Telegram Notification
                     if(isset($settings['telegram_payment_notification']) && $settings['telegram_payment_notification'] == 1)
                     {
                         Utility::send_telegram_msg('new_invoice_payment', $notificationArr,$invoice->created_by);
                     }
-                    //Twilio Notification
                     if(isset($settings['twilio_payment_notification']) && $settings['twilio_payment_notification'] ==1)
                     {
                         Utility::send_twilio_msg($customer->contact,'new_invoice_payment', $notificationArr,$invoice->created_by);
                     }
-                    //webhook
                     $module ='New Invoice Payment';
                     $webhook=  Utility::webhookSetting($module,$invoice->created_by);
                     if($webhook)
@@ -331,9 +316,6 @@ class TapPaymentController extends Controller
                     'post' => [
                        'url' => null
                     ],
-                    // 'merchant' => [
-                    //    'id' => 'YOUR-MERCHANT-ID'  //Include this when you are going to live
-                    // ],
                     'redirect' => [
                        'url' => route('retainer.tap.status', [
                         'retainer_id' => $retainer->id,
@@ -391,10 +373,8 @@ class TapPaymentController extends Controller
                         $retainer->status = 3;
                         $retainer->save();
                     }
-                    //for customer balance update
                     Utility::updateUserBalance('customer', $retainer->customer_id, $request->amount, 'debit');
 
-                    //For Notification
                     $setting  = Utility::settingsById($retainer->created_by);
                     $customer = Customer::find($retainer->customer_id);
                     $notificationArr = [
@@ -402,22 +382,18 @@ class TapPaymentController extends Controller
                             'retainer_payment_type' => 'Aamarpay',
                             'customer_name' => $customer->name,
                         ];
-                    //Slack Notification
                     if(isset($settings['payment_notification']) && $settings['payment_notification'] ==1)
                     {
                         Utility::send_slack_msg('new_retainer_payment', $notificationArr,$retainer->created_by);
                     }
-                    //Telegram Notification
                     if(isset($settings['telegram_payment_notification']) && $settings['telegram_payment_notification'] == 1)
                     {
                         Utility::send_telegram_msg('new_retainer_payment', $notificationArr,$retainer->created_by);
                     }
-                    //Twilio Notification
                     if(isset($settings['twilio_payment_notification']) && $settings['twilio_payment_notification'] ==1)
                     {
                         Utility::send_twilio_msg($customer->contact,'new_retainer_payment', $notificationArr,$retainer->created_by);
                     }
-                    //webhook
                     $module ='New retainer Payment';
                     $webhook=  Utility::webhookSetting($module,$retainer->created_by);
                     if($webhook)

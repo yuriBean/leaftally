@@ -293,7 +293,6 @@
 {{ Form::close() }}
 
 <script>
-  // Maps passed from controller
   const ALLOWANCE_TYPES = @json($allowanceTypes ?? (object) []);
   const DEDUCTION_TYPES = @json($deductionTypes ?? (object) []);
   const BONUS_TYPES     = @json($bonusTypes ?? (object) []);
@@ -341,7 +340,7 @@
   function removeGroup(btn, wrapperId, groupClass, namePrefix) {
     const wrapper = document.getElementById(wrapperId);
     const groups = wrapper.querySelectorAll(`.${groupClass}`);
-    if (groups.length <= 1) return; // keep one row always
+    if (groups.length <= 1) return;
     const group = btn.closest(`.${groupClass}`);
     if (group) group.remove();
     renumber(wrapperId, groupClass, namePrefix);
@@ -353,7 +352,6 @@
       g.querySelectorAll('select, input').forEach(el => {
         if (el.name) el.name = el.name.replace(new RegExp(`^${namePrefix}\\[\\d+\\]`), `${namePrefix}[${i}]`);
       });
-      // ensure first row has no delete button
       const btn = g.querySelector('button[title="{{ __('Remove') }}"]');
       if (btn) {
         if (i === 0) btn.remove();

@@ -9,11 +9,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__ . '/../routes/web.php',
         commands: __DIR__ . '/../routes/console.php',
-        // commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        // Middleware
         $middleware->append([
             \App\Http\Middleware\TrustProxies::class,
             \Illuminate\Http\Middleware\HandleCors::class,
@@ -23,7 +21,6 @@ return Application::configure(basePath: dirname(__DIR__))
             \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         ]);
 
-        // RouteMiddleware / Alias
         $middleware->alias([
             'auth' => \App\Http\Middleware\Authenticate::class,
             'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
@@ -41,8 +38,6 @@ return Application::configure(basePath: dirname(__DIR__))
             '2fa' => \App\Http\Middleware\EnsureTwoFactorConfirmed::class,
         ]);
 
-        // middlewareGroups / Group Middleware
-        // Append middleware to the 'web' group
         $middleware->appendToGroup('web',  [
             \App\Http\Middleware\EncryptCookies::class,
             \App\Http\Middleware\FilterRequest::class,
@@ -53,28 +48,30 @@ return Application::configure(basePath: dirname(__DIR__))
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ]);
 
-        // Append middleware to the 'api' group
         $middleware->appendToGroup('api', [
              'throttle:api',
              \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ]);
 
-        // Exclude specific routes from CSRF protection
         $middleware->validateCsrfTokens(
             except: [
-                '/aamarpay/payment/*',
+                '/aamarpay/payment',
                 '/aamarpay/success/*',
-                'plan.paytm',
-                'iyzipay/callback/*',
-                'invoice/iyzipay/callback/*',
-                'retainer/iyzipay/callback/*',
-                'paytab-success/*',
-                'retainer-paytab-success/*',
-                '/aamarpay*'
-
+                '/cashfree/payments/success',
+                '/paytr/success',
+                '/midtrans/callback',
+                '/iyzipay/callback/*',
+                '/paytab-success/*',
+                '*/webhook',
+                '*/payment/webhook',
+                '*/callback',
+                '*/success',
+                '*/cancel',
+                '*/fail'
             ]
         );
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();
+

@@ -84,7 +84,7 @@
           </div>
           <div class="card-body pt-0">
             <div class="table-responsive">
-              <table class="table table-hover table-sm align-middle mb-2" data-repeater-list="inputs">
+              <table class="table table-hover table-sm align-middle mb-2 repeater-inputs" data-repeater-list="inputs">
                 <thead class="table-light">
                   <tr>
                     <th class="text-uppercase small text-muted">{{ __('Item') }}</th>
@@ -133,7 +133,7 @@
           </div>
           <div class="card-body pt-0">
             <div class="table-responsive">
-              <table class="table table-hover table-sm align-middle mb-2" data-repeater-list="outputs">
+              <table class="table table-hover table-sm align-middle mb-2 repeater-outputs" data-repeater-list="outputs">
                 <thead class="table-light">
                   <tr>
                     <th class="text-uppercase small text-muted">{{ __('Product') }}</th>
@@ -192,14 +192,14 @@ async function generateBOMCode() {
   if(res.ok){
     const data = await res.json();
     const input = document.getElementById('bom_code');
-    if(input && !input.value){ // only prefill if empty
+    if(input && !input.value){
       input.value = data.code;
     }
   }
 }
 
 document.addEventListener('DOMContentLoaded', function(){
-  generateBOMCode(); // auto when page loads
+  generateBOMCode();
 });
 </script>
 @endpush

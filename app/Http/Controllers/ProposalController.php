@@ -40,7 +40,6 @@ class ProposalController extends Controller
     {
         if (\Auth::user()->can('manage proposal')) {
 
-            // Only active customers in filter dropdown
             $customer = TrashedSelect::activeOptions(Customer::class, \Auth::user()->creatorId())->prepend('Select Customer', '');
 
             $status = Proposal::$statues;
@@ -76,7 +75,6 @@ class ProposalController extends Controller
             $customFields    = CustomField::where('created_by', \Auth::user()->creatorId())->where('module', 'proposal')->get();
             $proposal_number = \Auth::user()->proposalNumberFormat($this->proposalNumber());
 
-            // Active (non-deleted) options for new proposals
             $customers = TrashedSelect::activeOptions(Customer::class, \Auth::user()->creatorId())->prepend('Select Customer', '');
 
             $category = ProductServiceCategory::where('created_by', \Auth::user()->creatorId())
@@ -112,7 +110,6 @@ class ProposalController extends Controller
         $quantity            = 1;
         $data['totalAmount'] = ($salePrice * $quantity);
 
-        // hints for UI if a deleted product is referenced
         $data['deleted_hint'] = $product ? 0 : 1;
         $data['display_name'] = $product ? $product->name : __('Deleted product (ID: :id)', ['id' => (string)$request->product_id]);
 
@@ -164,7 +161,6 @@ class ProposalController extends Controller
                 $proposalProduct->save();
             }
 
-            //Twilio Notification
             $setting     = Utility::settings(\Auth::user()->creatorId());
             $proposalId  = Crypt::encrypt($proposal->id);
             $proposal->url = route('proposal.pdf', $proposalId);
@@ -178,7 +174,6 @@ class ProposalController extends Controller
                 Utility::send_twilio_msg($customer->contact, 'new_proposal', $uArr);
             }
 
-            // webhook
             $module  = 'New Proposal';
             $webhook = Utility::webhookSetting($module);
             if ($webhook) {
@@ -204,7 +199,6 @@ class ProposalController extends Controller
             $proposal        = Proposal::find($id);
             $proposal_number = \Auth::user()->proposalNumberFormat($proposal->proposal_id);
 
-            // Include active + *used* soft-deleted customers in dropdown
             $customers = TrashedSelect::optionsWithUsed(
                 Customer::class,
                 \Auth::user()->creatorId(),
@@ -216,7 +210,6 @@ class ProposalController extends Controller
                 ->where('type', 'income')->get()->pluck('name', 'id');
             $category->prepend('Select Category', '');
 
-            // Include used (even if soft-deleted) products so existing lines remain editable
             $usedIds = ProposalProduct::where('proposal_id', $proposal->id)
                 ->pluck('product_id')->filter()->unique()->values()->all();
 
@@ -278,7 +271,6 @@ class ProposalController extends Controller
                         $proposalProduct->proposal_id  = $proposal->id;
                     }
 
-                    // Only set product_id if provided & exists (handles soft-deleted gracefully)
                     if (isset($products[$i]['item']) && ProductService::where('id', $products[$i]['item'])->exists()) {
                         $proposalProduct->product_id = $products[$i]['item'];
                     }
@@ -468,7 +460,6 @@ class ProposalController extends Controller
         }
     }
 
-
     public function shippingDisplay(Request $request, $id)
     {
         $proposal = Proposal::find($id);
@@ -552,7 +543,6 @@ class ProposalController extends Controller
 
                     Utility::total_quantity('minus', $duplicateProduct->quantity, $duplicateProduct->product_id);
 
-                    //Product Stock Report
                     $type = 'Retainer';
                     $type_id = $convertRetainer->id;
                     $description = $duplicateProduct->quantity . '  ' . __(' quantity sold in invoice') . ' ' . \Auth::user()->retainerNumberFormat($convertRetainer->retainer_id);
@@ -653,7 +643,6 @@ class ProposalController extends Controller
         $color      = '#' . $color;
         $font_color = Utility::getFontColor($color);
 
-        // Get font from request or use default
         $font = $request->get('font', 'Lato');
 
         $logo          = asset(Storage::url('uploads/logo/'));
@@ -743,7 +732,6 @@ class ProposalController extends Controller
             $customFields = CustomField::where('created_by', \Auth::user()->creatorId())->where('module', 'proposal')->get();
         }
 
-        //Set your logo
         $logo           = asset(Storage::url('uploads/logo/'));
         $company_logo   = Utility::getValByName('company_logo_dark');
         $settings_data  = Utility::settingsById($proposal->created_by);
@@ -884,10 +872,8 @@ class ProposalController extends Controller
 
                     $duplicateProduct->save();
 
-                    // inventory management (Quantity)
                     Utility::total_quantity('minus', $duplicateProduct->quantity, $duplicateProduct->product_id);
 
-                    // Product Stock Report
                     $type = 'invoice';
                     $type_id = $convertInvoice->id;
                     StockReport::where('type', 'invoice')->where('type_id', $convertInvoice->id)->delete();
@@ -952,7 +938,6 @@ class ProposalController extends Controller
             return redirect()->route('proposal.index')->with('error', __('No proposals selected.'));
         }
 
-        // Only allow deleting proposals owned by this company
         $ids = Proposal::where('created_by', \Auth::user()->creatorId())
             ->whereIn('id', $ids)
             ->pluck('id')

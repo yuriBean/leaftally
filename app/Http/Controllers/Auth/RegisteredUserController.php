@@ -16,11 +16,6 @@ use Spatie\Permission\Models\Role;
 
 class RegisteredUserController extends Controller
 {
-    /**
-     * Display the registration view.
-     *
-     * @return \Illuminate\View\View
-     */
 
     public function __construct()
     {
@@ -37,7 +32,6 @@ class RegisteredUserController extends Controller
         }
     }
 
-
     public function store(Request $request)
     {
         if (isset($request->plan)) {
@@ -48,7 +42,6 @@ class RegisteredUserController extends Controller
             }
         }
 
-        // ReCpatcha
         $settings = Utility::settings();
 
         $validation = [];
@@ -61,7 +54,7 @@ class RegisteredUserController extends Controller
 
                 if (!isset($result[0]['status']) || $result[0]['status'] != true) {
                     $key = 'g-recaptcha-response';
-                    $request->merge([$key => null]); // Set the key to null
+                    $request->merge([$key => null]);
 
                     $validation['g-recaptcha-response'] = 'required';
                 }
@@ -73,7 +66,6 @@ class RegisteredUserController extends Controller
         }
         $this->validate($request, $validation);
 
-
         $request->validate([
             'name'      => ['required', 'string', 'max:255'],
             'email'     => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -84,7 +76,6 @@ class RegisteredUserController extends Controller
             'referral_source'   => ['nullable','string','max:191'],
             'referral_other'    => ['nullable','string','max:191'],
         ]);
-
 
         $user = User::create([
             'name'              => $request->name,
@@ -117,9 +108,7 @@ class RegisteredUserController extends Controller
 
         if (Utility::getValByName('email_verification') == 'on') {
             
-            // First check if SMTP settings are valid
             if (!Utility::isValidSMTPSettings(1)) {
-                // SMTP not configured properly, skip email verification
                 \Log::warning('SMTP settings not configured properly, skipping email verification for user: ' . $user->email);
                 
                 $user->email_verified_at = date('Y-m-d H:i:s');
@@ -133,7 +122,6 @@ class RegisteredUserController extends Controller
                 
                 Auth::login($user);
                 
-                // Redirect with a warning message
                 return redirect(RouteServiceProvider::HOME)->with('warning', __('Registration successful! Email verification skipped due to mail server configuration.'));
             }
 
@@ -148,17 +136,14 @@ class RegisteredUserController extends Controller
                 Utility::chartOfAccountData1($user->id);
 
             } catch (\Exception $e) {
-                // Log the actual error for debugging
                 \Log::error('Registration email error: ' . $e->getMessage());
                 
-                // Check if this is truly an SMTP configuration issue
                 if (strpos($e->getMessage(), 'Connection could not be established') !== false || 
                     strpos($e->getMessage(), 'Failed to authenticate') !== false ||
                     strpos($e->getMessage(), 'stream_socket_client') !== false ||
                     strpos($e->getMessage(), 'getaddrinfo') !== false ||
                     strpos($e->getMessage(), 'No such host') !== false) {
                     
-                    // Allow registration but skip email verification
                     $user->email_verified_at = date('Y-m-d H:i:s');
                     $user->save();
                     
@@ -170,10 +155,8 @@ class RegisteredUserController extends Controller
                     
                     Auth::login($user);
                     
-                    // Inform admin about SMTP issue
                     return redirect(RouteServiceProvider::HOME)->with('warning', __('Registration successful! Email verification skipped due to mail server issues. Please contact administrator.'));
                 } else {
-                    // For other errors, still allow registration but skip email verification
                     $user->email_verified_at = date('Y-m-d H:i:s');
                     $user->save();
                     

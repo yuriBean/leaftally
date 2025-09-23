@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateEmployeesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create(
@@ -46,11 +41,6 @@ class CreateEmployeesTable extends Migration
         );
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('employees');

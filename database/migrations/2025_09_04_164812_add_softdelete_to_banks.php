@@ -15,7 +15,6 @@ return new class extends Migration
         foreach ($tables as $name) {
             if (Schema::hasTable($name) && !Schema::hasColumn($name, 'deleted_at')) {
                 Schema::table($name, function (Blueprint $table) {
-                    // place after updated_at if present
                     $table->softDeletes()->after('updated_at');
                 });
             }
@@ -31,7 +30,6 @@ return new class extends Migration
         foreach ($tables as $name) {
             if (Schema::hasTable($name) && Schema::hasColumn($name, 'deleted_at')) {
                 Schema::table($name, function (Blueprint $table) {
-                    // drop the soft deletes column
                     $table->dropSoftDeletes();
                 });
             }

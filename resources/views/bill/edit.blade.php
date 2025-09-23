@@ -39,7 +39,6 @@
                    });
                }
    
-               // for item SearchBox ( this function is  custom Js )
                JsSearchBox();
    
                if ($('.select2').length) {
@@ -156,7 +155,6 @@
    
                        if (billItems != null) {
                            var amount = (billItems.price * billItems.quantity);
-                           // console.log(billItems)
                            $(el.parent().parent().parent().find('.quantity')).val(billItems
                                .quantity);
                            $(el.parent().parent().parent().find('.price')).val(billItems
@@ -174,8 +172,7 @@
                            $(el.parent().parent().parent().parent().find('.pro_description'))
                                .val(item.product.description);
                        }
-   
-   
+
                        var taxes = '';
                        var tax = [];
    
@@ -200,8 +197,7 @@
                            var itemTaxPrice = parseFloat((totalItemTaxRate / 100)) *
                                parseFloat((item.product.purchase_price * 1) - discount);
                        }
-   
-   
+
                        $(el.parent().parent().parent().find('.itemTaxPrice')).val(itemTaxPrice
                            .toFixed(2));
                        $(el.parent().parent().parent().find('.itemTaxRate')).val(
@@ -209,16 +205,13 @@
                        $(el.parent().parent().parent().find('.taxes')).html(taxes);
                        $(el.parent().parent().parent().find('.tax')).val(tax);
                        $(el.parent().parent().parent().find('.unit')).html(item.unit);
-                       // $(el.parent().parent().find('.discount')).val(0);
    
                        var inputs = $(".amount");
                        var subTotal = 0;
                        for (var i = 0; i < inputs.length; i++) {
                            subTotal = parseFloat(subTotal) + parseFloat($(inputs[i]).html());
                        }
-   
-   
-   
+
                        var accountinputs = $(".accountamount");
                        var accountSubTotal = 0;
                        for (var i = 0; i < accountinputs.length; i++) {
@@ -227,14 +220,7 @@
                                accountSubTotal += currentInputValue;
                            }
                        }
-   
-                       // var totalItemPrice = 0;
-                       // var inputs_quantity = $(".quantity");
-                       // var priceInput = $('.price');
-                       // for (var j = 0; j < priceInput.length; j++) {
-                       //     totalItemPrice += (parseFloat(priceInput[j].value) * parseFloat(inputs_quantity[j].value));
-                       // }
-   
+
                        var totalItemPrice = 0;
                        var inputs_quantity = $(".quantity");
                        var priceInput = $('.price');
@@ -250,9 +236,7 @@
    
                            totalItemPrice += itemTotal;
                        }
-   
-   
-   
+
                        var totalItemTaxPrice = 0;
                        var itemTaxPriceInput = $('.itemTaxPrice');
                        for (var j = 0; j < itemTaxPriceInput.length; j++) {
@@ -267,8 +251,7 @@
                            }
    
                        }
-   
-   
+
                        var totalItemDiscountPrice = 0;
                        var itemDiscountPriceInput = $('.discount');
    
@@ -276,22 +259,17 @@
                            totalItemDiscountPrice += parseFloat(itemDiscountPriceInput[k]
                                .value);
                        }
-   
-   
-                       // alert(accountSubTotal)
-   
+
                        $('.subTotal').html(totalItemPrice.toFixed(2));
                        $('.totalTax').html(totalItemTaxPrice.toFixed(2));
                        $('.totalAmount').html((parseFloat(totalItemPrice) - parseFloat(
                                totalItemDiscountPrice) + parseFloat(totalItemTaxPrice))
                            .toFixed(2));
                        $('.totalDiscount').html(totalItemDiscountPrice.toFixed(2));
-   
-   
+
                    }
                });
-   
-   
+
            },
        });
    }
@@ -311,8 +289,7 @@
        var totalItemPrice = (quantity * price) - discount;
    
        var amount = (totalItemPrice);
-   
-   
+
        var totalItemTaxRate = $(el.find('.itemTaxRate')).val();
        var itemTaxPrice = parseFloat((totalItemTaxRate / 100) * (totalItemPrice));
        $(el.find('.itemTaxPrice')).val(itemTaxPrice.toFixed(2));
@@ -324,8 +301,7 @@
        for (var j = 0; j < itemTaxPriceInput.length; j++) {
            totalItemTaxPrice += parseFloat(itemTaxPriceInput[j].value);
        }
-   
-   
+
        var totalInputItemPrice = 0;
        var inputs_quantity = $(".quantity");
        var priceInput = $('.price');
@@ -335,10 +311,8 @@
    
        var totalAccount = 0;
        var accountInput = $('.accountAmount');
-   
-   
+
        for (var j = 0; j < accountInput.length; j++) {
-           // if(typeof accountInput[j].value != 'undefined')
            if (accountInput[j].value != '') {
                var accountInputPrice = accountInput[j].value;
            } else {
@@ -348,9 +322,7 @@
            totalAccount += (parseFloat(accountInputPrice));
    
        }
-   
-   
-   
+
        var inputs = $(".amount");
        var subTotal = 0;
        for (var i = 0; i < inputs.length; i++) {
@@ -358,9 +330,7 @@
        }
    
        var sumAmount = totalInputItemPrice + totalAccount;
-   
-       // console.log(totalAccount)
-   
+
        $('.subTotal').html(sumAmount.toFixed(2));
        $('.totalTax').html(totalItemTaxPrice.toFixed(2));
        $('.totalAmount').html((parseFloat(subTotal) + totalAccount).toFixed(2));
@@ -391,16 +361,14 @@
        for (var j = 0; j < itemTaxPriceInput.length; j++) {
            totalItemTaxPrice += parseFloat(itemTaxPriceInput[j].value);
        }
-   
-   
+
        var totalItemPrice = 0;
        var inputs_quantity = $(".quantity");
        var priceInput = $('.price');
        for (var j = 0; j < priceInput.length; j++) {
            totalItemPrice += (parseFloat(priceInput[j].value) * parseFloat(inputs_quantity[j].value));
        }
-   
-   
+
        var totalAccount = 0;
        var accountInput = $('.accountAmount');
        for (var j = 0; j < accountInput.length; j++) {
@@ -419,8 +387,7 @@
        }
    
        var sumAmount = totalItemPrice + totalAccount;
-   
-   
+
        $('.subTotal').html(sumAmount.toFixed(2));
        $('.totalTax').html(totalItemTaxPrice.toFixed(2));
    
@@ -446,15 +413,13 @@
        $(el.find('.itemTaxPrice')).val(itemTaxPrice.toFixed(2));
    
        $(el.find('.amount')).html(parseFloat(itemTaxPrice) + parseFloat(amount));
-   
-   
+
        var totalItemTaxPrice = 0;
        var itemTaxPriceInput = $('.itemTaxPrice');
        for (var j = 0; j < itemTaxPriceInput.length; j++) {
            totalItemTaxPrice += parseFloat(itemTaxPriceInput[j].value);
        }
-   
-   
+
        var totalItemPrice = 0;
        var inputs_quantity = $(".quantity");
        var priceInput = $('.price');
@@ -467,8 +432,7 @@
        for (var i = 0; i < inputs.length; i++) {
            subTotal = parseFloat(subTotal) + parseFloat($(inputs[i]).html());
        }
-   
-   
+
        var totalItemDiscountPrice = 0;
        var itemDiscountPriceInput = $('.discount');
        for (var k = 0; k < itemDiscountPriceInput.length; k++) {
@@ -520,19 +484,9 @@
            }
            itemSubTotal += (quantity * price);
            itemSubTotalDiscount += (quantity * price) - (discount);
-   
-   
+
        }
-   
-   
-       // var totalItemTaxPrice = 0;
-       // var itemTaxPriceInput = $('.itemTaxPrice');
-       // for (var j = 0; j < itemTaxPriceInput.length; j++) {
-       //
-       //     totalItemTaxPrice += parseFloat(itemTaxPriceInput[j].value);
-       //
-       // }
-   
+
        var totalItemTaxPrice = 0;
        var itemTaxPriceInput = $('.itemTaxPrice');
    
@@ -543,8 +497,7 @@
                totalItemTaxPrice += parsedValue;
            }
        }
-   
-   
+
        var amount = $(this).val();
        el1.find('.accountamount').html(amount);
        var totalAccount = 0;
@@ -552,24 +505,20 @@
        for (var j = 0; j < accountInput.length; j++) {
            totalAccount += (parseFloat(accountInput[j].value));
        }
-   
-   
+
        var inputs = $(".accountamount");
        var subTotal = 0;
        for (var i = 0; i < inputs.length; i++) {
    
            subTotal = parseFloat(subTotal) + parseFloat($(inputs[i]).html());
        }
-   
-   
+
        $('.subTotal').text((totalAccount + itemSubTotal).toFixed(2));
        $('.totalAmount').text((parseFloat((subTotal + itemSubTotalDiscount) + (totalItemTaxPrice))).toFixed(
        2));
-   
-   
+
    })
-   
-   
+
    $(document).on('change', '.item', function() {
        $('.item option').prop('hidden', false);
        $('.item :selected').each(function() {
@@ -587,7 +536,6 @@
    })
    
    $(document).on('click', '[data-repeater-delete]', function() {
-       // $('.delete_item').click(function () {
        if (confirm('Are you sure you want to delete this element?')) {
            var el = $(this).parent().parent();
            var id = $(el.find('.id')).val();

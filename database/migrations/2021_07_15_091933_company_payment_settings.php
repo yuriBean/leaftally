@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CompanyPaymentSettings extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create(
@@ -30,11 +25,6 @@ class CompanyPaymentSettings extends Migration
         );
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('company_payment_settings');

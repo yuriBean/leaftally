@@ -1,11 +1,4 @@
-/**======================================================================
-=========================================================================
-Template Name: Dashboard Bootstrap 5 Admin Template
-Author: WorkDo
-Support: [support link]
-File: style.css
-=========================================================================
-=================================================================================== */
+
 .pct-customizer {
     position: fixed;
     right: -360px;
@@ -94,8 +87,6 @@ File: style.css
 .dash-item.active > a:before {
     background: linear-gradient(359deg, black, #007c38 70%);
 }
-
-/*new css starts form here*/
 
 .table-new-design table.table.datatable thead tr th {
     min-width: 150px;
@@ -257,15 +248,9 @@ File: style.css
     margin-bottom: 20px;
 }
 
-/*.table-new-design .dataTable-container {*/
-/*    box-shadow: 0 0px 14px 0 rgb(210 210 210);*/
-/*}*/
-
 .table-new-design table.table.datatable {
     margin: 0 !important;
 }
-
-/*User page css starts from here*/
 
 .single-user .user-col-fs {
     position: relative !important;
@@ -320,13 +305,6 @@ File: style.css
     transition:0.4s ease-in-out;
 }
 
-
-/*.data-userlog-view .userlog-col {*/
-/*    padding: 5px 15px;*/
-/*    margin: 3px;*/
-/*    background: rgb(248 250 252 / var(--tw-bg-opacity, 1));*/
-/*}*/
-
 .data-userlog-view .userlog-col {
     padding: 10px;
     margin: 0px 10px;
@@ -340,10 +318,6 @@ File: style.css
     border-radius: 10px;
     border: 1px solid rgb(229 231 235 / var(--tw-border-opacity, 1));
 }
-
-/*.table-roles .custom-checkbox {*/
-/*    margin: 4px 0px;*/
-/*}*/
 
 .table-roles .custom-checkbox{
     background: #f5f5f5;
@@ -462,14 +436,6 @@ nav.dataTable-pagination ul.dataTable-pagination-list li.active a {
     background: rgb(248 250 252 / var(--tw-bg-opacity, 1));
 }
 
-/*.cstm-tbl-data tr.months-tablehead th:nth-child(odd) {*/
-/*    background: #d7ffd1;*/
-/*}*/
-
-/*.cstm-tbl-data tr.months-tablehead th:nth-child(even) {*/
-/*    background: #c3ffd0;*/
-/*}*/
-
 .cstm-tbl-data tr.months-tablehead th {
     min-width: 150px;
     font-size: 12px;
@@ -533,8 +499,6 @@ nav.dataTable-pagination ul.dataTable-pagination-list li.active a {
 .table-new-design table.datatable thead tr th.input-checkbox a.dataTable-sorter {
     padding-left: 5px;
 }
-
-
 
 @media (min-width: 1089px){
     

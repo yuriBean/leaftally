@@ -244,11 +244,10 @@
 
 @push('css-page')
 <style>
-  /* Ensure Select2 looks right (page or modal) */
   .select2-container { width: 100% !important; }
   .select2-container .select2-dropdown { z-index: 2005 !important; }
   .heading-cstm-form{
-    background:#F6F6F6; border-bottom:1px solid #E5E7EB; padding:12px 16px;
+    background:
   }
 </style>
 @endpush
@@ -256,7 +255,6 @@
 @push('script-page')
 <script>
 $(function () {
-  // Initialize Select2 with dropdownParent (works both in page & modals)
   function initSelect2($scope) {
     var $modal = $scope.closest('.modal');
     $scope.find('.select2').each(function(){
@@ -270,14 +268,12 @@ $(function () {
   initSelect2($(document));
   $(document).on('shown.bs.modal', function(e){ initSelect2($(e.target)); });
 
-  // File name note (optional; you had this separately)
   $('input[type="file"]').on('change', function(e){
     var file = e.target.files[0] ? e.target.files[0].name : '';
     var file_name = $(this).attr('data-filename');
     if(file_name){ $('.' + file_name).text(file); }
   });
 
-  // Validation (Bootstrap-like)
   $('.needs-validation').on('submit', function(e){
     if (!this.checkValidity()) {
       e.preventDefault(); e.stopPropagation();
@@ -289,7 +285,6 @@ $(function () {
     if (this.checkValidity()) $(this).removeClass('border-red-500');
   });
 
-  // Populate Designations by Department
   function getDesignation(did) {
     $.ajax({
       url: '{{ route('employee.json') }}',
@@ -299,7 +294,7 @@ $(function () {
         var $sel = $('#designation_id');
         $sel.empty().append('<option value="">{{ __("Select any Designation") }}</option>');
         $.each(data, function (key, value) { $sel.append('<option value="'+key+'">'+value+'</option>'); });
-        $sel.trigger('change.select2'); // refresh
+        $sel.trigger('change.select2');
       }
     });
   }

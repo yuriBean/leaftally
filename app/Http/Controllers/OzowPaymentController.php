@@ -18,8 +18,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 
-
-
 class OzowPaymentController extends Controller
 {
     function generate_request_hash_check($inputString)
@@ -137,7 +135,6 @@ class OzowPaymentController extends Controller
                     'coupon_code'   => $request->coupon,
                 ]);
 
-                // Calculate the hash with the exact same data being sent
                 $inputString    = $siteCode . $countryCode . $currencyCode . $amount . $transactionReference . $bankReference . $cancelUrl . $errorUrl . $successUrl . $notifyUrl . $isTest . $privateKey;
                 $hashCheck      = $this->generate_request_hash_check($inputString);
                 $data = [
@@ -148,7 +145,7 @@ class OzowPaymentController extends Controller
                     "cancelUrl"             => $cancelUrl,
                     "currencyCode"          => $currencyCode,
                     "errorUrl"              => $errorUrl,
-                    "isTest"                => $isTest, // boolean value here is okay
+                    "isTest"                => $isTest,
                     "notifyUrl"             => $notifyUrl,
                     "siteCode"              => $siteCode,
                     "successUrl"            => $successUrl,
@@ -234,7 +231,6 @@ class OzowPaymentController extends Controller
                     $order->save();
 
                     $assignPlan = $user->assignPlan($plan->id);
-                    // dd($assignPlan);
                     if ($assignPlan['is_success']) {
                         return redirect()->route('plans.index')->with('success', __('Plan activated Successfully.'));
                     } else {
@@ -261,13 +257,11 @@ class OzowPaymentController extends Controller
         } else {
             $user          = User::where('id', $invoice->created_by)->first();
         }
-        $get_amount = $request->amount; // Assuming $request->amount is a string
-        // OR
-        $amount_int = intval($get_amount); // Using intval() function
+        $get_amount = $request->amount;
+        $amount_int = intval($get_amount);
 
         $orderID           = strtoupper(str_replace('.', '', uniqid('', true)));
         $company_settings  = Utility::getCompanyPaymentSetting($user->id);
-
 
         if ($invoice) {
             if ($amount_int > $invoice->getDue()) {
@@ -290,7 +284,6 @@ class OzowPaymentController extends Controller
                 $successUrl     = route('invoice.get.ozow.status', [$invoice_id]);
                 $notifyUrl      = route('invoice.get.ozow.status', [$invoice_id]);
 
-                // Calculate the hash with the exact same data being sent
                 $inputString    = $siteCode . $countryCode . $currencyCode . $amount . $transactionReference . $bankReference . $cancelUrl . $errorUrl . $successUrl . $notifyUrl . $isTest . $privateKey;
 
                 $hashCheck      = $this->generate_request_hash_check($inputString);
@@ -303,7 +296,7 @@ class OzowPaymentController extends Controller
                     "cancelUrl"             => $cancelUrl,
                     "currencyCode"          => $currencyCode,
                     "errorUrl"              => $errorUrl,
-                    "isTest"                => $isTest, // boolean value here is okay
+                    "isTest"                => $isTest,
                     "notifyUrl"             => $notifyUrl,
                     "siteCode"              => $siteCode,
                     "successUrl"            => $successUrl,
@@ -414,7 +407,6 @@ class OzowPaymentController extends Controller
                 Utility::updateUserBalance('customer', $invoice->customer_id, $request->amount, 'debit');
 
                 Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
-                //Twilio Notification
                 $setting  = Utility::settingsById($objUser->creatorId());
                 $customer = Customer::find($invoice->customer_id);
                 if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -430,12 +422,10 @@ class OzowPaymentController extends Controller
                     Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $invoice->created_by);
                 }
 
-                // webhook
                 $module = 'New Payment';
                 $webhook =  Utility::webhookSetting($module, $invoice->created_by);
                 if ($webhook) {
                     $parameter = json_encode($invoice);
-                    // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
                     $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
                 }
 
@@ -461,9 +451,8 @@ class OzowPaymentController extends Controller
     {
         $retainer_id = \Illuminate\Support\Facades\Crypt::decrypt($request->retainer_id);
         $retainer = Retainer::find($retainer_id);
-        // $getAmount = $request->amount;
-        $get_amount = $request->amount; // Assuming $request->amount is a string
-        $amount_int = intval($get_amount); // Using intval() function
+        $get_amount = $request->amount;
+        $amount_int = intval($get_amount);
 
         if (\Auth::check()) {
             $user = \Auth::user();
@@ -495,7 +484,6 @@ class OzowPaymentController extends Controller
             $successUrl     = route('retainer.get.ozow.status', [$retainer_id]);
             $notifyUrl      = route('retainer.get.ozow.status', [$retainer_id]);
 
-            // Calculate the hash with the exact same data being sent
             $inputString    = $siteCode . $countryCode . $currencyCode . $amount . $transactionReference . $bankReference . $cancelUrl . $errorUrl . $successUrl . $notifyUrl . $isTest . $privateKey;
 
             $hashCheck      = $this->generate_request_hash_check($inputString);
@@ -508,7 +496,7 @@ class OzowPaymentController extends Controller
                 "cancelUrl"             => $cancelUrl,
                 "currencyCode"          => $currencyCode,
                 "errorUrl"              => $errorUrl,
-                "isTest"                => $isTest, // boolean value here is okay
+                "isTest"                => $isTest,
                 "notifyUrl"             => $notifyUrl,
                 "siteCode"              => $siteCode,
                 "successUrl"            => $successUrl,
@@ -588,10 +576,8 @@ class OzowPaymentController extends Controller
                 $retainer->status = 3;
                 $retainer->save();
             }
-            //for customer balance update
             Utility::updateUserBalance('customer', $retainer->customer_id, $request->amount, 'debit');
 
-            //For Notification
             $setting  = Utility::settingsById($retainer->created_by);
             $customer = Customer::find($retainer->customer_id);
             $notificationArr = [
@@ -599,19 +585,15 @@ class OzowPaymentController extends Controller
                 'retainer_payment_type' => 'Aamarpay',
                 'customer_name' => $customer->name,
             ];
-            //Slack Notification
             if (isset($settings['payment_notification']) && $settings['payment_notification'] == 1) {
                 Utility::send_slack_msg('new_retainer_payment', $notificationArr, $retainer->created_by);
             }
-            //Telegram Notification
             if (isset($settings['telegram_payment_notification']) && $settings['telegram_payment_notification'] == 1) {
                 Utility::send_telegram_msg('new_retainer_payment', $notificationArr, $retainer->created_by);
             }
-            //Twilio Notification
             if (isset($settings['twilio_payment_notification']) && $settings['twilio_payment_notification'] == 1) {
                 Utility::send_twilio_msg($customer->contact, 'new_retainer_payment', $notificationArr, $retainer->created_by);
             }
-            //webhook
             $module = 'New retainer Payment';
             $webhook =  Utility::webhookSetting($module, $retainer->created_by);
             if ($webhook) {

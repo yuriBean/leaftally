@@ -67,7 +67,6 @@ class PaySlipController extends Controller
 
     public function create()
     {
-        //
     }
 
     public function store(Request $request)
@@ -89,7 +88,6 @@ class PaySlipController extends Controller
 
         $month = $request->month;
         $year  = $request->year;
-
 
         $formate_month_year = $year . '-' . $month;
         $validatePaysilp    = PaySlip::where('salary_month', '=', $formate_month_year)->where('created_by', \Auth::user()->creatorId())->pluck('employee_id');
@@ -116,24 +114,20 @@ class PaySlipController extends Controller
                     $payslipEmployee->created_by           = \Auth::user()->creatorId();
                     $payslipEmployee->save();
 
-                    //For Notification
                     $setting  = Utility::settings(\Auth::user()->creatorId());
                     $payslipNotificationArr = [
                         'year' =>  $formate_month_year,
                     ];
-                    //Slack Notification
                     if(isset($setting['payslip_notification']) && $setting['payslip_notification'] ==1)
                     {
                         Utility::send_slack_msg('new_monthly_payslip', $payslipNotificationArr);
                     }
 
-                    //Telegram Notification
                     if(isset($setting['telegram_payslip_notification']) && $setting['telegram_payslip_notification'] ==1)
                     {
                         Utility::send_telegram_msg('new_monthly_payslip', $payslipNotificationArr);
                     }
 
-                    //webhook
                     $module ='New Monthly Payslip';
                     $webhook=  Utility::webhookSetting($module);
                     if($webhook)
@@ -178,7 +172,6 @@ class PaySlipController extends Controller
         return view('payslip.show', compact('payslip'));
     }
 
-
     public function search_json(Request $request)
     {
 
@@ -209,7 +202,6 @@ class PaySlipController extends Controller
                     $join->leftjoin('payslip_types', 'payslip_types.id', '=', 'employees.salary_type');
                 }
             )->where('employees.created_by', \Auth::user()->creatorId())->get();
-
 
             foreach ($paylip_employee as $employee) {
 
@@ -278,13 +270,11 @@ class PaySlipController extends Controller
 
 public function bulk_pay_create($date)
 {
-    // Require selected payslip ids
     $ids = array_filter((array) request()->input('ids', []));
     if (empty($ids)) {
         return response()->json(['error' => __('Please select at least one payslip.')], 422);
     }
 
-    // Validate tenant + month + selection
     $Employees = PaySlip::where('salary_month', $date)
         ->where('created_by', \Auth::user()->creatorId())
         ->whereIn('id', $ids)
@@ -307,7 +297,6 @@ public function bulk_pay_create($date)
     return view('payslip.bulkcreate', compact('Employees', 'unpaidEmployees', 'date'));
 }
 
-
 public function bulkpayment(Request $request, $date)
 {
     $ids = array_filter((array) $request->input('ids', []));
@@ -328,14 +317,13 @@ public function bulkpayment(Request $request, $date)
     }
 
     foreach ($unpaid as $p) {
-        $p->status = 1;      // mark paid
+        $p->status = 1;
         $p->save();
     }
 
     return redirect()->route('payslip.index')
         ->with('success', __('Selected payslips have been paid successfully.'));
 }
-
 
     public function employeepayslip()
     {
@@ -356,10 +344,7 @@ public function bulkpayment(Request $request, $date)
         $payslip  = PaySlip::where('employee_id', $id)->where('salary_month', $month)->where('created_by', \Auth::user()->creatorId())->first();
         $employee = Employee::find($payslip->employee_id);
 
-       // dd($employee);
-
         $payslipDetail = Utility::employeePayslipDetail($id,$month);
-
 
         return view('payslip.pdf', compact('payslip', 'employee', 'payslipDetail'));
     }
@@ -367,9 +352,6 @@ public function bulkpayment(Request $request, $date)
     public function send($id, $month)
     {
         $setings = Utility::settings();
-//        dd($setings);
-        // if($setings['payslip_sent'] == 1)
-        // {
             $payslip  = PaySlip::where('employee_id', $id)->where('salary_month', $month)->where('created_by', \Auth::user()->creatorId())->first();
             $employee = Employee::find($payslip->employee_id);
 
@@ -378,7 +360,6 @@ public function bulkpayment(Request $request, $date)
 
             $payslipId    = Crypt::encrypt($payslip->id);
             $payslip->url = route('payslip.payslipPdf', $payslipId);
-//            dd($payslip->url);
 
             $payslipArr = [
 
@@ -391,12 +372,7 @@ public function bulkpayment(Request $request, $date)
             ];
             $resp = Utility::sendEmailTemplate('payslip_sent', [$employee->id => $employee->email], $payslipArr);
 
-
-
             return redirect()->back()->with('success', __('Payslip successfully sent.') .(($resp['is_success'] == false && !empty($resp['error'])) ? '<br> <span class="text-danger">' . $resp['error'] . '</span>' : ''));
-        // }
-
-        // return redirect()->back()->with('success', __('Payslip successfully sent.'));
 
     }
 
@@ -430,7 +406,6 @@ public function payslipPdf($id)
     public function updateEmployee(Request $request, $id)
     {
 
-
         if(isset($request->allowance) && !empty($request->allowance))
         {
             $allowances   = $request->allowance;
@@ -442,7 +417,6 @@ public function payslipPdf($id)
                 $allowanceData->save();
             }
         }
-
 
         if(isset($request->commission) && !empty($request->commission))
         {
@@ -468,7 +442,6 @@ public function payslipPdf($id)
             }
         }
 
-
         if(isset($request->saturation_deductions) && !empty($request->saturation_deductions))
         {
             $saturation_deductionss   = $request->saturation_deductions;
@@ -482,7 +455,6 @@ public function payslipPdf($id)
             }
         }
 
-
         if(isset($request->other_payment) && !empty($request->other_payment))
         {
             $other_payments   = $request->other_payment;
@@ -494,7 +466,6 @@ public function payslipPdf($id)
                 $other_paymentData->save();
             }
         }
-
 
         if(isset($request->rate) && !empty($request->rate))
         {
@@ -510,7 +481,6 @@ public function payslipPdf($id)
                 $overtime->save();
             }
         }
-
 
         $payslipEmployee                       = PaySlip::find($request->payslip_id);
         $payslipEmployee->allowance            = Employee::allowance($payslipEmployee->employee_id);
@@ -539,7 +509,7 @@ public function export(Request $request)
 }
 public function ytdTotals(Request $request)
 {
-    $date = $request->input('datePicker'); // "YYYY-MM"
+    $date = $request->input('datePicker');
     if (empty($date) || !preg_match('/^\d{4}-(0[1-9]|1[0-2])$/', $date)) {
         return response()->json(['error' => __('Invalid date.')], 422);
     }
@@ -552,13 +522,11 @@ public function ytdTotals(Request $request)
         ->where('salary_month', '>=', $start)
         ->where('salary_month', '<=', $end);
 
-    // clone builder for separate aggregates
     $total_basic = (clone $base)->sum('basic_salary');
     $total_net   = (clone $base)->sum('net_payble');
     $paid_count  = (clone $base)->where('status', 1)->count();
     $unpaid_count= (clone $base)->where('status', 0)->count();
 
-    // label like "Jan–Aug 2025"
     $endMonthName = strtoupper(date('M', strtotime("$year-$month-01")));
     $label = 'Jan–' . $endMonthName . ' ' . $year;
 

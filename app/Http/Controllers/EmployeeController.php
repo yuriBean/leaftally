@@ -26,15 +26,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 
-//use Faker\Provider\File;
-
 class EmployeeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         if(\Auth::user()->can('manage employee'))
@@ -104,7 +97,6 @@ class EmployeeController extends Controller
             $plan           = Plan::find($objUser->plan);
             $settings = Utility::settings();
 
-
             if(!empty($request->document) && !is_null($request->document))
             {
                 $document_implode = implode(',', array_keys($request->document));
@@ -173,7 +165,6 @@ class EmployeeController extends Controller
 
             }
 
-
             return redirect()->route('employee.index')->with('success', __('Employee  successfully created.'));
 
         }
@@ -194,11 +185,9 @@ class EmployeeController extends Controller
             $departments  = Department::where('created_by', \Auth::user()->creatorId())->get()->pluck('name', 'id');
             $designations = Designation::where('created_by', \Auth::user()->creatorId())->get()->pluck('name', 'id');
             $employee     = Employee::find($id);
-//            $employeesId  = \Auth::user()->employeeIdFormat($employee->employee_id);
             $employeesId  = \Auth::user()->employeeIdFormat(!empty($employee) ? $employee->employee_id : '');
 
             $departmentData  = Department::where('created_by', \Auth::user()->creatorId())->where('branch_id',$employee->branch_id)->get()->pluck('name', 'id');
-
 
             return view('employee.edit', compact('employee', 'employeesId', 'branches', 'departments', 'designations', 'documents','departmentData'));
         }
@@ -221,7 +210,6 @@ class EmployeeController extends Controller
                                    'phone' => 'required|numeric',
                                    'address' => 'required',
                                    'email' => 'required'
-//                                   'document.*' => 'mimes:jpeg,png,jpg,gif,svg,pdf,doc,zip|max:20480',
                                ]
             );
             if($validator->fails())
@@ -243,7 +231,6 @@ class EmployeeController extends Controller
                         $filename        = pathinfo($filenameWithExt, PATHINFO_FILENAME);
                         $extension       = $request->file('document')[$key]->getClientOriginalExtension();
                         $fileNameToStore = $filename . '_' . time() . '.' . $extension;
-//                        $dir        = storage_path('uploads/document/');
                         $dir             = 'uploads/document/';
 
                         $image_path = $dir . $filenameWithExt;
@@ -252,21 +239,14 @@ class EmployeeController extends Controller
                         {
                             File::delete($image_path);
                         }
-//                        if(!file_exists($dir))
-//                        {
-//                            mkdir($dir, 0777, true);
-//                        }
-//                        $path = $request->file('document')[$key]->storeAs('uploads/document/', $fileNameToStore);
 
                         $path = \Utility::upload_coustom_file($request,'document',$fileNameToStore,$dir,$key,[]);
-
 
                         if($path['flag'] == 1){
                             $url = $path['url'];
                         }else{
                             return redirect()->back()->with('error', __($path['msg']));
                         }
-
 
                         $employee_document = EmployeeDocument::where('employee_id', $employee->employee_id)->where('document_id', $key)->first();
 
@@ -362,7 +342,6 @@ class EmployeeController extends Controller
 
             $employeesId  = \Auth::user()->employeeIdFormat(!empty($employee) ? $employee->employee_id : '');
 
-
             return view('employee.show', compact('employee', 'employeesId', 'branches', 'departments', 'designations', 'documents'));
         }
         else
@@ -424,7 +403,6 @@ class EmployeeController extends Controller
             return redirect()->back()->with('error', __('Permission denied.'));
         }
     }
-
 
     public function profileShow($id)
     {
@@ -515,8 +493,6 @@ class EmployeeController extends Controller
         $secs = strtotime($settings['company_start_time'])-strtotime("00:00");
         $result = date("H:i",strtotime($settings['company_end_time'])-$secs);
 
-
-
         $obj = [
             'date' =>  \Auth::user()->dateFormat($date) ,
 
@@ -529,10 +505,8 @@ class EmployeeController extends Controller
             'start_time' => !empty($settings['company_start_time'])?$settings['company_start_time']:'',
             'end_time' => !empty($settings['company_end_time'])?$settings['company_end_time']:'',
             'total_hours' => $result,
-            //
 
         ];
-        // dd($obj);
         $joiningletter->content = JoiningLetter::replaceVariable($joiningletter->content, $obj);
         return view('employee.template.joiningletterdocx', compact('joiningletter','employees'));
 
@@ -547,7 +521,6 @@ class EmployeeController extends Controller
         $experience_certificate=ExperienceCertificate::where(['lang' =>   $currantLang,'created_by' => \Auth::user()->creatorId()])->first();
         $date=date('Y-m-d');
         $employees = Employee::find($id);
-        // dd($employees->salaryType->name);
         $settings = Utility::settings();
         $secs = strtotime($settings['company_start_time'])-strtotime("00:00");
         $result = date("H:i",strtotime($settings['company_end_time'])-$secs);
@@ -570,7 +543,6 @@ class EmployeeController extends Controller
         }else{
             return redirect()->back()->with('error', __('Termination date is required.'));
         }
-
 
         $experience_certificate->content = ExperienceCertificate::replaceVariable($experience_certificate->content, $obj);
         return view('employee.template.ExpCertificatepdf', compact('experience_certificate','employees'));
@@ -623,7 +595,6 @@ class EmployeeController extends Controller
         $secs = strtotime($settings['company_start_time'])-strtotime("00:00");
         $result = date("H:i",strtotime($settings['company_end_time'])-$secs);
 
-
         $obj = [
             'date' =>  \Auth::user()->dateFormat($date),
             'employee_name' => !empty($employees)?$employees->name:'',
@@ -647,7 +618,6 @@ class EmployeeController extends Controller
         $secs = strtotime($settings['company_start_time'])-strtotime("00:00");
         $result = date("H:i",strtotime($settings['company_end_time'])-$secs);
 
-
         $obj = [
             'date' =>  \Auth::user()->dateFormat($date),
             'employee_name' => $employees->name,
@@ -660,7 +630,6 @@ class EmployeeController extends Controller
 
     }
 
-    //Export
     public function export()
     {
         $name = 'employee_' . date('Y-m-d i:h:s');
@@ -669,7 +638,6 @@ class EmployeeController extends Controller
         return $data;
     }
 
-    //import
     public function importFile()
     {
         return view('employee.import');
@@ -796,121 +764,12 @@ class EmployeeController extends Controller
 
         return json_encode($output);
 
-
     }
-
 
     public function fileImportModal()
     {
         return view('employee.import_modal');
     }
-
-    // public function import(Request $request)
-    // {
-
-    //     $rules = [
-    //         'file' => 'required|mimes:csv,txt',
-    //     ];
-
-    //     $validator = \Validator::make($request->all(), $rules);
-
-    //     if ($validator->fails()) {
-    //         $messages = $validator->getMessageBag();
-
-    //         return redirect()->back()->with('error', $messages->first());
-    //     }
-
-    //     $employees = (new EmployeesImport())->toArray(request()->file('file'))[0];
-    //     $totalCustomer = count($employees) - 1;
-    //     $errorArray = [];
-
-    //     for ($i = 1; $i <= count($employees) - 1; $i++) {
-    //         $employee = $employees[$i];
-    //         if (count($employee) >= 18) {
-
-    //             if ($employee[5] == null) {
-    //                 return redirect()->back()->with('error', __('Email Filed is Required'));
-    //             }
-    //             $employeeByEmail = Employee::where('email', $employee[5])->first();
-    //             $userByEmail = User::where('email', $employee[5])->first();
-    //             // dd($userByEmail);
-
-    //             if (!empty($employeeByEmail) && !empty($userByEmail)) {
-
-    //                 $employeeData = $employeeByEmail;
-    //             } else {
-
-    //                 $user = new User();
-    //                 $user->name = $employee[0];
-    //                 $user->email = $employee[5];
-    //                 $user->password = Hash::make($employee[6]);
-    //                 $user->type = 'employee';
-    //                 $user->lang = 'en';
-    //                 $user->created_by = \Auth::user()->creatorId();
-    //                 $user->save();
-    //                 $user->assignRole('Employee');
-    //                 $employeeData = new Employee();
-    //                 $employeeData->employee_id = $this->employeeNumber();
-    //                 $employeeData->user_id = $user->id;
-    //             }
-
-    //             $employeeData->name = $employee[0];
-    //             $employeeData->dob = $employee[1];
-    //             $employeeData->gender = $employee[2];
-    //             $employeeData->phone = $employee[3];
-    //             $employeeData->address = $employee[4];
-    //             $employeeData->email = $employee[5];
-    //             $employeeData->password = Hash::make($employee[6]);
-    //             $employeeData->employee_id = $this->employeeNumber();
-    //             $employeeData->branch_id = $employee[8];
-    //             $employeeData->department_id = $employee[9];
-    //             $employeeData->designation_id = $employee[10];
-    //             $employeeData->company_doj = $employee[11];
-    //             $employeeData->account_holder_name = $employee[12];
-    //             $employeeData->account_number = $employee[13];
-    //             $employeeData->bank_name = $employee[14];
-    //             $employeeData->bank_identifier_code = $employee[15];
-    //             $employeeData->branch_location = $employee[16];
-    //             $employeeData->tax_payer_id = $employee[17];
-    //             $employeeData->created_by = \Auth::user()->creatorId();
-
-    //             if (empty($employeeData)) {
-
-    //                 $errorArray[] = $employeeData;
-    //             } else {
-
-    //                 $employeeData->save();
-    //             }
-
-
-    //             $errorRecord = [];
-
-    //             if (empty($errorArray)) {
-    //                 $data['status'] = 'success';
-    //                 $data['msg'] = __('Record successfully imported');
-    //             } else {
-    //                 $data['status'] = 'error';
-    //                 $data['msg'] = count($errorArray) . ' ' . __('Record imported fail out of' . ' ' . $totalCustomer . ' ' . 'record');
-
-    //                 foreach ($errorArray as $errorData) {
-
-    //                     $errorRecord[] = implode(',', $errorData);
-    //                 }
-
-    //                 \Session::put('errorArray', $errorRecord);
-    //             }
-
-    //             return redirect()->back()->with($data['status'], $data['msg']);
-    //         }
-
-
-    //         else
-    //         {
-    //             return redirect()->back()->with('error',__('Something went wrong'));
-    //         }
-    //     }
-
-    // }
 
     public function employeeImportdata(Request $request)
     {
@@ -1040,8 +899,6 @@ class EmployeeController extends Controller
 
     }
 
-
-
     public function exportSelected(Request $request)
     {
         if (!\Auth::user()->can('manage employee')) {
@@ -1058,7 +915,6 @@ class EmployeeController extends Controller
         return Excel::download(new EmployeeExport($validated['ids']), $name);
     }
 
-
         public function bulkDestroy(Request $request)
     {
         if (!\Auth::user()->can('delete employee')) {
@@ -1071,7 +927,6 @@ class EmployeeController extends Controller
             'ids.*' => ['integer'],
         ])->validate();
 
-        // Scope to current company/creator (matches the rest of the controller)
         $query = Employee::where('created_by', \Auth::user()->creatorId())
                          ->whereIn('id', $validated['ids']);
 
@@ -1082,7 +937,6 @@ class EmployeeController extends Controller
             return back()->with('warning', __('No matching employees found to delete.'));
         }
 
-        // Delete attached employee documents (same behavior as destroy())
         $dir = storage_path('uploads/document/');
         foreach ($employees as $employee) {
             $empDocs = EmployeeDocument::where('employee_id', $employee->employee_id)->get();

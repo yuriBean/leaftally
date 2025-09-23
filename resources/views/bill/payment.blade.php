@@ -6,7 +6,6 @@
             {{ Form::label('date', __('Date'), ['class' => 'form-label']) }}
             <div class="form-icon-user">
                 {{ Form::date('date', null, ['class' => 'form-control', 'required' => 'required']) }}
-                <!-- {{ Form::text('date', null, ['class' => 'form-control pc-datepicker-1', 'required' => 'required']) }} -->
 
             </div>
         </div>
@@ -44,8 +43,6 @@
                 <p class="upload_file"></p>
             </div>
         </div>
-
-
 
     </div>
 

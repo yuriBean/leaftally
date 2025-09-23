@@ -21,5 +21,4 @@ class UserCoupon extends Model
         return $this->hasOne('App\Models\Coupon', 'id', 'coupon');
     }
 
-
 }

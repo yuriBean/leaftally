@@ -36,7 +36,6 @@
     </div>
 @endsection
 
-
 @section('content')
 
     <ul class="nav nav-pills my-3" id="pills-tab" role="tablist">
@@ -191,7 +190,6 @@
                                     </table>
                                 </div>
 
-
                             <div class="col-sm-12">
                                 <h5>{{__('Expense')}}</h5>
                                 <div class="table-responsive mt-4">
@@ -279,5 +277,4 @@
         </div>
     </div>
 @endsection
-
 

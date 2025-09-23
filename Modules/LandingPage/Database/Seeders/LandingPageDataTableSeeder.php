@@ -8,16 +8,9 @@ use Modules\LandingPage\Entities\LandingPageSetting;
 
 class LandingPageDataTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         Model::unguard();
-
-        // $this->call("OthersTableSeeder");
 
         $data['topbar_status'] = 'on';
         $data['topbar_notification_msg'] = '70% Special Offer. Don’t Miss it. The offer ends in 72 hours.';
@@ -83,7 +76,6 @@ class LandingPageDataTableSeeder extends Seeder
         $data['joinus_status'] = 'on';
         $data['joinus_heading'] = 'Join Our Community';
         $data['joinus_description'] = 'We build modern web tools to help you jump-start your daily business work.';
-
 
         foreach($data as $key => $value){
             if(!LandingPageSetting::where('name', '=', $key)->exists()){

@@ -24,18 +24,15 @@ class PaystackPaymentController extends Controller
     public $public_key;
     public $is_enabled;
 
-
     public function paymentConfig()
     {
         $user = \Auth::user();
-
 
         if (\Auth::user()->type == 'company') {
             $payment_setting = Utility::getAdminPaymentSetting();
         } else {
             $payment_setting = Utility::getCompanyPaymentSetting($user);
         }
-
 
         $this->secret_key = isset($payment_setting['paystack_secret_key']) ? $payment_setting['paystack_secret_key'] : '';
         $this->public_key = isset($payment_setting['paystack_public_key']) ? $payment_setting['paystack_public_key'] : '';
@@ -80,7 +77,6 @@ class PaystackPaymentController extends Controller
             $res_data['currency']    = $admin['currency'] ? $admin['currency'] : 'USD';
             $res_data['flag']        = 1;
             $res_data['coupon']      = $coupon_id;
-            // $res_data['payment_frequency'] = $request->paystack_payment_frequency;
 
             return $res_data;
         } else {
@@ -101,7 +97,6 @@ class PaystackPaymentController extends Controller
             try {
                 $orderID = strtoupper(str_replace('.', '', uniqid('', true)));
 
-                //The parameter after verify/ is the transaction reference to be verified
                 $url = "https://api.paystack.co/transaction/verify/$pay_id";
                 $ch  = curl_init();
                 curl_setopt($ch, CURLOPT_URL, $url);
@@ -238,7 +233,6 @@ class PaystackPaymentController extends Controller
             $objUser = \Auth::user();
         } else {
             $user = User::where('id', $retainer->created_by)->first();
-            // $payment_setting = Utility::getNonAuthCompanyPaymentSetting($retainer->created_by);
             $this->secret_key = isset($payment_setting['paystack_secret_key']) ? $payment_setting['paystack_secret_key'] : '';
             $this->public_key = isset($payment_setting['paystack_public_key']) ? $payment_setting['paystack_public_key'] : '';
             $this->is_enabled = isset($payment_setting['is_paystack_enabled']) ? $payment_setting['is_paystack_enabled'] : 'off';
@@ -249,7 +243,6 @@ class PaystackPaymentController extends Controller
         $result    = array();
 
         if ($retainer) {
-            //The parameter after verify/ is the transaction reference to be verified
             $url = "https://api.paystack.co/transaction/verify/$pay_id";
             $ch  = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
@@ -299,7 +292,6 @@ class PaystackPaymentController extends Controller
 
             Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-            //Twilio Notification
             $setting  = Utility::settingsById($objUser->creatorId());
             $customer = Customer::find($retainer->customer_id);
             if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -315,17 +307,14 @@ class PaystackPaymentController extends Controller
                 Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $retainer->created_by);
             }
 
-            // webhook
             $module = 'New Payment';
             $webhook =  Utility::webhookSetting($module, $retainer->created_by);
 
             if ($webhook) {
                 $parameter = json_encode($retainer);
 
-                // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
                 $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
             }
-
 
             if (Auth::check()) {
                 return redirect()->route('retainer.show', \Crypt::encrypt($retainer->id))->with('success', __('Payment successfully added.'));
@@ -359,9 +348,7 @@ class PaystackPaymentController extends Controller
         $result    = array();
 
         if ($invoice) {
-            // try {
 
-            //The parameter after verify/ is the transaction reference to be verified
             $url = "https://api.paystack.co/transaction/verify/$pay_id";
             $ch  = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
@@ -378,8 +365,6 @@ class PaystackPaymentController extends Controller
             if ($responce) {
                 $result = json_decode($responce, true);
             }
-
-            // if (isset($result['status']) && $result['status'] == true) {
 
             $payments = InvoicePayment::create(
                 [
@@ -412,7 +397,6 @@ class PaystackPaymentController extends Controller
 
             Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-            // Twilio Notification
             $setting  = Utility::settingsById($objUser->creatorId());
             $customer = Customer::find($invoice->customer_id);
             if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -428,18 +412,15 @@ class PaystackPaymentController extends Controller
                 Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $invoice->created_by);
             }
 
-            // webhook
             $module = 'New Payment';
             $webhook =  Utility::webhookSetting($module, $invoice->created_by);
 
             if ($webhook) {
                 $parameter = json_encode($invoice);
 
-                // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
                 $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
 
             }
-
 
             if (Auth::check()) {
                 return redirect()->route('invoice.show', \Crypt::encrypt($invoice->id))->with('success', __('Payment successfully added.'));

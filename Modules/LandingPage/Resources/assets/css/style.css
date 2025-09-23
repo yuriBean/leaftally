@@ -1,18 +1,5 @@
 @charset "UTF-8";
-/**======================================================================
-=========================================================================
-Template Name: Dashboard Bootstrap 5 Admin Template
-Author: WorkDo
-Support: [support link]
-File: style.css
-=========================================================================
-=================================================================================== */
-/*!
-   * Bootstrap  v5.2.3 (https://getbootstrap.com/)
-   * Copyright 2011-2022 The Bootstrap Authors
-   * Copyright 2011-2022 Twitter, Inc.
-   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
-   */
+
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap");
 
 :root {
@@ -457,14 +444,6 @@ legend + * {
     -webkit-appearance: textfield;
 }
 
-/* rtl:raw:
-[type="tel"],
-[type="url"],
-[type="email"],
-[type="number"] {
-  direction: ltr;
-}
-*/
 ::-webkit-search-decoration {
     -webkit-appearance: none;
 }
@@ -5134,7 +5113,7 @@ textarea.is-invalid.dataTable-input {
     float: left;
     padding-right: var(--bs-breadcrumb-item-padding-x);
     color: var(--bs-breadcrumb-divider-color);
-    content: var(--bs-breadcrumb-divider, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='14' height='14' stroke='%236c757d' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round' class='css-i6dzq1'%3E%3Cpolyline points='9 18 15 12 9 6'%3E%3C/polyline%3E%3C/svg%3E")) /* rtl: var(--bs-breadcrumb-divider, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='14' height='14' stroke='%236c757d' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round' class='css-i6dzq1'%3E%3Cpolyline points='9 18 15 12 9 6'%3E%3C/polyline%3E%3C/svg%3E")) */;
+    content: var(--bs-breadcrumb-divider, url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='14' height='14' stroke='%236c757d' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round' class='css-i6dzq1'%3E%3Cpolyline points='9 18 15 12 9 6'%3E%3C/polyline%3E%3C/svg%3E")) ;
 }
 
 .breadcrumb-item.active {
@@ -6359,7 +6338,6 @@ textarea.is-invalid.dataTable-input {
     border-top-color: var(--bs-tooltip-bg);
 }
 
-/* rtl:begin:ignore */
 .bs-tooltip-end .tooltip-arrow, .bs-tooltip-auto[data-popper-placement^="right"] .tooltip-arrow {
     left: 0;
     width: var(--bs-tooltip-arrow-height);
@@ -6372,7 +6350,6 @@ textarea.is-invalid.dataTable-input {
     border-right-color: var(--bs-tooltip-bg);
 }
 
-/* rtl:end:ignore */
 .bs-tooltip-bottom .tooltip-arrow, .bs-tooltip-auto[data-popper-placement^="bottom"] .tooltip-arrow {
     top: 0;
 }
@@ -6383,7 +6360,6 @@ textarea.is-invalid.dataTable-input {
     border-bottom-color: var(--bs-tooltip-bg);
 }
 
-/* rtl:begin:ignore */
 .bs-tooltip-start .tooltip-arrow, .bs-tooltip-auto[data-popper-placement^="left"] .tooltip-arrow {
     right: 0;
     width: var(--bs-tooltip-arrow-height);
@@ -6396,7 +6372,6 @@ textarea.is-invalid.dataTable-input {
     border-left-color: var(--bs-tooltip-bg);
 }
 
-/* rtl:end:ignore */
 .tooltip-inner {
     max-width: var(--bs-tooltip-max-width);
     padding: var(--bs-tooltip-padding-y) var(--bs-tooltip-padding-x);
@@ -6485,7 +6460,6 @@ textarea.is-invalid.dataTable-input {
     border-top-color: var(--bs-popover-bg);
 }
 
-/* rtl:begin:ignore */
 .bs-popover-end > .popover-arrow, .bs-popover-auto[data-popper-placement^="right"] > .popover-arrow {
     left: calc(-1 * (var(--bs-popover-arrow-height)) - var(--bs-popover-border-width));
     width: var(--bs-popover-arrow-height);
@@ -6506,7 +6480,6 @@ textarea.is-invalid.dataTable-input {
     border-right-color: var(--bs-popover-bg);
 }
 
-/* rtl:end:ignore */
 .bs-popover-bottom > .popover-arrow, .bs-popover-auto[data-popper-placement^="bottom"] > .popover-arrow {
     top: calc(-1 * (var(--bs-popover-arrow-height)) - var(--bs-popover-border-width));
 }
@@ -6536,7 +6509,6 @@ textarea.is-invalid.dataTable-input {
     border-bottom: var(--bs-popover-border-width) solid var(--bs-popover-header-bg);
 }
 
-/* rtl:begin:ignore */
 .bs-popover-start > .popover-arrow, .bs-popover-auto[data-popper-placement^="left"] > .popover-arrow {
     right: calc(-1 * (var(--bs-popover-arrow-height)) - var(--bs-popover-border-width));
     width: var(--bs-popover-arrow-height);
@@ -6557,7 +6529,6 @@ textarea.is-invalid.dataTable-input {
     border-left-color: var(--bs-popover-bg);
 }
 
-/* rtl:end:ignore */
 .popover-header {
     padding: var(--bs-popover-header-padding-y) var(--bs-popover-header-padding-x);
     margin-bottom: 0;
@@ -6710,14 +6681,6 @@ textarea.is-invalid.dataTable-input {
     background-size: 100% 100%;
 }
 
-/* rtl:options: {
-  "autoRename": true,
-  "stringMap":[ {
-    "name"    : "prev-next",
-    "search"  : "prev",
-    "replace" : "next"
-  } ]
-} */
 .carousel-control-prev-icon {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23ffffff' viewBox='0 0 8 8'%3e%3cpath d='M5.25 0l-4 4 4 4 1.5-1.5L4.25 4l2.5-2.5L5.25 0z'/%3e%3c/svg%3e");
 }
@@ -6806,7 +6769,7 @@ textarea.is-invalid.dataTable-input {
 
 @keyframes spinner-border {
     to {
-        transform: rotate(360deg) /* rtl:ignore */;
+        transform: rotate(360deg) ;
     }
 }
 
@@ -9033,13 +8996,11 @@ textarea.is-invalid.dataTable-input {
     white-space: nowrap !important;
 }
 
-/* rtl:begin:remove */
 .text-break {
     word-wrap: break-word !important;
     word-break: break-word !important;
 }
 
-/* rtl:end:remove */
 .text-primary {
     --bs-text-opacity: 1;
     color: rgba(var(--bs-primary-rgb), var(--bs-text-opacity)) !important;
@@ -13371,10 +13332,6 @@ textarea.is-invalid.dataTable-input {
     }
 }
 
-/**  =====================
-      Generic-class css start
-========================== **/
-/*====== Padding , Margin css starts ======*/
 .p-0 {
     padding: 0px;
 }
@@ -13815,8 +13772,6 @@ textarea.is-invalid.dataTable-input {
     margin-right: 50px;
 }
 
-/*====== Padding , Margin css ends ======*/
-/*====== Font-size css starts ======*/
 .f-10 {
     font-size: 10px;
 }
@@ -13961,8 +13916,6 @@ textarea.is-invalid.dataTable-input {
     font-size: 80px;
 }
 
-/*====== Font-size css ends ======*/
-/*====== Font-weight css starts ======*/
 .f-w-100 {
     font-weight: 100;
 }
@@ -13999,8 +13952,6 @@ textarea.is-invalid.dataTable-input {
     font-weight: 900;
 }
 
-/*====== Font-weight css ends ======*/
-/*====== width, Height css starts ======*/
 .wid-10 {
     width: 10px;
 }
@@ -14233,8 +14184,6 @@ textarea.is-invalid.dataTable-input {
     height: 150px;
 }
 
-/*====== width, Height css ends ======*/
-/*====== border-width css starts ======*/
 .b-wid-1 {
     border-width: 1px;
 }
@@ -14267,8 +14216,6 @@ textarea.is-invalid.dataTable-input {
     border-width: 8px;
 }
 
-/*====== border-width css ends ======*/
-/*====== background starts ======*/
 .bg-body {
     background: #f8f9fd !important;
 }
@@ -14449,8 +14396,6 @@ textarea.is-invalid.dataTable-input {
     color: #1c232f !important;
 }
 
-/*====== background ends ======*/
-/*====== border color css starts ======*/
 .b-primary {
     border: 1px solid #51459d;
 }
@@ -14579,8 +14524,6 @@ textarea.is-invalid.dataTable-input {
     fill: #1c232f;
 }
 
-/*====== border color css ends ======*/
-/*====== text-color, background color css starts ======*/
 .bg-facebook {
     background: #3C5A99;
 }
@@ -14677,7 +14620,6 @@ textarea.is-invalid.dataTable-input {
     color: #000;
 }
 
-/*====== text-color css ends ======*/
 .font-hairline {
     font-weight: 100 !important;
 }
@@ -14790,7 +14732,6 @@ textarea.is-invalid.dataTable-input {
     text-transform: none !important;
 }
 
-/*====== more bootstrap colors start ======*/
 .bg-blue-100 {
     color: #212529;
     background: #dcdaeb;
@@ -15286,10 +15227,6 @@ textarea.is-invalid.dataTable-input {
     background: #212529;
 }
 
-/*====== more bootstrap colors end ======*/
-/**  =====================
-      Custom css start
-==========================  **/
 body {
     min-height: 100vh;
     overflow-x: hidden;
@@ -15473,12 +15410,6 @@ strong {
     text-decoration: underline;
 }
 
-/* ========================================================
- ===============     document      ======================
- ========================================================
-
- Grid examples
-*/
 .bd-example-row {
     background: #f8f9fd;
     padding: 15px;
@@ -15509,7 +15440,6 @@ strong {
     background-color: rgba(255, 0, 0, 0.1);
 }
 
-/* Docs examples */
 .bd-example {
     position: relative;
     padding: 1rem;
@@ -15527,7 +15457,6 @@ strong {
     }
 }
 
-/* Example modals */
 .modal {
     z-index: 1072;
 }
@@ -15569,12 +15498,10 @@ strong {
     transform: translate(0);
 }
 
-/* Example tabbable tabs */
 .bd-example-tabs .nav-tabs {
     margin-bottom: 1rem;
 }
 
-/* Code snippets */
 .highlight {
     padding: 1rem;
     margin-top: 1rem;
@@ -15619,7 +15546,6 @@ pre[class*="language-"] {
     background: transparent;
 }
 
-/* ================================    Blockquote Start  ===================== */
 svg.feather:not([class*="wid-"]) {
     width: 20px;
 }
@@ -15684,7 +15610,6 @@ pre[class*="language-"] > code {
     filter: invert(1) grayscale(100%) brightness(200%);
 }
 
-/* ================================    Blockquote End  ===================== */
 a[data-lightbox] {
     cursor: pointer;
 }
@@ -18263,22 +18188,6 @@ body:not(.minimenu) .dash-sidebar .dash-submenu .dash-item {
     position: relative;
 }
 
-/* body:not(.minimenu) .dash-sidebar .dash-submenu .dash-item:before {
-    content: "";
-    position: absolute;
-    left: 40px;
-    top: 16px;
-    width: 8px;
-    height: 8px;
-    border: 2px solid #ced4dc;
-    border-right-color: #51459d;
-    border-radius: 50%;
-    z-index: 1;
-    transform: rotate(45deg);
-    transition: 0.35s cubic-bezier(0.54, 1.6, 0.5, 1);
-    color: #778290;
-} */
-
 body:not(.minimenu) .dash-sidebar .dash-submenu .dash-item.active:before {
     transform: rotate(230deg);
 }
@@ -19239,12 +19148,12 @@ body:not(.minimenu) .dash-sidebar .dash-submenu .dash-submenu .dash-submenu > .d
     position: relative;
     display: block;
     height: 100%;
-  /* Required for horizontal native scrollbar to not appear if parent is taller than natural height */
+  
     width: auto;
     max-width: 100%;
-  /* Not required for horizontal scroll to trigger */
+  
     max-height: 100%;
-  /* Needed for vertical scroll to trigger */
+  
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
@@ -19341,7 +19250,7 @@ body:not(.minimenu) .dash-sidebar .dash-submenu .dash-submenu .dash-submenu > .d
 }
 
 .simplebar-scrollbar.simplebar-visible:before {
-  /* When hovered, remove all transitions from drag handle */
+  
     opacity: 0.5;
     transition: opacity 0s linear;
 }
@@ -19377,7 +19286,6 @@ body:not(.minimenu) .dash-sidebar .dash-submenu .dash-submenu .dash-submenu > .d
     width: auto;
 }
 
-/* Rtl support */
 [data-simplebar-direction='rtl'] .simplebar-track.simplebar-vertical {
     right: auto;
     left: 0;
@@ -23637,9 +23545,6 @@ select.form-control[data-multiselectsplitter-firstselect-selector], select.custo
     color: #ff3a6e;
 }
 
-/**  =====================
-      Authentication css start
-==========================  **/
 .auth-wrapper {
     position: relative;
     display: flex;
@@ -23998,10 +23903,6 @@ select.form-control[data-multiselectsplitter-firstselect-selector], select.custo
     }
 }
 
-/**====== Authentication css end ======**/
-/**  =====================
-      Authentication css start
-==========================  **/
 .auth-wrapper.maintance {
     background: #f8f9fd;
 }
@@ -24225,8 +24126,6 @@ select.form-control[data-multiselectsplitter-firstselect-selector], select.custo
     }
 }
 
-/**====== Authentication css end ======**/
-/* =====================  page start ======================================= */
 .theme-avtar {
     width: 45px;
     height: 45px;
@@ -24691,7 +24590,6 @@ body.theme-10 .team-lists img {
     border-color: #0C7785;
 }
 
-/* ===================== Invoice page start ===================================== */
 .invoice-contact {
     display: flex;
     margin-bottom: 30px;
@@ -24788,7 +24686,6 @@ body.theme-10 .team-lists img {
     background: rgba(255, 255, 255, 0.5);
 }
 
-/* ===================== Invoice page end ======================================= */
 @media screen and (max-width: 768px) {
     .fc .fc-toolbar {
         flex-direction: column;
@@ -24799,9 +24696,6 @@ body.theme-10 .team-lists img {
     }
 }
 
-/**  =====================
-      Help Desk Application css start
-==========================  **/
 .hd-body .excerpt {
     padding: 15px;
     background: #f8f9fd;
@@ -25046,7 +24940,6 @@ body.theme-10 .team-lists img {
     cursor: pointer;
 }
 
-/**====== Help Desk Application css start ======**/
 .fc-view {
     margin-top: 30px;
 }
@@ -25399,9 +25292,6 @@ body.theme-10 .team-lists img {
     border-color: #1c232f;
 }
 
-/**  =====================
-      Icon layouts css start
-==========================  **/
 .i-main .i-block {
     display: inline-flex;
     align-items: center;
@@ -25429,10 +25319,6 @@ body.theme-10 .team-lists img {
     right: 0;
 }
 
-/**====== Icon layouts css end ======**/
-/**  =====================
-      user card css start
-==========================  **/
 .user-card .dropdown-toggle {
     cursor: pointer;
 }
@@ -26054,10 +25940,6 @@ body.theme-10 .team-lists img {
     display: block;
 }
 
-/**====== user card css end ======**/
-/**  =====================
-      e-commerce css start
-==========================  **/
 .prod-likes {
     position: relative;
     padding: 0;
@@ -26329,7 +26211,6 @@ body.theme-10 .team-lists img {
     }
 }
 
-/**====== e-commerce css end ======**/
 .swal-icon--error {
     border-color: #ff3a6e;
 }
@@ -26972,25 +26853,7 @@ body.theme-10 .team-lists img {
 }
 
 .modal.fade.modal-animate {
-  /* Effect 1: Fade in and scale up */
-  /* Effect 2: Slide from the right */
-  /* Effect 3: Slide from the bottom */
-  /* Effect 4: Newspaper */
-  /* Effect 5: fall */
-  /* Effect 6: side fall */
-  /* Effect 7:  slide and stick to top */
-  /* Effect 8: 3D flip horizontal */
-  /* Effect 9: 3D flip vertical */
-  /* Effect 10: 3D sign */
-  /* Effect 11: Super scaled */
-  /* Effect 12:  Just me */
-  /* Effect 13: 3D slit */
-  /* Effect 14:  3D Rotate from bottom */
-  /* Effect 15:  3D Rotate in from left */
-  /* Effect 16:  Blur */
-  /* Effect 17:  Slide in from bottom with perspective on container */
-  /* Effect 18:  Slide from right with perspective on container */
-  /* Effect 19:  Slip in from the top with perspective on container */
+
 }
 
 .modal.fade.modal-animate .modal-dialog {
@@ -27280,9 +27143,7 @@ body.theme-10 .team-lists img {
 }
 
 body {
-  /* Effect 17:  Slide in from bottom with perspective on container */
-  /* Effect 18:  Slide from right with perspective on container */
-  /* Effect 19:  Slip in from the top with perspective on container */
+
 }
 
 body.anim-let-me-in {
@@ -27763,7 +27624,6 @@ body.anim-slip-from-top.modal-open .dash-header {
     border-top-color: 10px solid #51459d;
 }
 
-/* SmartWizard Theme: Default */
 .sw-theme-default {
     border: 1px solid #f1f1f1;
 }
@@ -27843,7 +27703,6 @@ body.anim-slip-from-top.modal-open .dash-header {
     background: rgba(255, 255, 255, 0.75);
 }
 
-/* SmartWizard Theme: Arrows */
 .sw-theme-arrows {
     border: 1px solid #f1f1f1;
 }
@@ -27972,7 +27831,6 @@ body.anim-slip-from-top.modal-open .dash-header {
     border-left-color: #ff3a6e;
 }
 
-/* SmartWizard Theme: Dots */
 .sw-theme-dots > .tab-content > .tab-pane {
     padding: 25px 25px;
 }
@@ -28070,7 +27928,6 @@ body.anim-slip-from-top.modal-open .dash-header {
     background-color: #978fc4;
 }
 
-/* SmartWizard Theme: Progress */
 .sw-theme-progress {
     border: 1px solid #f1f1f1;
 }
@@ -28177,7 +28034,6 @@ body.anim-slip-from-top.modal-open .dash-header {
     padding: 0;
 }
 
-/* Accessibility */
 .tabcontrol > .content > .title,
 .tabcontrol > .steps .current-info,
 .wizard > .content > .title,
@@ -28186,9 +28042,6 @@ body.anim-slip-from-top.modal-open .dash-header {
     left: -999em;
 }
 
-/*
-    Wizard
-*/
 .wizard > .steps {
     position: relative;
     display: block;
@@ -28897,7 +28750,6 @@ body.anim-slip-from-top.modal-open .dash-header {
     border-color: #51459d;
 }
 
-/* nav */
 .tns-controls {
     text-align: center;
     margin-bottom: 10px;
@@ -29003,9 +28855,6 @@ body.anim-slip-from-top.modal-open .dash-header {
     background: #f2f2f2;
 }
 
-/**  =====================
-      Switches css start
-==========================  **/
 .slow .switch-group {
     transition: left 0.7s;
     -webkit-transition: left 0.7s;
@@ -29072,10 +28921,6 @@ body.anim-slip-from-top.modal-open .dash-header {
     border-color: #1c232f !important;
 }
 
-/**====== Switches css end ======**/
-/**  =====================
-      Data Tables css start
-==========================  **/
 .table td,
 .table th {
     border-top: 1px solid #f1f1f1;
@@ -29112,7 +28957,6 @@ body.anim-slip-from-top.modal-open .dash-header {
     border-top: none;
 }
 
-/* Border versions */
 .table-bordered {
     border: 1px solid #f1f1f1;
 }
@@ -29122,17 +28966,14 @@ body.anim-slip-from-top.modal-open .dash-header {
     border: 1px solid #f1f1f1;
 }
 
-/* Zebra-striping */
 .table-striped tbody tr:nth-of-type(2n+1) {
     background-color: rgba(81, 69, 157, 0.03);
 }
 
-/* Hover effect */
 .table-hover tbody tr:hover {
     background-color: rgba(81, 69, 157, 0.03);
 }
 
-/* Table backgrounds */
 .table .thead-dark th {
     color: #fff;
     background-color: #1c232f;
@@ -29162,7 +29003,6 @@ body.anim-slip-from-top.modal-open .dash-header {
     color: #fff;
 }
 
-/* fixed header position */
 table.dataTable.fixedHeader-floating {
     top: calc(70px + 55px) !important;
 }
@@ -29179,9 +29019,6 @@ table.dataTable.fixedHeader-floating {
     }
 }
 
-/**  =====================
-      Foo-table css start
-==========================  **/
 .footable .pagination > .active > a,
 .footable .pagination > .active > span {
     background-color: #51459d;
@@ -29222,8 +29059,6 @@ table.footable-paging-center > tfoot > tr.footable-paging > td {
     border: 0;
 }
 
-/**====== Foo-table css end ======**/
-/**======= basic table css start =======**/
 .table.table-xl td,
 .table.table-xl th {
     padding: 1.25rem 0.8rem;
@@ -29249,7 +29084,6 @@ table.footable-paging-center > tfoot > tr.footable-paging > td {
     padding: 0.4rem 0.8rem;
 }
 
-/**======= basic table css end ======**/
 #row-delete .selected,
 #row-select .selected {
     background-color: #51459d;
@@ -29353,7 +29187,6 @@ table.dataTable tbody > tr.selected th.select-checkbox:after {
     margin-left: -7px;
 }
 
-/**====== Data Tables css end ======**/
 .peity-chart + .peity {
     width: 100%;
     height: 250px;

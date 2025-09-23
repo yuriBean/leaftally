@@ -29,7 +29,6 @@ class MercadoPaymentController extends Controller
     public $secret_key;
     public $public_key;
 
-
     public function paymentConfig()
     {
         if (Auth::check()) {
@@ -48,7 +47,6 @@ class MercadoPaymentController extends Controller
         return $this;
     }
 
-
     public function planPayWithMercado(Request $request)
     {  
 
@@ -59,7 +57,6 @@ class MercadoPaymentController extends Controller
         $authuser       = Auth::user();
         $coupons_id = '';
         if ($plan) {
-            /* Check for code usage */
             $plan->discounted_price = false;
             $price                  = $plan->price;
             if (isset($request->coupon) && !empty($request->coupon)) {
@@ -88,14 +85,11 @@ class MercadoPaymentController extends Controller
             $this->mode = isset($payment_setting['mercado_mode']) ? $payment_setting['mercado_mode'] : '';
             $this->is_enabled = isset($payment_setting['is_mercado_enabled']) ? $payment_setting['is_mercado_enabled'] : 'off';
 
-
             \MercadoPago\SDK::setAccessToken($this->token);
             try {
 
-                // Create a preference object
                 $preference = new \MercadoPago\Preference();
 
-                // Create an item in the preference
                 $item = new \MercadoPago\Item();
                 $item->title = "Plan : " . $plan->name;
                 $item->quantity = 1;
@@ -116,11 +110,8 @@ class MercadoPaymentController extends Controller
                 $preference->auto_return = "approved";
                 $preference->save();
 
-                // Create a customer object
                 $payer = new \MercadoPago\Payer();
 
-
-                // Create payer information
                 $payer->name = \Auth::user()->name;
                 $payer->email = \Auth::user()->email;
                 $payer->address = array(
@@ -132,23 +123,19 @@ class MercadoPaymentController extends Controller
 
                     $redirectUrl = $preference->sandbox_init_point;
                 }
-                // dd($redirectUrl);
                 return redirect($redirectUrl);
             } catch (Exception $e) {
 
                 return redirect()->back()->with('error', $e->getMessage());
             }
-            // callback url :  domain.com/plan/mercado
 
         } else {
             return redirect()->back()->with('error', 'Plan is deleted.');
         }
     }
 
-
     public function getPaymentStatus(Request $request, $plan)
     {
-
 
         $this->paymentConfig();
         $planID         = \Illuminate\Support\Facades\Crypt::decrypt($plan);
@@ -157,9 +144,6 @@ class MercadoPaymentController extends Controller
         $orderID = time();
         if ($plan) {
             $price                  = $plan->price;
-            // dd($price);
-            // try
-            // {
 
             if ($plan && $request->has('status')) {
 
@@ -218,11 +202,6 @@ class MercadoPaymentController extends Controller
             } else {
                 return redirect()->route('plans.index')->with('error', __('Transaction has been failed! '));
             }
-            // }
-            // catch(\Exception $e)
-            // {
-            //     return redirect()->route('plans.index')->with('error', __('Plan not found!'));
-            // }
         }
     }
 
@@ -274,8 +253,6 @@ class MercadoPaymentController extends Controller
 
                 try {
                     $preference = new \MercadoPago\Preference();
-                    // dd($preference);
-                    // Create an item in the preference
                     $item = new \MercadoPago\Item();
                     $item->title = "Retainer : " . $request->retainer_id;
                     $item->quantity = 1;
@@ -293,9 +270,7 @@ class MercadoPaymentController extends Controller
                     $preference->auto_return = "approved";
                     $preference->save();
 
-                    // Create a customer object
                     $payer = new \MercadoPago\Payer();
-                    // Create payer information
                     $payer->name = $user->name;
                     $payer->email = $user->email;
                     $payer->address = array(
@@ -311,7 +286,6 @@ class MercadoPaymentController extends Controller
                 } catch (Exception $e) {
                     return redirect()->back()->with('error', $e->getMessage());
                 }
-                // callback url :  domain.com/plan/mercado
             } else {
                 return redirect()->back()->with('error', 'Enter valid amount.');
             }
@@ -345,8 +319,6 @@ class MercadoPaymentController extends Controller
 
                     if ($request->status == 'approved' && $request->flag == 'success') {
 
-
-
                         $payments = RetainerPayment::create(
                             [
                                 'retainer_id' => $retainer->id,
@@ -374,8 +346,6 @@ class MercadoPaymentController extends Controller
 
                         Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-                        //Twilio Notification
-
                         $setting  = Utility::settingsById($objUser->creatorId());
 
                         $customer = Customer::find($retainer->customer_id);
@@ -392,7 +362,6 @@ class MercadoPaymentController extends Controller
                             Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $retainer->created_by);
                         }
 
-                        // webhook
                         $module = 'New Payment';
 
                         $webhook =  Utility::webhookSetting($module, $retainer->created_by);
@@ -401,17 +370,9 @@ class MercadoPaymentController extends Controller
 
                             $parameter = json_encode($retainer);
 
-                            // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-
                             $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
 
-                            // if ($status == true) {
-                            //     return redirect()->route('payment.index')->with('success', __('Payment successfully created.') . ((isset($smtp_error)) ? '<br> <span class="text-danger">' . $smtp_error . '</span>' : ''));
-                            // } else {
-                            //     return redirect()->back()->with('error', __('Webhook call failed.'));
-                            // }
                         }
-
 
                         if (Auth::check()) {
                             return redirect()->route('customer.retainer.show', \Crypt::encrypt($retainer->id))->with('success', __(' Payment successfully added.'));
@@ -498,8 +459,6 @@ class MercadoPaymentController extends Controller
 
                 try {
                     $preference = new \MercadoPago\Preference();
-                    // dd($preference);
-                    // Create an item in the preference
                     $item = new \MercadoPago\Item();
                     $item->title = "Invoice : " . $request->invoice_id;
                     $item->quantity = 1;
@@ -517,9 +476,7 @@ class MercadoPaymentController extends Controller
                     $preference->auto_return = "approved";
                     $preference->save();
 
-                    // Create a customer object
                     $payer = new \MercadoPago\Payer();
-                    // Create payer information
                     $payer->name = $user->name;
                     $payer->email = $user->email;
                     $payer->address = array(
@@ -535,7 +492,6 @@ class MercadoPaymentController extends Controller
                 } catch (Exception $e) {
                     return redirect()->back()->with('error', $e->getMessage());
                 }
-                // callback url :  domain.com/plan/mercado
             } else {
                 return redirect()->back()->with('error', 'Enter valid amount.');
             }
@@ -569,8 +525,6 @@ class MercadoPaymentController extends Controller
 
                     if ($request->status == 'approved' && $request->flag == 'success') {
 
-
-
                         $payments = InvoicePayment::create(
                             [
                                 'invoice_id' => $invoice->id,
@@ -598,8 +552,6 @@ class MercadoPaymentController extends Controller
 
                         Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-                        //Twilio Notification
-
                         $setting  = Utility::settingsById($objUser->creatorId());
                         $customer = Customer::find($invoice->customer_id);
                         if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -615,7 +567,6 @@ class MercadoPaymentController extends Controller
                             Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $invoice->created_by);
                         }
 
-                        // webhook
                         $module = 'New Payment';
 
                         $webhook =  Utility::webhookSetting($module, $invoice->created_by);
@@ -624,15 +575,8 @@ class MercadoPaymentController extends Controller
 
                             $parameter = json_encode($invoice);
 
-                            // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-
                             $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
 
-                            // if ($status == true) {
-                            //     return redirect()->route('payment.index')->with('success', __('Payment successfully created.') . ((isset($smtp_error)) ? '<br> <span class="text-danger">' . $smtp_error . '</span>' : ''));
-                            // } else {
-                            //     return redirect()->back()->with('error', __('Webhook call failed.'));
-                            // }
                         }
 
                         if (Auth::check()) {

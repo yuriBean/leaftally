@@ -59,9 +59,6 @@
                             <div class="col-md-10 col-12">
                                 <div class="row">
 
-                                    
-
-
                                     <div class="col-md-4 col-sm-12 col-12">
                                         <div class="btn-box">
                                             {{ Form::label('start_date', __('Start Date'), ['class' => 'text-type']) }}

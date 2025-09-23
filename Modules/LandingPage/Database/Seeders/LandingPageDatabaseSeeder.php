@@ -9,11 +9,6 @@ use Modules\LandingPage\Entities\LandingPageSetting;
 
 class LandingPageDatabaseSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         Model::unguard();

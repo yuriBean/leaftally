@@ -1,10 +1,8 @@
 
-/*----------------------------------------------*/
-
 
 .cc-btn[data-cc="accept-all"] {
-    @apply btn btn-primary; /* Tailwind */
-    /* or plain Bootstrap: */
+    @apply btn btn-primary; 
+    
     background-color: #0d6efd;
     color: #fff;
     border: none;
@@ -636,7 +634,6 @@
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAgCAIAAADbtmxLAAAFKUlEQVR42oRXTW8cRRCtV92za2Nj2fkSUggySFiRkDgAx3BCOfMPuHDLgRN/gkj8CY6IG+KC4IIQVxDkhIkUkHCCFJSw3vXauztddPdMz3T39Dgjf8z05+uqV6+qcXQfRIqEyP6n2v6SgCDtX6qI1q7Rjul6m8f12onGv3N4ESo+7Wov6AJVmhyWDSEa0XS3g1Zhmh8j2ZahkRo0FA7WP6xJatssvsv1AeLAd+diEXEncpsYo1O07fIBRGijfJvCAMrRuD1qwhlzRaKNt6yDwjUZ5QezQ2iHQSDnrkEUqat3B8eKP7tD93uj7Zb+NcHdjoSa0tUT+vyR3F3RS6dqvabZFFVNnz6mBwve7Asb2lvy4X/09gz3/pZqhuMrrEsgwqoogeu6YqworGCd/OwKfb9QH83wfqVO/rn49TEdHtDt3cnN09Uvj/DKWt6cmzdAL2/z6VJ9eb3mSnD0WckdMuKmcjs8003eLqS2HbbtJ/ThnN+Z4/bM7E2leo2wocUJFkvZKDzZr473Nl9vmeN95zMc3afLnu7cMkKjBCv78JQetAWpiSdkLkiv6GBJr5/RBwu8NRU6o9+e659umB9uGhvK1r9mQ7J2MVAipgS6QHJMY5/N/pLa0qtBvSQoqnfo2QE9XVH9UK79S9/t4pt3N2qLlCJjG8+b8RYQIhbEOHxMJFzJaI5gFR8fCbUzF5OPfPuzdn/nE/5qn368YSZ7Doc1nlsj8FaHSTGLpRBBY6yCKTtUnLOsYex5JVISntIfhwYa1mn1qg/+sLjoQpy/gChpGPZhRT17vMmYSVdJcw0vPFbexZ1ZWW7V+Q66d1MvppIIJIZGkgHhEqqBobbk8PedOw8rYqy1qay9gC8W53+u1oEPbvTH79Gr12lz0eSoWrzLUm9fzgaU3lvaRQBZbMDf+WvyybfWSsAW3EZa/fx0/sBmm+i5d0i3rk3E0kgsj4yhqU7WRTHUg82GOoRg13ZAUHBx5H0+rTcHtNIyn8guzI5SiyXTIjnmiaZbIMMrkZWf6nIZ2mgaPi0IyRnWc07SRokzoWFLE2OYa5jaEspuPEj4dUjRpk3RwolHiqHk4iRynKQvlKRjojg8uVFvCMOzmGR4ZJ+BHaHYz7OAWrFB4qkEZWSfZjOgHynplC7ztjUJeyQ21cNZAcOoNWGe8eCIR/wUYzKJjkvqNSDISDLGt3GLz/pLugMNLdSaswHXuUx6WmTqAhqJxMhKGBykgS7Gd7qi0HpDpFw0NpkhWCiTmWZticBJiR+dNgq341PdAuKwbUxlAJRcpjy/jDivKc5dQBKshbGckJrJeGswoUAQ6UwpZsQ2HEKtU+phhToMaRoI95hSxC7rZ9vTM8no4BAs1ly1DhWWjFXphUxXqI3MZRJgw54d92UElDel61IARzpb0phikR/HfC/xgTvII66He+kDF2gN3TIVwThvigIokZPao0aM6jlnhRqXVxJGtjlSlPTcRZcVVCq/O/UcCss2QVTSvGxZw7TR+bUBpcFZ4SGl+0naggSlVSAXTzJ2eQ0FL7ApWSgficQ7EvmjIHSS9zTC6FJTwWW9VHqqieikfozrvciWUhLGEZ6FuYgCU/zTXFFz6wOx02zO4/RmSsklcEimchGHPk0lydU6yuVBe4n1G5uxAtmnQ26u/dyHhoyzLava4j7p8tbQQn59E8K+tEUwq4Swt8LoIj+titynyTUaIxBbW3KrtIHTRGtXnrlq0DHHgN0Lo98rXG6Nu+M3VNL2838BBgBPgZMv+u6ESAAAAABJRU5ErkJggg==)
 }
 
-/*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */
 html {
     line-height: 1.15;
     -ms-text-size-adjust: 100%;

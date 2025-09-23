@@ -28,7 +28,6 @@ class YooKassaController extends Controller
         $yookassa_secret_key = $payment_setting['yookassa_secret'];
         $currency = isset($payment_setting['currency']) ? $payment_setting['currency'] : 'USD';
 
-
         $planID = \Illuminate\Support\Facades\Crypt::decrypt($request->plan_id);
         $authuser = Auth::user();
         $plan = Plan::find($planID);
@@ -83,7 +82,6 @@ class YooKassaController extends Controller
                     $authuser->plan = $plan->id;
                     $authuser->save();
 
-
                     if (!empty($authuser->payment_subscription_id) && $authuser->payment_subscription_id != '') {
                         try {
                             $authuser->cancel_subscription($authuser->id);
@@ -111,7 +109,6 @@ class YooKassaController extends Controller
                             'user_id' => $authuser->id,
                         ]
                     );
-
 
                     Session::put('payment_id', $payment['id']);
 
@@ -206,7 +203,6 @@ class YooKassaController extends Controller
 
         try {
             if ($invoice) {
-
 
                 if (is_int((int)$yookassa_shop_id)) {
                     $client = new Client();
@@ -343,7 +339,6 @@ class YooKassaController extends Controller
 
                             Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-                            //Twilio Notification
                             $setting  = Utility::settingsById($objUser->creatorId());
                             $customer = Customer::find($invoice->customer_id);
                             if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -359,7 +354,6 @@ class YooKassaController extends Controller
                                 Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $invoice->created_by);
                             }
 
-                            // webhook
                             $module = 'New Payment';
 
                             $webhook =  Utility::webhookSetting($module, $invoice->created_by);
@@ -368,12 +362,9 @@ class YooKassaController extends Controller
 
                                 $parameter = json_encode($invoice);
 
-                                // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-
                                 $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
 
                             }
-
 
                             if (Auth::check()) {
                                 return redirect()->back()->with('success', __(' Payment successfully added.'));
@@ -419,7 +410,6 @@ class YooKassaController extends Controller
 
         try {
             if ($retainer) {
-
 
                 if (is_int((int)$yookassa_shop_id)) {
                     $client = new Client();
@@ -555,7 +545,6 @@ class YooKassaController extends Controller
 
                             Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-                            //Twilio Notification
                             $setting  = Utility::settingsById($objUser->creatorId());
                             $customer = Customer::find($retainer->customer_id);
                             if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -571,7 +560,6 @@ class YooKassaController extends Controller
                                 Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $retainer->created_by);
                             }
 
-                            // webhook
                             $module = 'New Payment';
 
                             $webhook =  Utility::webhookSetting($module, $retainer->created_by);
@@ -580,12 +568,9 @@ class YooKassaController extends Controller
 
                                 $parameter = json_encode($retainer);
 
-                                // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-
                                 $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
 
                             }
-
 
                             if (Auth::check()) {
                              

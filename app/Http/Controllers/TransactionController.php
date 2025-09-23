@@ -81,7 +81,6 @@ class TransactionController extends Controller
             $filter['startDateRange'] = date('M-Y', $start);
             $filter['endDateRange']   = date('M-Y', $end);
 
-
             if(!empty($request->account))
             {
                 $transactions->where('account', $request->account);
@@ -132,6 +131,5 @@ class TransactionController extends Controller
 
         return $data;
     }
-
 
 }

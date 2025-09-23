@@ -15,10 +15,6 @@ Route::middleware('guest')->group(function () {
     Route::get('/register/{lang}', [RegisteredUserController::class, 'showRegistrationForm'])
                 ->middleware('guest')
                 ->name('register');
-                
-
-    // Route::get('login/{lang}', [AuthenticatedSessionController::class, 'create'])
-    //             ->name('login');
 
 Route::post('/login', [AuthenticatedSessionController::class, 'decideLogin'])->name('login.decide');
 
@@ -42,7 +38,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/2fa/enable', [TwoFactorController::class, 'enable'])->name('2fa.enable');
     Route::post('/2fa/disable',[TwoFactorController::class, 'disable'])->name('2fa.disable');
 
-    // Recovery codes
     Route::post('/2fa/recovery/regenerate', [TwoFactorController::class, 'regenerateRecoveryCodes'])
         ->name('2fa.recovery.regenerate');
     Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])

@@ -50,7 +50,6 @@ class ChartOfAccountController extends Controller
         }
     }
 
-
     public function create()
     {
         $types = ChartOfAccountType::where('created_by',\Auth::user()->creatorId())->get();
@@ -73,7 +72,6 @@ class ChartOfAccountController extends Controller
 
         return view('chartOfAccount.create', compact('account_type'));
     }
-
 
     public function store(Request $request)
     {
@@ -126,12 +124,9 @@ class ChartOfAccountController extends Controller
         }
     }
 
-
     public function show(ChartOfAccount $chartOfAccount)
     {
-        //
     }
-
 
     public function edit(ChartOfAccount $chartOfAccount)
     {
@@ -140,7 +135,6 @@ class ChartOfAccountController extends Controller
 
         return view('chartOfAccount.edit', compact('chartOfAccount', 'types'));
     }
-
 
     public function update(Request $request, ChartOfAccount $chartOfAccount)
     {
@@ -158,7 +152,6 @@ class ChartOfAccountController extends Controller
                 return redirect()->back()->with('error', $messages->first());
             }
 
-
             $chartOfAccount->name        = $request->name;
             $chartOfAccount->code        = $request->code;
             $chartOfAccount->description = $request->description;
@@ -170,7 +163,6 @@ class ChartOfAccountController extends Controller
             return response()->json(['error' => __('Permission denied.')], 401);
         }
     }
-
 
     public function destroy(ChartOfAccount $chartOfAccount)
     {
@@ -186,7 +178,6 @@ class ChartOfAccountController extends Controller
     public function getSubType(Request $request)
     {
         $types = ChartOfAccount::where('sub_type', $request->type)->get()->pluck('name', 'id');
-        // $types->prepend('Select an account', 0);
 
         return response()->json($types);
     }

@@ -10,25 +10,13 @@
         {
             $company_logo=Utility::get_company_logo();
         }
-// $dark_logo    = Utility::getValByName('dark_logo');
-// $img = asset($logo . '/' . (isset($dark_logo) && !empty($dark_logo) ? $dark_logo : 'logo-dark.png'));
 $settings              = Utility::settings();
 @endphp
 
 @extends('layouts.contractheader')
 
 @section('action-btn')
-    {{-- <!-- <div class="float-end">
-        <div class="col-auto pe-0">
-            <a href="{{route('contract.download.pdf',\Crypt::encrypt($contract->id))}}" target="_blanks" class="btn btn-sm btn-primary btn-icon-only width-auto" title="{{__('Download')}}" ><i class="ti ti-download"></i> {{__('Download')}}</a>
-        </div>
-
-        <div class="col-auto pe-0">
-            <a href="#" class="btn btn-sm btn-primary btn-icon" data-url="{{ route('signature',$contract->id) }}" data-ajax-popup="true" data-title="{{__('Create New contracts')}}" data-size="lg" title="{{__('Signature')}}" data-bs-toggle="tooltip" data-bs-placement="top">
-                <i class="ti ti-pencil"></i> {{ __('Signature') }}
-            </a>
-        </div>
-    </div> --> --}}
+    {{--  --}}
 @endsection
 
 @section('content')
@@ -74,15 +62,11 @@ $settings              = Utility::settings();
                                 <h6 class="d-inline-block m-0 d-print-none">{{__('Type   :')}}</h6>
                                 <span class="col-md-8"><span class="text-md">{{ $contract->types->name  }}</span></span>
                             </div>
-                            <!-- <div class="col-lg-6 col-md-8 mt-3">
-                                <h6 class="d-inline-block m-0 d-print-none">{{__('Contract Number   :')}}</h6>
-                                <span class="col-md-8"><span class="text-md">{{$contract->id}}</span></span>
-                            </div> -->
+                            
                             <div class="col-lg-6 col-md-8 mt-3">
                                 <h6 class="d-inline-block m-0 d-print-none">{{__('Value  :')}}</h6>
                                 <span class="col-md-8"><span class="text-md">{{Auth::user()->priceFormat($contract->value) }}</span></span>
                             </div>
-
 
                             </div>
                             <div class="col-sm-6 text-sm-end">
@@ -122,13 +106,11 @@ $settings              = Utility::settings();
                         </div>
                     </div>
 
-
                 </div>
 
             </div>
         </div>
     </div>
-
 
 </div>
 {{-- @if(!isset($preview))

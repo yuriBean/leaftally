@@ -117,7 +117,6 @@
                                     </div>
                                 </div>
 
-
                                 <div class="row">
                                     @if (!empty($vendor->billing_name))
                                         <div class="col-md-6">
@@ -203,7 +202,6 @@
                                         </div>
                                     </div>
                                 </div>
-
 
                             </div>
                         </div>

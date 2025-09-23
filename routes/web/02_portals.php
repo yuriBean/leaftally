@@ -9,7 +9,6 @@ use App\Http\Controllers\{
 };
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
-// ==================== Customer Portal ====================
 Route::middleware(['auth', 'XSS', 'revalidate', '2fa'])->group(function () {
 Route::prefix('customer')->as('customer.')->group(function () {
     Route::get('login/{lang}', [AuthenticatedSessionController::class, 'showCustomerLoginLang'])->name('login.lang');
@@ -50,7 +49,6 @@ Route::prefix('customer')->as('customer.')->group(function () {
     Route::post('change.password', [CustomerController::class, 'updatePassword'])->name('update.password')->middleware(['auth:customer']);
     Route::get('change-language/{lang}', [CustomerController::class, 'changeLanquage'])->name('change.language')->middleware(['auth:customer']);
 
-    // Customer-side Contracts
     Route::resource('contract', ContractController::class)->middleware(['auth:customer']);
     Route::post('contract/{id}/description', [ContractController::class, 'descriptionStore'])->name('contract.description.store')->middleware(['auth:customer']);
     Route::post('contract/{id}/file', [ContractController::class, 'fileUpload'])->name('contract.file.upload')->middleware(['auth:customer']);
@@ -65,7 +63,6 @@ Route::prefix('customer')->as('customer.')->group(function () {
     Route::get('/contract/{id}/note', [ContractController::class, 'noteDestroy'])->name('contract.note.destroy')->middleware(['auth:customer']);
     Route::post('/contract_status_edit/{id}', [ContractController::class, 'contract_status_edit'])->name('contract.status')->middleware(['auth:customer']);
 
-    // Customer-side Gateways (invoice & retainer)
     Route::post('/paymentwall', [PaymentWallPaymentController::class, 'invoicepaymentwall'])->name('invoice.paymentwallpayment');
 
     Route::post('{id}/invoice-with-paypal', [PaypalController::class, 'customerPayWithPaypal'])->name('invoice.with.paypal');
@@ -118,7 +115,6 @@ Route::prefix('customer')->as('customer.')->group(function () {
     Route::get('/retainer/coingate/{retainer}/{amount}', [CoingatePaymentController::class, 'getRetainerPaymentStatus'])->name('retainer.coingate');
 });
 
-// ==================== Vendor Portal ====================
 Route::prefix('vender')->as('vender.')->group(function () {
     Route::get('login/{lang}', [AuthenticatedSessionController::class, 'showVenderLoginLang'])->name('login.lang');
     Route::get('login', [AuthenticatedSessionController::class, 'showVenderLoginForm'])->name('login');

@@ -8,7 +8,6 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('product_services', function (Blueprint $table) {
-            // integer, nullable, for products only (services can stay null)
             $table->unsignedInteger('reorder_level')->nullable()->after('quantity');
         });
     }

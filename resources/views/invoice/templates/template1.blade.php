@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $settings['company_name'] ?? 'Invoice' }} - Invoice #{{ Auth::user()->invoiceNumberFormat($invoice->invoice_id) }}</title>
+    <title>{{ $settings['company_name'] ?? 'Invoice' }} - Invoice
     <meta name="author" content="{{ $settings['company_name'] ?? '' }}">
     <meta name="subject" content="Invoice Document">
     <meta name="keywords" content="invoice, billing, {{ $settings['company_name'] ?? '' }}">
@@ -49,14 +49,14 @@
             --theme-color: {{ $color }};
             --theme-light: {{ $color }}20;
             --theme-gradient: linear-gradient(135deg, {{ $color }} 0%, {{ $color }}DD 100%);
-            --white: #ffffff;
-            --black: #1a1a1a;
-            --gray-50: #f9fafb;
-            --gray-100: #f3f4f6;
-            --gray-200: #e5e7eb;
-            --gray-300: #d1d5db;
-            --gray-600: #4b5563;
-            --gray-800: #1f2937;
+            --white:
+            --black:
+            --gray-50:
+            --gray-100:
+            --gray-200:
+            --gray-300:
+            --gray-600:
+            --gray-800:
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
             --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
@@ -67,7 +67,7 @@
             font-size: 14px;
             line-height: 1.6;
             color: var(--gray-800);
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg,
             min-height: 100vh;
             padding: 20px 0;
         }
@@ -375,17 +375,17 @@
         }
 
         .badge-paid {
-            background: #10b981;
+            background:
             color: white;
         }
 
         .badge-pending {
-            background: #f59e0b;
+            background:
             color: white;
         }
 
         .badge-overdue {
-            background: #ef4444;
+            background:
             color: white;
         }
 
@@ -442,7 +442,6 @@
                                     {{ __('INVOICE') }}
                                 </h1>
                                 <div style="font-size: 18px; font-weight: 500; margin-top: 8px; opacity: 0.9;">
-                                    #{{ Utility::invoiceNumberFormat($settings, $invoice->invoice_id) }}
                                 </div>
                             </div>
                         </td>

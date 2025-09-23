@@ -11,7 +11,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style type="text/css">
-        #outlook a {
             padding: 0;
         }
 
@@ -182,7 +181,6 @@
                                                             </div>
                                                         </td>
                                                     </tr>
-
 
                                                     <tr>
                                                         <td align="left" style="font-size:0px;padding:0px 25px 0px 25px;padding-top:0px;padding-right:50px;padding-bottom:0px;padding-left:50px;word-break:break-word;">

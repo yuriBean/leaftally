@@ -10,7 +10,7 @@
 {{ Form::open(['url' => 'plans', 'class' => 'needs-validation', 'novalidate']) }}
 
 <div class="modal-body p-0">
-  <!-- Top bar -->
+  
   <div class="d-flex align-items-center justify-content-between px-4 py-3 border-bottom bg-white sticky-top" style="top:0;z-index:2;">
     <div class="d-flex align-items-center gap-2">
       <span class="badge text-bg-success rounded-pill d-inline-flex align-items-center justify-content-center" style="width:36px;height:36px;">
@@ -41,7 +41,6 @@
 
   <div class="px-4 py-4">
 
-    <!-- BASICS -->
     <div class="card border-0 shadow-sm mb-4">
       <div class="card-header bg-white border-0">
         <div class="fw-semibold">{{ __('Basics') }}</div>
@@ -91,7 +90,6 @@
       </div>
     </div>
 
-    <!-- GLOBAL LIMITS (only storage; max users/customers/vendors/employees removed) -->
     <div class="card border-0 shadow-sm mb-4">
       <div class="card-header bg-white border-0">
         <div class="fw-semibold">{{ __('Global Limits') }}</div>
@@ -111,7 +109,6 @@
       </div>
     </div>
 
-    <!-- FEATURES MATRIX -->
     <div class="card border-0 shadow-sm">
       <div class="card-header bg-white border-0">
         <div class="fw-semibold">{{ __('Feature Matrix') }}</div>
@@ -204,12 +201,10 @@
   (function () {
     const root = $('#commonModal').length ? $('#commonModal') : $(document);
 
-    // Trial show/hide
     root.on('change', '#trial', function(){
       root.find('.plan_div').toggleClass('d-none', !this.checked);
     });
 
-    // Enable/disable quotas only for toggled features
     const pairs = {
       'user_access_management' : 'max_users',
       'payroll_enabled'        : 'payroll_quota',

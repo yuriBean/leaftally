@@ -9,29 +9,24 @@ return new class extends Migration {
     {
         Schema::create('pending_users', function (Blueprint $table) {
             $table->id();
-            // Basic registration data
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('password'); // hashed
+            $table->string('password');
             $table->string('lang')->nullable();
-            $table->string('referral_code')->nullable();      // generated for new user record
-            $table->string('used_referral_code')->nullable(); // incoming code from form, if any
+            $table->string('referral_code')->nullable();
+            $table->string('used_referral_code')->nullable();
 
-            // OTP
-            $table->string('otp_hash');              // hashed 6-digit
+            $table->string('otp_hash');
             $table->timestamp('otp_expires_at');
             $table->unsignedTinyInteger('otp_attempts')->default(0);
             $table->timestamp('otp_verified_at')->nullable();
 
-            // Flow state
             $table->enum('status', ['otp_sent','verified','checkout_started','paid','abandoned'])
                   ->default('otp_sent');
 
-            // Plan + checkout
             $table->unsignedBigInteger('selected_plan_id')->nullable()->index();
             $table->string('stripe_session_id')->nullable()->index();
 
-            // Meta
             $table->string('ip')->nullable();
             $table->text('user_agent')->nullable();
 

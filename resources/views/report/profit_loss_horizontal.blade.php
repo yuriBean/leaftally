@@ -7,7 +7,6 @@
     <li class="breadcrumb-item">{{ __('Profit & Loss') }}</li>
 @endsection
 
-
 @push('script-page')
     <script type="text/javascript" src="{{ asset('js/html2pdf.bundle.min.js') }}"></script>
     <script>
@@ -216,7 +215,6 @@
                                                                     </p>
                                                                 @endif
 
-
                                                             </div>
                                                         @endif
 
@@ -392,7 +390,6 @@
                                                                         {{ \Auth::user()->priceFormat($record['netAmount']) }}
                                                                     </p>
                                                                 @endif
-
 
                                                             </div>
                                                         @endif

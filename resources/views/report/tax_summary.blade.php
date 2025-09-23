@@ -38,7 +38,6 @@
     </div>
 @endsection
 
-
 @section('content')
     <div class="row">
         <div class="col-sm-12">
@@ -57,7 +56,6 @@
                                         </div>
                                     </div>
 
-
                                 </div>
                             </div>
                             <div class="col-md-2 col-12">
@@ -72,7 +70,6 @@
                                             <span class="btn-inner--icon"><i class="ti ti-refresh text-white-off "></i></span>
                                         </a>
 
-
                                     </div>
 
                                 </div>
@@ -84,7 +81,6 @@
             </div>
         </div>
     </div>
-
 
     <div id="printableArea">
         {{-- <div class="row mt-3">
@@ -174,5 +170,4 @@
         </div>
     </div>
 @endsection
-
 

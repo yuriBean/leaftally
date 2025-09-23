@@ -93,9 +93,6 @@ class ContractTypeController extends Controller
         return redirect()->route('contractType.index')->with('success', __('Contract Type successfully deleted.'));
     }
 
-    /**
-     * BULK DELETE
-     */
     public function bulkDestroy(Request $request)
     {
         if (!\Auth::user()->can('delete constant contract type')) {
@@ -153,9 +150,6 @@ class ContractTypeController extends Controller
         return redirect()->back()->with($deleted ? 'success' : 'error', $message);
     }
 
-    /**
-     * EXPORT ALL
-     */
     public function export()
     {
         if (!\Auth::user()->can('manage constant contract type')) {
@@ -169,9 +163,6 @@ class ContractTypeController extends Controller
         return Excel::download(new ContractTypeExport(), $file);
     }
 
-    /**
-     * EXPORT SELECTED
-     */
     public function exportSelected(Request $request)
     {
         if (!\Auth::user()->can('manage constant contract type')) {

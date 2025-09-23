@@ -36,7 +36,6 @@
     </div>
 @endsection
 
-
 @section('content')
     <div class="">
         <h2 class="mb-3 f-w-600">{{__('Sign in')}}</h2>
@@ -125,7 +124,6 @@
     });
 </script>
 
-
 @if (isset($settings['recaptcha_module']) && $settings['recaptcha_module'] == 'yes')
     @if (isset($settings['google_recaptcha_version']) && $settings['google_recaptcha_version'] == 'v2-checkbox')
         {!! NoCaptcha::renderJs() !!}
@@ -144,6 +142,4 @@
         </script>
     @endif
 @endif
-
-
 

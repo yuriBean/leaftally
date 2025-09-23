@@ -25,7 +25,6 @@
     <li class="breadcrumb-item">{{ __('Landing Page') }}</li>
 @endsection
 
-
 @section('content')
     <div class="row">
         <div class="col-sm-12">

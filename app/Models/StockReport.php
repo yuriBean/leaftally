@@ -19,7 +19,6 @@ class StockReport extends Model
 
     public function product()
     {
-        // show even if product was soft-deleted
         return $this->hasOne('App\Models\ProductService', 'id', 'product_id')->withTrashed();
     }
 

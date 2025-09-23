@@ -35,7 +35,7 @@
     <div class="row gutters-xs">
         @foreach (App\Models\Utility::templateData()['colors'] as $key => $hexNoHash)
             @php
-                $hex = '#'.$hexNoHash; // store with leading '#', same as the old color input
+                $hex = '#'.$hexNoHash;
             @endphp
             <div class="col-auto">
                 <label class="colorinput" title="{{ $hex }}">
@@ -50,7 +50,6 @@
     <small class="text-muted d-block mt-1">{{ __('For chart representation') }}</small>
 </div>
 
-
     </div>
     </div>
 </div>
@@ -61,8 +60,6 @@
 {{ Form::close() }}
 
 <script>
-
-    //hide & show chartofaccount
 
     $(document).on('click', '.cattype', function ()
     {
@@ -75,7 +72,6 @@
             $('.account').removeClass('d-block');
         }
     });
-
 
     $(document).on('change', '#type', function () {
         var type = $(this).val();

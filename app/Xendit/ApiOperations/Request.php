@@ -1,39 +1,11 @@
 <?php
 
-/**
- * Request.php
- * php version 7.2.0
- *
- * @category Trait
- * @package  Xendit\ApiOperations
- * @author   Ellen <ellen@xendit.co>
- * @license  https://opensource.org/licenses/MIT MIT License
- * @link     https://api.xendit.co
- */
-
 namespace App\Xendit\ApiOperations;
 
 use App\Xendit\Exceptions\InvalidArgumentException;
 
-/**
- * Trait Request
- *
- * @category Trait
- * @package  Xendit\ApiOperations
- * @author   Ellen <ellen@xendit.co>
- * @license  https://opensource.org/licenses/MIT MIT License
- * @link     https://api.xendit.co
- */
 trait Request
 {
-    /**
-     * Parameters validation
-     *
-     * @param array $params         user's parameters
-     * @param array $requiredParams required parameters
-     *
-     * @return void
-     */
     protected static function validateParams($params = [], $requiredParams = [])
     {
         $currParams = array_diff_key(array_flip($requiredParams), $params);
@@ -48,16 +20,6 @@ trait Request
         }
     }
 
-    /**
-     * Send request to Api Requestor
-     *
-     * @param $method string
-     * @param $url    string ext url to the API
-     * @param $params array parameters
-     *
-     * @return array
-     * @throws \Xendit\Exceptions\ApiException
-     */
     protected static function _request(
         $method,
         $url,

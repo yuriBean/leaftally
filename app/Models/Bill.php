@@ -27,13 +27,11 @@ class Bill extends Model
 
     public function vender()
     {
-        // show even if vendor was soft-deleted later
         return $this->belongsTo('App\Models\Vender', 'vender_id', 'id')->withTrashed();
     }
 
     public function tax()
     {
-        // Tax uses SoftDeletes -> include trashed to preserve history
         return $this->hasOne('App\Models\Tax', 'id', 'tax_id')->withTrashed();
     }
 
@@ -106,7 +104,6 @@ class Bill extends Model
 
     public function category()
     {
-        // include deleted categories
         return $this->hasOne('App\Models\ProductServiceCategory', 'id', 'category_id')->withTrashed();
     }
 
@@ -127,13 +124,11 @@ class Bill extends Model
 
     public function taxes()
     {
-        // keep this relation; include trashed for safety
         return $this->hasOne('App\Models\Tax', 'id', 'tax')->withTrashed();
     }
 
     public static function vendor($venders)
     {
-        // ensure names show even if vendor was soft-deleted
         $categoryArr = explode(',', $venders);
         $unitRate = 0;
         foreach ($categoryArr as $venderId) {
@@ -150,7 +145,6 @@ class Bill extends Model
 
     public static function ProposalCategory($category)
     {
-        // ensure deleted category still shows
         $categoryArr = explode(',', $category);
         $categoryRate = 0;
         foreach ($categoryArr as $catId) {

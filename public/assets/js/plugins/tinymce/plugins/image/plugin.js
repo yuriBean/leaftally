@@ -1,11 +1,3 @@
-/**
- * Copyright (c) Tiny Technologies, Inc. All rights reserved.
- * Licensed under the LGPL or a commercial license.
- * For LGPL see License.txt in the project root for license information.
- * For commercial licenses see https://www.tiny.cloud/
- *
- * Version: 5.10.3 (2022-02-09)
- */
 (function () {
     'use strict';
 
@@ -1211,7 +1203,7 @@
       };
     };
     var addPrependUrl2 = function (info, srcURL) {
-      if (!/^(?:[a-zA-Z]+:)?\/\//.test(srcURL)) {
+      if (!/^(?:[a-zA-Z]+:)?\/\
         return info.prependURL.bind(function (prependUrl) {
           if (srcURL.substring(0, prependUrl.length) !== prependUrl) {
             return Optional.some(prependUrl + srcURL);

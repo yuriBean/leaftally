@@ -18,7 +18,6 @@ use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 
-
 class PayFastController extends Controller
 {
     protected $invoiceData, $payfast_merchant_id, $payfast_merchant_key, $payfast_signature, $payfast_mode, $is_enabled;
@@ -43,11 +42,8 @@ class PayFastController extends Controller
     {
         if (Auth::check()) {
 
-
             $planID = Crypt::decrypt($request->plan_id);
             $plan                 = Plan::find($planID);
-
-            // $user      = User::find($plan->created_by);
 
             $settings = Utility::settingsById($plan->created_by);
 
@@ -55,7 +51,6 @@ class PayFastController extends Controller
             $admin = Utility::getAdminPaymentSetting();
 
             $payment_setting   = $this->paymentConfig();
-
 
             if ($plan) {
 
@@ -119,18 +114,15 @@ class PayFastController extends Controller
                 ]);
 
                 $data = array(
-                    // Merchant details
                     'merchant_id' => !empty($payment_setting->payfast_merchant_id) ? $payment_setting->payfast_merchant_id : '',
                     'merchant_key' => !empty($payment_setting->payfast_merchant_key) ? $payment_setting->payfast_merchant_key : '',
                     'return_url' => route('payfast.payment.success', $success),
                     'cancel_url' => route('plans.index'),
                     'notify_url' => route('plans.index'),
-                    // Buyer details
                     'name_first' => $user->name,
                     'name_last' => '',
                     'email_address' => $user->email,
-                    // Transaction details
-                    'm_payment_id' => $order_id, //Unique payment ID to pass through to notify_url
+                    'm_payment_id' => $order_id,
                     'amount' => number_format(sprintf('%.2f', $plan_amount), 2, '.', ''),
                     'item_name' => $plan->name,
                 );
@@ -178,8 +170,6 @@ class PayFastController extends Controller
             $user = Auth::user();
             $data = Crypt::decrypt($success);
 
-            // Utility::referralTransaction($plan);
-
             $order = new Order();
             $order->order_id = $data['order_id'];
             $order->name = $user->name;
@@ -220,7 +210,6 @@ class PayFastController extends Controller
 
         $payment_setting   = $this->paymentConfig();
 
-
         if (Auth::check()) {
             $settings = \DB::table('settings')->where('created_by', '=', \Auth::user()->creatorId())->get()->pluck('value', 'name');
             $user     = \Auth::user();
@@ -237,18 +226,13 @@ class PayFastController extends Controller
         ]);
 
         $data = array(
-            // Merchant details
             'merchant_id' => !empty($payment_setting->payfast_merchant_id) ? $payment_setting->payfast_merchant_id : '',
             'merchant_key' => !empty($payment_setting->payfast_merchant_key) ? $payment_setting->payfast_merchant_key : '',
             'return_url' => route('invoice.payfast.status', $success),
-            // 'cancel_url' => route('invoice.show'),
-            // 'notify_url' => route('invoice.show'),
-            // Buyer details
             'name_first' => $user->name,
             'name_last' => '',
             'email_address' => $user->email,
-            // Transaction details
-            'm_payment_id' => $order_id, // Unique payment ID to pass through to notify_url
+            'm_payment_id' => $order_id,
             'amount' => number_format(sprintf('%.2f', $get_amount), 2, '.', ''),
             'item_name' => $user->name,
         );
@@ -279,19 +263,11 @@ class PayFastController extends Controller
             $objUser = \Auth::user();
             $settings = \DB::table('settings')->where('created_by', '=', \Auth::user()->creatorId())->get()->pluck('value', 'name');
             $user     = \Auth::user();
-            //            $this->setApiContext();
         } else {
             $user = User::where('id', $invoice->created_by)->first();
             $settings = Utility::settingById($invoice->created_by);
             $objUser = $user;
-            //            $this->non_auth_setApiContext($invoice->created_by);
         }
-
-
-
-        // $payment_id = \Session::get('PayerID');
-
-        // \Session::forget('PayerID');
 
         if (empty($request->PayerID || empty($request->token))) {
             return redirect()->back()->with('error', __('Payment failed'));
@@ -350,7 +326,6 @@ class PayFastController extends Controller
 
             Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-            // Twilio 
             $setting  = Utility::settingsById($objUser->creatorId());
             $customer = Customer::find($invoice->customer_id);
 
@@ -364,11 +339,9 @@ class PayFastController extends Controller
                     'user_name' => $objUser->name,
                 ];
 
-
                 Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $invoice->created_by);
             }
 
-            // webhook
             $module = 'New Payment';
 
             $webhook =  Utility::webhookSetting($module, $invoice->created_by);
@@ -377,15 +350,8 @@ class PayFastController extends Controller
 
                 $parameter = json_encode($invoice);
 
-                // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-
                 $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
 
-                // if ($status == true) {
-                //     return redirect()->route('payment.index')->with('success', __('Payment successfully created.') . ((isset($smtp_error)) ? '<br> <span class="text-danger">' . $smtp_error . '</span>' : ''));
-                // } else {
-                //     return redirect()->back()->with('error', __('Webhook call failed.'));
-                // }
             }
 
             if (Auth::check()) {
@@ -417,7 +383,6 @@ class PayFastController extends Controller
 
         $payment_setting   = $this->paymentConfig();
 
-
         if (Auth::check()) {
             $settings = \DB::table('settings')->where('created_by', '=', \Auth::user()->creatorId())->get()->pluck('value', 'name');
             $user     = \Auth::user();
@@ -434,32 +399,23 @@ class PayFastController extends Controller
             'retainer_amount' => $get_amount
         ]);
 
-
         $data = array(
-            // Merchant details
             'merchant_id' => !empty($payment_setting->payfast_merchant_id) ? $payment_setting->payfast_merchant_id : '',
             'merchant_key' => !empty($payment_setting->payfast_merchant_key) ? $payment_setting->payfast_merchant_key : '',
             'return_url' => route('retainer.payfast.status', $success),
-            // 'cancel_url' => route('invoice.show'),
-            // 'notify_url' => route('invoice.show'),
-            // Buyer details
             'name_first' => $user->name,
             'name_last' => '',
             'email_address' => $user->email,
-            // Transaction details
-            'm_payment_id' => $order_id, // Unique payment ID to pass through to notify_url
+            'm_payment_id' => $order_id,
             'amount' => number_format(sprintf('%.2f', $get_amount), 2, '.', ''),
             'item_name' => $user->name,
         );
 
-
         $passphrase = !empty($payment_setting->payfast_signature) ? $payment_setting->payfast_signature : '';
-
 
         $signature = $this->generateSignature($data, $passphrase);
 
         $data['signature'] = $signature;
-
 
         $htmlForm = '';
 
@@ -483,19 +439,11 @@ class PayFastController extends Controller
             $objUser = \Auth::user();
             $settings = \DB::table('settings')->where('created_by', '=', \Auth::user()->creatorId())->get()->pluck('value', 'name');
             $user     = \Auth::user();
-            //            $this->setApiContext();
         } else {
             $user = User::where('id', $retainer->created_by)->first();
             $settings = Utility::settingById($retainer->created_by);
             $objUser = $user;
-            //            $this->non_auth_setApiContext($invoice->created_by);
         }
-
-
-
-        // $payment_id = \Session::get('PayerID');
-
-        // \Session::forget('PayerID');
 
         if (empty($request->PayerID || empty($request->token))) {
             return redirect()->back()->with('error', __('Payment failed'));
@@ -553,7 +501,6 @@ class PayFastController extends Controller
 
             Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-            // Twilio 
             $setting  = Utility::settingsById($objUser->creatorId());
             $customer = Customer::find($retainer->customer_id);
 
@@ -567,11 +514,9 @@ class PayFastController extends Controller
                     'user_name' => $objUser->name,
                 ];
 
-
                 Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $retainer->created_by);
             }
 
-            // webhook
             $module = 'New Payment';
 
             $webhook =  Utility::webhookSetting($module, $retainer->created_by);
@@ -580,15 +525,8 @@ class PayFastController extends Controller
 
                 $parameter = json_encode($retainer);
 
-                // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-
                 $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
 
-                // if ($status == true) {
-                //     return redirect()->route('payment.index')->with('success', __('Payment successfully created.') . ((isset($smtp_error)) ? '<br> <span class="text-danger">' . $smtp_error . '</span>' : ''));
-                // } else {
-                //     return redirect()->back()->with('error', __('Webhook call failed.'));
-                // }
             }
 
             if (Auth::check()) {

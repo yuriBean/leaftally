@@ -25,21 +25,7 @@ class PayHereController extends Controller
     public $paymentSetting;
     public function __construct()
     {
-        // $paymentSetting = Utility::getAdminPaymentSetting();
-        // $config = [
-        //     'payhere.api_endpoint' => isset($paymentSetting['payhere_mode']) && $paymentSetting['payhere_mode'] === 'sandbox'
-        //         ? 'https://sandbox.payhere.lk/'
-        //         : 'https://www.payhere.lk/',
-        // ];
 
-        // $config['payhere.merchant_id']      = $paymentSetting['payhere_merchant_id'] ?? '';
-        // $config['payhere.merchant_secret']  = $paymentSetting['payhere_merchant_secret'] ?? '';
-        // $config['payhere.app_secret']       = $paymentSetting['payhere_app_secret'] ?? '';
-        // $config['payhere.app_id']           = $paymentSetting['payhere_app_id'] ?? '';
-
-        // config($config);
-
-        // $this->paymentSetting = $paymentSetting;
     }
 
     public function planPayWithPayHere(Request $request)
@@ -169,7 +155,7 @@ class PayHereController extends Controller
     {
         if ($request->success == 1) {
             $info = PayHere::retrieve()
-                ->orderId($request->order_id) // order number that you use to charge from customer
+                ->orderId($request->order_id)
                 ->submit();
 
             if ($info['data'][0]['order_id'] == $request->order_id) {
@@ -179,7 +165,6 @@ class PayHereController extends Controller
                     $plan = Plan::find($planID);
 
                     Utility::referralTransaction($plan);
-
 
                     $order                 = new Order();
                     $order->order_id       = $request->order_id;
@@ -391,6 +376,5 @@ class PayHereController extends Controller
             return redirect()->route('retainers.index')->with('error', __('Retainer payment failed.'));
         }
     }
-    
-    
+
 }

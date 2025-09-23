@@ -5,8 +5,7 @@
         <div class="row">
 
             <input type="hidden" name="contract_id" value="{{$contract->id}}">
-           
-            
+
             <div class="form-control" >
                 <canvas id="signature-pad" class="signature-pad" height=200 ></canvas>
                 <input type="hidden" @if(Auth::user()->type == 'company')name="company_signature" @else name="customer_signature" @endif id="SignupImage1">
@@ -46,7 +45,6 @@ else
             this.saveButton = document.getElementById('addSig');
                 signaturePad = new SignaturePad(this.canvas);
 
-
                 this.clearButton.addEventListener('click', function (event) {
                 
                     signaturePad.clear();
@@ -55,7 +53,6 @@ else
                 this.saveButton.addEventListener('click', function (event) {
                     var data = signaturePad.toDataURL('image/png');
                     $('#SignupImage1').val(data);
-
 
                     $.ajax({
                     url: '{{$route}}',
@@ -67,16 +64,8 @@ else
                     },
                     error: function (data) {
 
-               
-                        // data = data.responseJSON;
-                        // if (data.message) {
-                        //     show_toastr('error', data.message);
-                        // } else {
-                        //     show_toastr('error', 'Some Thing Is Wrong!');
-                        // }
                     }
                 });
-
 
                 });
             

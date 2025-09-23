@@ -13,7 +13,7 @@
 <div id="payment-form-container"> </div>
 <script>
 var brick = new Brick({
-  public_key: '{{ $admin_payment_setting['paymentwall_public_key'] }}', // please update it to Brick live key before launch your project
+  public_key: '{{ $admin_payment_setting['paymentwall_public_key'] }}',
   amount: '{{$plan->price }}' ,
   currency: '{{App\Models\Utility::getValByName('site_currency')}}',
   container: 'payment-form-container',
@@ -22,8 +22,8 @@ var brick = new Brick({
     merchant: 'Paymentwall',
     product: '{{$plan->name}}',
     pay_button: 'Pay',
-    show_zip: true, // show zip code
-    show_cardholder: true // show card holder name
+    show_zip: true,
+    show_cardholder: true
   }
 });
 brick.showPaymentForm(function(data) {

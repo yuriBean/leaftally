@@ -42,13 +42,8 @@
                        max_size: 2048
                    });
                }
-               // for item SearchBox ( this function is  custom Js )
                JsSearchBox();
-   
-               // if($('.select2').length) {
-               //     $('.select2').select2();
-               // }
-   
+
            },
            hide: function(deleteElement) {
                if (confirm('Are you sure you want to delete this element?')) {
@@ -163,17 +158,13 @@
                $(el.parent().parent().find('.tax')).val(tax);
                $(el.parent().parent().find('.unit')).html(item.unit);
                $(el.parent().parent().find('.discount')).val(0);
-   
-   
-   
+
                var inputs = $(".amount");
                var subTotal = 0;
                for (var i = 0; i < inputs.length; i++) {
                    subTotal = parseFloat(subTotal) + parseFloat($(inputs[i]).html());
                }
-   
-   
-   
+
                var totalItemPrice = 0;
                var priceInput = $('.price');
                for (var j = 0; j < priceInput.length; j++) {
@@ -220,8 +211,7 @@
        var totalItemPrice = (quantity * price) - discount;
    
        var amount = (totalItemPrice);
-   
-   
+
        var totalItemTaxRate = $(el.find('.itemTaxRate')).val();
        var itemTaxPrice = parseFloat((totalItemTaxRate / 100) * (totalItemPrice));
        $(el.find('.itemTaxPrice')).val(itemTaxPrice.toFixed(2));
@@ -233,8 +223,7 @@
        for (var j = 0; j < itemTaxPriceInput.length; j++) {
            totalItemTaxPrice += parseFloat(itemTaxPriceInput[j].value);
        }
-   
-   
+
        var totalItemPrice = 0;
        var inputs_quantity = $(".quantity");
    
@@ -269,8 +258,7 @@
        var totalItemPrice = (quantity * price) - discount;
    
        var amount = (totalItemPrice);
-   
-   
+
        var totalItemTaxRate = $(el.find('.itemTaxRate')).val();
        var itemTaxPrice = parseFloat((totalItemTaxRate / 100) * (totalItemPrice));
        $(el.find('.itemTaxPrice')).val(itemTaxPrice.toFixed(2));
@@ -282,8 +270,7 @@
        for (var j = 0; j < itemTaxPriceInput.length; j++) {
            totalItemTaxPrice += parseFloat(itemTaxPriceInput[j].value);
        }
-   
-   
+
        var totalItemPrice = 0;
        var inputs_quantity = $(".quantity");
    
@@ -303,8 +290,7 @@
        $('.totalTax').html(totalItemTaxPrice.toFixed(2));
    
        $('.totalAmount').html((parseFloat(subTotal)).toFixed(2));
-   
-   
+
    })
    
    $(document).on('keyup change', '.discount', function() {
@@ -317,11 +303,9 @@
        var price = $(el.find('.price')).val();
        var quantity = $(el.find('.quantity')).val();
        var totalItemPrice = (quantity * price) - discount;
-   
-   
+
        var amount = (totalItemPrice);
-   
-   
+
        var totalItemTaxRate = $(el.find('.itemTaxRate')).val();
        var itemTaxPrice = parseFloat((totalItemTaxRate / 100) * (totalItemPrice));
        $(el.find('.itemTaxPrice')).val(itemTaxPrice.toFixed(2));
@@ -333,8 +317,7 @@
        for (var j = 0; j < itemTaxPriceInput.length; j++) {
            totalItemTaxPrice += parseFloat(itemTaxPriceInput[j].value);
        }
-   
-   
+
        var totalItemPrice = 0;
        var inputs_quantity = $(".quantity");
    
@@ -349,8 +332,7 @@
        for (var i = 0; i < inputs.length; i++) {
            subTotal = parseFloat(subTotal) + parseFloat($(inputs[i]).html());
        }
-   
-   
+
        var totalItemDiscountPrice = 0;
        var itemDiscountPriceInput = $('.discount');
    
@@ -358,17 +340,13 @@
    
            totalItemDiscountPrice += parseFloat(itemDiscountPriceInput[k].value);
        }
-   
-   
+
        $('.subTotal').html(totalItemPrice.toFixed(2));
        $('.totalTax').html(totalItemTaxPrice.toFixed(2));
    
        $('.totalAmount').html((parseFloat(subTotal)).toFixed(2));
        $('.totalDiscount').html(totalItemDiscountPrice.toFixed(2));
-   
-   
-   
-   
+
    })
    
    $(document).on('change', '.item', function () {
@@ -403,7 +381,6 @@
            $(".item option[value=" + id + "]").prop("hidden", true);
        });
    });
-   // for item SearchBox ( this function is  custom Js )
    JsSearchBox();
 </script>
 @endpush
@@ -621,8 +598,7 @@
                       </td>
                     </tr>
                   </tbody>
-                  
-  
+
                   <tfoot>
                     <tr>
                       <td colspan="{{ $TAX_ENABLED ? 5 : 4 }}"></td>
@@ -753,7 +729,7 @@
     <div class="row gutters-xs">
         @foreach (App\Models\Utility::templateData()['colors'] as $key => $hexNoHash)
             @php
-                $hex = '#'.$hexNoHash; // store with leading '#', same as the old color input
+                $hex = '#'.$hexNoHash;
             @endphp
             <div class="col-auto">
                 <label class="colorinput" title="{{ $hex }}">
@@ -848,7 +824,6 @@ $(document).on('submit',"#add_product_form",function(e){
     $(this).append(new Option(response.name, response.id));
     });
 
-
             } else {
                 $("input[type='submit']").attr("disabled",false);
                 show_toastr("error",response.message); 
@@ -860,7 +835,6 @@ $(document).on('submit',"#add_product_form",function(e){
         }
     });
 })
-
 
 $("#add_category").click(function (e) {
     $("#productCategoryModal").modal("show");
@@ -897,7 +871,6 @@ $("#add_category_form").submit(function (e) {
     });
 });
 (function () {
-    // Toggle fields based on type
     function applyTypeUI(type) {
         if (type === 'Product') {
             $('.quantity-field').show();
@@ -933,8 +906,6 @@ $("#add_category_form").submit(function (e) {
     $(document).on('click', 'input[name="type"]', function () {
         applyTypeUI($(this).val());
     });
-
-
 
 })();
 </script>

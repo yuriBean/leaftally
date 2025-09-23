@@ -48,9 +48,7 @@ class Vender extends Authenticatable
         'remember_token',
     ];
 
-
     public $settings;
-
 
     public function authId()
     {
@@ -82,7 +80,6 @@ class Vender extends Authenticatable
     {
         return $this->lang;
     }
-
 
     public function priceFormat($price)
     {
@@ -146,8 +143,6 @@ class Vender extends Authenticatable
         $totalBill = Bill::where('vender_id', \Auth::user()->id)->count();
         $unpaidArr = array();
 
-
-
         for ($i = 1; $i <= 12; $i++) {
             $unpaidBill  = Bill::where('vender_id', \Auth::user()->id)->whereRaw('year(`send_date`) = ?', array(date('Y')))->whereRaw('month(`send_date`) = ?', $i)->where('status', '1')->where('due_date', '>', date('Y-m-d'))->get();
             $paidBill    = Bill::where('vender_id', \Auth::user()->id)->whereRaw('year(`send_date`) = ?', array(date('Y')))->whereRaw('month(`send_date`) = ?', $i)->where('status', '4')->get();
@@ -188,7 +183,6 @@ class Vender extends Authenticatable
             $dataStatus['due']         = $dueData;
         }
         $data['data'] = $dataStatus;
-
 
         $unpaidBill  = Bill::where('vender_id', \Auth::user()->id)->whereRaw('year(`send_date`) = ?', array(date('Y')))->where('status', '1')->where('due_date', '>', date('Y-m-d'))->get();
         $paidBill    = Bill::where('vender_id', \Auth::user()->id)->whereRaw('year(`send_date`) = ?', array(date('Y')))->where('status', '4')->get();

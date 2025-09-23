@@ -50,14 +50,11 @@ $company_logo=App\Models\Utility::getValByName('company_logo');
             @enderror
         </div>
 
-
         <div class="form-group mb-4">
 
             {{Form::submit(__('Reset Password'),array('class'=>'btn btn-primary','id'=>'resetBtn'))}}
 
         </div>
-
-
 
     </div>
     {{Form::close()}}

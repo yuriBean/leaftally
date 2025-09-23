@@ -115,9 +115,6 @@ class CustomFieldController extends Controller
         return redirect()->route('custom-field.index')->with('success', __('Custom Field successfully deleted!'));
     }
 
-    /**
-     * BULK DELETE
-     */
     public function bulkDestroy(Request $request)
     {
         if (!\Auth::user()->can('delete constant custom field')) {
@@ -153,9 +150,6 @@ class CustomFieldController extends Controller
         return redirect()->back()->with($deleted ? 'success' : 'error', $message);
     }
 
-    /**
-     * EXPORT ALL
-     */
     public function export()
     {
         if (!\Auth::user()->can('manage constant custom field')) {
@@ -169,9 +163,6 @@ class CustomFieldController extends Controller
         return Excel::download(new CustomFieldExport(), $file);
     }
 
-    /**
-     * EXPORT SELECTED
-     */
     public function exportSelected(Request $request)
     {
         if (!\Auth::user()->can('manage constant custom field')) {

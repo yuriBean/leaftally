@@ -14,5 +14,4 @@ class UserEmailTemplate extends Model
         'is_active',
     ];
 
-
 }

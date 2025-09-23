@@ -12,7 +12,6 @@
   </li>
 @endsection
 
-
 @section('content')
 @if(!empty($employee))
   @php

@@ -46,7 +46,6 @@ class VenderController extends Controller
         }
     }
 
-
     public function create()
     {
         if (\Auth::user()->can('create vender')) {
@@ -58,14 +57,12 @@ class VenderController extends Controller
         }
     }
 
-
    public function store(Request $request, String $short = null)
 {
     if (!\Auth::user()->can('create vender')) {
         return redirect()->back()->with('error', __('Permission denied.'));
     }
 
-    // 1) Base rules: email unique within venders, excluding soft-deleted rows
     $rules = [
         'name'    => 'required',
         'contact' => 'required',
@@ -91,7 +88,6 @@ class VenderController extends Controller
         }
     }
 
-    // 2) If login enabled, validate user_name uniqueness across venders + customers (ignore soft-deleted)
     $enableLogin = 0;
     if (!empty($request->password_switch) && $request->password_switch == 'on') {
         $enableLogin = 1;
@@ -191,7 +187,6 @@ class VenderController extends Controller
     $vender->save();
     CustomField::saveData($vender, $request->customField);
 
-    // build options for short response
     $custs   = Vender::all();
     $options = '';
     foreach ($custs as $c) {
@@ -220,7 +215,6 @@ class VenderController extends Controller
         $smtp_error = __('E-Mail has been not sent due to SMTP configuration');
     }
 
-    // Twilio Notification
     $setting = Utility::settings(\Auth::user()->creatorId());
     if (isset($setting['vender_notification']) && $setting['vender_notification'] == 1) {
         $uArr = [
@@ -231,7 +225,6 @@ class VenderController extends Controller
         Utility::send_twilio_msg($request->contact, 'new_vendor', $uArr);
     }
 
-    // webhook
     $module  = 'New Vendor';
     $webhook = Utility::webhookSetting($module);
     if ($webhook) {
@@ -278,7 +271,6 @@ class VenderController extends Controller
         return view('vender.show', compact('vendor'));
     }
 
-
     public function edit($id)
     {
         if (\Auth::user()->can('edit vender')) {
@@ -293,7 +285,6 @@ class VenderController extends Controller
         }
     }
 
-
     public function update(Request $request, Vender $vender)
     {
         if (\Auth::user()->can('edit vender')) {
@@ -302,7 +293,6 @@ class VenderController extends Controller
                 'name' => 'required',
                 'contact' => 'required',
             ];
-
 
             $validator = \Validator::make($request->all(), $rules);
 
@@ -339,7 +329,6 @@ class VenderController extends Controller
             return redirect()->back()->with('error', __('Permission denied.'));
         }
     }
-
 
  public function vender_short(Request $request)
     {
@@ -385,14 +374,8 @@ class VenderController extends Controller
     {
 
         if (\Auth::user()->can('manage vender payment')) {
-            // $category = [
-            //     'Bill' => 'Bill',
-            //     'Deposit' => 'Deposit',
-            //     'Sales' => 'Sales',
-            // ];
 
             $category = ProductServiceCategory::where('created_by', \Auth::user()->creatorId())->where('type', 2)->get()->pluck('name', 'id');
-            // $category->prepend('Bill', '');
 
             $query = Transaction::where('user_id', \Auth::user()->id)->where('created_by', \Auth::user()->creatorId())->where('user_type', 'Vender')->where('type', 'Payment');
             if (isset($request->date) && !empty($request->date)) {
@@ -407,7 +390,6 @@ class VenderController extends Controller
             }
             $payments = $query->get();
 
-
             return view('vender.payment', compact('payments', 'category'));
         } else {
             return redirect()->back()->with('error', __('Permission denied.'));
@@ -418,13 +400,6 @@ class VenderController extends Controller
     {
 
         if (\Auth::user()->can('manage vender transaction')) {
-
-
-            // $category = [
-            //     'Bill' => 'Bill',
-            //     'Deposit' => 'Deposit',
-            //     'Sales' => 'Sales',
-            // ];
 
             $category = ProductServiceCategory::where('created_by', \Auth::user()->creatorId())->where('type', 2)->get()->pluck('name', 'id');
             $query = Transaction::where('user_id', \Auth::user()->id)->where('user_type', 'Vender');
@@ -439,7 +414,6 @@ class VenderController extends Controller
                 $query->where('category', '=', $request->category);
             }
             $transactions = $query->get();
-
 
             return view('vender.transaction', compact('transactions', 'category'));
         } else {
@@ -466,7 +440,6 @@ class VenderController extends Controller
             $request,
             [
                 'name' => 'required|max:120',
-                // 'contact' => 'required',
                 'email' => 'required|email|unique:users,email,' . $userDetail['id'],
             ]
         );
@@ -489,8 +462,6 @@ class VenderController extends Controller
                 $image_path = $dir . $userDetail['avatar'];
 
                 $url = '';
-                // $path = $request->file('profile')->storeAs('uploads/avatar/', $fileNameToStore);
-                // dd($path);
                 $path = Utility::upload_file($request, 'profile', $fileNameToStore, $dir, []);
                 if ($path['flag'] == 1) {
                     $url = $path['url'];
@@ -519,10 +490,7 @@ class VenderController extends Controller
                     $image_path = $dir . $userDetail['avatar'];
 
                     $url = '';
-                    // $path = $request->file('profile')->storeAs('uploads/avatar/', $fileNameToStore);
-                    // dd($path);
                     $path = Utility::upload_file($request, 'profile', $fileNameToStore, $dir, []);
-                    // dd($path);
                     if ($path['flag'] == 1) {
                         $url = $path['url'];
                     } else {
@@ -534,7 +502,6 @@ class VenderController extends Controller
                 }
             }
         }
-
 
         return redirect()->back()->with(
             'success',
@@ -663,7 +630,6 @@ class VenderController extends Controller
     {
         $name = 'vendor_' . date('Y-m-d i:h:s');
         $data = Excel::download(new VenderExport(), $name . '.xlsx');
-        // dd($data);
 
         return $data;
     }
@@ -704,7 +670,6 @@ class VenderController extends Controller
                 $vendorData->vender_id = $this->venderNumber();
             }
 
-
             $vendorData->name               = $vendor[0] ?? "";
             $vendorData->email              = $vendor[1] ?? "";
             $vendorData->password           = Hash::make($vendor[2]);
@@ -743,7 +708,6 @@ class VenderController extends Controller
             $data['status'] = 'error';
             $data['msg']    = count($errorArray) . ' ' . __('Record imported fail out of' . ' ' . $totalCustomer . ' ' . 'record');
 
-
             foreach ($errorArray as $errorData) {
 
                 $errorRecord[] = implode(',', $errorData);
@@ -774,12 +738,10 @@ class VenderController extends Controller
         }
         $bill_payment = $bill_payment->get();
 
-
         $user = \Auth::user();
         $logo         = asset(Storage::url('uploads/logo/'));
         $company_logo = Utility::getValByName('company_logo_dark');
         $img          = isset($company_logo) && !empty($company_logo) ? asset($logo . '/' . $company_logo) . '?v=' . time() : '';
-
 
         return view('vender.statement', compact('vendor', 'vendorDetail', 'img', 'user', 'settings', 'bill_payment', 'data'));
     }
@@ -830,7 +792,6 @@ class VenderController extends Controller
         return redirect()->route('vender.index')->with('error', __('No vendors selected.'));
     }
 
-    // Adjust model/namespace if your model name differs
     $deleted = \App\Models\Vender::where('created_by', \Auth::user()->creatorId())
         ->whereIn('id', $ids)
         ->delete();

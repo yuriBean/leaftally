@@ -120,13 +120,11 @@
 
                                 ['label' => __('Tax management'),                   'on' => (bool)$plan->tax_management_enabled, 'q' => null],
 
-
                                 ['label' => __('Audit trail'),                      'on' => (bool)$plan->audit_trail_enabled,    'q' => null],
 
                                 ['label' => __('Client management'),                'on' => true,                                'q' => $plan->client_quota],
                                 ['label' => __('Vendor management'),                'on' => true,                                'q' => $plan->vendor_quota],
 
-                                // NEW: Manufacturing
                                 ['label' => __('Manufacturing'),                    'on' => (bool)$plan->manufacturing_enabled,  'q' => $plan->manufacturing_quota],
                             ];
                             $fmtQuota = function($q) {

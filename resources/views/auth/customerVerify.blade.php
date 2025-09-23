@@ -7,9 +7,9 @@
     <style>
         .btn-login {
             font-size: 12px;
-            color: #fff;
+            color:
             font-family: 'Montserrat-SemiBold';
-            background: #0f5ef7;
+            background:
             margin-top: 20px;
             padding: 10px 30px;
             width: 100%;

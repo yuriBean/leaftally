@@ -10,7 +10,7 @@
                     <div class="table-responsive">
                        <table class="table datatable">                            <thead>
                             <tr>
-                                <th>#</th>
+                                <th>
                                 <th>{{__('Name')}}</th>
                                 <th>{{__('Last Login')}}</th>
                                 <th>{{__('Role')}}</th>
@@ -37,5 +37,4 @@
         </div>
     </div>
 @endsection
-
 

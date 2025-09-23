@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateRetainerProductsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('retainer_products', function (Blueprint $table) {
@@ -26,11 +21,6 @@ class CreateRetainerProductsTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('retainer_products');

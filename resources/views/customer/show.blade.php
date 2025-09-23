@@ -17,12 +17,7 @@
    {{ __('Create Invoice') }}
    </a>
    @endcan
-<!--    @can('create proposal')
-   <a href="{{ route('proposal.create', $customer->id) }}" class="btn btn-sm btn-primary me-2"
-      title="{{ __('Create Proposal') }}" data-bs-toggle="tooltip">
-   {{ __('Create Proposal') }}
-   </a>
-   @endcan -->
+
    <a href="{{ route('customer.statement', $customer['id']) }}" class="btn btn-sm btn-primary me-2"
       title="{{ __('Statement') }}" data-bs-toggle="tooltip">
    {{ __('Statement') }}
@@ -53,8 +48,7 @@
 @section('content')
 <div class="customer-text-sz">
 <div class="mt-[46px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-    
-<!--Customer Info-->
+
    <div class="card border text-[14px] leading-[24px] border-[#E5E5E5] rounded-[8px] px-[18px] py-[11px] text-[#323232]">
       <div class="">
          <div class="card-body py-2 p-0">
@@ -66,8 +60,7 @@
          </div>
       </div>
    </div>
-  
- <!--Billing Info-->  
+
    <div class="card border text-[14px] leading-[24px] border-[#E5E5E5] rounded-[8px] px-[18px] py-[11px] text-[#323232]">
       <div class="">
          <div class="card-body py-2 p-0">
@@ -83,7 +76,6 @@
       </div>
    </div>
 
-<!--Shipping Info-->
    <div class="card border text-[14px] leading-[24px] border-[#E5E5E5] rounded-[8px] px-[18px] py-[11px] text-[#323232]">
       <div class="">
          <div class="card-body py-2 p-0">
@@ -99,7 +91,7 @@
       </div>
    </div>
 </div>
-<!--Company Info--> 
+ 
 <div class="row">
    <div class="col-md-12 text-[14px] leading-[24px] px-[16px] text-[#323232]">
       <div class="card px-[18px] py-[11px] border border-[#E5E5E5] rounded-[8px]">
@@ -150,7 +142,7 @@
       </div>
    </div>
 </div>
-<!--Proposal-->
+
 <div class="row d-none">
    <div class="col-12">
       <div class="card">
@@ -388,7 +380,7 @@
       </div>
    </div>
 </div>
-<!--Invoice-->
+
 <div class="row">
    <div class="col-12">
       <div class="card">

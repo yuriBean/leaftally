@@ -14,7 +14,6 @@ class JournalEntry extends Model
         'created_by',
     ];
 
-
     public function accounts()
     {
         return $this->hasmany('App\Models\JournalItem', 'journal', 'id');
@@ -41,6 +40,5 @@ class JournalEntry extends Model
 
         return $total;
     }
-
 
 }

@@ -1,8 +1,4 @@
-/**
- * prism.js Coy theme for JavaScript, CoffeeScript, CSS and HTML
- * Based on https://github.com/tshedor/workshop-wp-theme (Example: http://workshop.kansan.com/category/sessions/basics or http://workshop.timshedor.com/category/sessions/basics);
- * @author Tim  Shedor
- */
+
 
 code[class*="language-"],
 pre[class*="language-"] {
@@ -27,7 +23,6 @@ pre[class*="language-"] {
 	hyphens: none;
 }
 
-/* Code blocks */
 pre[class*="language-"] {
 	position: relative;
 	margin: .5em 0;
@@ -55,7 +50,6 @@ code[class*="language-"] {
 	overflow: auto;
 }
 
-/* Margin bottom to accommodate shadow */
 :not(pre) > code[class*="language-"],
 pre[class*="language-"] {
 	background-color: #fdfdfd;
@@ -65,7 +59,6 @@ pre[class*="language-"] {
 	margin-bottom: 1em;
 }
 
-/* Inline code */
 :not(pre) > code[class*="language-"] {
 	position: relative;
 	padding: .2em;
@@ -191,7 +184,6 @@ pre[class*="language-"]:after {
 
 }
 
-/* Plugin styles: Line Numbers */
 pre[class*="language-"].line-numbers.line-numbers {
 	padding-left: 0;
 }
@@ -204,7 +196,6 @@ pre[class*="language-"].line-numbers.line-numbers .line-numbers-rows {
 	left: 0;
 }
 
-/* Plugin styles: Line Highlight */
 pre[class*="language-"][data-line] {
 	padding-top: 0;
 	padding-bottom: 0;

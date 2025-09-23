@@ -31,16 +31,11 @@
                        max_size: 2048
                    });
                }
-               // for item SearchBox ( this function is  custom Js )
                JsSearchBox();
-               // if($('.select2').length) {
-               //     $('.select2').select2();
-               // }
    
            },
            hide: function(deleteElement) {
-   
-   
+
                $(this).slideUp(deleteElement);
                $(this).remove();
                var inputs = $(".amount");
@@ -74,8 +69,7 @@
        }
    
    }
-   
-   
+
    $(document).on('change', '#customer', function() {
        $('#customer_detail').removeClass('d-none');
        $('#customer_detail').addClass('d-block');
@@ -172,8 +166,7 @@
                            $(el.parent().parent().parent().find('.pro_description')).val(item
                                .product.description);
                        }
-   
-   
+
                        var taxes = '';
                        var tax = [];
    
@@ -190,8 +183,7 @@
                        }
    
                        var discount = $(el.parent().parent().parent().find('.discount')).val();
-   
-   
+
                        if (proposalItems != null) {
                            var itemTaxPrice = parseFloat((totalItemTaxRate / 100)) *
                                parseFloat((proposalItems.price * proposalItems.quantity) -
@@ -200,8 +192,7 @@
                            var itemTaxPrice = parseFloat((totalItemTaxRate / 100)) *
                                parseFloat((item.product.sale_price * 1) - discount);
                        }
-   
-   
+
                        $(el.parent().parent().parent().find('.itemTaxPrice')).val(itemTaxPrice
                            .toFixed(2));
                        $(el.parent().parent().parent().find('.itemTaxRate')).val(
@@ -209,9 +200,7 @@
                        $(el.parent().parent().parent().find('.taxes')).html(taxes);
                        $(el.parent().parent().parent().find('.tax')).val(tax);
                        $(el.parent().parent().parent().find('.unit')).html(item.unit);
-                       // $(el.parent().parent().parent().find('.discount')).val(item.discount);
-   
-   
+
                        var inputs = $(".amount");
                        var subTotal = 0;
                        for (var i = 0; i < inputs.length; i++) {
@@ -225,8 +214,7 @@
                            totalItemPrice += (parseFloat(priceInput[j].value) * parseFloat(
                                inputs_quantity[j].value));
                        }
-   
-   
+
                        var totalItemTaxPrice = 0;
                        var itemTaxPriceInput = $('.itemTaxPrice');
                        for (var j = 0; j < itemTaxPriceInput.length; j++) {
@@ -249,20 +237,17 @@
                            totalItemDiscountPrice += parseFloat(itemDiscountPriceInput[k]
                                .value);
                        }
-   
-   
+
                        $('.subTotal').html(totalItemPrice.toFixed(2));
                        $('.totalTax').html(totalItemTaxPrice.toFixed(2));
                        $('.totalAmount').html((parseFloat(totalItemPrice) - parseFloat(
                                totalItemDiscountPrice) + parseFloat(totalItemTaxPrice))
                            .toFixed(2));
                        $('.totalDiscount').html(totalItemDiscountPrice.toFixed(2));
-   
-   
+
                    }
                });
-   
-   
+
            },
        });
    }
@@ -282,8 +267,7 @@
        var totalItemPrice = (quantity * price) - discount;
    
        var amount = (totalItemPrice);
-   
-   
+
        var totalItemTaxRate = $(el.find('.itemTaxRate')).val();
        var itemTaxPrice = parseFloat((totalItemTaxRate / 100) * (totalItemPrice));
        $(el.find('.itemTaxPrice')).val(itemTaxPrice.toFixed(2));
@@ -295,8 +279,7 @@
        for (var j = 0; j < itemTaxPriceInput.length; j++) {
            totalItemTaxPrice += parseFloat(itemTaxPriceInput[j].value);
        }
-   
-   
+
        var totalItemPrice = 0;
        var inputs_quantity = $(".quantity");
    
@@ -328,8 +311,7 @@
        if (discount.length <= 0) {
            discount = 0;
        }
-   
-   
+
        var totalItemPrice = (quantity * price) - discount;
    
        var amount = (totalItemPrice);
@@ -345,8 +327,7 @@
        for (var j = 0; j < itemTaxPriceInput.length; j++) {
            totalItemTaxPrice += parseFloat(itemTaxPriceInput[j].value);
        }
-   
-   
+
        var totalItemPrice = 0;
        var inputs_quantity = $(".quantity");
    
@@ -381,24 +362,19 @@
        var totalItemPrice = (quantity * price) - discount;
    
        var amount = (totalItemPrice);
-   
-   
-   
+
        var totalItemTaxRate = $(el.find('.itemTaxRate')).val();
        var itemTaxPrice = parseFloat((totalItemTaxRate / 100) * (totalItemPrice));
        $(el.find('.itemTaxPrice')).val(itemTaxPrice.toFixed(2));
    
        $(el.find('.amount')).html(parseFloat(itemTaxPrice) + parseFloat(amount));
-   
-   
+
        var totalItemTaxPrice = 0;
        var itemTaxPriceInput = $('.itemTaxPrice');
        for (var j = 0; j < itemTaxPriceInput.length; j++) {
            totalItemTaxPrice += parseFloat(itemTaxPriceInput[j].value);
        }
-   
-   
-   
+
        var totalItemPrice = 0;
        var inputs_quantity = $(".quantity");
    
@@ -413,8 +389,7 @@
        for (var i = 0; i < inputs.length; i++) {
            subTotal = parseFloat(subTotal) + parseFloat($(inputs[i]).html());
        }
-   
-   
+
        var totalItemDiscountPrice = 0;
        var itemDiscountPriceInput = $('.discount');
    
@@ -428,8 +403,7 @@
    
        $('.totalAmount').html((parseFloat(subTotal)).toFixed(2));
        $('.totalDiscount').html(totalItemDiscountPrice.toFixed(2));
-   
-   
+
    })
    
    $(document).on('click', '[data-repeater-create]', function() {
@@ -456,7 +430,6 @@
    })
    
    $(document).on('click', '[data-repeater-delete]', function() {
-       // $('.delete_item').click(function () {
        if (confirm('Are you sure you want to delete this element?')) {
            var el = $(this).parent().parent();
            var id = $(el.find('.id')).val();
@@ -488,7 +461,6 @@
        $(".price").change();
        $(".discount").change();
    });
-   // for item SearchBox ( this function is  custom Js )
    JsSearchBox();
 </script>
 <script>

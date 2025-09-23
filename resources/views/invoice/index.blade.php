@@ -15,14 +15,13 @@
 
 @section('action-btn')
 <style>
-  /* material checkbox (match customer page) */
   .mcheck{display:inline-flex;align-items:center;cursor:pointer;user-select:none}
   .mcheck input{position:absolute;opacity:0;width:0;height:0}
-  .mcheck .box{width:20px;height:20px;border:2px solid #D1D5DB;border-radius:6px;background:#fff;display:inline-block;position:relative;transition:all .15s}
+  .mcheck .box{width:20px;height:20px;border:2px solid
   .mcheck .box:hover{box-shadow:0 1px 3px rgba(0,0,0,.08)}
   .mcheck input:focus + .box{box-shadow:0 0 0 3px rgba(0,124,56,.2)}
-  .mcheck input:checked + .box{background:#007C38;border-color:#007C38}
-  .mcheck input:checked + .box::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:2px solid #fff;border-top:none;border-left:none;transform:rotate(45deg)}
+  .mcheck input:checked + .box{background:
+  .mcheck input:checked + .box::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:2px solid
 </style>
 
 <div class="flex items-center gap-2 mt-2 sm:mt-0">
@@ -50,7 +49,6 @@
       </svg>
       {{ __('Export') }}
     </a>
-
 
   @can('create invoice')
     <a href="{{ route('invoice.create', 0) }}"
@@ -305,21 +303,18 @@
 
 @push('script-page')
 <script>
-  // prevent row click from firing when interacting with controls
   $(document).on('click', 'input[type=checkbox], label.mcheck, .dropdown-menu, [data-bs-toggle="dropdown"]', function(e){ e.stopPropagation(); });
 
-  // row click navigate
   $(document).on('click', 'tr.inv_tr', function(){
     const url = $(this).data('url');
     if(url) window.location = url;
   });
 
-  // top "Export Selected" (same pattern as customers)
   $(document).on('click','[data-export-selected][data-scope="invoices"]',function(e){
     e.preventDefault();
-    const scope = $(this).data('scope');       // "invoices"
-    const route = $(this).data('route');       // export-selected route
-    const key   = 'bulk:'+scope;               // localStorage key maintained by <x-bulk-toolbar/>
+    const scope = $(this).data('scope');
+    const route = $(this).data('route');
+    const key   = 'bulk:'+scope;
     let ids = [];
     try { ids = JSON.parse(localStorage.getItem(key) || '[]'); } catch(e) {}
 

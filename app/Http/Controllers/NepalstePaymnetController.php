@@ -124,9 +124,7 @@ class NepalstePaymnetController extends Controller
             'customer_email'    => $authuser->email,
         ];
 
-        //live end point
         $liveUrl    = "https://nepalste.com.np/payment/initiate";
-        //test end point
         $sandboxUrl = "https://nepalste.com.np/sandbox/payment/initiate";
 
         $url = $payment_setting['nepalste_mode'] == 'live' ? $liveUrl : $sandboxUrl ;
@@ -221,9 +219,7 @@ class NepalstePaymnetController extends Controller
                 'customer_email'    => $customers->email,
             ];
     
-            //live end point
             $liveUrl    = "https://nepalste.com.np/payment/initiate";
-            //test end point
             $sandboxUrl = "https://nepalste.com.np/sandbox/payment/initiate";
     
             $url = $comapnysetting['nepalste_mode'] == 'live' ? $liveUrl : $sandboxUrl ;
@@ -307,7 +303,6 @@ class NepalstePaymnetController extends Controller
 
             Utility::bankAccountBalance($request->account_id, $getAmount, 'credit');
 
-            //Twilio Notification
             $customer = $objUser = Customer::find($invoice->customer_id);
             $setting  = Utility::settingsById($objUser->creatorId());
             if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -323,7 +318,6 @@ class NepalstePaymnetController extends Controller
                 Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $invoice->created_by);
             }
 
-            // webhook
             $module = 'New Payment';
 
             $webhook =  Utility::webhookSetting($module, $invoice->created_by);
@@ -331,8 +325,6 @@ class NepalstePaymnetController extends Controller
             if ($webhook) {
 
                 $parameter = json_encode($invoice);
-
-                // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
 
                 $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
             }
@@ -370,9 +362,7 @@ class NepalstePaymnetController extends Controller
                 'customer_email'    => $customers->email,
             ];
 
-            // Live endpoint
             $liveUrl    = "https://nepalste.com.np/payment/initiate";
-            // Sandbox endpoint
             $sandboxUrl = "https://nepalste.com.np/sandbox/payment/initiate";
 
             $url = $comapnysetting['nepalste_mode'] == 'live' ? $liveUrl : $sandboxUrl ;
@@ -405,7 +395,6 @@ class NepalstePaymnetController extends Controller
         $getAmount      = $getAmount;
         $setting        = Utility::settingsById($retainer->created_by);
         $comapnysetting = Utility::getCompanyPaymentSetting($retainer->created_by);
-
 
         try {
 
@@ -459,7 +448,6 @@ class NepalstePaymnetController extends Controller
 
             Utility::bankAccountBalance($request->account_id, $getAmount, 'credit');
 
-            //Twilio Notification
             $setting  = Utility::settingsById($objUser->creatorId());
             $customer = Customer::find($retainer->customer_id);
             if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -475,7 +463,6 @@ class NepalstePaymnetController extends Controller
                 Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $retainer->created_by);
             }
 
-            // webhook\
             $module = 'New Payment';
 
             $webhook =  Utility::webhookSetting($module, $retainer->created_by);
@@ -483,8 +470,6 @@ class NepalstePaymnetController extends Controller
             if ($webhook) {
 
                 $parameter = json_encode($retainer);
-
-                // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
 
                 $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
             }

@@ -1,5 +1,4 @@
 @php
-  /** @var \App\Models\ProductService $product */
   $product = $productService;
   $isProduct = strtolower($product->type) === 'product';
   $mt = $product->material_type;

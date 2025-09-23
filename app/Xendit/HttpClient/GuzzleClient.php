@@ -1,16 +1,5 @@
 <?php
 
-/**
- * GuzzleClient.php
- * php version 7.2.0
- *
- * @category Class
- * @package  Xendit\HttpClient
- * @author   Ellen <ellen@xendit.co>
- * @license  https://opensource.org/licenses/MIT MIT License
- * @link     https://api.xendit.co
- */
-
 namespace App\Xendit\HttpClient;
 
 use GuzzleHttp\Client as Guzzle;
@@ -19,24 +8,12 @@ use GuzzleHttp\RequestOptions;
 use App\Xendit\Exceptions\ApiException;
 use App\Xendit\Xendit;
 
-/**
- * Class GuzzleClient
- *
- * @category Class
- * @package  Xendit\HttpClient
- * @author   Ellen <ellen@xendit.co>
- * @license  https://opensource.org/licenses/MIT MIT License
- * @link     https://api.xendit.co
- */
 class GuzzleClient implements ClientInterface
 {
     private static $_instance;
 
     protected $http;
 
-    /**
-     * XenditClient constructor
-     */
     public function __construct()
     {
         if (Xendit::getHttpClient()) {
@@ -53,11 +30,6 @@ class GuzzleClient implements ClientInterface
         }
     }
 
-    /**
-     * Create Client instance
-     *
-     * @return GuzzleClient
-     */
     public static function instance()
     {
         if (!self::$_instance) {
@@ -66,17 +38,6 @@ class GuzzleClient implements ClientInterface
         return self::$_instance;
     }
 
-    /**
-     * Create a request to execute in _executeRequest
-     *
-     * @param string $method         request method
-     * @param string $url            url
-     * @param array  $defaultHeaders request headers
-     * @param array  $params         parameters
-     *
-     * @return array
-     * @throws ApiException
-     */
     public function sendRequest($method, string $url, array $defaultHeaders, $params)
     {
         $method = strtoupper($method);
@@ -96,15 +57,6 @@ class GuzzleClient implements ClientInterface
         return [$rbody, $rcode, $rheader];
     }
 
-    /**
-     * Execute request
-     *
-     * @param array  $opts request options (headers, params)
-     * @param string $url  request url
-     *
-     * @return array
-     * @throws ApiException
-     */
     private function _executeRequest(array $opts, string $url)
     {
         $headers = $opts['headers'];
@@ -113,7 +65,7 @@ class GuzzleClient implements ClientInterface
         $url = strval($url);
         try {
             if (count($params) > 0) {
-                $isQueryParam = isset($params['query-param']) && $params['query-param'] === 'true'; // additional condition to check if the requestor is imposing query param, otherwise default json
+                $isQueryParam = isset($params['query-param']) && $params['query-param'] === 'true';
 
                 if($isQueryParam) unset($params['query-param']);
 
@@ -152,14 +104,6 @@ class GuzzleClient implements ClientInterface
         return [$rbody, $rcode, $rheader];
     }
 
-    /**
-     * Handles API Error
-     *
-     * @param array $response response from GuzzleClient
-     *
-     * @return void
-     * @throws ApiException
-     */
     private static function _handleAPIError($response)
     {
         $rbody = $response['body'];

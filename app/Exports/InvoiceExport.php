@@ -16,7 +16,6 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 class InvoiceExport implements FromCollection, WithHeadings, WithMapping, WithStyles, WithColumnWidths, WithTitle
 {
-    /** @var int[]|null */
     protected ?array $onlyIds;
 
     public function __construct(?array $onlyIds = null)
@@ -26,18 +25,15 @@ class InvoiceExport implements FromCollection, WithHeadings, WithMapping, WithSt
 
     public function collection()
     {
-        // Build base query depending on guard
         $query = \Auth::guard('customer')->check()
             ? Invoice::where('customer_id', \Auth::guard('customer')->user()->id)
                 ->where('status', '!=', '0')
             : Invoice::where('created_by', \Auth::user()->id);
 
-        // Filter to selected IDs when provided
         if ($this->onlyIds) {
             $query->whereIn('id', $this->onlyIds);
         }
 
-        // Eager-load CORRECT relations: items, customer, category
         return $query->with(['items', 'customer', 'category'])
             ->orderBy('created_at', 'desc')
             ->get();
@@ -58,11 +54,9 @@ class InvoiceExport implements FromCollection, WithHeadings, WithMapping, WithSt
             ? \Auth::user()->invoiceNumberFormat($invoice->invoice_id)
             : \App\Models\Customer::invoiceNumberFormat($invoice->invoice_id);
 
-        // Use relations instead of static helpers
         $customerName = optional($invoice->customer)->name ?? '';
         $categoryName = optional($invoice->category)->name ?? '';
 
-        // Calculate totals
         $subtotal = 0.0;
         $totalTax = 0.0;
         foreach ($invoice->items as $item) {

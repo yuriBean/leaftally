@@ -16,12 +16,8 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 class BomExport implements FromCollection, WithHeadings, WithMapping, WithStyles, WithColumnWidths, WithTitle
 {
-    /** @var array<int>|null */
     protected $ids;
 
-    /**
-     * @param array<int>|null $ids  If provided, export only these BOM IDs
-     */
     public function __construct(?array $ids = null)
     {
         $this->ids = $ids;
@@ -81,12 +77,12 @@ class BomExport implements FromCollection, WithHeadings, WithMapping, WithStyles
     public function columnWidths(): array
     {
         return [
-            'A' => 16, // Code
-            'B' => 30, // Name
-            'C' => 10, // Active
-            'D' => 10, // Inputs
-            'E' => 10, // Outputs
-            'F' => 14, // Created Date
+            'A' => 16,
+            'B' => 30,
+            'C' => 10,
+            'D' => 10,
+            'E' => 10,
+            'F' => 14,
         ];
     }
 

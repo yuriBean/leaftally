@@ -1,5 +1,5 @@
 <div>
-    <!-- Generate API Token -->
+    
     <x-jet-form-section submit="createApiToken">
         <x-slot name="title">
             {{ __('Create API Token') }}
@@ -10,14 +10,13 @@
         </x-slot>
 
         <x-slot name="form">
-            <!-- Token Name -->
+            
             <div class="col-span-6 sm:col-span-4">
                 <x-jet-label for="name" value="{{ __('Token Name') }}" />
                 <x-jet-input id="name" type="text" class="mt-1 block w-full" wire:model.defer="createApiTokenForm.name" autofocus />
                 <x-jet-input-error for="name" class="mt-2" />
             </div>
 
-            <!-- Token Permissions -->
             @if (Laravel\Jetstream\Jetstream::hasPermissions())
                 <div class="col-span-6">
                     <x-jet-label for="permissions" value="{{ __('Permissions') }}" />
@@ -48,7 +47,6 @@
     @if ($this->user->tokens->isNotEmpty())
         <x-jet-section-border />
 
-        <!-- Manage API Tokens -->
         <div class="mt-10 sm:mt-0">
             <x-jet-action-section>
                 <x-slot name="title">
@@ -59,7 +57,6 @@
                     {{ __('You may delete any of your existing tokens if they are no longer needed.') }}
                 </x-slot>
 
-                <!-- API Token List -->
                 <x-slot name="content">
                     <div class="space-y-6">
                         @foreach ($this->user->tokens->sortBy('name') as $token)
@@ -93,7 +90,6 @@
         </div>
     @endif
 
-    <!-- Token Value Modal -->
     <x-jet-dialog-modal wire:model="displayingToken">
         <x-slot name="title">
             {{ __('API Token') }}
@@ -118,7 +114,6 @@
         </x-slot>
     </x-jet-dialog-modal>
 
-    <!-- API Token Permissions Modal -->
     <x-jet-dialog-modal wire:model="managingApiTokenPermissions">
         <x-slot name="title">
             {{ __('API Token Permissions') }}
@@ -146,7 +141,6 @@
         </x-slot>
     </x-jet-dialog-modal>
 
-    <!-- Delete Token Confirmation Modal -->
     <x-jet-confirmation-modal wire:model="confirmingApiTokenDeletion">
         <x-slot name="title">
             {{ __('Delete API Token') }}

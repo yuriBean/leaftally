@@ -81,12 +81,10 @@ class KhaltiPaymentController extends Controller
                             );
                             $assignPlan = $authuser->assignPlan($plan->id);
 
-                            // return redirect()->route('plans.index')->with('success', __('Plan Successfully Activated'));
                             return $get_amount;
                         }
                     }
                 } else {
-                    // return redirect()->back()->with('error', __('This coupon code is invalid or has expired.'));
                     return response()->json([
                         'success' => true, 'inputs' => __('Something into warning.'),
                     ]);
@@ -223,7 +221,6 @@ class KhaltiPaymentController extends Controller
             $data  =    json_encode($data);
 
             try {
-                // return view('AuthorizeNet.invoice', compact('invoice', 'get_amount', 'authuser', 'data', 'currency'));
                 return $get_amount;
             } catch (\Exception $e) {
                 dd($e);
@@ -289,10 +286,8 @@ class KhaltiPaymentController extends Controller
                     $invoice->save();
                 }
 
-                //for customer balance update
                 Utility::updateUserBalance('customer', $invoice->customer_id, $request->amount, 'debit');
 
-                //For Notification
                 $setting  = Utility::settingsById($invoice->created_by);
                 $customer = Customer::find($invoice->customer_id);
                 $notificationArr = [
@@ -300,22 +295,18 @@ class KhaltiPaymentController extends Controller
                         'invoice_payment_type' => 'Aamarpay',
                         'customer_name' => $customer->name,
                     ];
-                //Slack Notification
                 if(isset($settings['payment_notification']) && $settings['payment_notification'] ==1)
                 {
                     Utility::send_slack_msg('new_invoice_payment', $notificationArr,$invoice->created_by);
                 }
-                //Telegram Notification
                 if(isset($settings['telegram_payment_notification']) && $settings['telegram_payment_notification'] == 1)
                 {
                     Utility::send_telegram_msg('new_invoice_payment', $notificationArr,$invoice->created_by);
                 }
-                //Twilio Notification
                 if(isset($settings['twilio_payment_notification']) && $settings['twilio_payment_notification'] ==1)
                 {
                     Utility::send_twilio_msg($customer->contact,'new_invoice_payment', $notificationArr,$invoice->created_by);
                 }
-                //webhook
                 $module ='New Invoice Payment';
                 $webhook=  Utility::webhookSetting($module,$invoice->created_by);
                 if($webhook)
@@ -332,7 +323,6 @@ class KhaltiPaymentController extends Controller
                     }
                 }
 
-                // return redirect()->route('pay.invoice', \Crypt::encrypt($invoice_id))->with('success', __('Invoice paid Successfully!'));
                 return $response;
             } else {
                 return redirect()->route('pay.invoice', $invoice_id)->with('error', __('Oops something went wrong.'));
@@ -375,7 +365,6 @@ class KhaltiPaymentController extends Controller
             $data  =    json_encode($data);
 
             try {
-                // return view('AuthorizeNet.invoice', compact('invoice', 'get_amount', 'authuser', 'data', 'currency'));
                 return $get_amount;
             } catch (\Exception $e) {
                 dd($e);
@@ -440,10 +429,8 @@ class KhaltiPaymentController extends Controller
                     $retainer->status = 3;
                     $retainer->save();
                 }
-                //for customer balance update
                 Utility::updateUserBalance('customer', $retainer->customer_id, $request->amount, 'debit');
 
-                //For Notification
                 $setting  = Utility::settingsById($retainer->created_by);
                 $customer = Customer::find($retainer->customer_id);
                 $notificationArr = [
@@ -451,22 +438,18 @@ class KhaltiPaymentController extends Controller
                         'retainer_payment_type' => 'Aamarpay',
                         'customer_name' => $customer->name,
                     ];
-                //Slack Notification
                 if(isset($settings['payment_notification']) && $settings['payment_notification'] ==1)
                 {
                     Utility::send_slack_msg('new_retainer_payment', $notificationArr,$retainer->created_by);
                 }
-                //Telegram Notification
                 if(isset($settings['telegram_payment_notification']) && $settings['telegram_payment_notification'] == 1)
                 {
                     Utility::send_telegram_msg('new_retainer_payment', $notificationArr,$retainer->created_by);
                 }
-                //Twilio Notification
                 if(isset($settings['twilio_payment_notification']) && $settings['twilio_payment_notification'] ==1)
                 {
                     Utility::send_twilio_msg($customer->contact,'new_retainer_payment', $notificationArr,$retainer->created_by);
                 }
-                //webhook
                 $module ='New retainer Payment';
                 $webhook=  Utility::webhookSetting($module,$retainer->created_by);
                 if($webhook)
@@ -483,7 +466,6 @@ class KhaltiPaymentController extends Controller
                     }
                 }
 
-                // return redirect()->route('pay.retainerpay', \Crypt::encrypt($retainer_id))->with('success', __('Retainer paid Successfully!'));
                 return $response;
             } else {
                 return redirect()->route('pay.retainerpay', $retainer_id)->with('error', __('Oops something went wrong.'));

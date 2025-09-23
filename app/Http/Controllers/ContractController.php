@@ -19,9 +19,6 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ContractController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         if ((\Auth::user()->can('manage contract')) || (\Auth::user()->can('manage customer contract'))) {
@@ -49,9 +46,6 @@ class ContractController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $contractTypes = ContractType::where('created_by', '=', \Auth::user()->creatorId())->get()->pluck('name', 'id');
@@ -62,9 +56,6 @@ class ContractController extends Controller
         return view('contract.create', compact('contractTypes', 'customers'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         if (\Auth::user()->can('create contract')) {
@@ -100,9 +91,6 @@ class ContractController extends Controller
         return redirect()->back()->with('error', __('Permission denied.'));
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show($id)
     {
         $contract = Contract::find($id);
@@ -113,9 +101,6 @@ class ContractController extends Controller
         return redirect()->back()->with('error', 'permission Denied');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Contract $contract)
     {
         $contractTypes = ContractType::where('created_by', '=', \Auth::user()->creatorId())->get()->pluck('name', 'id');
@@ -124,9 +109,6 @@ class ContractController extends Controller
         return view('contract.edit', compact('contractTypes', 'customers', 'contract'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Contract $contract)
     {
         if (\Auth::user()->can('edit contract')) {
@@ -159,9 +141,6 @@ class ContractController extends Controller
         return redirect()->back()->with('error', __('Permission denied.'));
     }
 
-    /**
-     * Remove a single resource from storage.
-     */
     public function destroy($id)
     {
         if (!\Auth::user()->can('delete contract')) {
@@ -188,9 +167,6 @@ class ContractController extends Controller
         return redirect()->route('contract.index')->with('success', __('Contract successfully deleted!'));
     }
 
-    /**
-     * Duplicate form.
-     */
     public function duplicate(Contract $contract, $id)
     {
         $contract      = Contract::find($id);
@@ -200,9 +176,6 @@ class ContractController extends Controller
         return view('contract.duplicate', compact('contractTypes', 'customers', 'contract'));
     }
 
-    /**
-     * Duplicate submit.
-     */
     public function duplicatecontract(Request $request)
     {
         if (!\Auth::user()->can('create contract')) {
@@ -481,12 +454,6 @@ class ContractController extends Controller
         $contract->save();
     }
 
-    /**
-     * -----------------------------
-     * BULK / EXPORT Actions
-     * -----------------------------
-     */
-
     public function bulkDestroy(Request $request)
     {
         if (!\Auth::user()->can('delete contract')) {
@@ -508,7 +475,6 @@ class ContractController extends Controller
         $deleted   = 0;
 
         foreach ($contracts as $contract) {
-            // Delete attachments
             $attachments = $contract->ContractAttachment()->get();
             foreach ($attachments as $attachment) {
                 if (\Storage::exists('contract_attachment/' . $attachment->files)) {
@@ -517,11 +483,9 @@ class ContractController extends Controller
                 $attachment->delete();
             }
 
-            // Delete comments and notes
             $contract->ContractComment()->get()->each->delete();
             $contract->ContractNote()->get()->each->delete();
 
-            // Delete contract
             $contract->delete();
             $deleted++;
         }

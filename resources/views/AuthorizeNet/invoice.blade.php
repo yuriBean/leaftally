@@ -82,28 +82,22 @@
         </div>
     </section>
 
-
     <script src="{{asset('public/AuthorizeNet/js/jquery.min.js')}}"></script>
     <script src="{{asset('public/AuthorizeNet/js/custom.js')}}"></script>
     <script
         src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.4/build/jquery.datetimepicker.full.min.js"></script>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
-                // Find the form and the card number input
-                var form = document.getElementById('authorizenetForm'); // Replace 'yourFormId' with the actual ID of your form
+                var form = document.getElementById('authorizenetForm');
                 var cardNumberInput = form.querySelector('input[name="cardNumber"]');
 
-                // Add an event listener to the form for the 'submit' event
                 form.addEventListener('submit', function (event) {
-                    // Perform your custom validation
                     if (!validateCardNumber(cardNumberInput.value)) {
-                        // Prevent the form submission if validation fails
                         event.preventDefault();
                         alert('Please enter a valid 16-digit card number.');
                     }
                 });
 
-                // Custom validation function for card number
                 function validateCardNumber(cardNumber) {
                     var cardNumberRegex = /^\d{16}$/;
                     return cardNumberRegex.test(cardNumber);

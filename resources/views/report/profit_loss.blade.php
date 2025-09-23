@@ -7,7 +7,6 @@
     <li class="breadcrumb-item">{{ __('Profit & Loss') }}</li>
 @endsection
 
-
 @push('script-page')
     <script type="text/javascript" src="{{ asset('js/html2pdf.bundle.min.js') }}"></script>
     <script>
@@ -44,7 +43,6 @@
         {{ Form::close() }}
     </div>
 
-
     <div class="float-end me-2" id="filter">
         <button id="filter" class="btn btn-sm btn-primary"><i class="ti ti-filter"></i></button>
     </div>
@@ -55,8 +53,6 @@
                 class="ti ti-separator-vertical"></i></a>
     </div>
 @endsection
-
-
 
 @section('content')
     <div class="row justify-content-center">
@@ -90,7 +86,6 @@
                                             {{ Form::date('end_date', $filter['endDateRange'], ['class' => 'endDate form-control']) }}
                                         </div>
                                     </div>
-
 
                                 </div>
                             </div>

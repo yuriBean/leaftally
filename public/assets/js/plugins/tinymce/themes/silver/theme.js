@@ -1,11 +1,3 @@
-/**
- * Copyright (c) Tiny Technologies, Inc. All rights reserved.
- * Licensed under the LGPL or a commercial license.
- * For LGPL see License.txt in the project root for license information.
- * For commercial licenses see https://www.tiny.cloud/
- *
- * Version: 5.10.3 (2022-02-09)
- */
 (function () {
     'use strict';
 
@@ -1598,7 +1590,7 @@
       return owner$4(element);
     };
 
-    var Navigation = /*#__PURE__*/Object.freeze({
+    var Navigation = Object.freeze({
         __proto__: null,
         view: view,
         owner: owner$3
@@ -2924,7 +2916,7 @@
         }
       })]);
 
-    var DefaultEvents = /*#__PURE__*/Object.freeze({
+    var DefaultEvents = Object.freeze({
         __proto__: null,
         events: events$i
     });
@@ -3013,14 +3005,8 @@
     };
     var cleanParameters = function (parameters) {
       return map$2(parameters, function (p) {
-        return endsWith(p, '/*') ? p.substring(0, p.length - '/*'.length) : p;
-      });
-    };
-    var markAsExtraApi = function (f, extraName) {
-      var delegate = f.toString();
-      var endIndex = delegate.indexOf(')') + 1;
-      var openBracketIndex = delegate.indexOf('(');
-      var parameters = delegate.substring(openBracketIndex + 1, endIndex - 1).split(/,\s*/);
+        return endsWith(p, '
+);
       f.toFunctionAnnotation = function () {
         return {
           name: extraName,
@@ -4159,7 +4145,7 @@
         })]);
     };
 
-    var ActiveReceiving = /*#__PURE__*/Object.freeze({
+    var ActiveReceiving = Object.freeze({
         __proto__: null,
         events: events$h
     });
@@ -4306,7 +4292,7 @@
       });
     };
 
-    var ActivePosition = /*#__PURE__*/Object.freeze({
+    var ActivePosition = Object.freeze({
         __proto__: null,
         exhibit: exhibit$6
     });
@@ -5777,7 +5763,7 @@
       posState.clear(placee.uid);
     };
 
-    var PositionApis = /*#__PURE__*/Object.freeze({
+    var PositionApis = Object.freeze({
         __proto__: null,
         position: position$1,
         positionWithin: positionWithin,
@@ -5811,7 +5797,7 @@
       });
     };
 
-    var PositioningState = /*#__PURE__*/Object.freeze({
+    var PositioningState = Object.freeze({
         __proto__: null,
         init: init$g
     });
@@ -6001,7 +5987,7 @@
       restore(sandbox, 'visibility', sConfig.cloakVisibilityAttr);
     };
 
-    var SandboxApis = /*#__PURE__*/Object.freeze({
+    var SandboxApis = Object.freeze({
         __proto__: null,
         cloak: cloak,
         decloak: decloak,
@@ -6020,7 +6006,7 @@
         })]);
     };
 
-    var ActiveSandbox = /*#__PURE__*/Object.freeze({
+    var ActiveSandbox = Object.freeze({
         __proto__: null,
         events: events$g
     });
@@ -6045,7 +6031,7 @@
       });
     };
 
-    var SandboxState = /*#__PURE__*/Object.freeze({
+    var SandboxState = Object.freeze({
         __proto__: null,
         init: init$f
     });
@@ -6122,7 +6108,7 @@
       return repState;
     };
 
-    var RepresentApis = /*#__PURE__*/Object.freeze({
+    var RepresentApis = Object.freeze({
         __proto__: null,
         onLoad: onLoad$5,
         onUnload: onUnload$2,
@@ -6143,7 +6129,7 @@
       return derive$2(es);
     };
 
-    var ActiveRepresenting = /*#__PURE__*/Object.freeze({
+    var ActiveRepresenting = Object.freeze({
         __proto__: null,
         events: events$f
     });
@@ -6220,7 +6206,7 @@
       return spec.store.manager.state(spec);
     };
 
-    var RepresentState = /*#__PURE__*/Object.freeze({
+    var RepresentState = Object.freeze({
         __proto__: null,
         memory: memory$1,
         dataset: dataset,
@@ -6534,7 +6520,7 @@
     var group = convert(adt$2.group, groupSpec);
     var original = constant$1('entirety');
 
-    var PartType = /*#__PURE__*/Object.freeze({
+    var PartType = Object.freeze({
         __proto__: null,
         required: required,
         external: external$1,
@@ -6676,7 +6662,7 @@
       }), anyValue());
     };
 
-    var AlloyParts = /*#__PURE__*/Object.freeze({
+    var AlloyParts = Object.freeze({
         __proto__: null,
         generate: generate$3,
         generateOne: generateOne$1,
@@ -6790,7 +6776,7 @@
       return composeConfig.find(component);
     };
 
-    var ComposeApis = /*#__PURE__*/Object.freeze({
+    var ComposeApis = Object.freeze({
         __proto__: null,
         getCurrent: getCurrent
     });
@@ -6858,7 +6844,7 @@
       f(component, disableConfig);
     };
 
-    var DisableApis = /*#__PURE__*/Object.freeze({
+    var DisableApis = Object.freeze({
         __proto__: null,
         enable: enable$1,
         disable: disable$1,
@@ -6879,7 +6865,7 @@
       ]);
     };
 
-    var ActiveDisable = /*#__PURE__*/Object.freeze({
+    var ActiveDisable = Object.freeze({
         __proto__: null,
         exhibit: exhibit$5,
         events: events$e
@@ -7005,7 +6991,7 @@
       }));
     };
 
-    var HighlightApis = /*#__PURE__*/Object.freeze({
+    var HighlightApis = Object.freeze({
         __proto__: null,
         dehighlightAll: dehighlightAll,
         dehighlight: dehighlight,
@@ -7392,7 +7378,7 @@
       return spec.state(spec);
     };
 
-    var KeyingState = /*#__PURE__*/Object.freeze({
+    var KeyingState = Object.freeze({
         __proto__: null,
         flatgrid: flatgrid$1,
         init: init$d
@@ -7864,7 +7850,7 @@
     var menu = MenuType.schema();
     var special = SpecialType.schema();
 
-    var KeyboardBranches = /*#__PURE__*/Object.freeze({
+    var KeyboardBranches = Object.freeze({
         __proto__: null,
         acyclic: acyclic,
         cyclic: cyclic,
@@ -7953,7 +7939,7 @@
       });
     };
 
-    var ReplaceApis = /*#__PURE__*/Object.freeze({
+    var ReplaceApis = Object.freeze({
         __proto__: null,
         append: append,
         prepend: prepend,
@@ -8007,7 +7993,7 @@
       return hasFocus(component.element);
     };
 
-    var FocusApis = /*#__PURE__*/Object.freeze({
+    var FocusApis = Object.freeze({
         __proto__: null,
         focus: focus$2,
         blur: blur,
@@ -8027,7 +8013,7 @@
         })] : []));
     };
 
-    var ActiveFocus = /*#__PURE__*/Object.freeze({
+    var ActiveFocus = Object.freeze({
         __proto__: null,
         exhibit: exhibit$4,
         events: events$c
@@ -8108,7 +8094,7 @@
       set$1(component, toggleConfig, toggleState, toggleConfig.selected);
     };
 
-    var ToggleApis = /*#__PURE__*/Object.freeze({
+    var ToggleApis = Object.freeze({
         __proto__: null,
         onLoad: onLoad,
         toggle: toggle$2,
@@ -8130,7 +8116,7 @@
       ]));
     };
 
-    var ActiveToggle = /*#__PURE__*/Object.freeze({
+    var ActiveToggle = Object.freeze({
         __proto__: null,
         exhibit: exhibit$3,
         events: events$b
@@ -10766,7 +10752,7 @@
       });
     };
 
-    var TooltippingApis = /*#__PURE__*/Object.freeze({
+    var TooltippingApis = Object.freeze({
         __proto__: null,
         hideAllExclusive: hideAllExclusive,
         setComponents: setComponents
@@ -10852,7 +10838,7 @@
       ]));
     };
 
-    var ActiveTooltipping = /*#__PURE__*/Object.freeze({
+    var ActiveTooltipping = Object.freeze({
         __proto__: null,
         events: events$9
     });
@@ -10917,7 +10903,7 @@
       });
     };
 
-    var TooltippingState = /*#__PURE__*/Object.freeze({
+    var TooltippingState = Object.freeze({
         __proto__: null,
         init: init$b
     });
@@ -13681,7 +13667,7 @@
       });
     };
 
-    var ActiveTabstopping = /*#__PURE__*/Object.freeze({
+    var ActiveTabstopping = Object.freeze({
         __proto__: null,
         exhibit: exhibit$2
     });
@@ -14329,7 +14315,7 @@
       return has(elem, invalidConfig.invalidClass);
     };
 
-    var InvalidateApis = /*#__PURE__*/Object.freeze({
+    var InvalidateApis = Object.freeze({
         __proto__: null,
         markValid: markValid,
         markInvalid: markInvalid,
@@ -14348,7 +14334,7 @@
       }).getOr({});
     };
 
-    var ActiveInvalidate = /*#__PURE__*/Object.freeze({
+    var ActiveInvalidate = Object.freeze({
         __proto__: null,
         events: events$8
     });
@@ -14390,7 +14376,7 @@
       return coupleState.getOrCreate(component, coupleConfig, name);
     };
 
-    var CouplingApis = /*#__PURE__*/Object.freeze({
+    var CouplingApis = Object.freeze({
         __proto__: null,
         getCoupled: getCoupled
     });
@@ -14420,7 +14406,7 @@
       });
     };
 
-    var CouplingState = /*#__PURE__*/Object.freeze({
+    var CouplingState = Object.freeze({
         __proto__: null,
         init: init$a
     });
@@ -14827,7 +14813,7 @@
       return derive$2([abort(selectstart(), always)]);
     };
 
-    var ActiveUnselecting = /*#__PURE__*/Object.freeze({
+    var ActiveUnselecting = Object.freeze({
         __proto__: null,
         events: events$7,
         exhibit: exhibit$1
@@ -15488,7 +15474,7 @@
       'left': Optional.some(setToLEdge)
     };
 
-    var HorizontalModel = /*#__PURE__*/Object.freeze({
+    var HorizontalModel = Object.freeze({
         __proto__: null,
         setValueFrom: setValueFrom$2,
         setToMin: setToMin$2,
@@ -15609,7 +15595,7 @@
       'left': Optional.none()
     };
 
-    var VerticalModel = /*#__PURE__*/Object.freeze({
+    var VerticalModel = Object.freeze({
         __proto__: null,
         setValueFrom: setValueFrom$1,
         setToMin: setToMin$1,
@@ -15690,7 +15676,7 @@
       'left': Optional.some(setToLEdgeXY)
     };
 
-    var TwoDModel = /*#__PURE__*/Object.freeze({
+    var TwoDModel = Object.freeze({
         __proto__: null,
         setValueFrom: setValueFrom,
         setToMin: setToMin,
@@ -16739,3634 +16725,8 @@
           tag: 'input',
           attributes: {
             type: 'file',
-            accept: 'image/*'
-          },
-          styles: { display: 'none' }
-        },
-        behaviours: derive$1([config('input-file-events', [
-            cutter(click()),
-            cutter(tap())
-          ])])
-      });
-      var renderField = function (s) {
-        return {
-          uid: s.uid,
-          dom: {
-            tag: 'div',
-            classes: ['tox-dropzone-container']
-          },
-          behaviours: derive$1([
-            RepresentingConfigs.memory([]),
-            ComposingConfigs.self(),
-            Disabling.config({}),
-            Toggling.config({
-              toggleClass: 'dragenter',
-              toggleOnExecute: false
-            }),
-            config('dropzone-events', [
-              run$1('dragenter', sequence([
-                stopper,
-                Toggling.toggle
-              ])),
-              run$1('dragleave', sequence([
-                stopper,
-                Toggling.toggle
-              ])),
-              run$1('dragover', stopper),
-              run$1('drop', sequence([
-                stopper,
-                onDrop
-              ])),
-              run$1(change(), onSelect)
-            ])
-          ]),
-          components: [{
-              dom: {
-                tag: 'div',
-                classes: ['tox-dropzone'],
-                styles: {}
-              },
-              components: [
-                {
-                  dom: {
-                    tag: 'p',
-                    innerHtml: providersBackstage.translate('Drop an image here')
-                  }
-                },
-                Button.sketch({
-                  dom: {
-                    tag: 'button',
-                    innerHtml: providersBackstage.translate('Browse for an image'),
-                    styles: { position: 'relative' },
-                    classes: [
-                      'tox-button',
-                      'tox-button--secondary'
-                    ]
-                  },
-                  components: [memInput.asSpec()],
-                  action: function (comp) {
-                    var inputComp = memInput.get(comp);
-                    inputComp.element.dom.click();
-                  },
-                  buttonBehaviours: derive$1([
-                    Tabstopping.config({}),
-                    DisablingConfigs.button(providersBackstage.isDisabled),
-                    receivingConfig()
-                  ])
-                })
-              ]
-            }]
-        };
-      };
-      var pLabel = spec.label.map(function (label) {
-        return renderLabel$2(label, providersBackstage);
-      });
-      var pField = FormField.parts.field({ factory: { sketch: renderField } });
-      return renderFormFieldWith(pLabel, pField, ['tox-form__group--stretched'], []);
-    };
-
-    var renderGrid = function (spec, backstage) {
-      return {
-        dom: {
-          tag: 'div',
-          classes: [
-            'tox-form__grid',
-            'tox-form__grid--' + spec.columns + 'col'
-          ]
-        },
-        components: map$2(spec.items, backstage.interpreter)
-      };
-    };
-
-    var beforeObject = generate$6('alloy-fake-before-tabstop');
-    var afterObject = generate$6('alloy-fake-after-tabstop');
-    var craftWithClasses = function (classes) {
-      return {
-        dom: {
-          tag: 'div',
-          styles: {
-            width: '1px',
-            height: '1px',
-            outline: 'none'
-          },
-          attributes: { tabindex: '0' },
-          classes: classes
-        },
-        behaviours: derive$1([
-          Focusing.config({ ignore: true }),
-          Tabstopping.config({})
-        ])
-      };
-    };
-    var craft = function (spec) {
-      return {
-        dom: {
-          tag: 'div',
-          classes: ['tox-navobj']
-        },
-        components: [
-          craftWithClasses([beforeObject]),
-          spec,
-          craftWithClasses([afterObject])
-        ],
-        behaviours: derive$1([ComposingConfigs.childAt(1)])
-      };
-    };
-    var triggerTab = function (placeholder, shiftKey) {
-      emitWith(placeholder, keydown(), {
-        raw: {
-          which: 9,
-          shiftKey: shiftKey
-        }
-      });
-    };
-    var onFocus = function (container, targetComp) {
-      var target = targetComp.element;
-      if (has(target, beforeObject)) {
-        triggerTab(container, true);
-      } else if (has(target, afterObject)) {
-        triggerTab(container, false);
-      }
-    };
-    var isPseudoStop = function (element) {
-      return closest(element, [
-        '.' + beforeObject,
-        '.' + afterObject
-      ].join(','), never);
-    };
-
-    var platformNeedsSandboxing = !(detect$1().browser.isIE() || detect$1().browser.isEdge());
-    var getDynamicSource = function (isSandbox) {
-      var cachedValue = Cell('');
-      return {
-        getValue: function (_frameComponent) {
-          return cachedValue.get();
-        },
-        setValue: function (frameComponent, html) {
-          if (!isSandbox) {
-            set$8(frameComponent.element, 'src', 'javascript:\'\'');
-            var doc = frameComponent.element.dom.contentWindow.document;
-            doc.open();
-            doc.write(html);
-            doc.close();
-          } else {
-            set$8(frameComponent.element, 'srcdoc', html);
-          }
-          cachedValue.set(html);
-        }
-      };
-    };
-    var renderIFrame = function (spec, providersBackstage) {
-      var isSandbox = platformNeedsSandboxing && spec.sandboxed;
-      var attributes = __assign(__assign({}, spec.label.map(function (title) {
-        return { title: title };
-      }).getOr({})), isSandbox ? { sandbox: 'allow-scripts allow-same-origin' } : {});
-      var sourcing = getDynamicSource(isSandbox);
-      var pLabel = spec.label.map(function (label) {
-        return renderLabel$2(label, providersBackstage);
-      });
-      var factory = function (newSpec) {
-        return craft({
-          uid: newSpec.uid,
-          dom: {
-            tag: 'iframe',
-            attributes: attributes
-          },
-          behaviours: derive$1([
-            Tabstopping.config({}),
-            Focusing.config({}),
-            RepresentingConfigs.withComp(Optional.none(), sourcing.getValue, sourcing.setValue)
-          ])
-        });
-      };
-      var pField = FormField.parts.field({ factory: { sketch: factory } });
-      return renderFormFieldWith(pLabel, pField, ['tox-form__group--stretched'], []);
-    };
-
-    var create$3 = function (width, height) {
-      return resize$3(document.createElement('canvas'), width, height);
-    };
-    var clone = function (canvas) {
-      var tCanvas = create$3(canvas.width, canvas.height);
-      var ctx = get2dContext(tCanvas);
-      ctx.drawImage(canvas, 0, 0);
-      return tCanvas;
-    };
-    var get2dContext = function (canvas) {
-      return canvas.getContext('2d');
-    };
-    var resize$3 = function (canvas, width, height) {
-      canvas.width = width;
-      canvas.height = height;
-      return canvas;
-    };
-
-    var getWidth$1 = function (image) {
-      return image.naturalWidth || image.width;
-    };
-    var getHeight$1 = function (image) {
-      return image.naturalHeight || image.height;
-    };
-
-    var blobToImage = function (blob) {
-      return new Promise$1(function (resolve, reject) {
-        var blobUrl = URL.createObjectURL(blob);
-        var image = new Image();
-        var removeListeners = function () {
-          image.removeEventListener('load', loaded);
-          image.removeEventListener('error', error);
-        };
-        var loaded = function () {
-          removeListeners();
-          resolve(image);
-        };
-        var error = function () {
-          removeListeners();
-          reject('Unable to load data of type ' + blob.type + ': ' + blobUrl);
-        };
-        image.addEventListener('load', loaded);
-        image.addEventListener('error', error);
-        image.src = blobUrl;
-        if (image.complete) {
-          setTimeout(loaded, 0);
-        }
-      });
-    };
-    var dataUriToBlobSync = function (uri) {
-      var data = uri.split(',');
-      var matches = /data:([^;]+)/.exec(data[0]);
-      if (!matches) {
-        return Optional.none();
-      }
-      var mimetype = matches[1];
-      var base64 = data[1];
-      var sliceSize = 1024;
-      var byteCharacters = atob(base64);
-      var bytesLength = byteCharacters.length;
-      var slicesCount = Math.ceil(bytesLength / sliceSize);
-      var byteArrays = new Array(slicesCount);
-      for (var sliceIndex = 0; sliceIndex < slicesCount; ++sliceIndex) {
-        var begin = sliceIndex * sliceSize;
-        var end = Math.min(begin + sliceSize, bytesLength);
-        var bytes = new Array(end - begin);
-        for (var offset = begin, i = 0; offset < end; ++i, ++offset) {
-          bytes[i] = byteCharacters[offset].charCodeAt(0);
-        }
-        byteArrays[sliceIndex] = new Uint8Array(bytes);
-      }
-      return Optional.some(new Blob(byteArrays, { type: mimetype }));
-    };
-    var dataUriToBlob = function (uri) {
-      return new Promise$1(function (resolve, reject) {
-        dataUriToBlobSync(uri).fold(function () {
-          reject('uri is not base64: ' + uri);
-        }, resolve);
-      });
-    };
-    var canvasToBlob = function (canvas, type, quality) {
-      type = type || 'image/png';
-      if (isFunction(HTMLCanvasElement.prototype.toBlob)) {
-        return new Promise$1(function (resolve, reject) {
-          canvas.toBlob(function (blob) {
-            if (blob) {
-              resolve(blob);
-            } else {
-              reject();
-            }
-          }, type, quality);
-        });
-      } else {
-        return dataUriToBlob(canvas.toDataURL(type, quality));
-      }
-    };
-    var canvasToDataURL = function (canvas, type, quality) {
-      type = type || 'image/png';
-      return canvas.toDataURL(type, quality);
-    };
-    var blobToCanvas = function (blob) {
-      return blobToImage(blob).then(function (image) {
-        revokeImageUrl(image);
-        var canvas = create$3(getWidth$1(image), getHeight$1(image));
-        var context = get2dContext(canvas);
-        context.drawImage(image, 0, 0);
-        return canvas;
-      });
-    };
-    var blobToDataUri = function (blob) {
-      return new Promise$1(function (resolve) {
-        var reader = new FileReader();
-        reader.onloadend = function () {
-          resolve(reader.result);
-        };
-        reader.readAsDataURL(blob);
-      });
-    };
-    var revokeImageUrl = function (image) {
-      URL.revokeObjectURL(image.src);
-    };
-
-    var create$2 = function (getCanvas, blob, uri) {
-      var initialType = blob.type;
-      var getType = constant$1(initialType);
-      var toBlob = function () {
-        return Promise$1.resolve(blob);
-      };
-      var toDataURL = constant$1(uri);
-      var toBase64 = function () {
-        return uri.split(',')[1];
-      };
-      var toAdjustedBlob = function (type, quality) {
-        return getCanvas.then(function (canvas) {
-          return canvasToBlob(canvas, type, quality);
-        });
-      };
-      var toAdjustedDataURL = function (type, quality) {
-        return getCanvas.then(function (canvas) {
-          return canvasToDataURL(canvas, type, quality);
-        });
-      };
-      var toAdjustedBase64 = function (type, quality) {
-        return toAdjustedDataURL(type, quality).then(function (dataurl) {
-          return dataurl.split(',')[1];
-        });
-      };
-      var toCanvas = function () {
-        return getCanvas.then(clone);
-      };
-      return {
-        getType: getType,
-        toBlob: toBlob,
-        toDataURL: toDataURL,
-        toBase64: toBase64,
-        toAdjustedBlob: toAdjustedBlob,
-        toAdjustedDataURL: toAdjustedDataURL,
-        toAdjustedBase64: toAdjustedBase64,
-        toCanvas: toCanvas
-      };
-    };
-    var fromBlob = function (blob) {
-      return blobToDataUri(blob).then(function (uri) {
-        return create$2(blobToCanvas(blob), blob, uri);
-      });
-    };
-    var fromCanvas = function (canvas, type) {
-      return canvasToBlob(canvas, type).then(function (blob) {
-        return create$2(Promise$1.resolve(canvas), blob, canvas.toDataURL());
-      });
-    };
-
-    var blobToImageResult = function (blob) {
-      return fromBlob(blob);
-    };
-
-    var clamp = function (value, min, max) {
-      var parsedValue = typeof value === 'string' ? parseFloat(value) : value;
-      if (parsedValue > max) {
-        parsedValue = max;
-      } else if (parsedValue < min) {
-        parsedValue = min;
-      }
-      return parsedValue;
-    };
-    var identity = function () {
-      return [
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1
-      ];
-    };
-    var DELTA_INDEX = [
-      0,
-      0.01,
-      0.02,
-      0.04,
-      0.05,
-      0.06,
-      0.07,
-      0.08,
-      0.1,
-      0.11,
-      0.12,
-      0.14,
-      0.15,
-      0.16,
-      0.17,
-      0.18,
-      0.2,
-      0.21,
-      0.22,
-      0.24,
-      0.25,
-      0.27,
-      0.28,
-      0.3,
-      0.32,
-      0.34,
-      0.36,
-      0.38,
-      0.4,
-      0.42,
-      0.44,
-      0.46,
-      0.48,
-      0.5,
-      0.53,
-      0.56,
-      0.59,
-      0.62,
-      0.65,
-      0.68,
-      0.71,
-      0.74,
-      0.77,
-      0.8,
-      0.83,
-      0.86,
-      0.89,
-      0.92,
-      0.95,
-      0.98,
-      1,
-      1.06,
-      1.12,
-      1.18,
-      1.24,
-      1.3,
-      1.36,
-      1.42,
-      1.48,
-      1.54,
-      1.6,
-      1.66,
-      1.72,
-      1.78,
-      1.84,
-      1.9,
-      1.96,
-      2,
-      2.12,
-      2.25,
-      2.37,
-      2.5,
-      2.62,
-      2.75,
-      2.87,
-      3,
-      3.2,
-      3.4,
-      3.6,
-      3.8,
-      4,
-      4.3,
-      4.7,
-      4.9,
-      5,
-      5.5,
-      6,
-      6.5,
-      6.8,
-      7,
-      7.3,
-      7.5,
-      7.8,
-      8,
-      8.4,
-      8.7,
-      9,
-      9.4,
-      9.6,
-      9.8,
-      10
-    ];
-    var multiply = function (matrix1, matrix2) {
-      var col = [];
-      var out = new Array(25);
-      var val;
-      for (var i = 0; i < 5; i++) {
-        for (var j = 0; j < 5; j++) {
-          col[j] = matrix2[j + i * 5];
-        }
-        for (var j = 0; j < 5; j++) {
-          val = 0;
-          for (var k = 0; k < 5; k++) {
-            val += matrix1[j + k * 5] * col[k];
-          }
-          out[j + i * 5] = val;
-        }
-      }
-      return out;
-    };
-    var adjustContrast = function (matrix, value) {
-      var x;
-      value = clamp(value, -1, 1);
-      value *= 100;
-      if (value < 0) {
-        x = 127 + value / 100 * 127;
-      } else {
-        x = value % 1;
-        if (x === 0) {
-          x = DELTA_INDEX[value];
-        } else {
-          x = DELTA_INDEX[Math.floor(value)] * (1 - x) + DELTA_INDEX[Math.floor(value) + 1] * x;
-        }
-        x = x * 127 + 127;
-      }
-      return multiply(matrix, [
-        x / 127,
-        0,
-        0,
-        0,
-        0.5 * (127 - x),
-        0,
-        x / 127,
-        0,
-        0,
-        0.5 * (127 - x),
-        0,
-        0,
-        x / 127,
-        0,
-        0.5 * (127 - x),
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1
-      ]);
-    };
-    var adjustBrightness = function (matrix, value) {
-      value = clamp(255 * value, -255, 255);
-      return multiply(matrix, [
-        1,
-        0,
-        0,
-        0,
-        value,
-        0,
-        1,
-        0,
-        0,
-        value,
-        0,
-        0,
-        1,
-        0,
-        value,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1
-      ]);
-    };
-    var adjustColors = function (matrix, adjustR, adjustG, adjustB) {
-      adjustR = clamp(adjustR, 0, 2);
-      adjustG = clamp(adjustG, 0, 2);
-      adjustB = clamp(adjustB, 0, 2);
-      return multiply(matrix, [
-        adjustR,
-        0,
-        0,
-        0,
-        0,
-        0,
-        adjustG,
-        0,
-        0,
-        0,
-        0,
-        0,
-        adjustB,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1
-      ]);
-    };
-
-    var colorFilter = function (ir, matrix) {
-      return ir.toCanvas().then(function (canvas) {
-        return applyColorFilter(canvas, ir.getType(), matrix);
-      });
-    };
-    var applyColorFilter = function (canvas, type, matrix) {
-      var context = get2dContext(canvas);
-      var applyMatrix = function (pixelsData, m) {
-        var r, g, b, a;
-        var data = pixelsData.data, m0 = m[0], m1 = m[1], m2 = m[2], m3 = m[3], m4 = m[4], m5 = m[5], m6 = m[6], m7 = m[7], m8 = m[8], m9 = m[9], m10 = m[10], m11 = m[11], m12 = m[12], m13 = m[13], m14 = m[14], m15 = m[15], m16 = m[16], m17 = m[17], m18 = m[18], m19 = m[19];
-        for (var i = 0; i < data.length; i += 4) {
-          r = data[i];
-          g = data[i + 1];
-          b = data[i + 2];
-          a = data[i + 3];
-          data[i] = r * m0 + g * m1 + b * m2 + a * m3 + m4;
-          data[i + 1] = r * m5 + g * m6 + b * m7 + a * m8 + m9;
-          data[i + 2] = r * m10 + g * m11 + b * m12 + a * m13 + m14;
-          data[i + 3] = r * m15 + g * m16 + b * m17 + a * m18 + m19;
-        }
-        return pixelsData;
-      };
-      var pixels = applyMatrix(context.getImageData(0, 0, canvas.width, canvas.height), matrix);
-      context.putImageData(pixels, 0, 0);
-      return fromCanvas(canvas, type);
-    };
-    var convoluteFilter = function (ir, matrix) {
-      return ir.toCanvas().then(function (canvas) {
-        return applyConvoluteFilter(canvas, ir.getType(), matrix);
-      });
-    };
-    var applyConvoluteFilter = function (canvas, type, matrix) {
-      var context = get2dContext(canvas);
-      var applyMatrix = function (pIn, pOut, aMatrix) {
-        var clamp = function (value, min, max) {
-          if (value > max) {
-            value = max;
-          } else if (value < min) {
-            value = min;
-          }
-          return value;
-        };
-        var side = Math.round(Math.sqrt(aMatrix.length));
-        var halfSide = Math.floor(side / 2);
-        var rgba = pIn.data;
-        var drgba = pOut.data;
-        var w = pIn.width;
-        var h = pIn.height;
-        for (var y = 0; y < h; y++) {
-          for (var x = 0; x < w; x++) {
-            var r = 0;
-            var g = 0;
-            var b = 0;
-            for (var cy = 0; cy < side; cy++) {
-              for (var cx = 0; cx < side; cx++) {
-                var scx = clamp(x + cx - halfSide, 0, w - 1);
-                var scy = clamp(y + cy - halfSide, 0, h - 1);
-                var innerOffset = (scy * w + scx) * 4;
-                var wt = aMatrix[cy * side + cx];
-                r += rgba[innerOffset] * wt;
-                g += rgba[innerOffset + 1] * wt;
-                b += rgba[innerOffset + 2] * wt;
-              }
-            }
-            var offset = (y * w + x) * 4;
-            drgba[offset] = clamp(r, 0, 255);
-            drgba[offset + 1] = clamp(g, 0, 255);
-            drgba[offset + 2] = clamp(b, 0, 255);
-          }
-        }
-        return pOut;
-      };
-      var pixelsIn = context.getImageData(0, 0, canvas.width, canvas.height);
-      var pixelsOut = context.getImageData(0, 0, canvas.width, canvas.height);
-      pixelsOut = applyMatrix(pixelsIn, pixelsOut, matrix);
-      context.putImageData(pixelsOut, 0, 0);
-      return fromCanvas(canvas, type);
-    };
-    var functionColorFilter = function (colorFn) {
-      var filterImpl = function (canvas, type, value) {
-        var context = get2dContext(canvas);
-        var lookup = new Array(256);
-        var applyLookup = function (pixelsData, lookupData) {
-          var data = pixelsData.data;
-          for (var i = 0; i < data.length; i += 4) {
-            data[i] = lookupData[data[i]];
-            data[i + 1] = lookupData[data[i + 1]];
-            data[i + 2] = lookupData[data[i + 2]];
-          }
-          return pixelsData;
-        };
-        for (var i = 0; i < lookup.length; i++) {
-          lookup[i] = colorFn(i, value);
-        }
-        var pixels = applyLookup(context.getImageData(0, 0, canvas.width, canvas.height), lookup);
-        context.putImageData(pixels, 0, 0);
-        return fromCanvas(canvas, type);
-      };
-      return function (ir, value) {
-        return ir.toCanvas().then(function (canvas) {
-          return filterImpl(canvas, ir.getType(), value);
-        });
-      };
-    };
-    var complexAdjustableColorFilter = function (matrixAdjustFn) {
-      return function (ir, adjust) {
-        return colorFilter(ir, matrixAdjustFn(identity(), adjust));
-      };
-    };
-    var basicColorFilter = function (matrix) {
-      return function (ir) {
-        return colorFilter(ir, matrix);
-      };
-    };
-    var basicConvolutionFilter = function (kernel) {
-      return function (ir) {
-        return convoluteFilter(ir, kernel);
-      };
-    };
-    var invert$1 = basicColorFilter([
-      -1,
-      0,
-      0,
-      0,
-      255,
-      0,
-      -1,
-      0,
-      0,
-      255,
-      0,
-      0,
-      -1,
-      0,
-      255,
-      0,
-      0,
-      0,
-      1,
-      0,
-      0,
-      0,
-      0,
-      0,
-      1
-    ]);
-    var brightness$1 = complexAdjustableColorFilter(adjustBrightness);
-    var contrast$1 = complexAdjustableColorFilter(adjustContrast);
-    var colorize$1 = function (ir, adjustR, adjustG, adjustB) {
-      return colorFilter(ir, adjustColors(identity(), adjustR, adjustG, adjustB));
-    };
-    var sharpen$1 = basicConvolutionFilter([
-      0,
-      -1,
-      0,
-      -1,
-      5,
-      -1,
-      0,
-      -1,
-      0
-    ]);
-    var gamma$1 = functionColorFilter(function (color, value) {
-      return Math.pow(color / 255, 1 - value) * 255;
-    });
-
-    var scale = function (image, dW, dH) {
-      var sW = getWidth$1(image);
-      var sH = getHeight$1(image);
-      var wRatio = dW / sW;
-      var hRatio = dH / sH;
-      var scaleCapped = false;
-      if (wRatio < 0.5 || wRatio > 2) {
-        wRatio = wRatio < 0.5 ? 0.5 : 2;
-        scaleCapped = true;
-      }
-      if (hRatio < 0.5 || hRatio > 2) {
-        hRatio = hRatio < 0.5 ? 0.5 : 2;
-        scaleCapped = true;
-      }
-      var scaled = _scale(image, wRatio, hRatio);
-      return !scaleCapped ? scaled : scaled.then(function (tCanvas) {
-        return scale(tCanvas, dW, dH);
-      });
-    };
-    var _scale = function (image, wRatio, hRatio) {
-      return new Promise$1(function (resolve) {
-        var sW = getWidth$1(image);
-        var sH = getHeight$1(image);
-        var dW = Math.floor(sW * wRatio);
-        var dH = Math.floor(sH * hRatio);
-        var canvas = create$3(dW, dH);
-        var context = get2dContext(canvas);
-        context.drawImage(image, 0, 0, sW, sH, 0, 0, dW, dH);
-        resolve(canvas);
-      });
-    };
-
-    var ceilWithPrecision = function (num, precision) {
-      if (precision === void 0) {
-        precision = 2;
-      }
-      var mul = Math.pow(10, precision);
-      var upper = Math.round(num * mul);
-      return Math.ceil(upper / mul);
-    };
-    var rotate$1 = function (ir, angle) {
-      return ir.toCanvas().then(function (canvas) {
-        return applyRotate(canvas, ir.getType(), angle);
-      });
-    };
-    var applyRotate = function (image, type, angle) {
-      var degrees = angle < 0 ? 360 + angle : angle;
-      var rad = degrees * Math.PI / 180;
-      var width = image.width;
-      var height = image.height;
-      var sin = Math.sin(rad);
-      var cos = Math.cos(rad);
-      var newWidth = ceilWithPrecision(Math.abs(width * cos) + Math.abs(height * sin));
-      var newHeight = ceilWithPrecision(Math.abs(width * sin) + Math.abs(height * cos));
-      var canvas = create$3(newWidth, newHeight);
-      var context = get2dContext(canvas);
-      context.translate(newWidth / 2, newHeight / 2);
-      context.rotate(rad);
-      context.drawImage(image, -width / 2, -height / 2);
-      return fromCanvas(canvas, type);
-    };
-    var flip$1 = function (ir, axis) {
-      return ir.toCanvas().then(function (canvas) {
-        return applyFlip(canvas, ir.getType(), axis);
-      });
-    };
-    var applyFlip = function (image, type, axis) {
-      var canvas = create$3(image.width, image.height);
-      var context = get2dContext(canvas);
-      if (axis === 'v') {
-        context.scale(1, -1);
-        context.drawImage(image, 0, -canvas.height);
-      } else {
-        context.scale(-1, 1);
-        context.drawImage(image, -canvas.width, 0);
-      }
-      return fromCanvas(canvas, type);
-    };
-    var crop$1 = function (ir, x, y, w, h) {
-      return ir.toCanvas().then(function (canvas) {
-        return applyCrop(canvas, ir.getType(), x, y, w, h);
-      });
-    };
-    var applyCrop = function (image, type, x, y, w, h) {
-      var canvas = create$3(w, h);
-      var context = get2dContext(canvas);
-      context.drawImage(image, -x, -y);
-      return fromCanvas(canvas, type);
-    };
-    var resize$2 = function (ir, w, h) {
-      return ir.toCanvas().then(function (canvas) {
-        return scale(canvas, w, h).then(function (newCanvas) {
-          return fromCanvas(newCanvas, ir.getType());
-        });
-      });
-    };
-
-    var invert = function (ir) {
-      return invert$1(ir);
-    };
-    var sharpen = function (ir) {
-      return sharpen$1(ir);
-    };
-    var gamma = function (ir, value) {
-      return gamma$1(ir, value);
-    };
-    var colorize = function (ir, adjustR, adjustG, adjustB) {
-      return colorize$1(ir, adjustR, adjustG, adjustB);
-    };
-    var brightness = function (ir, adjust) {
-      return brightness$1(ir, adjust);
-    };
-    var contrast = function (ir, adjust) {
-      return contrast$1(ir, adjust);
-    };
-    var flip = function (ir, axis) {
-      return flip$1(ir, axis);
-    };
-    var crop = function (ir, x, y, w, h) {
-      return crop$1(ir, x, y, w, h);
-    };
-    var resize$1 = function (ir, w, h) {
-      return resize$2(ir, w, h);
-    };
-    var rotate = function (ir, angle) {
-      return rotate$1(ir, angle);
-    };
-
-    var renderIcon = function (iconName, iconsProvider, behaviours) {
-      return render$3(iconName, {
-        tag: 'span',
-        classes: [
-          'tox-icon',
-          'tox-tbtn__icon-wrap'
-        ],
-        behaviours: behaviours
-      }, iconsProvider);
-    };
-    var renderIconFromPack = function (iconName, iconsProvider) {
-      return renderIcon(iconName, iconsProvider, []);
-    };
-    var renderReplacableIconFromPack = function (iconName, iconsProvider) {
-      return renderIcon(iconName, iconsProvider, [Replacing.config({})]);
-    };
-    var renderLabel$1 = function (text, prefix, providersBackstage) {
-      return {
-        dom: {
-          tag: 'span',
-          innerHtml: providersBackstage.translate(text),
-          classes: [prefix + '__select-label']
-        },
-        behaviours: derive$1([Replacing.config({})])
-      };
-    };
-
-    var _a;
-    var internalToolbarButtonExecute = generate$6('toolbar.button.execute');
-    var onToolbarButtonExecute = function (info) {
-      return runOnExecute$1(function (comp, _simulatedEvent) {
-        runWithApi(info, comp)(function (itemApi) {
-          emitWith(comp, internalToolbarButtonExecute, { buttonApi: itemApi });
-          info.onAction(itemApi);
-        });
-      });
-    };
-    var toolbarButtonEventOrder = (_a = {}, _a[execute$5()] = [
-      'disabling',
-      'alloy.base.behaviour',
-      'toggling',
-      'toolbar-button-events'
-    ], _a);
-
-    var updateMenuText = generate$6('update-menu-text');
-    var updateMenuIcon = generate$6('update-menu-icon');
-    var renderCommonDropdown = function (spec, prefix, sharedBackstage) {
-      var editorOffCell = Cell(noop);
-      var optMemDisplayText = spec.text.map(function (text) {
-        return record(renderLabel$1(text, prefix, sharedBackstage.providers));
-      });
-      var optMemDisplayIcon = spec.icon.map(function (iconName) {
-        return record(renderReplacableIconFromPack(iconName, sharedBackstage.providers.icons));
-      });
-      var onLeftOrRightInMenu = function (comp, se) {
-        var dropdown = Representing.getValue(comp);
-        Focusing.focus(dropdown);
-        emitWith(dropdown, 'keydown', { raw: se.event.raw });
-        Dropdown.close(dropdown);
-        return Optional.some(true);
-      };
-      var role = spec.role.fold(function () {
-        return {};
-      }, function (role) {
-        return { role: role };
-      });
-      var tooltipAttributes = spec.tooltip.fold(function () {
-        return {};
-      }, function (tooltip) {
-        var translatedTooltip = sharedBackstage.providers.translate(tooltip);
-        return {
-          'title': translatedTooltip,
-          'aria-label': translatedTooltip
-        };
-      });
-      var iconSpec = render$3('chevron-down', {
-        tag: 'div',
-        classes: [prefix + '__select-chevron']
-      }, sharedBackstage.providers.icons);
-      var memDropdown = record(Dropdown.sketch(__assign(__assign(__assign({}, spec.uid ? { uid: spec.uid } : {}), role), {
-        dom: {
-          tag: 'button',
-          classes: [
-            prefix,
-            prefix + '--select'
-          ].concat(map$2(spec.classes, function (c) {
-            return prefix + '--' + c;
-          })),
-          attributes: __assign({}, tooltipAttributes)
-        },
-        components: componentRenderPipeline([
-          optMemDisplayIcon.map(function (mem) {
-            return mem.asSpec();
-          }),
-          optMemDisplayText.map(function (mem) {
-            return mem.asSpec();
-          }),
-          Optional.some(iconSpec)
-        ]),
-        matchWidth: true,
-        useMinWidth: true,
-        dropdownBehaviours: derive$1(__spreadArray(__spreadArray([], spec.dropdownBehaviours, true), [
-          DisablingConfigs.button(function () {
-            return spec.disabled || sharedBackstage.providers.isDisabled();
-          }),
-          receivingConfig(),
-          Unselecting.config({}),
-          Replacing.config({}),
-          config('dropdown-events', [
-            onControlAttached(spec, editorOffCell),
-            onControlDetached(spec, editorOffCell)
-          ]),
-          config('menubutton-update-display-text', [
-            run$1(updateMenuText, function (comp, se) {
-              optMemDisplayText.bind(function (mem) {
-                return mem.getOpt(comp);
-              }).each(function (displayText) {
-                Replacing.set(displayText, [text(sharedBackstage.providers.translate(se.event.text))]);
-              });
-            }),
-            run$1(updateMenuIcon, function (comp, se) {
-              optMemDisplayIcon.bind(function (mem) {
-                return mem.getOpt(comp);
-              }).each(function (displayIcon) {
-                Replacing.set(displayIcon, [renderReplacableIconFromPack(se.event.icon, sharedBackstage.providers.icons)]);
-              });
-            })
-          ])
-        ], false)),
-        eventOrder: deepMerge(toolbarButtonEventOrder, {
-          mousedown: [
-            'focusing',
-            'alloy.base.behaviour',
-            'item-type-events',
-            'normal-dropdown-events'
-          ]
-        }),
-        sandboxBehaviours: derive$1([Keying.config({
-            mode: 'special',
-            onLeft: onLeftOrRightInMenu,
-            onRight: onLeftOrRightInMenu
-          })]),
-        lazySink: sharedBackstage.getSink,
-        toggleClass: prefix + '--active',
-        parts: { menu: part(false, spec.columns, spec.presets) },
-        fetch: function (comp) {
-          return Future.nu(curry(spec.fetch, comp));
-        }
-      })));
-      return memDropdown.asSpec();
-    };
-
-    var isMenuItemReference = function (item) {
-      return isString(item);
-    };
-    var isSeparator$1 = function (item) {
-      return item.type === 'separator';
-    };
-    var isExpandingMenuItem = function (item) {
-      return has$2(item, 'getSubmenuItems');
-    };
-    var separator$2 = { type: 'separator' };
-    var unwrapReferences = function (items, menuItems) {
-      var realItems = foldl(items, function (acc, item) {
-        if (isMenuItemReference(item)) {
-          if (item === '') {
-            return acc;
-          } else if (item === '|') {
-            return acc.length > 0 && !isSeparator$1(acc[acc.length - 1]) ? acc.concat([separator$2]) : acc;
-          } else if (has$2(menuItems, item.toLowerCase())) {
-            return acc.concat([menuItems[item.toLowerCase()]]);
-          } else {
-            return acc;
-          }
-        } else {
-          return acc.concat([item]);
-        }
-      }, []);
-      if (realItems.length > 0 && isSeparator$1(realItems[realItems.length - 1])) {
-        realItems.pop();
-      }
-      return realItems;
-    };
-    var getFromExpandingItem = function (item, menuItems) {
-      var submenuItems = item.getSubmenuItems();
-      var rest = expand(submenuItems, menuItems);
-      var newMenus = deepMerge(rest.menus, wrap$1(item.value, rest.items));
-      var newExpansions = deepMerge(rest.expansions, wrap$1(item.value, item.value));
-      return {
-        item: item,
-        menus: newMenus,
-        expansions: newExpansions
-      };
-    };
-    var getFromItem = function (item, menuItems) {
-      return isExpandingMenuItem(item) ? getFromExpandingItem(item, menuItems) : {
-        item: item,
-        menus: {},
-        expansions: {}
-      };
-    };
-    var generateValueIfRequired = function (item) {
-      if (isSeparator$1(item)) {
-        return item;
-      } else {
-        var itemValue = get$e(item, 'value').getOrThunk(function () {
-          return generate$6('generated-menu-item');
-        });
-        return deepMerge({ value: itemValue }, item);
-      }
-    };
-    var expand = function (items, menuItems) {
-      var realItems = unwrapReferences(isString(items) ? items.split(' ') : items, menuItems);
-      return foldr(realItems, function (acc, item) {
-        var itemWithValue = generateValueIfRequired(item);
-        var newData = getFromItem(itemWithValue, menuItems);
-        return {
-          menus: deepMerge(acc.menus, newData.menus),
-          items: [newData.item].concat(acc.items),
-          expansions: deepMerge(acc.expansions, newData.expansions)
-        };
-      }, {
-        menus: {},
-        expansions: {},
-        items: []
-      });
-    };
-
-    var build = function (items, itemResponse, backstage, isHorizontalMenu) {
-      var primary = generate$6('primary-menu');
-      var data = expand(items, backstage.shared.providers.menuItems());
-      if (data.items.length === 0) {
-        return Optional.none();
-      }
-      var mainMenu = createPartialMenu(primary, data.items, itemResponse, backstage, isHorizontalMenu);
-      var submenus = map$1(data.menus, function (menuItems, menuName) {
-        return createPartialMenu(menuName, menuItems, itemResponse, backstage, false);
-      });
-      var menus = deepMerge(submenus, wrap$1(primary, mainMenu));
-      return Optional.from(tieredMenu.tieredData(primary, menus, data.expansions));
-    };
-
-    var getMenuButtonApi = function (component) {
-      return {
-        isDisabled: function () {
-          return Disabling.isDisabled(component);
-        },
-        setDisabled: function (state) {
-          return Disabling.set(component, state);
-        },
-        setActive: function (state) {
-          var elm = component.element;
-          if (state) {
-            add$2(elm, 'tox-tbtn--enabled');
-            set$8(elm, 'aria-pressed', true);
-          } else {
-            remove$2(elm, 'tox-tbtn--enabled');
-            remove$7(elm, 'aria-pressed');
-          }
-        },
-        isActive: function () {
-          return has(component.element, 'tox-tbtn--enabled');
-        }
-      };
-    };
-    var renderMenuButton = function (spec, prefix, backstage, role) {
-      return renderCommonDropdown({
-        text: spec.text,
-        icon: spec.icon,
-        tooltip: spec.tooltip,
-        role: role,
-        fetch: function (_comp, callback) {
-          spec.fetch(function (items) {
-            callback(build(items, ItemResponse$1.CLOSE_ON_EXECUTE, backstage, false));
-          });
-        },
-        onSetup: spec.onSetup,
-        getApi: getMenuButtonApi,
-        columns: 1,
-        presets: 'normal',
-        classes: [],
-        dropdownBehaviours: [Tabstopping.config({})]
-      }, prefix, backstage.shared);
-    };
-    var getFetch = function (items, getButton, backstage) {
-      var getMenuItemAction = function (item) {
-        return function (api) {
-          var newValue = !api.isActive();
-          api.setActive(newValue);
-          item.storage.set(newValue);
-          backstage.shared.getSink().each(function (sink) {
-            getButton().getOpt(sink).each(function (orig) {
-              focus$3(orig.element);
-              emitWith(orig, formActionEvent, {
-                name: item.name,
-                value: item.storage.get()
-              });
-            });
-          });
-        };
-      };
-      var getMenuItemSetup = function (item) {
-        return function (api) {
-          api.setActive(item.storage.get());
-        };
-      };
-      return function (success) {
-        success(map$2(items, function (item) {
-          var text = item.text.fold(function () {
-            return {};
-          }, function (text) {
-            return { text: text };
-          });
-          return __assign(__assign({
-            type: item.type,
-            active: false
-          }, text), {
-            onAction: getMenuItemAction(item),
-            onSetup: getMenuItemSetup(item)
-          });
-        }));
-      };
-    };
-
-    var renderCommonSpec = function (spec, actionOpt, extraBehaviours, dom, components, providersBackstage) {
-      if (extraBehaviours === void 0) {
-        extraBehaviours = [];
-      }
-      var action = actionOpt.fold(function () {
-        return {};
-      }, function (action) {
-        return { action: action };
-      });
-      var common = __assign({
-        buttonBehaviours: derive$1([
-          DisablingConfigs.button(function () {
-            return spec.disabled || providersBackstage.isDisabled();
-          }),
-          receivingConfig(),
-          Tabstopping.config({}),
-          config('button press', [
-            preventDefault('click'),
-            preventDefault('mousedown')
-          ])
-        ].concat(extraBehaviours)),
-        eventOrder: {
-          click: [
-            'button press',
-            'alloy.base.behaviour'
-          ],
-          mousedown: [
-            'button press',
-            'alloy.base.behaviour'
-          ]
-        }
-      }, action);
-      var domFinal = deepMerge(common, { dom: dom });
-      return deepMerge(domFinal, { components: components });
-    };
-    var renderIconButtonSpec = function (spec, action, providersBackstage, extraBehaviours) {
-      if (extraBehaviours === void 0) {
-        extraBehaviours = [];
-      }
-      var tooltipAttributes = spec.tooltip.map(function (tooltip) {
-        return {
-          'aria-label': providersBackstage.translate(tooltip),
-          'title': providersBackstage.translate(tooltip)
-        };
-      }).getOr({});
-      var dom = {
-        tag: 'button',
-        classes: ['tox-tbtn'],
-        attributes: tooltipAttributes
-      };
-      var icon = spec.icon.map(function (iconName) {
-        return renderIconFromPack(iconName, providersBackstage.icons);
-      });
-      var components = componentRenderPipeline([icon]);
-      return renderCommonSpec(spec, action, extraBehaviours, dom, components, providersBackstage);
-    };
-    var renderIconButton = function (spec, action, providersBackstage, extraBehaviours) {
-      if (extraBehaviours === void 0) {
-        extraBehaviours = [];
-      }
-      var iconButtonSpec = renderIconButtonSpec(spec, Optional.some(action), providersBackstage, extraBehaviours);
-      return Button.sketch(iconButtonSpec);
-    };
-    var renderButtonSpec = function (spec, action, providersBackstage, extraBehaviours, extraClasses) {
-      if (extraBehaviours === void 0) {
-        extraBehaviours = [];
-      }
-      if (extraClasses === void 0) {
-        extraClasses = [];
-      }
-      var translatedText = providersBackstage.translate(spec.text);
-      var icon = spec.icon ? spec.icon.map(function (iconName) {
-        return renderIconFromPack(iconName, providersBackstage.icons);
-      }) : Optional.none();
-      var components = icon.isSome() ? componentRenderPipeline([icon]) : [];
-      var innerHtml = icon.isSome() ? {} : { innerHtml: translatedText };
-      var classes = __spreadArray(__spreadArray(__spreadArray(__spreadArray([], !spec.primary && !spec.borderless ? [
-        'tox-button',
-        'tox-button--secondary'
-      ] : ['tox-button'], true), icon.isSome() ? ['tox-button--icon'] : [], true), spec.borderless ? ['tox-button--naked'] : [], true), extraClasses, true);
-      var dom = __assign(__assign({
-        tag: 'button',
-        classes: classes
-      }, innerHtml), { attributes: { title: translatedText } });
-      return renderCommonSpec(spec, action, extraBehaviours, dom, components, providersBackstage);
-    };
-    var renderButton = function (spec, action, providersBackstage, extraBehaviours, extraClasses) {
-      if (extraBehaviours === void 0) {
-        extraBehaviours = [];
-      }
-      if (extraClasses === void 0) {
-        extraClasses = [];
-      }
-      var buttonSpec = renderButtonSpec(spec, Optional.some(action), providersBackstage, extraBehaviours, extraClasses);
-      return Button.sketch(buttonSpec);
-    };
-    var getAction = function (name, buttonType) {
-      return function (comp) {
-        if (buttonType === 'custom') {
-          emitWith(comp, formActionEvent, {
-            name: name,
-            value: {}
-          });
-        } else if (buttonType === 'submit') {
-          emit(comp, formSubmitEvent);
-        } else if (buttonType === 'cancel') {
-          emit(comp, formCancelEvent);
-        } else {
-          console.error('Unknown button type: ', buttonType);
-        }
-      };
-    };
-    var isMenuFooterButtonSpec = function (spec, buttonType) {
-      return buttonType === 'menu';
-    };
-    var isNormalFooterButtonSpec = function (spec, buttonType) {
-      return buttonType === 'custom' || buttonType === 'cancel' || buttonType === 'submit';
-    };
-    var renderFooterButton = function (spec, buttonType, backstage) {
-      if (isMenuFooterButtonSpec(spec, buttonType)) {
-        var getButton = function () {
-          return memButton_1;
-        };
-        var menuButtonSpec = spec;
-        var fixedSpec = __assign(__assign({}, spec), {
-          onSetup: function (api) {
-            api.setDisabled(spec.disabled);
-            return noop;
-          },
-          fetch: getFetch(menuButtonSpec.items, getButton, backstage)
-        });
-        var memButton_1 = record(renderMenuButton(fixedSpec, 'tox-tbtn', backstage, Optional.none()));
-        return memButton_1.asSpec();
-      } else if (isNormalFooterButtonSpec(spec, buttonType)) {
-        var action = getAction(spec.name, buttonType);
-        var buttonSpec = __assign(__assign({}, spec), { borderless: false });
-        return renderButton(buttonSpec, action, backstage.shared.providers, []);
-      } else {
-        console.error('Unknown footer button type: ', buttonType);
-      }
-    };
-    var renderDialogButton = function (spec, providersBackstage) {
-      var action = getAction(spec.name, 'custom');
-      return renderFormField(Optional.none(), FormField.parts.field(__assign({ factory: Button }, renderButtonSpec(spec, Optional.some(action), providersBackstage, [
-        RepresentingConfigs.memory(''),
-        ComposingConfigs.self()
-      ]))));
-    };
-
-    var schema$h = constant$1([
-      defaulted('field1Name', 'field1'),
-      defaulted('field2Name', 'field2'),
-      onStrictHandler('onLockedChange'),
-      markers$1(['lockClass']),
-      defaulted('locked', false),
-      SketchBehaviours.field('coupledFieldBehaviours', [
-        Composing,
-        Representing
-      ])
-    ]);
-    var getField = function (comp, detail, partName) {
-      return getPart(comp, detail, partName).bind(Composing.getCurrent);
-    };
-    var coupledPart = function (selfName, otherName) {
-      return required({
-        factory: FormField,
-        name: selfName,
-        overrides: function (detail) {
-          return {
-            fieldBehaviours: derive$1([config('coupled-input-behaviour', [run$1(input(), function (me) {
-                  getField(me, detail, otherName).each(function (other) {
-                    getPart(me, detail, 'lock').each(function (lock) {
-                      if (Toggling.isOn(lock)) {
-                        detail.onLockedChange(me, other, lock);
-                      }
-                    });
-                  });
-                })])])
-          };
-        }
-      });
-    };
-    var parts$c = constant$1([
-      coupledPart('field1', 'field2'),
-      coupledPart('field2', 'field1'),
-      required({
-        factory: Button,
-        schema: [required$1('dom')],
-        name: 'lock',
-        overrides: function (detail) {
-          return {
-            buttonBehaviours: derive$1([Toggling.config({
-                selected: detail.locked,
-                toggleClass: detail.markers.lockClass,
-                aria: { mode: 'pressed' }
-              })])
-          };
-        }
-      })
-    ]);
-
-    var factory$f = function (detail, components, _spec, _externals) {
-      return {
-        uid: detail.uid,
-        dom: detail.dom,
-        components: components,
-        behaviours: SketchBehaviours.augment(detail.coupledFieldBehaviours, [
-          Composing.config({ find: Optional.some }),
-          Representing.config({
-            store: {
-              mode: 'manual',
-              getValue: function (comp) {
-                var _a;
-                var parts = getPartsOrDie(comp, detail, [
-                  'field1',
-                  'field2'
-                ]);
-                return _a = {}, _a[detail.field1Name] = Representing.getValue(parts.field1()), _a[detail.field2Name] = Representing.getValue(parts.field2()), _a;
-              },
-              setValue: function (comp, value) {
-                var parts = getPartsOrDie(comp, detail, [
-                  'field1',
-                  'field2'
-                ]);
-                if (hasNonNullableKey(value, detail.field1Name)) {
-                  Representing.setValue(parts.field1(), value[detail.field1Name]);
-                }
-                if (hasNonNullableKey(value, detail.field2Name)) {
-                  Representing.setValue(parts.field2(), value[detail.field2Name]);
-                }
-              }
-            }
-          })
-        ]),
-        apis: {
-          getField1: function (component) {
-            return getPart(component, detail, 'field1');
-          },
-          getField2: function (component) {
-            return getPart(component, detail, 'field2');
-          },
-          getLock: function (component) {
-            return getPart(component, detail, 'lock');
-          }
-        }
-      };
-    };
-    var FormCoupledInputs = composite({
-      name: 'FormCoupledInputs',
-      configFields: schema$h(),
-      partFields: parts$c(),
-      factory: factory$f,
-      apis: {
-        getField1: function (apis, component) {
-          return apis.getField1(component);
-        },
-        getField2: function (apis, component) {
-          return apis.getField2(component);
-        },
-        getLock: function (apis, component) {
-          return apis.getLock(component);
-        }
-      }
-    });
-
-    var formatSize = function (size) {
-      var unitDec = {
-        '': 0,
-        'px': 0,
-        'pt': 1,
-        'mm': 1,
-        'pc': 2,
-        'ex': 2,
-        'em': 2,
-        'ch': 2,
-        'rem': 2,
-        'cm': 3,
-        'in': 4,
-        '%': 4
-      };
-      var maxDecimal = function (unit) {
-        return unit in unitDec ? unitDec[unit] : 1;
-      };
-      var numText = size.value.toFixed(maxDecimal(size.unit));
-      if (numText.indexOf('.') !== -1) {
-        numText = numText.replace(/\.?0*$/, '');
-      }
-      return numText + size.unit;
-    };
-    var parseSize = function (sizeText) {
-      var numPattern = /^\s*(\d+(?:\.\d+)?)\s*(|cm|mm|in|px|pt|pc|em|ex|ch|rem|vw|vh|vmin|vmax|%)\s*$/;
-      var match = numPattern.exec(sizeText);
-      if (match !== null) {
-        var value = parseFloat(match[1]);
-        var unit = match[2];
-        return Result.value({
-          value: value,
-          unit: unit
-        });
-      } else {
-        return Result.error(sizeText);
-      }
-    };
-    var convertUnit = function (size, unit) {
-      var inInch = {
-        '': 96,
-        'px': 96,
-        'pt': 72,
-        'cm': 2.54,
-        'pc': 12,
-        'mm': 25.4,
-        'in': 1
-      };
-      var supported = function (u) {
-        return has$2(inInch, u);
-      };
-      if (size.unit === unit) {
-        return Optional.some(size.value);
-      } else if (supported(size.unit) && supported(unit)) {
-        if (inInch[size.unit] === inInch[unit]) {
-          return Optional.some(size.value);
-        } else {
-          return Optional.some(size.value / inInch[size.unit] * inInch[unit]);
-        }
-      } else {
-        return Optional.none();
-      }
-    };
-    var noSizeConversion = function (_input) {
-      return Optional.none();
-    };
-    var ratioSizeConversion = function (scale, unit) {
-      return function (size) {
-        return convertUnit(size, unit).map(function (value) {
-          return {
-            value: value * scale,
-            unit: unit
-          };
-        });
-      };
-    };
-    var makeRatioConverter = function (currentFieldText, otherFieldText) {
-      var cValue = parseSize(currentFieldText).toOptional();
-      var oValue = parseSize(otherFieldText).toOptional();
-      return lift2(cValue, oValue, function (cSize, oSize) {
-        return convertUnit(cSize, oSize.unit).map(function (val) {
-          return oSize.value / val;
-        }).map(function (r) {
-          return ratioSizeConversion(r, oSize.unit);
-        }).getOr(noSizeConversion);
-      }).getOr(noSizeConversion);
-    };
-
-    var renderSizeInput = function (spec, providersBackstage) {
-      var converter = noSizeConversion;
-      var ratioEvent = generate$6('ratio-event');
-      var makeIcon = function (iconName) {
-        return render$3(iconName, {
-          tag: 'span',
-          classes: [
-            'tox-icon',
-            'tox-lock-icon__' + iconName
-          ]
-        }, providersBackstage.icons);
-      };
-      var pLock = FormCoupledInputs.parts.lock({
-        dom: {
-          tag: 'button',
-          classes: [
-            'tox-lock',
-            'tox-button',
-            'tox-button--naked',
-            'tox-button--icon'
-          ],
-          attributes: { title: providersBackstage.translate(spec.label.getOr('Constrain proportions')) }
-        },
-        components: [
-          makeIcon('lock'),
-          makeIcon('unlock')
-        ],
-        buttonBehaviours: derive$1([
-          Disabling.config({
-            disabled: function () {
-              return spec.disabled || providersBackstage.isDisabled();
-            }
-          }),
-          receivingConfig(),
-          Tabstopping.config({})
-        ])
-      });
-      var formGroup = function (components) {
-        return {
-          dom: {
-            tag: 'div',
-            classes: ['tox-form__group']
-          },
-          components: components
-        };
-      };
-      var getFieldPart = function (isField1) {
-        return FormField.parts.field({
-          factory: Input,
-          inputClasses: ['tox-textfield'],
-          inputBehaviours: derive$1([
-            Disabling.config({
-              disabled: function () {
-                return spec.disabled || providersBackstage.isDisabled();
-              }
-            }),
-            receivingConfig(),
-            Tabstopping.config({}),
-            config('size-input-events', [
-              run$1(focusin(), function (component, _simulatedEvent) {
-                emitWith(component, ratioEvent, { isField1: isField1 });
-              }),
-              run$1(change(), function (component, _simulatedEvent) {
-                emitWith(component, formChangeEvent, { name: spec.name });
-              })
-            ])
-          ]),
-          selectOnFocus: false
-        });
-      };
-      var getLabel = function (label) {
-        return {
-          dom: {
-            tag: 'label',
-            classes: ['tox-label'],
-            innerHtml: providersBackstage.translate(label)
-          }
-        };
-      };
-      var widthField = FormCoupledInputs.parts.field1(formGroup([
-        FormField.parts.label(getLabel('Width')),
-        getFieldPart(true)
-      ]));
-      var heightField = FormCoupledInputs.parts.field2(formGroup([
-        FormField.parts.label(getLabel('Height')),
-        getFieldPart(false)
-      ]));
-      return FormCoupledInputs.sketch({
-        dom: {
-          tag: 'div',
-          classes: ['tox-form__group']
-        },
-        components: [{
-            dom: {
-              tag: 'div',
-              classes: ['tox-form__controls-h-stack']
-            },
-            components: [
-              widthField,
-              heightField,
-              formGroup([
-                getLabel('&nbsp;'),
-                pLock
-              ])
-            ]
-          }],
-        field1Name: 'width',
-        field2Name: 'height',
-        locked: true,
-        markers: { lockClass: 'tox-locked' },
-        onLockedChange: function (current, other, _lock) {
-          parseSize(Representing.getValue(current)).each(function (size) {
-            converter(size).each(function (newSize) {
-              Representing.setValue(other, formatSize(newSize));
-            });
-          });
-        },
-        coupledFieldBehaviours: derive$1([
-          Disabling.config({
-            disabled: function () {
-              return spec.disabled || providersBackstage.isDisabled();
-            },
-            onDisabled: function (comp) {
-              FormCoupledInputs.getField1(comp).bind(FormField.getField).each(Disabling.disable);
-              FormCoupledInputs.getField2(comp).bind(FormField.getField).each(Disabling.disable);
-              FormCoupledInputs.getLock(comp).each(Disabling.disable);
-            },
-            onEnabled: function (comp) {
-              FormCoupledInputs.getField1(comp).bind(FormField.getField).each(Disabling.enable);
-              FormCoupledInputs.getField2(comp).bind(FormField.getField).each(Disabling.enable);
-              FormCoupledInputs.getLock(comp).each(Disabling.enable);
-            }
-          }),
-          receivingConfig(),
-          config('size-input-events2', [run$1(ratioEvent, function (component, simulatedEvent) {
-              var isField1 = simulatedEvent.event.isField1;
-              var optCurrent = isField1 ? FormCoupledInputs.getField1(component) : FormCoupledInputs.getField2(component);
-              var optOther = isField1 ? FormCoupledInputs.getField2(component) : FormCoupledInputs.getField1(component);
-              var value1 = optCurrent.map(Representing.getValue).getOr('');
-              var value2 = optOther.map(Representing.getValue).getOr('');
-              converter = makeRatioConverter(value1, value2);
-            })])
-        ])
-      });
-    };
-
-    var undo = constant$1(generate$6('undo'));
-    var redo = constant$1(generate$6('redo'));
-    var zoom = constant$1(generate$6('zoom'));
-    var back = constant$1(generate$6('back'));
-    var apply = constant$1(generate$6('apply'));
-    var swap = constant$1(generate$6('swap'));
-    var transform$1 = constant$1(generate$6('transform'));
-    var tempTransform = constant$1(generate$6('temp-transform'));
-    var transformApply = constant$1(generate$6('transform-apply'));
-    var internal = {
-      undo: undo,
-      redo: redo,
-      zoom: zoom,
-      back: back,
-      apply: apply,
-      swap: swap,
-      transform: transform$1,
-      tempTransform: tempTransform,
-      transformApply: transformApply
-    };
-    var saveState = constant$1('save-state');
-    var disable = constant$1('disable');
-    var enable = constant$1('enable');
-    var external = {
-      formActionEvent: formActionEvent,
-      saveState: saveState,
-      disable: disable,
-      enable: enable
-    };
-
-    var renderEditPanel = function (imagePanel, providersBackstage) {
-      var createButton = function (text, action, disabled, primary) {
-        return record(renderButton({
-          name: text,
-          text: text,
-          disabled: disabled,
-          primary: primary,
-          icon: Optional.none(),
-          borderless: false
-        }, action, providersBackstage));
-      };
-      var createIconButton = function (icon, tooltip, action, disabled) {
-        return record(renderIconButton({
-          name: icon,
-          icon: Optional.some(icon),
-          tooltip: Optional.some(tooltip),
-          disabled: disabled,
-          primary: false,
-          borderless: false
-        }, action, providersBackstage));
-      };
-      var disableAllComponents = function (comps, eventcomp) {
-        comps.map(function (mem) {
-          var component = mem.get(eventcomp);
-          if (component.hasConfigured(Disabling)) {
-            Disabling.disable(component);
-          }
-        });
-      };
-      var enableAllComponents = function (comps, eventcomp) {
-        comps.map(function (mem) {
-          var component = mem.get(eventcomp);
-          if (component.hasConfigured(Disabling)) {
-            Disabling.enable(component);
-          }
-        });
-      };
-      var panelDom = {
-        tag: 'div',
-        classes: [
-          'tox-image-tools__toolbar',
-          'tox-image-tools-edit-panel'
-        ]
-      };
-      var noop$1 = noop;
-      var emit$1 = function (comp, event, data) {
-        emitWith(comp, event, data);
-      };
-      var emitDisable = function (component) {
-        return emit(component, external.disable());
-      };
-      var emitEnable = function (component) {
-        return emit(component, external.enable());
-      };
-      var emitTransform = function (comp, transform) {
-        emitDisable(comp);
-        emit$1(comp, internal.transform(), { transform: transform });
-        emitEnable(comp);
-      };
-      var emitTempTransform = function (comp, transform) {
-        emitDisable(comp);
-        emit$1(comp, internal.tempTransform(), { transform: transform });
-        emitEnable(comp);
-      };
-      var getBackSwap = function (anyInSystem) {
-        return function () {
-          memContainer.getOpt(anyInSystem).each(function (container) {
-            Replacing.set(container, [ButtonPanel]);
-          });
-        };
-      };
-      var emitTransformApply = function (comp, transform) {
-        emitDisable(comp);
-        emit$1(comp, internal.transformApply(), {
-          transform: transform,
-          swap: getBackSwap(comp)
-        });
-        emitEnable(comp);
-      };
-      var createBackButton = function () {
-        return createButton('Back', function (button) {
-          return emit$1(button, internal.back(), { swap: getBackSwap(button) });
-        }, false, false);
-      };
-      var createSpacer = function () {
-        return record({
-          dom: {
-            tag: 'div',
-            classes: ['tox-spacer']
-          },
-          behaviours: derive$1([Disabling.config({})])
-        });
-      };
-      var createApplyButton = function () {
-        return createButton('Apply', function (button) {
-          return emit$1(button, internal.apply(), { swap: getBackSwap(button) });
-        }, true, true);
-      };
-      var makeCropTransform = function () {
-        return function (ir) {
-          var rect = imagePanel.getRect();
-          return crop(ir, rect.x, rect.y, rect.w, rect.h);
-        };
-      };
-      var cropPanelComponents = [
-        createBackButton(),
-        createSpacer(),
-        createButton('Apply', function (button) {
-          var transform = makeCropTransform();
-          emitTransformApply(button, transform);
-          imagePanel.hideCrop();
-        }, false, true)
-      ];
-      var CropPanel = Container.sketch({
-        dom: panelDom,
-        components: cropPanelComponents.map(function (mem) {
-          return mem.asSpec();
-        }),
-        containerBehaviours: derive$1([config('image-tools-crop-buttons-events', [
-            run$1(external.disable(), function (comp, _se) {
-              disableAllComponents(cropPanelComponents, comp);
-            }),
-            run$1(external.enable(), function (comp, _se) {
-              enableAllComponents(cropPanelComponents, comp);
-            })
-          ])])
-      });
-      var memSize = record(renderSizeInput({
-        name: 'size',
-        label: Optional.none(),
-        constrain: true,
-        disabled: false
-      }, providersBackstage));
-      var makeResizeTransform = function (width, height) {
-        return function (ir) {
-          return resize$1(ir, width, height);
-        };
-      };
-      var resizePanelComponents = [
-        createBackButton(),
-        createSpacer(),
-        memSize,
-        createSpacer(),
-        createButton('Apply', function (button) {
-          memSize.getOpt(button).each(function (sizeInput) {
-            var value = Representing.getValue(sizeInput);
-            var width = parseInt(value.width, 10);
-            var height = parseInt(value.height, 10);
-            var transform = makeResizeTransform(width, height);
-            emitTransformApply(button, transform);
-          });
-        }, false, true)
-      ];
-      var ResizePanel = Container.sketch({
-        dom: panelDom,
-        components: resizePanelComponents.map(function (mem) {
-          return mem.asSpec();
-        }),
-        containerBehaviours: derive$1([config('image-tools-resize-buttons-events', [
-            run$1(external.disable(), function (comp, _se) {
-              disableAllComponents(resizePanelComponents, comp);
-            }),
-            run$1(external.enable(), function (comp, _se) {
-              enableAllComponents(resizePanelComponents, comp);
-            })
-          ])])
-      });
-      var makeValueTransform = function (transform, value) {
-        return function (ir) {
-          return transform(ir, value);
-        };
-      };
-      var horizontalFlip = makeValueTransform(flip, 'h');
-      var verticalFlip = makeValueTransform(flip, 'v');
-      var counterclockwiseRotate = makeValueTransform(rotate, -90);
-      var clockwiseRotate = makeValueTransform(rotate, 90);
-      var flipRotateOnAction = function (comp, operation) {
-        emitTempTransform(comp, operation);
-      };
-      var flipRotateComponents = [
-        createBackButton(),
-        createSpacer(),
-        createIconButton('flip-horizontally', 'Flip horizontally', function (button) {
-          flipRotateOnAction(button, horizontalFlip);
-        }, false),
-        createIconButton('flip-vertically', 'Flip vertically', function (button) {
-          flipRotateOnAction(button, verticalFlip);
-        }, false),
-        createIconButton('rotate-left', 'Rotate counterclockwise', function (button) {
-          flipRotateOnAction(button, counterclockwiseRotate);
-        }, false),
-        createIconButton('rotate-right', 'Rotate clockwise', function (button) {
-          flipRotateOnAction(button, clockwiseRotate);
-        }, false),
-        createSpacer(),
-        createApplyButton()
-      ];
-      var FlipRotatePanel = Container.sketch({
-        dom: panelDom,
-        components: flipRotateComponents.map(function (mem) {
-          return mem.asSpec();
-        }),
-        containerBehaviours: derive$1([config('image-tools-fliprotate-buttons-events', [
-            run$1(external.disable(), function (comp, _se) {
-              disableAllComponents(flipRotateComponents, comp);
-            }),
-            run$1(external.enable(), function (comp, _se) {
-              enableAllComponents(flipRotateComponents, comp);
-            })
-          ])])
-      });
-      var makeSlider = function (label, onChoose, min, value, max) {
-        var labelPart = Slider.parts.label({
-          dom: {
-            tag: 'label',
-            classes: ['tox-label'],
-            innerHtml: providersBackstage.translate(label)
-          }
-        });
-        var spectrum = Slider.parts.spectrum({
-          dom: {
-            tag: 'div',
-            classes: ['tox-slider__rail'],
-            attributes: { role: 'presentation' }
-          }
-        });
-        var thumb = Slider.parts.thumb({
-          dom: {
-            tag: 'div',
-            classes: ['tox-slider__handle'],
-            attributes: { role: 'presentation' }
-          }
-        });
-        return record(Slider.sketch({
-          dom: {
-            tag: 'div',
-            classes: ['tox-slider'],
-            attributes: { role: 'presentation' }
-          },
-          model: {
-            mode: 'x',
-            minX: min,
-            maxX: max,
-            getInitialValue: constant$1({ x: value })
-          },
-          components: [
-            labelPart,
-            spectrum,
-            thumb
-          ],
-          sliderBehaviours: derive$1([Focusing.config({})]),
-          onChoose: onChoose
-        }));
-      };
-      var makeVariableSlider = function (label, transform, min, value, max) {
-        var onChoose = function (slider, _thumb, value) {
-          var valTransform = makeValueTransform(transform, value.x / 100);
-          emitTransform(slider, valTransform);
-        };
-        return makeSlider(label, onChoose, min, value, max);
-      };
-      var variableFilterPanelComponents = function (label, transform, min, value, max) {
-        return [
-          createBackButton(),
-          makeVariableSlider(label, transform, min, value, max),
-          createApplyButton()
-        ];
-      };
-      var createVariableFilterPanel = function (label, transform, min, value, max) {
-        var filterPanelComponents = variableFilterPanelComponents(label, transform, min, value, max);
-        return Container.sketch({
-          dom: panelDom,
-          components: filterPanelComponents.map(function (mem) {
-            return mem.asSpec();
-          }),
-          containerBehaviours: derive$1([config('image-tools-filter-panel-buttons-events', [
-              run$1(external.disable(), function (comp, _se) {
-                disableAllComponents(filterPanelComponents, comp);
-              }),
-              run$1(external.enable(), function (comp, _se) {
-                enableAllComponents(filterPanelComponents, comp);
-              })
-            ])])
-        });
-      };
-      var filterPanelComponents = [
-        createBackButton(),
-        createSpacer(),
-        createApplyButton()
-      ];
-      var FilterPanel = Container.sketch({
-        dom: panelDom,
-        components: filterPanelComponents.map(function (mem) {
-          return mem.asSpec();
-        })
-      });
-      var BrightnessPanel = createVariableFilterPanel('Brightness', brightness, -100, 0, 100);
-      var ContrastPanel = createVariableFilterPanel('Contrast', contrast, -100, 0, 100);
-      var GammaPanel = createVariableFilterPanel('Gamma', gamma, -100, 0, 100);
-      var makeColorTransform = function (red, green, blue) {
-        return function (ir) {
-          return colorize(ir, red, green, blue);
-        };
-      };
-      var makeColorSlider = function (label) {
-        var onChoose = function (slider, _thumb, _value) {
-          var redOpt = memRed.getOpt(slider);
-          var blueOpt = memBlue.getOpt(slider);
-          var greenOpt = memGreen.getOpt(slider);
-          redOpt.each(function (red) {
-            blueOpt.each(function (blue) {
-              greenOpt.each(function (green) {
-                var r = Representing.getValue(red).x / 100;
-                var g = Representing.getValue(green).x / 100;
-                var b = Representing.getValue(blue).x / 100;
-                var transform = makeColorTransform(r, g, b);
-                emitTransform(slider, transform);
-              });
-            });
-          });
-        };
-        return makeSlider(label, onChoose, 0, 100, 200);
-      };
-      var memRed = makeColorSlider('R');
-      var memGreen = makeColorSlider('G');
-      var memBlue = makeColorSlider('B');
-      var colorizePanelComponents = [
-        createBackButton(),
-        memRed,
-        memGreen,
-        memBlue,
-        createApplyButton()
-      ];
-      var ColorizePanel = Container.sketch({
-        dom: panelDom,
-        components: colorizePanelComponents.map(function (mem) {
-          return mem.asSpec();
-        })
-      });
-      var getTransformPanelEvent = function (panel, transform, update) {
-        return function (button) {
-          var swap = function () {
-            memContainer.getOpt(button).each(function (container) {
-              Replacing.set(container, [panel]);
-              update(container);
-            });
-          };
-          emit$1(button, internal.swap(), {
-            transform: transform,
-            swap: swap
-          });
-        };
-      };
-      var cropPanelUpdate = function (_anyInSystem) {
-        imagePanel.showCrop();
-      };
-      var resizePanelUpdate = function (anyInSystem) {
-        memSize.getOpt(anyInSystem).each(function (sizeInput) {
-          var measurements = imagePanel.getMeasurements();
-          var width = measurements.width;
-          var height = measurements.height;
-          Representing.setValue(sizeInput, {
-            width: width,
-            height: height
-          });
-        });
-      };
-      var sharpenTransform = Optional.some(sharpen);
-      var invertTransform = Optional.some(invert);
-      var buttonPanelComponents = [
-        createIconButton('crop', 'Crop', getTransformPanelEvent(CropPanel, Optional.none(), cropPanelUpdate), false),
-        createIconButton('resize', 'Resize', getTransformPanelEvent(ResizePanel, Optional.none(), resizePanelUpdate), false),
-        createIconButton('orientation', 'Orientation', getTransformPanelEvent(FlipRotatePanel, Optional.none(), noop$1), false),
-        createIconButton('brightness', 'Brightness', getTransformPanelEvent(BrightnessPanel, Optional.none(), noop$1), false),
-        createIconButton('sharpen', 'Sharpen', getTransformPanelEvent(FilterPanel, sharpenTransform, noop$1), false),
-        createIconButton('contrast', 'Contrast', getTransformPanelEvent(ContrastPanel, Optional.none(), noop$1), false),
-        createIconButton('color-levels', 'Color levels', getTransformPanelEvent(ColorizePanel, Optional.none(), noop$1), false),
-        createIconButton('gamma', 'Gamma', getTransformPanelEvent(GammaPanel, Optional.none(), noop$1), false),
-        createIconButton('invert', 'Invert', getTransformPanelEvent(FilterPanel, invertTransform, noop$1), false)
-      ];
-      var ButtonPanel = Container.sketch({
-        dom: panelDom,
-        components: buttonPanelComponents.map(function (mem) {
-          return mem.asSpec();
-        })
-      });
-      var container = Container.sketch({
-        dom: { tag: 'div' },
-        components: [ButtonPanel],
-        containerBehaviours: derive$1([Replacing.config({})])
-      });
-      var memContainer = record(container);
-      var getApplyButton = function (anyInSystem) {
-        return memContainer.getOpt(anyInSystem).map(function (container) {
-          var panel = container.components()[0];
-          return panel.components()[panel.components().length - 1];
-        });
-      };
-      return {
-        memContainer: memContainer,
-        getApplyButton: getApplyButton
-      };
-    };
-
-    var global$4 = tinymce.util.Tools.resolve('tinymce.geom.Rect');
-
-    var global$3 = tinymce.util.Tools.resolve('tinymce.util.Observable');
-
-    var global$2 = tinymce.util.Tools.resolve('tinymce.util.VK');
-
-    var getDocumentSize = function (doc) {
-      var max = Math.max;
-      var documentElement = doc.documentElement;
-      var body = doc.body;
-      var scrollWidth = max(documentElement.scrollWidth, body.scrollWidth);
-      var clientWidth = max(documentElement.clientWidth, body.clientWidth);
-      var offsetWidth = max(documentElement.offsetWidth, body.offsetWidth);
-      var scrollHeight = max(documentElement.scrollHeight, body.scrollHeight);
-      var clientHeight = max(documentElement.clientHeight, body.clientHeight);
-      var offsetHeight = max(documentElement.offsetHeight, body.offsetHeight);
-      return {
-        width: scrollWidth < offsetWidth ? clientWidth : scrollWidth,
-        height: scrollHeight < offsetHeight ? clientHeight : scrollHeight
-      };
-    };
-    var isTouchEvent$1 = function (e) {
-      return isNonNullable(e.changedTouches);
-    };
-    var updateWithTouchData = function (e) {
-      if (isTouchEvent$1(e)) {
-        var keys = 'screenX screenY pageX pageY clientX clientY'.split(' ');
-        for (var i = 0; i < keys.length; i++) {
-          e[keys[i]] = e.changedTouches[0][keys[i]];
-        }
-      }
-    };
-    function DragHelper (id, settings) {
-      var _a, _b, _c;
-      var eventOverlay;
-      var handleEvents = [];
-      var overlayEvents = [];
-      var doc = (_a = settings.document) !== null && _a !== void 0 ? _a : document;
-      var root = (_b = settings.root) !== null && _b !== void 0 ? _b : doc;
-      var sugarDoc = SugarElement.fromDom(doc);
-      var downButton;
-      var startX;
-      var startY;
-      var handleElement = SugarElement.fromDom(root.getElementById((_c = settings.handle) !== null && _c !== void 0 ? _c : id));
-      var start = function (e) {
-        var rawEvent = e.raw;
-        var docSize = getDocumentSize(doc);
-        updateWithTouchData(rawEvent);
-        e.prevent();
-        downButton = rawEvent.button;
-        startX = rawEvent.screenX;
-        startY = rawEvent.screenY;
-        var cursor = get$c(handleElement, 'cursor');
-        eventOverlay = SugarElement.fromTag('div', doc);
-        setAll(eventOverlay, {
-          'position': 'absolute',
-          'top': '0',
-          'left': '0',
-          'width': docSize.width + 'px',
-          'height': docSize.height + 'px',
-          'z-index': 2147483647 + '',
-          'opacity': '0.0001',
-          cursor: cursor
-        });
-        append$2(getBody(sugarDoc), eventOverlay);
-        overlayEvents.push(bind(sugarDoc, 'mousemove', drag), bind(sugarDoc, 'touchmove', drag), bind(sugarDoc, 'mouseup', stop), bind(sugarDoc, 'touchend', stop));
-        settings.start(rawEvent);
-      };
-      var drag = function (e) {
-        var rawEvent = e.raw;
-        updateWithTouchData(rawEvent);
-        if (rawEvent.button !== downButton) {
-          return stop(e);
-        }
-        rawEvent.deltaX = rawEvent.screenX - startX;
-        rawEvent.deltaY = rawEvent.screenY - startY;
-        e.prevent();
-        settings.drag(rawEvent);
-      };
-      var stop = function (e) {
-        updateWithTouchData(e.raw);
-        each$1(overlayEvents, function (e) {
-          return e.unbind();
-        });
-        overlayEvents = [];
-        remove$5(eventOverlay);
-        if (settings.stop) {
-          settings.stop(e.raw);
-        }
-      };
-      var destroy = function () {
-        each$1(overlayEvents.concat(handleEvents), function (e) {
-          return e.unbind();
-        });
-        overlayEvents = [];
-        handleEvents = [];
-        if (isNonNullable(eventOverlay)) {
-          remove$5(eventOverlay);
-        }
-      };
-      handleEvents.push(bind(handleElement, 'mousedown', start), bind(handleElement, 'touchstart', start));
-      return { destroy: destroy };
-    }
-
-    var count = 0;
-    var create$1 = function (currentRect, viewPortRect, clampRect, containerElm, action) {
-      var dragHelpers;
-      var events = [];
-      var prefix = 'tox-';
-      var id = prefix + 'crid-' + count++;
-      var container = SugarElement.fromDom(containerElm);
-      var handles = [
-        {
-          name: 'move',
-          xMul: 0,
-          yMul: 0,
-          deltaX: 1,
-          deltaY: 1,
-          deltaW: 0,
-          deltaH: 0,
-          label: 'Crop Mask'
-        },
-        {
-          name: 'nw',
-          xMul: 0,
-          yMul: 0,
-          deltaX: 1,
-          deltaY: 1,
-          deltaW: -1,
-          deltaH: -1,
-          label: 'Top Left Crop Handle'
-        },
-        {
-          name: 'ne',
-          xMul: 1,
-          yMul: 0,
-          deltaX: 0,
-          deltaY: 1,
-          deltaW: 1,
-          deltaH: -1,
-          label: 'Top Right Crop Handle'
-        },
-        {
-          name: 'sw',
-          xMul: 0,
-          yMul: 1,
-          deltaX: 1,
-          deltaY: 0,
-          deltaW: -1,
-          deltaH: 1,
-          label: 'Bottom Left Crop Handle'
-        },
-        {
-          name: 'se',
-          xMul: 1,
-          yMul: 1,
-          deltaX: 0,
-          deltaY: 0,
-          deltaW: 1,
-          deltaH: 1,
-          label: 'Bottom Right Crop Handle'
-        }
-      ];
-      var blockers = [
-        'top',
-        'right',
-        'bottom',
-        'left'
-      ];
-      var getAbsoluteRect = function (outerRect, relativeRect) {
-        return {
-          x: relativeRect.x + outerRect.x,
-          y: relativeRect.y + outerRect.y,
-          w: relativeRect.w,
-          h: relativeRect.h
-        };
-      };
-      var getRelativeRect = function (outerRect, innerRect) {
-        return {
-          x: innerRect.x - outerRect.x,
-          y: innerRect.y - outerRect.y,
-          w: innerRect.w,
-          h: innerRect.h
-        };
-      };
-      var getInnerRect = function () {
-        return getRelativeRect(clampRect, currentRect);
-      };
-      var moveRect = function (handle, startRect, deltaX, deltaY) {
-        var x = startRect.x + deltaX * handle.deltaX;
-        var y = startRect.y + deltaY * handle.deltaY;
-        var w = Math.max(20, startRect.w + deltaX * handle.deltaW);
-        var h = Math.max(20, startRect.h + deltaY * handle.deltaH);
-        var rect = currentRect = global$4.clamp({
-          x: x,
-          y: y,
-          w: w,
-          h: h
-        }, clampRect, handle.name === 'move');
-        rect = getRelativeRect(clampRect, rect);
-        instance.fire('updateRect', { rect: rect });
-        setInnerRect(rect);
-      };
-      var render = function () {
-        var createDragHelper = function (handle) {
-          var startRect;
-          return DragHelper(id, {
-            document: containerElm.ownerDocument,
-            root: getRootNode(container).dom,
-            handle: id + '-' + handle.name,
-            start: function () {
-              startRect = currentRect;
-            },
-            drag: function (e) {
-              moveRect(handle, startRect, e.deltaX, e.deltaY);
-            }
-          });
-        };
-        var cropContainer = SugarElement.fromTag('div');
-        setAll$1(cropContainer, {
-          id: id,
-          'class': prefix + 'croprect-container',
-          'role': 'grid',
-          'aria-dropeffect': 'execute'
-        });
-        append$2(container, cropContainer);
-        each$1(blockers, function (blocker) {
-          descendant(container, '#' + id).each(function (blockerElm) {
-            var cropBlocker = SugarElement.fromTag('div');
-            setAll$1(cropBlocker, {
-              'id': id + '-' + blocker,
-              'class': prefix + 'croprect-block',
-              'data-mce-bogus': 'all'
-            });
-            set$7(cropBlocker, 'display', 'none');
-            append$2(blockerElm, cropBlocker);
-          });
-        });
-        each$1(handles, function (handle) {
-          descendant(container, '#' + id).each(function (handleElm) {
-            var cropHandle = SugarElement.fromTag('div');
-            setAll$1(cropHandle, {
-              'id': id + '-' + handle.name,
-              'aria-label': handle.label,
-              'aria-grabbed': 'false',
-              'data-mce-bogus': 'all',
-              'role': 'gridcell',
-              'tabindex': '-1',
-              'title': handle.label
-            });
-            add$1(cropHandle, [
-              prefix + 'croprect-handle',
-              prefix + 'croprect-handle-' + handle.name
-            ]);
-            set$7(cropHandle, 'display', 'none');
-            append$2(handleElm, cropHandle);
-          });
-        });
-        dragHelpers = map$2(handles, createDragHelper);
-        repaint(currentRect);
-        var handleFocus = function (e) {
-          set$8(e.target, 'aria-grabbed', e.raw.type === 'focus' ? 'true' : 'false');
-        };
-        var handleKeydown = function (e) {
-          var activeHandle;
-          each$1(handles, function (handle) {
-            if (get$d(e.target, 'id') === id + '-' + handle.name) {
-              activeHandle = handle;
-              return false;
-            }
-          });
-          var moveAndBlock = function (evt, handle, startRect, deltaX, deltaY) {
-            evt.stopPropagation();
-            evt.preventDefault();
-            moveRect(activeHandle, startRect, deltaX, deltaY);
-          };
-          switch (e.raw.keyCode) {
-          case global$2.LEFT:
-            moveAndBlock(e, activeHandle, currentRect, -10, 0);
-            break;
-          case global$2.RIGHT:
-            moveAndBlock(e, activeHandle, currentRect, 10, 0);
-            break;
-          case global$2.UP:
-            moveAndBlock(e, activeHandle, currentRect, 0, -10);
-            break;
-          case global$2.DOWN:
-            moveAndBlock(e, activeHandle, currentRect, 0, 10);
-            break;
-          case global$2.ENTER:
-          case global$2.SPACEBAR:
-            e.prevent();
-            action();
-            break;
-          }
-        };
-        events.push(bind(container, 'focusin', handleFocus), bind(container, 'focusout', handleFocus), bind(container, 'keydown', handleKeydown));
-      };
-      var toggleVisibility = function (state) {
-        var selectors = __spreadArray(__spreadArray([], map$2(handles, function (handle) {
-          return '#' + id + '-' + handle.name;
-        }), true), map$2(blockers, function (blocker) {
-          return '#' + id + '-' + blocker;
-        }), true).join(',');
-        var elems = descendants(container, selectors);
-        if (state) {
-          each$1(elems, function (elm) {
-            return remove$6(elm, 'display');
-          });
-        } else {
-          each$1(elems, function (elm) {
-            return set$7(elm, 'display', 'none');
-          });
-        }
-      };
-      var repaint = function (rect) {
-        var updateElementRect = function (name, newRect) {
-          descendant(container, '#' + id + '-' + name).each(function (elm) {
-            setAll(elm, {
-              left: newRect.x + 'px',
-              top: newRect.y + 'px',
-              width: Math.max(0, newRect.w) + 'px',
-              height: Math.max(0, newRect.h) + 'px'
-            });
-          });
-        };
-        each$1(handles, function (handle) {
-          descendant(container, '#' + id + '-' + handle.name).each(function (elm) {
-            setAll(elm, {
-              left: rect.w * handle.xMul + rect.x + 'px',
-              top: rect.h * handle.yMul + rect.y + 'px'
-            });
-          });
-        });
-        updateElementRect('top', {
-          x: viewPortRect.x,
-          y: viewPortRect.y,
-          w: viewPortRect.w,
-          h: rect.y - viewPortRect.y
-        });
-        updateElementRect('right', {
-          x: rect.x + rect.w,
-          y: rect.y,
-          w: viewPortRect.w - rect.x - rect.w + viewPortRect.x,
-          h: rect.h
-        });
-        updateElementRect('bottom', {
-          x: viewPortRect.x,
-          y: rect.y + rect.h,
-          w: viewPortRect.w,
-          h: viewPortRect.h - rect.y - rect.h + viewPortRect.y
-        });
-        updateElementRect('left', {
-          x: viewPortRect.x,
-          y: rect.y,
-          w: rect.x - viewPortRect.x,
-          h: rect.h
-        });
-        updateElementRect('move', rect);
-      };
-      var setRect = function (rect) {
-        currentRect = rect;
-        repaint(currentRect);
-      };
-      var setViewPortRect = function (rect) {
-        viewPortRect = rect;
-        repaint(currentRect);
-      };
-      var setInnerRect = function (rect) {
-        setRect(getAbsoluteRect(clampRect, rect));
-      };
-      var setClampRect = function (rect) {
-        clampRect = rect;
-        repaint(currentRect);
-      };
-      var destroy = function () {
-        each$1(dragHelpers, function (helper) {
-          return helper.destroy();
-        });
-        dragHelpers = [];
-        each$1(events, function (e) {
-          return e.unbind();
-        });
-        events = [];
-      };
-      render();
-      var instance = __assign(__assign({}, global$3), {
-        toggleVisibility: toggleVisibility,
-        setClampRect: setClampRect,
-        setRect: setRect,
-        getInnerRect: getInnerRect,
-        setInnerRect: setInnerRect,
-        setViewPortRect: setViewPortRect,
-        destroy: destroy
-      });
-      return instance;
-    };
-    var CropRect = { create: create$1 };
-
-    var loadImage = function (image) {
-      return new global$c(function (resolve) {
-        var loaded = function () {
-          image.removeEventListener('load', loaded);
-          resolve(image);
-        };
-        if (image.complete) {
-          resolve(image);
-        } else {
-          image.addEventListener('load', loaded);
-        }
-      });
-    };
-    var renderImagePanel = function (initialUrl) {
-      var memBg = record({
-        dom: {
-          tag: 'div',
-          classes: ['tox-image-tools__image-bg'],
-          attributes: { role: 'presentation' }
-        }
-      });
-      var zoomState = Cell(1);
-      var cropRect = api$1();
-      var rectState = Cell({
-        x: 0,
-        y: 0,
-        w: 1,
-        h: 1
-      });
-      var viewRectState = Cell({
-        x: 0,
-        y: 0,
-        w: 1,
-        h: 1
-      });
-      var repaintImg = function (anyInSystem, img) {
-        memContainer.getOpt(anyInSystem).each(function (panel) {
-          var zoom = zoomState.get();
-          var panelW = get$a(panel.element);
-          var panelH = get$b(panel.element);
-          var width = img.dom.naturalWidth * zoom;
-          var height = img.dom.naturalHeight * zoom;
-          var left = Math.max(0, panelW / 2 - width / 2);
-          var top = Math.max(0, panelH / 2 - height / 2);
-          var css = {
-            left: left.toString() + 'px',
-            top: top.toString() + 'px',
-            width: width.toString() + 'px',
-            height: height.toString() + 'px',
-            position: 'absolute'
-          };
-          setAll(img, css);
-          memBg.getOpt(panel).each(function (bg) {
-            setAll(bg.element, css);
-          });
-          cropRect.run(function (cRect) {
-            var rect = rectState.get();
-            cRect.setRect({
-              x: rect.x * zoom + left,
-              y: rect.y * zoom + top,
-              w: rect.w * zoom,
-              h: rect.h * zoom
-            });
-            cRect.setClampRect({
-              x: left,
-              y: top,
-              w: width,
-              h: height
-            });
-            cRect.setViewPortRect({
-              x: 0,
-              y: 0,
-              w: panelW,
-              h: panelH
-            });
-          });
-        });
-      };
-      var zoomFit = function (anyInSystem, img) {
-        memContainer.getOpt(anyInSystem).each(function (panel) {
-          var panelW = get$a(panel.element);
-          var panelH = get$b(panel.element);
-          var width = img.dom.naturalWidth;
-          var height = img.dom.naturalHeight;
-          var zoom = Math.min(panelW / width, panelH / height);
-          if (zoom >= 1) {
-            zoomState.set(1);
-          } else {
-            zoomState.set(zoom);
-          }
-        });
-      };
-      var updateSrc = function (anyInSystem, url) {
-        var img = SugarElement.fromTag('img');
-        set$8(img, 'src', url);
-        return loadImage(img.dom).then(function () {
-          if (anyInSystem.getSystem().isConnected()) {
-            memContainer.getOpt(anyInSystem).map(function (panel) {
-              var aImg = external$2({ element: img });
-              Replacing.replaceAt(panel, 1, Optional.some(aImg));
-              var lastViewRect = viewRectState.get();
-              var viewRect = {
-                x: 0,
-                y: 0,
-                w: img.dom.naturalWidth,
-                h: img.dom.naturalHeight
-              };
-              viewRectState.set(viewRect);
-              var rect = global$4.inflate(viewRect, -20, -20);
-              rectState.set(rect);
-              if (lastViewRect.w !== viewRect.w || lastViewRect.h !== viewRect.h) {
-                zoomFit(panel, img);
-              }
-              repaintImg(panel, img);
-            });
-          }
-        });
-      };
-      var zoom = function (anyInSystem, direction) {
-        var currentZoom = zoomState.get();
-        var newZoom = direction > 0 ? Math.min(2, currentZoom + 0.1) : Math.max(0.1, currentZoom - 0.1);
-        zoomState.set(newZoom);
-        memContainer.getOpt(anyInSystem).each(function (panel) {
-          var img = panel.components()[1].element;
-          repaintImg(panel, img);
-        });
-      };
-      var showCrop = function () {
-        cropRect.run(function (cRect) {
-          cRect.toggleVisibility(true);
-        });
-      };
-      var hideCrop = function () {
-        cropRect.run(function (cRect) {
-          cRect.toggleVisibility(false);
-        });
-      };
-      var getRect = function () {
-        return rectState.get();
-      };
-      var container = Container.sketch({
-        dom: {
-          tag: 'div',
-          classes: ['tox-image-tools__image']
-        },
-        components: [
-          memBg.asSpec(),
-          {
-            dom: {
-              tag: 'img',
-              attributes: { src: initialUrl }
-            }
-          },
-          {
-            dom: { tag: 'div' },
-            behaviours: derive$1([config('image-panel-crop-events', [
-                runOnAttached(function (comp) {
-                  memContainer.getOpt(comp).each(function (container) {
-                    var el = container.element.dom;
-                    var cRect = CropRect.create({
-                      x: 10,
-                      y: 10,
-                      w: 100,
-                      h: 100
-                    }, {
-                      x: 0,
-                      y: 0,
-                      w: 200,
-                      h: 200
-                    }, {
-                      x: 0,
-                      y: 0,
-                      w: 200,
-                      h: 200
-                    }, el, noop);
-                    cRect.toggleVisibility(false);
-                    cRect.on('updateRect', function (e) {
-                      var rect = e.rect;
-                      var zoom = zoomState.get();
-                      var newRect = {
-                        x: Math.round(rect.x / zoom),
-                        y: Math.round(rect.y / zoom),
-                        w: Math.round(rect.w / zoom),
-                        h: Math.round(rect.h / zoom)
-                      };
-                      rectState.set(newRect);
-                    });
-                    cropRect.set(cRect);
-                  });
-                }),
-                runOnDetached(function () {
-                  cropRect.clear();
-                })
-              ])])
-          }
-        ],
-        containerBehaviours: derive$1([
-          Replacing.config({}),
-          config('image-panel-events', [runOnAttached(function (comp) {
-              updateSrc(comp, initialUrl);
-            })])
-        ])
-      });
-      var memContainer = record(container);
-      var getMeasurements = function () {
-        var viewRect = viewRectState.get();
-        return {
-          width: viewRect.w,
-          height: viewRect.h
-        };
-      };
-      return {
-        memContainer: memContainer,
-        updateSrc: updateSrc,
-        zoom: zoom,
-        showCrop: showCrop,
-        hideCrop: hideCrop,
-        getRect: getRect,
-        getMeasurements: getMeasurements
-      };
-    };
-
-    var createButton = function (innerHtml, icon, disabled, action, providersBackstage) {
-      return renderIconButton({
-        name: innerHtml,
-        icon: Optional.some(icon),
-        disabled: disabled,
-        tooltip: Optional.some(innerHtml),
-        primary: false,
-        borderless: false
-      }, action, providersBackstage);
-    };
-    var setButtonEnabled = function (button, enabled) {
-      if (enabled) {
-        Disabling.enable(button);
-      } else {
-        Disabling.disable(button);
-      }
-    };
-    var renderSideBar = function (providersBackstage) {
-      var updateButtonUndoStates = function (anyInSystem, undoEnabled, redoEnabled) {
-        memUndo.getOpt(anyInSystem).each(function (undo) {
-          setButtonEnabled(undo, undoEnabled);
-        });
-        memRedo.getOpt(anyInSystem).each(function (redo) {
-          setButtonEnabled(redo, redoEnabled);
-        });
-      };
-      var memUndo = record(createButton('Undo', 'undo', true, function (button) {
-        emitWith(button, internal.undo(), { direction: 1 });
-      }, providersBackstage));
-      var memRedo = record(createButton('Redo', 'redo', true, function (button) {
-        emitWith(button, internal.redo(), { direction: 1 });
-      }, providersBackstage));
-      var container = Container.sketch({
-        dom: {
-          tag: 'div',
-          classes: [
-            'tox-image-tools__toolbar',
-            'tox-image-tools__sidebar'
-          ]
-        },
-        components: [
-          memUndo.asSpec(),
-          memRedo.asSpec(),
-          createButton('Zoom in', 'zoom-in', false, function (button) {
-            emitWith(button, internal.zoom(), { direction: 1 });
-          }, providersBackstage),
-          createButton('Zoom out', 'zoom-out', false, function (button) {
-            emitWith(button, internal.zoom(), { direction: -1 });
-          }, providersBackstage)
-        ]
-      });
-      return {
-        container: container,
-        updateButtonUndoStates: updateButtonUndoStates
-      };
-    };
-
-    function UndoStack () {
-      var data = [];
-      var index = -1;
-      var add = function (state) {
-        var removed = data.splice(++index);
-        data.push(state);
-        return {
-          state: state,
-          removed: removed
-        };
-      };
-      var undo = function () {
-        if (canUndo()) {
-          return data[--index];
-        }
-      };
-      var redo = function () {
-        if (canRedo()) {
-          return data[++index];
-        }
-      };
-      var canUndo = function () {
-        return index > 0;
-      };
-      var canRedo = function () {
-        return index !== -1 && index < data.length - 1;
-      };
-      return {
-        data: data,
-        add: add,
-        undo: undo,
-        redo: redo,
-        canUndo: canUndo,
-        canRedo: canRedo
-      };
-    }
-
-    var makeState = function (initialState) {
-      var blobState = Cell(initialState);
-      var tempState = value$1();
-      var undoStack = UndoStack();
-      undoStack.add(initialState);
-      var getBlobState = function () {
-        return blobState.get();
-      };
-      var setBlobState = function (state) {
-        blobState.set(state);
-      };
-      var getTempState = function () {
-        return tempState.get().getOrThunk(blobState.get);
-      };
-      var updateTempState = function (blob) {
-        var newTempState = createState(blob);
-        destroyTempState();
-        tempState.set(newTempState);
-        return newTempState.url;
-      };
-      var createState = function (blob) {
-        return {
-          blob: blob,
-          url: URL.createObjectURL(blob)
-        };
-      };
-      var destroyState = function (state) {
-        URL.revokeObjectURL(state.url);
-      };
-      var destroyStates = function (states) {
-        global$5.each(states, destroyState);
-      };
-      var destroyTempState = function () {
-        tempState.on(destroyState);
-        tempState.clear();
-      };
-      var addBlobState = function (blob) {
-        var newState = createState(blob);
-        setBlobState(newState);
-        var removed = undoStack.add(newState).removed;
-        destroyStates(removed);
-        return newState.url;
-      };
-      var addTempState = function (blob) {
-        var newState = createState(blob);
-        tempState.set(newState);
-        return newState.url;
-      };
-      var applyTempState = function (postApply) {
-        return tempState.get().fold(noop, function (temp) {
-          addBlobState(temp.blob);
-          postApply();
-        });
-      };
-      var undo = function () {
-        var currentState = undoStack.undo();
-        setBlobState(currentState);
-        return currentState.url;
-      };
-      var redo = function () {
-        var currentState = undoStack.redo();
-        setBlobState(currentState);
-        return currentState.url;
-      };
-      var getHistoryStates = function () {
-        var undoEnabled = undoStack.canUndo();
-        var redoEnabled = undoStack.canRedo();
-        return {
-          undoEnabled: undoEnabled,
-          redoEnabled: redoEnabled
-        };
-      };
-      return {
-        getBlobState: getBlobState,
-        setBlobState: setBlobState,
-        addBlobState: addBlobState,
-        getTempState: getTempState,
-        updateTempState: updateTempState,
-        addTempState: addTempState,
-        applyTempState: applyTempState,
-        destroyTempState: destroyTempState,
-        undo: undo,
-        redo: redo,
-        getHistoryStates: getHistoryStates
-      };
-    };
-
-    var renderImageTools = function (detail, providersBackstage) {
-      var state = makeState(detail.currentState);
-      var zoom = function (anyInSystem, simulatedEvent) {
-        var direction = simulatedEvent.event.direction;
-        imagePanel.zoom(anyInSystem, direction);
-      };
-      var updateButtonUndoStates = function (anyInSystem) {
-        var historyStates = state.getHistoryStates();
-        sideBar.updateButtonUndoStates(anyInSystem, historyStates.undoEnabled, historyStates.redoEnabled);
-        emitWith(anyInSystem, external.formActionEvent, {
-          name: external.saveState(),
-          value: historyStates.undoEnabled
-        });
-      };
-      var disableUndoRedo = function (anyInSystem) {
-        sideBar.updateButtonUndoStates(anyInSystem, false, false);
-      };
-      var undo = function (anyInSystem, _simulatedEvent) {
-        var url = state.undo();
-        updateSrc(anyInSystem, url).then(function (_oImg) {
-          unblock(anyInSystem);
-          updateButtonUndoStates(anyInSystem);
-        });
-      };
-      var redo = function (anyInSystem, _simulatedEvent) {
-        var url = state.redo();
-        updateSrc(anyInSystem, url).then(function (_oImg) {
-          unblock(anyInSystem);
-          updateButtonUndoStates(anyInSystem);
-        });
-      };
-      var imageResultToBlob = function (ir) {
-        return ir.toBlob();
-      };
-      var block = function (anyInSystem) {
-        emitWith(anyInSystem, external.formActionEvent, {
-          name: external.disable(),
-          value: {}
-        });
-      };
-      var unblock = function (anyInSystem) {
-        editPanel.getApplyButton(anyInSystem).each(function (applyButton) {
-          Disabling.enable(applyButton);
-        });
-        emitWith(anyInSystem, external.formActionEvent, {
-          name: external.enable(),
-          value: {}
-        });
-      };
-      var updateSrc = function (anyInSystem, src) {
-        block(anyInSystem);
-        return imagePanel.updateSrc(anyInSystem, src);
-      };
-      var blobManipulate = function (anyInSystem, blob, filter, action, swap) {
-        block(anyInSystem);
-        blobToImageResult(blob).then(filter).then(imageResultToBlob).then(action).then(function (url) {
-          return updateSrc(anyInSystem, url);
-        }).then(function () {
-          updateButtonUndoStates(anyInSystem);
-          swap();
-          unblock(anyInSystem);
-        }).catch(function (err) {
-          console.log(err);
-          if (anyInSystem.getSystem().isConnected()) {
-            unblock(anyInSystem);
-          }
-        });
-      };
-      var manipulate = function (anyInSystem, filter, swap) {
-        var blob = state.getBlobState().blob;
-        var action = function (blob) {
-          return state.updateTempState(blob);
-        };
-        blobManipulate(anyInSystem, blob, filter, action, swap);
-      };
-      var tempManipulate = function (anyInSystem, filter) {
-        var blob = state.getTempState().blob;
-        var action = function (blob) {
-          return state.addTempState(blob);
-        };
-        blobManipulate(anyInSystem, blob, filter, action, noop);
-      };
-      var manipulateApply = function (anyInSystem, filter, swap) {
-        var blob = state.getBlobState().blob;
-        var action = function (blob) {
-          var url = state.addBlobState(blob);
-          destroyTempState(anyInSystem);
-          return url;
-        };
-        blobManipulate(anyInSystem, blob, filter, action, swap);
-      };
-      var apply = function (anyInSystem, simulatedEvent) {
-        var postApply = function () {
-          destroyTempState(anyInSystem);
-          var swap = simulatedEvent.event.swap;
-          swap();
-        };
-        state.applyTempState(postApply);
-      };
-      var destroyTempState = function (anyInSystem) {
-        var currentUrl = state.getBlobState().url;
-        state.destroyTempState();
-        updateButtonUndoStates(anyInSystem);
-        return currentUrl;
-      };
-      var cancel = function (anyInSystem) {
-        var currentUrl = destroyTempState(anyInSystem);
-        updateSrc(anyInSystem, currentUrl).then(function (_oImg) {
-          unblock(anyInSystem);
-        });
-      };
-      var back = function (anyInSystem, simulatedEvent) {
-        cancel(anyInSystem);
-        var swap = simulatedEvent.event.swap;
-        swap();
-        imagePanel.hideCrop();
-      };
-      var transform = function (anyInSystem, simulatedEvent) {
-        return manipulate(anyInSystem, simulatedEvent.event.transform, noop);
-      };
-      var tempTransform = function (anyInSystem, simulatedEvent) {
-        return tempManipulate(anyInSystem, simulatedEvent.event.transform);
-      };
-      var transformApply = function (anyInSystem, simulatedEvent) {
-        return manipulateApply(anyInSystem, simulatedEvent.event.transform, simulatedEvent.event.swap);
-      };
-      var imagePanel = renderImagePanel(detail.currentState.url);
-      var sideBar = renderSideBar(providersBackstage);
-      var editPanel = renderEditPanel(imagePanel, providersBackstage);
-      var swap = function (anyInSystem, simulatedEvent) {
-        disableUndoRedo(anyInSystem);
-        var transform = simulatedEvent.event.transform;
-        var swap = simulatedEvent.event.swap;
-        transform.fold(function () {
-          swap();
-        }, function (transform) {
-          manipulate(anyInSystem, transform, swap);
-        });
-      };
-      return {
-        dom: {
-          tag: 'div',
-          attributes: { role: 'presentation' }
-        },
-        components: [
-          editPanel.memContainer.asSpec(),
-          imagePanel.memContainer.asSpec(),
-          sideBar.container
-        ],
-        behaviours: derive$1([
-          Representing.config({
-            store: {
-              mode: 'manual',
-              getValue: function () {
-                return state.getBlobState();
-              }
-            }
-          }),
-          config('image-tools-events', [
-            run$1(internal.undo(), undo),
-            run$1(internal.redo(), redo),
-            run$1(internal.zoom(), zoom),
-            run$1(internal.back(), back),
-            run$1(internal.apply(), apply),
-            run$1(internal.transform(), transform),
-            run$1(internal.tempTransform(), tempTransform),
-            run$1(internal.transformApply(), transformApply),
-            run$1(internal.swap(), swap)
-          ]),
-          ComposingConfigs.self()
-        ])
-      };
-    };
-
-    var renderLabel = function (spec, backstageShared) {
-      var label = {
-        dom: {
-          tag: 'label',
-          innerHtml: backstageShared.providers.translate(spec.label),
-          classes: ['tox-label']
-        }
-      };
-      var comps = map$2(spec.items, backstageShared.interpreter);
-      return {
-        dom: {
-          tag: 'div',
-          classes: ['tox-form__group']
-        },
-        components: [label].concat(comps),
-        behaviours: derive$1([
-          ComposingConfigs.self(),
-          Replacing.config({}),
-          RepresentingConfigs.domHtml(Optional.none()),
-          Keying.config({ mode: 'acyclic' })
-        ])
-      };
-    };
-
-    var isSingleListItem = function (item) {
-      return !has$2(item, 'items');
-    };
-    var dataAttribute = 'data-value';
-    var fetchItems = function (dropdownComp, name, items, selectedValue) {
-      return map$2(items, function (item) {
-        if (!isSingleListItem(item)) {
-          return {
-            type: 'nestedmenuitem',
-            text: item.text,
-            getSubmenuItems: function () {
-              return fetchItems(dropdownComp, name, item.items, selectedValue);
-            }
-          };
-        } else {
-          return {
-            type: 'togglemenuitem',
-            text: item.text,
-            value: item.value,
-            active: item.value === selectedValue,
-            onAction: function () {
-              Representing.setValue(dropdownComp, item.value);
-              emitWith(dropdownComp, formChangeEvent, { name: name });
-              Focusing.focus(dropdownComp);
-            }
-          };
-        }
-      });
-    };
-    var findItemByValue = function (items, value) {
-      return findMap(items, function (item) {
-        if (!isSingleListItem(item)) {
-          return findItemByValue(item.items, value);
-        } else {
-          return someIf(item.value === value, item);
-        }
-      });
-    };
-    var renderListBox = function (spec, backstage) {
-      var providersBackstage = backstage.shared.providers;
-      var initialItem = head(spec.items).filter(isSingleListItem);
-      var pLabel = spec.label.map(function (label) {
-        return renderLabel$2(label, providersBackstage);
-      });
-      var pField = FormField.parts.field({
-        dom: {},
-        factory: {
-          sketch: function (sketchSpec) {
-            return renderCommonDropdown({
-              uid: sketchSpec.uid,
-              text: initialItem.map(function (item) {
-                return item.text;
-              }),
-              icon: Optional.none(),
-              tooltip: spec.label,
-              role: Optional.none(),
-              fetch: function (comp, callback) {
-                var items = fetchItems(comp, spec.name, spec.items, Representing.getValue(comp));
-                callback(build(items, ItemResponse$1.CLOSE_ON_EXECUTE, backstage, false));
-              },
-              onSetup: constant$1(noop),
-              getApi: constant$1({}),
-              columns: 1,
-              presets: 'normal',
-              classes: [],
-              dropdownBehaviours: [
-                Tabstopping.config({}),
-                Representing.config({
-                  store: {
-                    mode: 'manual',
-                    initialValue: initialItem.map(function (item) {
-                      return item.value;
-                    }).getOr(''),
-                    getValue: function (comp) {
-                      return get$d(comp.element, dataAttribute);
-                    },
-                    setValue: function (comp, data) {
-                      findItemByValue(spec.items, data).each(function (item) {
-                        set$8(comp.element, dataAttribute, item.value);
-                        emitWith(comp, updateMenuText, { text: item.text });
-                      });
-                    }
-                  }
-                })
-              ]
-            }, 'tox-listbox', backstage.shared);
-          }
-        }
-      });
-      var listBoxWrap = {
-        dom: {
-          tag: 'div',
-          classes: ['tox-listboxfield']
-        },
-        components: [pField]
-      };
-      return FormField.sketch({
-        dom: {
-          tag: 'div',
-          classes: ['tox-form__group']
-        },
-        components: flatten([
-          pLabel.toArray(),
-          [listBoxWrap]
-        ]),
-        fieldBehaviours: derive$1([Disabling.config({
-            disabled: constant$1(spec.disabled),
-            onDisabled: function (comp) {
-              FormField.getField(comp).each(Disabling.disable);
-            },
-            onEnabled: function (comp) {
-              FormField.getField(comp).each(Disabling.enable);
-            }
-          })])
-      });
-    };
-
-    var renderPanel = function (spec, backstage) {
-      return {
-        dom: {
-          tag: 'div',
-          classes: spec.classes
-        },
-        components: map$2(spec.items, backstage.shared.interpreter)
-      };
-    };
-
-    var factory$e = function (detail, _spec) {
-      var options = map$2(detail.options, function (option) {
-        return {
-          dom: {
-            tag: 'option',
-            value: option.value,
-            innerHtml: option.text
-          }
-        };
-      });
-      var initialValues = detail.data.map(function (v) {
-        return wrap$1('initialValue', v);
-      }).getOr({});
-      return {
-        uid: detail.uid,
-        dom: {
-          tag: 'select',
-          classes: detail.selectClasses,
-          attributes: detail.selectAttributes
-        },
-        components: options,
-        behaviours: augment(detail.selectBehaviours, [
-          Focusing.config({}),
-          Representing.config({
-            store: __assign({
-              mode: 'manual',
-              getValue: function (select) {
-                return get$5(select.element);
-              },
-              setValue: function (select, newValue) {
-                var found = find$5(detail.options, function (opt) {
-                  return opt.value === newValue;
-                });
-                if (found.isSome()) {
-                  set$4(select.element, newValue);
-                }
-              }
-            }, initialValues)
-          })
-        ])
-      };
-    };
-    var HtmlSelect = single({
-      name: 'HtmlSelect',
-      configFields: [
-        required$1('options'),
-        field('selectBehaviours', [
-          Focusing,
-          Representing
-        ]),
-        defaulted('selectClasses', []),
-        defaulted('selectAttributes', {}),
-        option('data')
-      ],
-      factory: factory$e
-    });
-
-    var renderSelectBox = function (spec, providersBackstage) {
-      var translatedOptions = map$2(spec.items, function (item) {
-        return {
-          text: providersBackstage.translate(item.text),
-          value: item.value
-        };
-      });
-      var pLabel = spec.label.map(function (label) {
-        return renderLabel$2(label, providersBackstage);
-      });
-      var pField = FormField.parts.field({
-        dom: {},
-        selectAttributes: { size: spec.size },
-        options: translatedOptions,
-        factory: HtmlSelect,
-        selectBehaviours: derive$1([
-          Disabling.config({
-            disabled: function () {
-              return spec.disabled || providersBackstage.isDisabled();
-            }
-          }),
-          Tabstopping.config({}),
-          config('selectbox-change', [run$1(change(), function (component, _) {
-              emitWith(component, formChangeEvent, { name: spec.name });
-            })])
-        ])
-      });
-      var chevron = spec.size > 1 ? Optional.none() : Optional.some(render$3('chevron-down', {
-        tag: 'div',
-        classes: ['tox-selectfield__icon-js']
-      }, providersBackstage.icons));
-      var selectWrap = {
-        dom: {
-          tag: 'div',
-          classes: ['tox-selectfield']
-        },
-        components: flatten([
-          [pField],
-          chevron.toArray()
-        ])
-      };
-      return FormField.sketch({
-        dom: {
-          tag: 'div',
-          classes: ['tox-form__group']
-        },
-        components: flatten([
-          pLabel.toArray(),
-          [selectWrap]
-        ]),
-        fieldBehaviours: derive$1([
-          Disabling.config({
-            disabled: function () {
-              return spec.disabled || providersBackstage.isDisabled();
-            },
-            onDisabled: function (comp) {
-              FormField.getField(comp).each(Disabling.disable);
-            },
-            onEnabled: function (comp) {
-              FormField.getField(comp).each(Disabling.enable);
-            }
-          }),
-          receivingConfig()
-        ])
-      });
-    };
-
-    var renderTable = function (spec, providersBackstage) {
-      var renderTh = function (text) {
-        return {
-          dom: {
-            tag: 'th',
-            innerHtml: providersBackstage.translate(text)
-          }
-        };
-      };
-      var renderHeader = function (header) {
-        return {
-          dom: { tag: 'thead' },
-          components: [{
-              dom: { tag: 'tr' },
-              components: map$2(header, renderTh)
-            }]
-        };
-      };
-      var renderTd = function (text) {
-        return {
-          dom: {
-            tag: 'td',
-            innerHtml: providersBackstage.translate(text)
-          }
-        };
-      };
-      var renderTr = function (row) {
-        return {
-          dom: { tag: 'tr' },
-          components: map$2(row, renderTd)
-        };
-      };
-      var renderRows = function (rows) {
-        return {
-          dom: { tag: 'tbody' },
-          components: map$2(rows, renderTr)
-        };
-      };
-      return {
-        dom: {
-          tag: 'table',
-          classes: ['tox-dialog__table']
-        },
-        components: [
-          renderHeader(spec.header),
-          renderRows(spec.cells)
-        ],
-        behaviours: derive$1([
-          Tabstopping.config({}),
-          Focusing.config({})
-        ])
-      };
-    };
-
-    var renderTextField = function (spec, providersBackstage) {
-      var pLabel = spec.label.map(function (label) {
-        return renderLabel$2(label, providersBackstage);
-      });
-      var baseInputBehaviours = [
-        Disabling.config({
-          disabled: function () {
-            return spec.disabled || providersBackstage.isDisabled();
-          }
-        }),
-        receivingConfig(),
-        Keying.config({
-          mode: 'execution',
-          useEnter: spec.multiline !== true,
-          useControlEnter: spec.multiline === true,
-          execute: function (comp) {
-            emit(comp, formSubmitEvent);
-            return Optional.some(true);
-          }
-        }),
-        config('textfield-change', [
-          run$1(input(), function (component, _) {
-            emitWith(component, formChangeEvent, { name: spec.name });
-          }),
-          run$1(postPaste(), function (component, _) {
-            emitWith(component, formChangeEvent, { name: spec.name });
-          })
-        ]),
-        Tabstopping.config({})
-      ];
-      var validatingBehaviours = spec.validation.map(function (vl) {
-        return Invalidating.config({
-          getRoot: function (input) {
-            return parent(input.element);
-          },
-          invalidClass: 'tox-invalid',
-          validator: {
-            validate: function (input) {
-              var v = Representing.getValue(input);
-              var result = vl.validator(v);
-              return Future.pure(result === true ? Result.value(v) : Result.error(result));
-            },
-            validateOnLoad: vl.validateOnLoad
-          }
-        });
-      }).toArray();
-      var placeholder = spec.placeholder.fold(constant$1({}), function (p) {
-        return { placeholder: providersBackstage.translate(p) };
-      });
-      var inputMode = spec.inputMode.fold(constant$1({}), function (mode) {
-        return { inputmode: mode };
-      });
-      var inputAttributes = __assign(__assign({}, placeholder), inputMode);
-      var pField = FormField.parts.field({
-        tag: spec.multiline === true ? 'textarea' : 'input',
-        inputAttributes: inputAttributes,
-        inputClasses: [spec.classname],
-        inputBehaviours: derive$1(flatten([
-          baseInputBehaviours,
-          validatingBehaviours
-        ])),
-        selectOnFocus: false,
-        factory: Input
-      });
-      var extraClasses = spec.flex ? ['tox-form__group--stretched'] : [];
-      var extraClasses2 = extraClasses.concat(spec.maximized ? ['tox-form-group--maximize'] : []);
-      var extraBehaviours = [
-        Disabling.config({
-          disabled: function () {
-            return spec.disabled || providersBackstage.isDisabled();
-          },
-          onDisabled: function (comp) {
-            FormField.getField(comp).each(Disabling.disable);
-          },
-          onEnabled: function (comp) {
-            FormField.getField(comp).each(Disabling.enable);
-          }
-        }),
-        receivingConfig()
-      ];
-      return renderFormFieldWith(pLabel, pField, extraClasses2, extraBehaviours);
-    };
-    var renderInput = function (spec, providersBackstage) {
-      return renderTextField({
-        name: spec.name,
-        multiline: false,
-        label: spec.label,
-        inputMode: spec.inputMode,
-        placeholder: spec.placeholder,
-        flex: false,
-        disabled: spec.disabled,
-        classname: 'tox-textfield',
-        validation: Optional.none(),
-        maximized: spec.maximized
-      }, providersBackstage);
-    };
-    var renderTextarea = function (spec, providersBackstage) {
-      return renderTextField({
-        name: spec.name,
-        multiline: true,
-        label: spec.label,
-        inputMode: Optional.none(),
-        placeholder: spec.placeholder,
-        flex: true,
-        disabled: spec.disabled,
-        classname: 'tox-textarea',
-        validation: Optional.none(),
-        maximized: spec.maximized
-      }, providersBackstage);
-    };
-
-    var events$6 = function (streamConfig, streamState) {
-      var streams = streamConfig.stream.streams;
-      var processor = streams.setup(streamConfig, streamState);
-      return derive$2([
-        run$1(streamConfig.event, processor),
-        runOnDetached(function () {
-          return streamState.cancel();
-        })
-      ].concat(streamConfig.cancelEvent.map(function (e) {
-        return [run$1(e, function () {
-            return streamState.cancel();
-          })];
-      }).getOr([])));
-    };
-
-    var ActiveStreaming = /*#__PURE__*/Object.freeze({
+            accept: 'image
+Object.freeze({
         __proto__: null,
         events: events$6
     });
@@ -20395,7 +16755,7 @@
       return spec.stream.streams.state(spec);
     };
 
-    var StreamingState = /*#__PURE__*/Object.freeze({
+    var StreamingState = Object.freeze({
         __proto__: null,
         throttle: throttle,
         init: init$9
@@ -22397,7 +18757,7 @@
     var isDocked$2 = never;
     var getBehaviours$1 = constant$1([]);
 
-    var StaticHeader = /*#__PURE__*/Object.freeze({
+    var StaticHeader = Object.freeze({
         __proto__: null,
         setup: setup$a,
         isDocked: isDocked$2,
@@ -22628,7 +18988,7 @@
       return state.getModes();
     };
 
-    var DockingApis = /*#__PURE__*/Object.freeze({
+    var DockingApis = Object.freeze({
         __proto__: null,
         refresh: refresh$4,
         reset: reset,
@@ -22661,7 +19021,7 @@
       ]);
     };
 
-    var ActiveDocking = /*#__PURE__*/Object.freeze({
+    var ActiveDocking = Object.freeze({
         __proto__: null,
         events: events$5
     });
@@ -22708,7 +19068,7 @@
       });
     };
 
-    var DockingState = /*#__PURE__*/Object.freeze({
+    var DockingState = Object.freeze({
         __proto__: null,
         init: init$6
     });
@@ -22927,7 +19287,7 @@
       ], additionalBehaviours, true);
     };
 
-    var StickyHeader = /*#__PURE__*/Object.freeze({
+    var StickyHeader = Object.freeze({
         __proto__: null,
         setup: setup$9,
         isDocked: isDocked,
@@ -23217,7 +19577,7 @@
       f(component, slideConfig, slideState);
     };
 
-    var SlidingApis = /*#__PURE__*/Object.freeze({
+    var SlidingApis = Object.freeze({
         __proto__: null,
         refresh: refresh$3,
         grow: grow,
@@ -23256,7 +19616,7 @@
         })]);
     };
 
-    var ActiveSliding = /*#__PURE__*/Object.freeze({
+    var ActiveSliding = Object.freeze({
         __proto__: null,
         exhibit: exhibit,
         events: events$4
@@ -23307,7 +19667,7 @@
       });
     };
 
-    var SlidingState = /*#__PURE__*/Object.freeze({
+    var SlidingState = Object.freeze({
         __proto__: null,
         init: init$5
     });
@@ -23677,7 +20037,7 @@
       state.clear();
     };
 
-    var BlockingApis = /*#__PURE__*/Object.freeze({
+    var BlockingApis = Object.freeze({
         __proto__: null,
         block: block,
         unblock: unblock
@@ -23703,7 +20063,7 @@
       });
     };
 
-    var BlockingState = /*#__PURE__*/Object.freeze({
+    var BlockingState = Object.freeze({
         __proto__: null,
         init: init$4
     });
@@ -25739,7 +22099,7 @@
       ]);
     };
 
-    var ActiveReflecting = /*#__PURE__*/Object.freeze({
+    var ActiveReflecting = Object.freeze({
         __proto__: null,
         events: events$3
     });
@@ -25748,7 +22108,7 @@
       return reflectState;
     };
 
-    var ReflectingApis = /*#__PURE__*/Object.freeze({
+    var ReflectingApis = Object.freeze({
         __proto__: null,
         getState: getState
     });
@@ -25776,7 +22136,7 @@
       };
     };
 
-    var ReflectingState = /*#__PURE__*/Object.freeze({
+    var ReflectingState = Object.freeze({
         __proto__: null,
         init: init$3
     });
@@ -26580,7 +22940,7 @@
       };
     };
 
-    var Iframe = /*#__PURE__*/Object.freeze({
+    var Iframe = Object.freeze({
         __proto__: null,
         render: render$1
     });
@@ -26881,7 +23241,7 @@
       };
     };
 
-    var Inline = /*#__PURE__*/Object.freeze({
+    var Inline = Object.freeze({
         __proto__: null,
         render: render
     });
@@ -28909,7 +25269,7 @@
       }
     };
 
-    var DraggingApis = /*#__PURE__*/Object.freeze({
+    var DraggingApis = Object.freeze({
         __proto__: null,
         snapTo: snapTo
     });
@@ -29085,7 +25445,7 @@
       return SugarPosition(nu.left - old.left, nu.top - old.top);
     };
 
-    var MouseData = /*#__PURE__*/Object.freeze({
+    var MouseData = Object.freeze({
         __proto__: null,
         getData: getData$1,
         getDelta: getDelta$1
@@ -29145,7 +25505,7 @@
       return SugarPosition(nu.left - old.left, nu.top - old.top);
     };
 
-    var TouchData = /*#__PURE__*/Object.freeze({
+    var TouchData = Object.freeze({
         __proto__: null,
         getData: getData,
         getDelta: getDelta
@@ -29201,7 +25561,7 @@
     var touch = schema$4;
     var mouseOrTouch = schema$3;
 
-    var DraggingBranches = /*#__PURE__*/Object.freeze({
+    var DraggingBranches = Object.freeze({
         __proto__: null,
         mouse: mouse,
         touch: touch,
@@ -29243,7 +25603,7 @@
       });
     };
 
-    var DragState = /*#__PURE__*/Object.freeze({
+    var DragState = Object.freeze({
         __proto__: null,
         init: init
     });

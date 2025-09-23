@@ -1,11 +1,5 @@
 {{-- resources/views/constants/_card.blade.php --}}
 @php
-  /** @var string $icon */
-  /** @var string $title */
-  /** @var string $desc */
-  /** @var string $indexRoute */
-  /** @var bool   $createCan */
-  /** @var array  $createAttrs */
   $brand = '#007C38';
 @endphp
 

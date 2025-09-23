@@ -9,9 +9,9 @@ return new class extends Migration {
         Schema::create('production_consumptions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('production_order_id')->index();
-            $table->unsignedBigInteger('product_id')->index();      // raw material consumed
+            $table->unsignedBigInteger('product_id')->index();
             $table->decimal('qty_required', 15, 4);
-            $table->decimal('qty_issued', 15, 4)->default(0);       // deducted/held at start
+            $table->decimal('qty_issued', 15, 4)->default(0);
             $table->decimal('unit_cost', 15, 4)->default(0);
             $table->decimal('total_cost', 15, 2)->default(0);
             $table->timestamps();

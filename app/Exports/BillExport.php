@@ -17,15 +17,10 @@ use PhpOffice\PhpSpreadsheet\Style\Fill;
 
 class BillExport implements FromCollection, WithHeadings, WithMapping, WithStyles, WithColumnWidths, WithTitle
 {
-    /** @var int[]|null */
     protected ?array $onlyIds;
 
-    /**
-     * @param int[]|null $onlyIds  When provided, export only these bill IDs
-     */
     public function __construct(?array $onlyIds = null)
     {
-        // Normalize and keep integers only
         $this->onlyIds = $onlyIds && count($onlyIds)
             ? array_values(array_unique(array_map('intval', $onlyIds)))
             : null;
@@ -33,7 +28,6 @@ class BillExport implements FromCollection, WithHeadings, WithMapping, WithStyle
 
     public function collection()
     {
-        // Owner vs Vendor portal
         $query = !\Auth::guard('vender')->check()
             ? Bill::where('created_by', \Auth::user()->id)
             : Bill::where('vender_id', \Auth::guard('vender')->user()->id)->where('status', '!=', '0');
@@ -42,7 +36,6 @@ class BillExport implements FromCollection, WithHeadings, WithMapping, WithStyle
             $query->whereIn('id', $this->onlyIds);
         }
 
-        // Eager-load CORRECT relations (no static helpers):
         return $query->with(['items', 'vender', 'category'])
             ->orderBy('created_at', 'desc')
             ->get();
@@ -66,7 +59,6 @@ class BillExport implements FromCollection, WithHeadings, WithMapping, WithStyle
         $vendorName   = optional($bill->vender)->name ?? '';
         $categoryName = optional($bill->category)->name ?? '';
 
-        // Totals (match your Bill model logic: discounts reduce tax base)
         $subtotal = 0.0;
         $totalTax = 0.0;
 
@@ -77,7 +69,6 @@ class BillExport implements FromCollection, WithHeadings, WithMapping, WithStyle
             if ($item->tax) {
                 $taxes = Utility::tax($item->tax);
                 foreach ($taxes as $tax) {
-                    // taxRate(rate, price, qty, discount)
                     $totalTax += Utility::taxRate($tax->rate, $item->price, $item->quantity, $item->discount);
                 }
             }
@@ -134,18 +125,18 @@ class BillExport implements FromCollection, WithHeadings, WithMapping, WithStyle
     public function columnWidths(): array
     {
         return [
-            'A' => 15, // Bill Number
-            'B' => 25, // Vendor Name
-            'C' => 12, // Bill Date
-            'D' => 12, // Due Date
-            'E' => 15, // Order Number
-            'F' => 12, // Status
-            'G' => 12, // Send Date
-            'H' => 15, // Category
-            'I' => 12, // Subtotal
-            'J' => 12, // Tax
-            'K' => 12, // Total
-            'L' => 12, // Created Date
+            'A' => 15,
+            'B' => 25,
+            'C' => 12,
+            'D' => 12,
+            'E' => 15,
+            'F' => 12,
+            'G' => 12,
+            'H' => 15,
+            'I' => 12,
+            'J' => 12,
+            'K' => 12,
+            'L' => 12,
         ];
     }
 

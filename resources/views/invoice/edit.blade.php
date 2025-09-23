@@ -38,7 +38,6 @@
                             max_size: 2048
                         });
                     }
-                    // for item SearchBox ( this function is  custom Js )
                     JsSearchBox();
 
                     if ($('.select2').length) {
@@ -46,7 +45,6 @@
                     }
                 },
                 hide: function(deleteElement) {
-
 
                     $(this).slideUp(deleteElement);
                     $(this).remove();
@@ -190,7 +188,6 @@
 
                             var discount = $(el.parent().parent().find('.discount')).val();
 
-
                             if (invoiceItems != null) {
                                 var itemTaxPrice = parseFloat((totalItemTaxRate / 100)) *
                                     parseFloat((invoiceItems.price * invoiceItems.quantity) -
@@ -207,10 +204,6 @@
                             $(el.parent().parent().find('.taxes')).html(taxes);
                             $(el.parent().parent().find('.tax')).val(tax);
                             $(el.parent().parent().find('.unit')).html(item.unit);
-                            // $(el.parent().parent().find('.discount')).val(item.discount);
-
-
-
 
                             var inputs = $(".amount");
                             var subTotal = 0;
@@ -226,7 +219,6 @@
                                 totalItemPrice += (parseFloat(priceInput[j].value) * parseFloat(
                                     inputs_quantity[j].value));
                             }
-
 
                             var totalItemTaxPrice = 0;
                             var itemTaxPriceInput = $('.itemTaxPrice');
@@ -251,7 +243,6 @@
                                     .value);
                             }
 
-
                             $('.subTotal').html(totalItemPrice.toFixed(2));
                             $('.totalTax').html(totalItemTaxPrice.toFixed(2));
                             $('.totalAmount').html((parseFloat(totalItemPrice) - parseFloat(
@@ -261,7 +252,6 @@
 
                         }
                     });
-
 
                 },
             });
@@ -283,7 +273,6 @@
 
             var amount = (totalItemPrice);
 
-
             var totalItemTaxRate = $(el.find('.itemTaxRate')).val();
             var itemTaxPrice = parseFloat((totalItemTaxRate / 100) * (totalItemPrice));
             $(el.find('.itemTaxPrice')).val(itemTaxPrice.toFixed(2));
@@ -295,7 +284,6 @@
             for (var j = 0; j < itemTaxPriceInput.length; j++) {
                 totalItemTaxPrice += parseFloat(itemTaxPriceInput[j].value);
             }
-
 
             var totalItemPrice = 0;
             var inputs_quantity = $(".quantity");
@@ -329,7 +317,6 @@
                 discount = 0;
             }
 
-
             var totalItemPrice = (quantity * price) - discount;
 
             var amount = (totalItemPrice);
@@ -345,7 +332,6 @@
             for (var j = 0; j < itemTaxPriceInput.length; j++) {
                 totalItemTaxPrice += parseFloat(itemTaxPriceInput[j].value);
             }
-
 
             var totalItemPrice = 0;
             var inputs_quantity = $(".quantity");
@@ -382,22 +368,17 @@
 
             var amount = (totalItemPrice);
 
-
-
             var totalItemTaxRate = $(el.find('.itemTaxRate')).val();
             var itemTaxPrice = parseFloat((totalItemTaxRate / 100) * (totalItemPrice));
             $(el.find('.itemTaxPrice')).val(itemTaxPrice.toFixed(2));
 
             $(el.find('.amount')).html(parseFloat(itemTaxPrice) + parseFloat(amount));
 
-
             var totalItemTaxPrice = 0;
             var itemTaxPriceInput = $('.itemTaxPrice');
             for (var j = 0; j < itemTaxPriceInput.length; j++) {
                 totalItemTaxPrice += parseFloat(itemTaxPriceInput[j].value);
             }
-
-
 
             var totalItemPrice = 0;
             var inputs_quantity = $(".quantity");
@@ -414,7 +395,6 @@
                 subTotal = parseFloat(subTotal) + parseFloat($(inputs[i]).html());
             }
 
-
             var totalItemDiscountPrice = 0;
             var itemDiscountPriceInput = $('.discount');
 
@@ -428,7 +408,6 @@
 
             $('.totalAmount').html((parseFloat(subTotal)).toFixed(2));
             $('.totalDiscount').html(totalItemDiscountPrice.toFixed(2));
-
 
         })
 
@@ -449,7 +428,6 @@
         })
 
         $(document).on('click', '[data-repeater-delete]', function() {
-            // $('.delete_item').click(function () {
             if (confirm('Are you sure you want to delete this element?')) {
                 var el = $(this).parent().parent();
                 var id = $(el.find('.id')).val();
@@ -483,7 +461,6 @@
             $(".price").change();
             $(".discount").change();
         });
-        // for item SearchBox ( this function is custom Js )
         JsSearchBox();
     </script>
     <script>
@@ -517,7 +494,6 @@
                                         {{ Form::label('issue_date', __('Issue Date'), ['class' => 'form-label']) }}<x-required></x-required>
                                         <div class="form-icon-user">
                                             {{ Form::date('issue_date', null, ['class' => 'form-control', 'required' => 'required']) }}
-
 
                                         </div>
                                     </div>

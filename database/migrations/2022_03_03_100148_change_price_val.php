@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class ChangePriceVal extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::table(
@@ -70,16 +65,9 @@ class ChangePriceVal extends Migration
         }
         );
 
-
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
-        //
     }
 }

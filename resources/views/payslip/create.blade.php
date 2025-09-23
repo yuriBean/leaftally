@@ -43,7 +43,6 @@
                                         </div>
                                     </div>
 
-
                                     <div class="form-group">
                                         {!! Form::label('phone', 'Phone') !!}<span class="text-danger pl-1">*</span>
                                         {!! Form::number('phone',null, ['class' => 'form-control', 'placeholder' => 'Enter Phone Number']) !!}
@@ -60,7 +59,6 @@
                                         {!! Form::label('password', 'Password') !!}<span class="text-danger pl-1">*</span>
                                         {!! Form::text('password',null, ['class' => 'form-control','required' => 'required', 'placeholder' => 'Enter Password']) !!}
                                     </div>
-
 
                                 </div>
                             </div>
@@ -116,88 +114,5 @@
                                                     <label for="document" class="float-left pt-1">{{ $document->name }} @if($document->is_required == 1) <span class="text-danger">*</span> @endif</label>
                                                 </div>
                                                 <div class="float-right">
-                                                    <input class="form-control float-right @error('document') is-invalid @enderror border-0" @if($document->is_required == 1) required @endif name="document[{{ $document->id}}]" type="file" id="document[{{ $document->id }}]" accept="image/*">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 ">
-                            <div class="card">
-                                <div class="card-header"><h4>{{__('Bank Account Detail')}}</h4></div>
-                                <div class="card-body">
+                                                    <input class="form-control float-right @error('document') is-invalid @enderror border-0" @if($document->is_required == 1) required @endif name="document[{{ $document->id}}]" type="file" id="document[{{ $document->id }}]" accept="image
 
-                                    <div class="form-group">
-                                        {!! Form::label('account_holder_name', 'Account Holder Name') !!}
-                                        {!! Form::text('account_holder_name', null, ['class' => 'form-control', 'placeholder' => 'Enter Account Holder Name']) !!}
-
-                                    </div>
-                                    <div class="form-group">
-                                        {!! Form::label('account_number', 'Account Number') !!}
-                                        {!! Form::text('account_number', null, ['class' => 'form-control', 'placeholder' => 'Enter Account Number']) !!}
-
-                                    </div>
-                                    <div class="form-group">
-                                        {!! Form::label('bank_name', 'Bank Name') !!}
-                                        {!! Form::text('bank_name', null, ['class' => 'form-control', 'placeholder' => 'Enter Bank Name']) !!}
-
-                                    </div>
-                                    <div class="form-group">
-                                        {!! Form::label('bank_identifier_code', 'Bank Identifier Code') !!}
-                                        {!! Form::text('bank_identifier_code',null, ['class' => 'form-control', 'placeholder' => 'Enter Bank Identifier Code']) !!}
-                                    </div>
-                                    <div class="form-group">
-                                        {!! Form::label('branch_location', 'Branch Location') !!}
-                                        {!! Form::text('branch_location',null, ['class' => 'form-control', 'placeholder' => 'Enter Branch Location']) !!}
-                                    </div>
-                                    <div class="form-group">
-                                        {!! Form::label('tax_payer_id', 'Tax Payer Id') !!}
-                                        {!! Form::text('tax_payer_id',null, ['class' => 'form-control', 'placeholder' => 'Enter Tax Payer Id']) !!}
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {!! Form::submit('save', ['class' => 'btn btn-primary btn-lg float-right']) !!}
-            {!! Form::close() !!}
-        </section>
-    </div>
-
-@endsection
-
-@push('script-page')
-
-    <script>
-
-        $(document).ready(function () {
-            var d_id = $('#department_id').val();
-            getDesignation(d_id);
-        });
-
-        $(document).on('change', 'select[name=department_id]', function () {
-            var department_id = $(this).val();
-            getDesignation(department_id);
-        });
-
-        $(function getDesignation(did) {
-            $.ajax({
-                url: '{{route('employee.json')}}',
-                type: 'POST',
-                data: {
-                    "department_id": did, "_token": "{{ csrf_token() }}",
-                },
-                success: function (data) {
-                    $('#designation_id').empty();
-                    $('#designation_id').append('<option value="">Select any Designation</option>');
-                    $.each(data, function (key, value) {
-                        $('#designation_id').append('<option value="' + key + '">' + value + '</option>');
-                    });
-                }
-            });
-        });
-    </script>
-@endpush

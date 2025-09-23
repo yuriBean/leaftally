@@ -1,9 +1,3 @@
-/*
- CookieConsent v2.8.0
- https://www.github.com/orestbida/cookieconsent
- Author Orest Bida
- Released under the MIT License
-*/
 
 (function () {
     var kb = function (eb) {

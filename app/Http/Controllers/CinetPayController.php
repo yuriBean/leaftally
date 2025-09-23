@@ -36,7 +36,6 @@ class CinetPayController extends Controller
         if ($plan) {
 
             $plan_amount    = 100;
-            // $order_id       = strtoupper(str_replace('.', '', uniqid('', true)));
 
             if (!empty($request->coupon)) {
                 $coupons = Coupon::where('code', strtoupper($request->coupon))->where('is_active', '1')->first();
@@ -93,7 +92,6 @@ class CinetPayController extends Controller
                             'user_id'           => $authuser->id,
                         ]
                     );
-                    // $assignPlan = $authuser->assignPlan($plan->id);
                     return redirect()->route('plans.index')->with('success', __('Plan Successfully Activated'));
                 }
             }
@@ -151,7 +149,6 @@ class CinetPayController extends Controller
                 $err = curl_error($curl);
                 curl_close($curl);
 
-                //On recupère la réponse de CinetPay
                 $response_body = json_decode($response, true);
                 if (isset($response_body['code']) && $response_body['code'] == '201') {
                     $cinetpaySession = [
@@ -163,7 +160,7 @@ class CinetPayController extends Controller
 
                     $request->session()->put('cinetpaySession', $cinetpaySession);
 
-                    $payment_link = $response_body["data"]["payment_url"]; // Retrieving the payment URL
+                    $payment_link = $response_body["data"]["payment_url"];
                     return redirect($payment_link);
                 } else {
                     return back()->with('error', isset($response_body["description"]) ? $response_body["description"] :'Something Went Wrong!!!');
@@ -243,15 +240,9 @@ class CinetPayController extends Controller
 
     public function planCinetPayNotify(Request $request , $id= null)
     {
-        /* 1- Recovery of parameters posted on the URL by CinetPay
-         * https://docs.cinetpay.com/api/1.0-fr/checkout/notification#les-etapes-pour-configurer-lurl-de-notification
-         * */
         if (isset($request->cpm_trans_id)) {
-            // Using your transaction identifier, check that the order has not yet been processed
-            $VerifyStatusCmd = "1"; // status value to retrieve from your database
+            $VerifyStatusCmd = "1";
             if ($VerifyStatusCmd == '00') {
-                //The order has already been processed
-                // Scarred you script
                 die();
             }
             if($id == null){
@@ -264,30 +255,16 @@ class CinetPayController extends Controller
 
             }
 
-            /* 2- Otherwise, we check the status of the transaction in the event of a payment attempt on CinetPay
-            * https://docs.cinetpay.com/api/1.0-fr/checkout/notification#2-verifier-letat-de-la-transaction */
             $cinetpay_check = [
                 "apikey" => $payment_setting['cinetpay_api_key'],
                 "site_id" => $payment_setting['cinetpay_site_id'],
                 "transaction_id" => $request->cpm_trans_id
             ];
 
-            $response = $this->getPayStatus($cinetpay_check); // call query function to retrieve status
+            $response = $this->getPayStatus($cinetpay_check);
 
-            //We get the response from CinetPay
             $response_body = json_decode($response, true);
-            // if ($response_body['code'] == '00') {
-            //     /* correct, on délivre le service
-            //      * https://docs.cinetpay.com/api/1.0-fr/checkout/notification#3-delivrer-un-service*/
-            //     echo 'Congratulations, your payment has been successfully completed';
-            // } else {
-            //     // transaction a échoué
-            //     echo 'Failure, code:' . $response_body['code'] . ' Description' . $response_body['description'] . ' Message: ' . $response_body['message'];
-            // }
-            // Update the transaction in your database
-            /*  $order->update(); */
         } else {
-            // print("cpm_trans_id non found");
         }
     }
 
@@ -353,7 +330,6 @@ class CinetPayController extends Controller
                 "metadata"          => $invoice->id,
                 'customer_name'     => $customer->name,
                 'customer_email'    => $customer->email,
-                // Add other customer details if required
             ];
 
             $curl = curl_init();
@@ -379,8 +355,6 @@ class CinetPayController extends Controller
 
             $response_body = json_decode($response, true);
             if (isset($response_body['code']) && $response_body['code'] == '201') {
-                // Store CinetPay session data if needed
-                // Redirect to CinetPay payment URL
                 $payment_link = $response_body["data"]["payment_url"];
                 return redirect($payment_link);
             } else {
@@ -401,7 +375,6 @@ class CinetPayController extends Controller
         $currency        = isset($payment_setting['currency']) ? $payment_setting['currency'] : 'USD';
         $invoice         = Invoice::find($invoice_id);
 
-        
         if (isset($request->transaction_id) || isset($request->token)) {
 
             $cinetpay_check = [
@@ -470,7 +443,6 @@ class CinetPayController extends Controller
 
                     Utility::bankAccountBalance($request->account_id, $getAmount, 'credit');
 
-                    //Twilio Notification
                     $customer = $objUser = Customer::find($invoice->customer_id);
                     $setting  = Utility::settingsById($objUser->creatorId());
                     if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -486,7 +458,6 @@ class CinetPayController extends Controller
                         Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $invoice->created_by);
                     }
 
-                    // webhook
                     $module = 'New Payment';
 
                     $webhook =  Utility::webhookSetting($module, $invoice->created_by);
@@ -494,8 +465,6 @@ class CinetPayController extends Controller
                     if ($webhook) {
 
                         $parameter = json_encode($invoice);
-
-                        // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
 
                         $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
                     }
@@ -544,7 +513,6 @@ class CinetPayController extends Controller
                 "metadata"          => $retainer->id,
                 'customer_name'     => $customer->name,
                 'customer_email'    => $customer->email,
-                // Add other customer details if required
             ];
 
             $curl = curl_init();
@@ -570,8 +538,6 @@ class CinetPayController extends Controller
 
             $response_body = json_decode($response, true);
             if (isset($response_body['code']) && $response_body['code'] == '201') {
-                // Store CinetPay session data if needed
-                // Redirect to CinetPay payment URL
                 $payment_link = $response_body["data"]["payment_url"];
                 return redirect($payment_link);
             } else {
@@ -660,7 +626,6 @@ class CinetPayController extends Controller
         
                     Utility::bankAccountBalance($request->account_id, $getAmount, 'credit');
         
-                    //Twilio Notification
                     $setting  = Utility::settingsById($objUser->creatorId());
                     $customer = Customer::find($retainer->customer_id);
                     if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -676,7 +641,6 @@ class CinetPayController extends Controller
                         Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $retainer->created_by);
                     }
         
-                    // webhook\
                     $module = 'New Payment';
         
                     $webhook =  Utility::webhookSetting($module, $retainer->created_by);
@@ -684,9 +648,7 @@ class CinetPayController extends Controller
                     if ($webhook) {
         
                         $parameter = json_encode($retainer);
-        
-                        // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-        
+
                         $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
                     }
 

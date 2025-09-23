@@ -1,235 +1,315 @@
 <script src="{{ asset('js/unsaved.js') }}"></script>
 
 {{ Form::open(['url' => 'customer', 'method' => 'post', 'class'=>'needs-validation','novalidate']) }}
-<div class="modal-body p-6 bg-[#FAFBFC]">
-   <div class="bg-white rounded-[8px] border border-[#E5E7EB] mb-6 shadow-sm overflow-hidden">
-      <div class="heading-cstm-form">
-         <h6 class="mb-0 flex items-center gap-2">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-            </svg>
-            {{ __('Basic Info') }}
-         </h6>
-      </div>
-      <div class="row p-6">
-         <div class="col-lg-4 col-md-4 col-sm-6">
-            <div class="form-group">
-               {{ Form::label('name', __('Name'), ['class' => 'form-label']) }}
-               <x-required></x-required>
-               <div class="form-icon-user">
-                  {{ Form::text('name', null, ['class' => 'form-control', 'required' => 'required']) }}
-               </div>
-            </div>
-         </div>
-         <x-mobile  div-class="col-md-4 " name="contact" label="{{ __('Contact') }} " required></x-mobile>
-         <div class="col-lg-4 col-md-4 col-sm-6">
-            <div class="form-group">
-               {{ Form::label('email', __('Email'), ['class' => 'form-label']) }}
-               <x-required></x-required>
-               <div class="form-icon-user">
-                  {{ Form::text('email', null, ['class' => 'form-control', 'required' => 'required']) }}
-               </div>
-            </div>
-         </div>
-         {!! Form::hidden('role', 'company', null, ['class' => 'form-control select2', 'required' => 'required']) !!}
-         <div class="col-lg-4 col-md-4 col-sm-6">
-            <div class="form-group">
-               {{ Form::label('tax_number', __('Tax Number'), ['class' => 'form-label']) }}
-               <div class="form-icon-user">
-                  {{ Form::text('tax_number', null, ['class' => 'form-control']) }}
-               </div>
-            </div>
-         </div>
-         <div class="flex col-md-8 mb-3 form-group mt-4 w-full md:w-[60%] gap-[14px]">
-            <label for="password_switch">{{ __('Enable Login') }}</label>
-            <div class="form-check form-switch custom-switch-v1 float-end">
-               <input type="checkbox" name="password_switch" class="form-check-input input-primary  pointer" value="on" id="password_switch">
-               <label class="form-check-label" for="password_switch"></label>
-            </div>
 
-            <div class="ps_div d-none row">
-               <div class="col-lg-6 col-md-6 col-sm-12">
-             <div class="form-group">
-                 {{ Form::label('user_name', __('Username'), ['class' => 'form-label']) }}
-                 <div class="form-icon-user">
-                     {{ Form::text('user_name', null, ['class' => 'form-control', 'placeholder' => __('Enter Username')]) }}
-                 </div>
-             </div>
+<div class="modal-body" style="background: var(--zameen-background-section); padding: 1.5rem;">
+  
+  <div style="background: linear-gradient(135deg, #00b98d 0%, #00d4a3 100%); padding: 1.75rem 2rem 1.25rem; border-radius: 12px 12px 0 0; margin: 0 1.5rem;">
+    <div style="color: white; margin-bottom: 0.5rem;">
+      <h4 style="margin: 0; font-weight: 600; font-size: 1.5rem; color: white;">{{ __('Create New Customer') }}</h4>
+      <p style="margin: 0; opacity: 0.9; font-size: 0.875rem;">{{ __('Add a new customer to your business') }}</p>
+    </div>
+  </div>
+
+  <div style="padding: 2rem; background: white; margin: 0 1.5rem; border-radius: 0 0 12px 12px;">
+    <div style="display: flex; flex-direction: column; gap: 1.5rem; max-width: 720px; margin: 0 auto; padding: 1.5rem;">
+
+      <div class="zameen-form-section">
+        <h6 class="zameen-section-title">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display: inline; margin-right: 8px;">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+          </svg>
+          {{ __('Basic Information') }}
+        </h6>
+
+        <div class="zameen-form-group">
+          <label class="zameen-form-label">
+            {{ __('Customer Name') }}
+            <span style="color: #ef4444; margin-left: 4px;">*</span>
+          </label>
+          {{ Form::text('name', null, [
+            'class' => 'zameen-form-input',
+            'placeholder' => __('Enter customer name'),
+            'required' => 'required'
+          ]) }}
+          @error('name')
+            <div class="zameen-form-error">{{ $message }}</div>
+          @enderror
+        </div>
+
+        <div class="zameen-form-group">
+          <label class="zameen-form-label">
+            {{ __('Contact') }}
+            <span style="color: #ef4444; margin-left: 4px;">*</span>
+          </label>
+          {{ Form::text('contact', null, [
+            'class' => 'zameen-form-input',
+            'placeholder' => __('Enter contact number'),
+            'required' => 'required'
+          ]) }}
+          @error('contact')
+            <div class="zameen-form-error">{{ $message }}</div>
+          @enderror
+        </div>
+
+        <div class="zameen-form-group">
+          <label class="zameen-form-label">
+            {{ __('Email Address') }}
+            <span style="color: #ef4444; margin-left: 4px;">*</span>
+          </label>
+          {{ Form::email('email', null, [
+            'class' => 'zameen-form-input',
+            'placeholder' => __('Enter email address'),
+            'required' => 'required'
+          ]) }}
+          @error('email')
+            <div class="zameen-form-error">{{ $message }}</div>
+          @enderror
+        </div>
+
+        <div class="zameen-form-group">
+          <label class="zameen-form-label">{{ __('Tax Number') }}</label>
+          {{ Form::text('tax_number', null, [
+            'class' => 'zameen-form-input',
+            'placeholder' => __('Enter tax number')
+          ]) }}
+          @error('tax_number')
+            <div class="zameen-form-error">{{ $message }}</div>
+          @enderror
+        </div>
+
+        {!! Form::hidden('role', 'company') !!}
+
+        <div class="zameen-form-group">
+          <div class="zameen-toggle-group">
+            <label class="zameen-form-label">{{ __('Enable Login Access') }}</label>
+            <div class="zameen-toggle-wrapper">
+              <input type="checkbox" name="password_switch" class="zameen-toggle-input" value="on" id="password_switch">
+              <label class="zameen-toggle-label" for="password_switch">
+                <span class="zameen-toggle-slider"></span>
+              </label>
+            </div>
           </div>
-               <div class="col-lg-6 col-md-6 col-sm-12">
-               <div class="form-group">
-                  {{ Form::label('password', __('Password'), ['class' => 'form-label']) }}
-                  <div class="form-icon-user">
-                     {{ Form::password('password', ['class' => 'form-control','minlength' => '6']) }}
-                  </div>
-               </div>
-            </div>
-            
+        </div>
 
-            </div>
-            @if (!$customFields->isEmpty())
-            <div class="col-lg-4 col-md-4 col-sm-6">
-               <div class="tab-pane fade show" id="tab-2" role="tabpanel">
-                  @include('customFields.formBuilder')
-               </div>
-            </div>
-            @endif
-         </div>
+        <div class="ps_div d-none">
+          <div class="zameen-form-group">
+            <label class="zameen-form-label">{{ __('Username') }}</label>
+            {{ Form::text('user_name', null, [
+              'class' => 'zameen-form-input',
+              'placeholder' => __('Enter username')
+            ]) }}
+            @error('user_name')
+              <div class="zameen-form-error">{{ $message }}</div>
+            @enderror
+          </div>
+
+          <div class="zameen-form-group">
+            <label class="zameen-form-label">{{ __('Password') }}</label>
+            {{ Form::password('password', [
+              'class' => 'zameen-form-input',
+              'placeholder' => __('Enter password'),
+              'minlength' => '6'
+            ]) }}
+            @error('password')
+              <div class="zameen-form-error">{{ $message }}</div>
+            @enderror
+          </div>
+        </div>
+
+        @if (!$customFields->isEmpty())
+          <div class="zameen-custom-fields">
+            @include('customFields.formBuilder')
+          </div>
+        @endif
       </div>
-   </div>
-   <!--billing address start here-->
-   <div class="row">
-      <div class="col-md-6">
-         <div class="bg-white rounded-[8px] border border-[#E5E7EB] shadow-sm overflow-hidden">
-            <div class="heading-cstm-form">
-               <h6 class="mb-0 flex items-center gap-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pin-map" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8z"/>
-                  <path fill-rule="evenodd" d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z"/>
-                  </svg>
-                  {{ __('Billing Address') }}
-               </h6>
-            </div>
-            <div class="row p-6">
-               <div class="col-lg-6 col-md-6 col-sm-6">
-                  <div class="form-group">
-                     {{ Form::label('billing_name', __('Name'), ['class' => '', 'class' => 'form-label']) }}
-                     <div class="form-icon-user">
-                        {{ Form::text('billing_name', null, ['class' => 'form-control']) }}
-                     </div>
-                  </div>
-               </div>
-               <x-mobile  div-class="col-md-6 " name="billing_phone" label="{{ __('Phone') }}" ></x-mobile>
-               <div class="col-md-12">
-                  <div class="form-group">
-                     {{ Form::label('billing_address', __('Address'), ['class' => 'form-label']) }}
-                     <div class="input-group">
-                        {{ Form::textarea('billing_address', null, ['class' => 'form-control', 'rows' => 3]) }}
-                     </div>
-                  </div>
-               </div>
-               <div class="col-lg-6 col-md-6 col-sm-6">
-                  <div class="form-group">
-                     {{ Form::label('billing_city', __('City'), ['class' => 'form-label']) }}
-                     <div class="form-icon-user">
-                        {{ Form::text('billing_city', null, ['class' => 'form-control']) }}
-                     </div>
-                  </div>
-               </div>
-               <div class="col-lg-6 col-md-6 col-sm-6">
-                  <div class="form-group">
-                     {{ Form::label('billing_state', __('State'), ['class' => 'form-label']) }}
-                     <div class="form-icon-user">
-                        {{ Form::text('billing_state', null, ['class' => 'form-control']) }}
-                     </div>
-                  </div>
-               </div>
-               <div class="col-lg-6 col-md-6 col-sm-6">
-                  <div class="form-group">
-                     {{ Form::label('billing_country', __('Country'), ['class' => 'form-label']) }}
-                     <div class="form-icon-user">
-                        {{ Form::text('billing_country', null, ['class' => 'form-control']) }}
-                     </div>
-                  </div>
-               </div>
-               <div class="col-lg-6 col-md-6 col-sm-6">
-                  <div class="form-group">
-                     {{ Form::label('billing_zip', __('Zip Code'), ['class' => 'form-label']) }}
-                     <div class="form-icon-user">
-                        {{ Form::text('billing_zip', null, ['class' => 'form-control']) }}
-                     </div>
-                  </div>
-               </div>
-               <div class="col-md-12 text-end">
-                  <input type="button" id="billing_data" value="Shipping Same As Billing" class="btn py-[6px] px-[10px] btn bg-[#007C38] text-white hover:bg-[#005f2a]">
-               </div>
-            </div>
-         </div>
+
+      <div class="zameen-form-section">
+        <h6 class="zameen-section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pin-map" viewBox="0 0 16 16" style="display: inline; margin-right: 8px;">
+            <path fill-rule="evenodd" d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8z"/>
+            <path fill-rule="evenodd" d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z"/>
+          </svg>
+          {{ __('Billing Address') }}
+        </h6>
+
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <div class="zameen-form-group">
+            <label class="zameen-form-label">{{ __('Name') }}</label>
+            {{ Form::text('billing_name', null, [
+              'class' => 'zameen-form-input',
+              'placeholder' => __('Enter billing name')
+            ]) }}
+          </div>
+
+          <div class="zameen-form-group">
+            <label class="zameen-form-label">{{ __('Phone') }}</label>
+            {{ Form::text('billing_phone', null, [
+              'class' => 'zameen-form-input',
+              'placeholder' => __('Enter phone number')
+            ]) }}
+          </div>
+
+          <div class="zameen-form-group">
+            <label class="zameen-form-label">{{ __('Address') }}</label>
+            {{ Form::textarea('billing_address', null, [
+              'class' => 'zameen-form-input',
+              'rows' => '3',
+              'placeholder' => __('Enter billing address')
+            ]) }}
+          </div>
+
+          <div class="zameen-form-group">
+            <label class="zameen-form-label">{{ __('City') }}</label>
+            {{ Form::text('billing_city', null, [
+              'class' => 'zameen-form-input',
+              'placeholder' => __('Enter city')
+            ]) }}
+          </div>
+
+          <div class="zameen-form-group">
+            <label class="zameen-form-label">{{ __('State') }}</label>
+            {{ Form::text('billing_state', null, [
+              'class' => 'zameen-form-input',
+              'placeholder' => __('Enter state')
+            ]) }}
+          </div>
+
+          <div class="zameen-form-group">
+            <label class="zameen-form-label">{{ __('Country') }}</label>
+            {{ Form::text('billing_country', null, [
+              'class' => 'zameen-form-input',
+              'placeholder' => __('Enter country')
+            ]) }}
+          </div>
+
+          <div class="zameen-form-group">
+            <label class="zameen-form-label">{{ __('Zip Code') }}</label>
+            {{ Form::text('billing_zip', null, [
+              'class' => 'zameen-form-input',
+              'placeholder' => __('Enter zip code')
+            ]) }}
+          </div>
+
+          <div style="grid-column: 1 / -1; text-align: right; margin-top: 1rem;">
+            <button type="button" id="billing_data" class="zameen-btn zameen-btn-secondary">
+              {{ __('Shipping Same As Billing') }}
+            </button>
+          </div>
+        </div>
       </div>
-      <div class="col-md-6">
-         <!--shipping address starts here-->
-         <div class="bg-white rounded-[8px] border border-[#E5E7EB] shadow-sm overflow-hidden">
-            <div class="heading-cstm-form">
-               <h6 class="mb-0 flex items-center gap-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pin-map" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8z"/>
-                  <path fill-rule="evenodd" d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z"/>
-                </svg>
-                  {{ __('Shipping Address') }}
-               </h6>
-            </div>
-            <div class="row p-6">
-               <div class="col-lg-6 col-md-6 col-sm-6">
-                  <div class="form-group">
-                     {{ Form::label('shipping_name', __('Name'), ['class' => 'form-label']) }}
-                     <div class="form-icon-user">
-                        {{ Form::text('shipping_name', null, ['class' => 'form-control']) }}
-                     </div>
-                  </div>
-               </div>
-               <x-mobile  div-class="col-md-6 " name="shipping_phone" label="{{ __('Phone') }}" ></x-mobile>
-               <div class="col-md-12">
-                  <div class="form-group">
-                     {{ Form::label('shipping_address', __('Address'), ['class' => 'form-label']) }}
-                     <label class="form-label" for="example2cols1Input"></label>
-                     <div class="input-group">
-                        {{ Form::textarea('shipping_address', null, ['class' => 'form-control', 'rows' => 3]) }}
-                     </div>
-                  </div>
-               </div>
-               <div class="col-lg-6 col-md-6 col-sm-6">
-                  <div class="form-group">
-                     {{ Form::label('shipping_city', __('City'), ['class' => 'form-label']) }}
-                     <div class="form-icon-user">
-                        {{ Form::text('shipping_city', null, ['class' => 'form-control']) }}
-                     </div>
-                  </div>
-               </div>
-               <div class="col-lg-6 col-md-6 col-sm-6">
-                  <div class="form-group">
-                     {{ Form::label('shipping_state', __('State'), ['class' => 'form-label']) }}
-                     <div class="form-icon-user">
-                        {{ Form::text('shipping_state', null, ['class' => 'form-control']) }}
-                     </div>
-                  </div>
-               </div>
-               <div class="col-lg-6 col-md-6 col-sm-6">
-                  <div class="form-group">
-                     {{ Form::label('shipping_country', __('Country'), ['class' => 'form-label']) }}
-                     <div class="form-icon-user">
-                        {{ Form::text('shipping_country', null, ['class' => 'form-control']) }}
-                     </div>
-                  </div>
-               </div>
-               <div class="col-lg-6 col-md-6 col-sm-6">
-                  <div class="form-group">
-                     {{ Form::label('shipping_zip', __('Zip Code'), ['class' => 'form-label']) }}
-                     <div class="form-icon-user">
-                        {{ Form::text('shipping_zip', null, ['class' => 'form-control']) }}
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
+
+      <div class="zameen-form-section">
+        <h6 class="zameen-section-title">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pin-map" viewBox="0 0 16 16" style="display: inline; margin-right: 8px;">
+            <path fill-rule="evenodd" d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8z"/>
+            <path fill-rule="evenodd" d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z"/>
+          </svg>
+          {{ __('Shipping Address') }}
+        </h6>
+
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <div class="zameen-form-group">
+            <label class="zameen-form-label">{{ __('Name') }}</label>
+            {{ Form::text('shipping_name', null, [
+              'class' => 'zameen-form-input',
+              'placeholder' => __('Enter shipping name')
+            ]) }}
+          </div>
+
+          <div class="zameen-form-group">
+            <label class="zameen-form-label">{{ __('Phone') }}</label>
+            {{ Form::text('shipping_phone', null, [
+              'class' => 'zameen-form-input',
+              'placeholder' => __('Enter phone number')
+            ]) }}
+          </div>
+
+          <div class="zameen-form-group">
+            <label class="zameen-form-label">{{ __('Address') }}</label>
+            {{ Form::textarea('shipping_address', null, [
+              'class' => 'zameen-form-input',
+              'rows' => '3',
+              'placeholder' => __('Enter shipping address')
+            ]) }}
+          </div>
+
+          <div class="zameen-form-group">
+            <label class="zameen-form-label">{{ __('City') }}</label>
+            {{ Form::text('shipping_city', null, [
+              'class' => 'zameen-form-input',
+              'placeholder' => __('Enter city')
+            ]) }}
+          </div>
+
+          <div class="zameen-form-group">
+            <label class="zameen-form-label">{{ __('State') }}</label>
+            {{ Form::text('shipping_state', null, [
+              'class' => 'zameen-form-input',
+              'placeholder' => __('Enter state')
+            ]) }}
+          </div>
+
+          <div class="zameen-form-group">
+            <label class="zameen-form-label">{{ __('Country') }}</label>
+            {{ Form::text('shipping_country', null, [
+              'class' => 'zameen-form-input',
+              'placeholder' => __('Enter country')
+            ]) }}
+          </div>
+
+          <div class="zameen-form-group">
+            <label class="zameen-form-label">{{ __('Zip Code') }}</label>
+            {{ Form::text('shipping_zip', null, [
+              'class' => 'zameen-form-input',
+              'placeholder' => __('Enter zip code')
+            ]) }}
+          </div>
+        </div>
       </div>
-   </div>
+    </div>
+  </div>
 </div>
-<div class="modal-footer border-t border-[#E5E5E5] bg-[#FAFAFA] px-6 py-4 flex justify-end gap-3">
-   <input type="button" value="{{ __('Cancel') }}" class="btn py-[6px] px-[10px] btn text-[#007C38] border-[#007C38] hover:bg-[#007C38] hover:text-white" data-bs-dismiss="modal">
-   <input type="submit" value="{{ __('Create') }}" class="btn py-[6px] px-[10px] btn bg-[#007C38] text-white hover:bg-[#005f2a]">
+
+<div class="modal-footer" style="background: var(--zameen-background-light); border-top: 1px solid var(--zameen-border-light); padding: 1.5rem 2rem; display: flex; justify-content: flex-end; gap: 1rem;">
+  <button type="button" class="zameen-btn zameen-btn-outline" data-bs-dismiss="modal">
+    {{ __('Cancel') }}
+  </button>
+  <button type="submit" class="zameen-btn zameen-btn-primary">
+    {{ __('Create Customer') }}
+  </button>
 </div>
+
 {{ Form::close() }}
+
 @push('script-page')
 <script>
+  $(document).on('click', '.login_enable', function() {
+    setTimeout(function() {
+      $('.modal-body').append($('<input>', {
+        type: 'hidden',
+        val: 'true',
+        name: 'login_enable'
+      }));
+    }, 2000);
+  });
 
-   $(document).on('click', '.login_enable', function() {
-       setTimeout(function() {
-           $('.modal-body').append($('<input>', {
-               type: 'hidden',
-               val: 'true',
-               name: 'login_enable'
-           }));
-       }, 2000);
-   });
+  $('#password_switch').on('change', function() {
+    if ($(this).is(':checked')) {
+      $('.ps_div').removeClass('d-none');
+    } else {
+      $('.ps_div').addClass('d-none');
+    }
+  });
+
+  $('#billing_data').on('click', function() {
+    $('input[name="shipping_name"]').val($('input[name="billing_name"]').val());
+    $('input[name="shipping_phone"]').val($('input[name="billing_phone"]').val());
+    $('textarea[name="shipping_address"]').val($('textarea[name="billing_address"]').val());
+    $('input[name="shipping_city"]').val($('input[name="billing_city"]').val());
+    $('input[name="shipping_state"]').val($('input[name="billing_state"]').val());
+    $('input[name="shipping_country"]').val($('input[name="billing_country"]').val());
+    $('input[name="shipping_zip"]').val($('input[name="billing_zip"]').val());
+  });
 </script>
 @endpush

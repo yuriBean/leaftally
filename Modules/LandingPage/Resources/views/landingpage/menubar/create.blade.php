@@ -79,8 +79,6 @@
     });
 </script>
 
-
-
 <script>
     $(document).ready(function() {
         $('input[name="template_name"][id="page_content"]').prop('checked', true);

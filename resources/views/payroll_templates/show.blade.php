@@ -30,7 +30,6 @@ $enable_chatgpt = !empty($chatGPT);
 <script src="{{asset('css/summernote/summernote-bs4.js')}}"></script>
 @endpush
 
-
 @section('content')
 <div class="row">
         <div class="col-md-4 col-12">

@@ -15,15 +15,14 @@
 
 @section('action-btn')
 <style>
-  .sub-title{font-weight:600;background:#F6F6F6;border-radius:6px;padding:6px 15px;margin-bottom:10px;}
-  /* Material checkbox */
+  .sub-title{font-weight:600;background:
   .mcheck{display:inline-flex;align-items:center;cursor:pointer;user-select:none}
   .mcheck input{position:absolute;opacity:0;width:0;height:0}
-  .mcheck .box{width:20px;height:20px;border:2px solid #D1D5DB;border-radius:6px;background:#fff;display:inline-block;position:relative;transition:all .15s}
+  .mcheck .box{width:20px;height:20px;border:2px solid
   .mcheck .box:hover{box-shadow:0 1px 3px rgba(0,0,0,.08)}
   .mcheck input:focus + .box{box-shadow:0 0 0 3px rgba(0,124,56,.2)}
-  .mcheck input:checked + .box{background:#007C38;border-color:#007C38}
-  .mcheck input:checked + .box::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:2px solid #fff;border-top:none;border-left:none;transform:rotate(45deg)}
+  .mcheck input:checked + .box{background:
+  .mcheck input:checked + .box::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:2px solid
 </style>
 
 <div class="flex items-center gap-2 mt-2 sm:mt-0">
@@ -38,8 +37,6 @@
         {{ __('Export') }}
     </a>
 
-
-
     @can('create bill')
       <a href="{{ route('bill.create', 0) }}"
          class="flex items-center gap-2 bg-[#007C38] text-white px-4 py-2 rounded-[6px] text-[14px] font-[500] hover:bg-[#005f2a] transition-all duration-200 shadow-sm min-w-fit"
@@ -52,7 +49,6 @@
     @endcan
 </div>
 @endsection
-
 
 @section('content')
 <div class="row">
@@ -295,13 +291,11 @@
 
 @push('script-page')
 <script>
-  // Prevent clicks on controls from toggling row selection or navigation
   $(document).on('click', 'input[type=checkbox], label.mcheck, .dropdown-menu, [data-bs-toggle="dropdown"]', function(e){ e.stopPropagation(); });
 
-  // Top toolbar "Export Selected" uses same selection list
   $(document).on('click','[data-export-selected][data-scope="bills"]',function(e){
     e.preventDefault();
-    const scope = $(this).data('scope'); // "bills"
+    const scope = $(this).data('scope');
     const route = $(this).data('route');
     const key   = 'bulk:'+scope;
     let ids = [];
@@ -319,7 +313,6 @@
     const token = $('meta[name="csrf-token"]').attr('content') || '{{ csrf_token() }}';
     const $f = $('<form>', { method:'POST', action:route, target:'_blank' });
     $f.append($('<input>',{type:'hidden', name:'_token', value:token}));
-    // same param name used by server: ids[]
     ids.forEach(id => $f.append($('<input>',{type:'hidden', name:'ids[]', value:id})));
     $(document.body).append($f);
     $f.trigger('submit').remove();

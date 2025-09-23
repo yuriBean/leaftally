@@ -60,10 +60,6 @@ class LandingPageSetting extends Model
 
             "feature_of_features"       => "",
 
-            // "feature_banner_heading"=>"",
-            // "feature_banner_description"=>"",
-            // "feature_banner"=>"",
-
             "highlight_feature_heading" => "",
             "highlight_feature_description" => "",
             "highlight_feature_image"   => "",
@@ -125,7 +121,6 @@ class LandingPageSetting extends Model
         return $settings;
     }
 
-
     public static function upload_file($request, $key_name, $name, $path, $custom_validation = [])
     {
         try {
@@ -165,7 +160,6 @@ class LandingPageSetting extends Model
 
                     $mimes =  !empty($settings['local_storage_validation']) ? $settings['local_storage_validation'] : '';
                 }
-
 
                 $file = $request->$key_name;
 
@@ -215,8 +209,6 @@ class LandingPageSetting extends Model
                         );
                     }
 
-
-
                     $res = [
                         'flag' => 1,
                         'msg'  => 'success',
@@ -243,11 +235,9 @@ class LandingPageSetting extends Model
 
     public static function keyWiseUpload_file($request, $key_name, $name, $path, $data_key, $custom_validation = [])
     {
-        // dd($request, $key_name, $name, $path, $data_key);
         $multifile = [
             $key_name => $request->file($key_name)[$data_key][$key_name],
         ];
-
 
         try {
             $settings = Utility::getStorageSetting();
@@ -287,9 +277,7 @@ class LandingPageSetting extends Model
                     $mimes =  !empty($settings['local_storage_validation']) ? $settings['local_storage_validation'] : '';
                 }
 
-
                 $file = $request->$key_name;
-
 
                 if (count($custom_validation) > 0) {
                     $validation = $custom_validation;
@@ -304,7 +292,6 @@ class LandingPageSetting extends Model
                 $validator = \Validator::make($multifile, [
                     $key_name => $validation
                 ]);
-
 
                 if ($validator->fails()) {
                     $res = [
@@ -333,8 +320,6 @@ class LandingPageSetting extends Model
                             $name
                         );
 
-                        // $path = $path.$name;
-
                     } else if ($settings['storage_setting'] == 's3') {
 
                         $path = \Storage::disk('s3')->putFileAs(
@@ -343,7 +328,6 @@ class LandingPageSetting extends Model
                             $name
                         );
                     }
-
 
                     $res = [
                         'flag' => 1,

@@ -11,14 +11,8 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 
 class EmployeeExport implements FromCollection, WithHeadings, WithMapping, ShouldAutoSize
 {
-    /**
-     * @var array<int>|null
-     */
     protected $ids;
 
-    /**
-     * Pass selected IDs (array) to export a subset; null/empty => export all (scoped).
-     */
     public function __construct(?array $ids = null)
     {
         $this->ids = $ids ? array_values(array_filter($ids, fn ($v) => !is_null($v))) : null;
@@ -59,7 +53,6 @@ class EmployeeExport implements FromCollection, WithHeadings, WithMapping, Shoul
 
     public function map($employee): array
     {
-        // Choose your date field; your app primarily uses company_doj
         $doj = $employee->company_doj ?? $employee->date_of_joining ?? null;
         $dojFormatted = $doj ? optional(\Carbon\Carbon::parse($doj))->format('Y-m-d') : '';
 

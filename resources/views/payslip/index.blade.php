@@ -8,16 +8,14 @@
   <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a></li>
   <li class="breadcrumb-item">{{ __('Payslip') }}</li>
   <style>
-    /* material checkbox (reference style) */
     .mcheck{display:inline-flex;align-items:center;cursor:pointer;user-select:none}
     .mcheck input{position:absolute;opacity:0;width:0;height:0}
-    .mcheck .box{width:20px;height:20px;border:2px solid #D1D5DB;border-radius:6px;background:#fff;display:inline-block;position:relative;transition:all .15s}
+    .mcheck .box{width:20px;height:20px;border:2px solid
     .mcheck .box:hover{box-shadow:0 1px 3px rgba(0,0,0,.08)}
     .mcheck input:focus + .box{box-shadow:0 0 0 3px rgba(0,124,56,.2)}
-    .mcheck input:checked + .box{background:#007C38;border-color:#007C38}
-    .mcheck input:checked + .box::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:2px solid #fff;border-top:none;border-left:none;transform:rotate(45deg)}
+    .mcheck input:checked + .box{background:
+    .mcheck input:checked + .box::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:2px solid
 
-    /* custom filter helpers */
     .is-hidden{display:none !important;}
     .opacity-50{opacity:.5}
     .cursor-not-allowed{cursor:not-allowed}
@@ -163,10 +161,8 @@
 @push('script-page')
 <script>
 $(document).ready(function () {
-  // Persist selection across filters & reloads
   window.payslipSelected = window.payslipSelected || new Set();
 
-  // ————— Helpers —————
   function setButtonsEnabled(enabled){
     const $export = $('#export_selected_btn');
     const $bulk   = $('#bulk_payment');
@@ -203,7 +199,6 @@ $(document).ready(function () {
       });
     }
 
-    // "no results" indicator
     var visibleCount = $('#pc-dt-render-column-cells tbody tr.js-row:not(.is-hidden)').length;
     $('#no-results-row').toggleClass('is-hidden', visibleCount > 0);
 
@@ -212,14 +207,12 @@ $(document).ready(function () {
 
   function debounce(fn, wait){ let t; return function(){ clearTimeout(t); t = setTimeout(()=>fn.apply(this, arguments), wait); }; }
 
-  // ————— Data rendering —————
   function renderRows(data, datePicker){
     const $tbody = $('#pc-dt-render-column-cells tbody');
     $tbody.empty();
 
     if (!Array.isArray(data) || !data.length) {
       $('#no-results-row').removeClass('is-hidden').find('td').text('{{ __("No records found for") }} ' + datePicker);
-      // Still refresh YTD row
       loadYTD(datePicker);
       updateMasterState();
       return;
@@ -228,8 +221,6 @@ $(document).ready(function () {
     }
 
     data.forEach(function(item){
-      // [0]=employee_id, [1]=employee_code, [2]=name, [3]=payroll_type,
-      // [4]=salary, [5]=net, [6]=status, [7]=payslip_id, ['url']=employee_show_url
       var employeeId = item[0];
       var empCode     = item[1];
       var name        = item[2];
@@ -283,7 +274,6 @@ $(document).ready(function () {
       var checked  = (payslipId && window.payslipSelected.has(String(payslipId))) ? 'checked' : '';
       var disabled = (payslipId == 0) ? 'disabled' : '';
 
-      // search key for custom filter
       var searchKey = (empCode + ' ' + name + ' ' + payroll + ' ' + (salary||'') + ' ' + (netSalary||'') + ' ' + statusText).toLowerCase();
 
       var rowHtml = ''
@@ -308,11 +298,9 @@ $(document).ready(function () {
       $('#pc-dt-render-column-cells tbody').append(rowHtml);
     });
 
-    // apply any active filter & update master
     applyFilter($('#payslip_search').val() || '');
     updateMasterState();
 
-    // refresh YTD row for the selected month
     loadYTD(datePicker);
   }
 
@@ -342,7 +330,6 @@ $(document).ready(function () {
     });
   }
 
-  // ————— YTD footer —————
   function loadYTD(datePicker){
     $.ajax({
       url: '{{ route('payslip.ytd') }}',
@@ -365,26 +352,21 @@ $(document).ready(function () {
     });
   }
 
-  // ————— Init —————
   loadData();
 
-  // Custom search (show/hide rows)
   $('#payslip_search').on('input', debounce(function(){
     applyFilter(this.value);
   }, 120));
 
-  // Month/year change => reload data (keep global selection)
   $(document).on("change", ".month_date,.year_date", function() {
     $('.jsb-master[data-scope="payslips"]').prop({checked:false, indeterminate:false});
     loadData();
   });
 
-  // Stop bubbling for menus/checkboxes
   $(document).on('click', 'input[type=checkbox], label.mcheck, .dropdown-menu, [data-bs-toggle="dropdown"]', function(e){
     e.stopPropagation();
   });
 
-  // Master checkbox toggles only VISIBLE, enabled rows
   $(document).on('change', '.jsb-master[data-scope="payslips"]', function() {
     const on = $(this).is(':checked');
     $('input.jsb-item[data-scope="payslips"]:enabled:visible').each(function(){
@@ -394,7 +376,6 @@ $(document).ready(function () {
     updateMasterState();
   });
 
-  // Row checkbox toggle => maintain global selection
   $(document).on('change.selectionOnly change', 'input.jsb-item[data-scope="payslips"]', function(e){
     const id = String($(this).val() || '');
     if (!id || $(this).is(':disabled')) return;
@@ -403,7 +384,6 @@ $(document).ready(function () {
     if (e.type !== 'change.selectionOnly') { updateMasterState(); }
   });
 
-  // Export: selected only
   $('#payslip_export_form').on('submit', function(e){
     $(this).find('input[name="ids[]"]').remove();
     const ids = Array.from(window.payslipSelected);
@@ -411,7 +391,6 @@ $(document).ready(function () {
     ids.forEach(id => $(this).append($('<input>', {type:'hidden', name:'ids[]', value:id})));
   });
 
-  // Bulk Payment: selected only
   $(document).on('click', '#bulk_payment', function () {
     const ids = Array.from(window.payslipSelected);
     if (!ids.length) return;
@@ -445,7 +424,6 @@ $(document).ready(function () {
     });
   });
 
-  // Delete payslip
   $(document).on("click", ".payslip_delete", function(e) {
     e.preventDefault();
     var url = $(this).data('url');

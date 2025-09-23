@@ -14,14 +14,12 @@
                 
                     <div class="card-body" id="boxes">
                             <div class="row invoice-title mt-2">
-                                
-                                
+
                                 <p data-v-f2a183a6="">
                                 {{-- @dd($Offerletter) --}}
                                     <div>{!!$noc_certificate->content!!}</div>
                                    
                                 </p>
-                        
 
                         </div>
                  </div>
@@ -29,7 +27,6 @@
         </div>
     </div>
 
-    
 </div>
 
 @endsection
@@ -54,7 +51,6 @@
             html2pdf().set(opt).from(element).save().then(closeScript);
         });
 
-        
     </script>
     
 @endpush

@@ -9,7 +9,6 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class VenderExport implements FromCollection, WithHeadings
 {
-    /** @var array<int,int|string>|null */
     protected ?array $ids;
 
     public function __construct(?array $ids = null)

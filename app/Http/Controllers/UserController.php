@@ -20,7 +20,6 @@ use Session;
 use Spatie\Permission\Models\Role;
 use Lab404\Impersonate\Impersonate;
 
-
 class UserController extends Controller
 {
 
@@ -40,14 +39,12 @@ class UserController extends Controller
         }
     }
 
-
     public function create()
     {
         $customFields = CustomField::where('created_by', '=', \Auth::user()->creatorId())->where('module', '=', 'user')->get();
 
         $user  = \Auth::user();
         $roles = Role::where('created_by', '=', $user->creatorId())->get()->pluck('name', 'id');
-        // echo"<pre>"; print_r($roles); die("=====");
         if (\Auth::user()->can('create user')) {
             return view('user.create', compact('roles', 'customFields'));
         } else {
@@ -65,7 +62,6 @@ public function store(Request $request)
     $company_default_language= DB::table('settings')->select('value')->where('name', 'company_default_language')->first();
     $userpassword            = $request->input('password');
 
-    // COMMON: validate avatar file if present
     $avatarRule = ['nullable','image','mimes:jpg,jpeg,png,webp','max:2048'];
 
     if (\Auth::user()->type == 'super admin') {
@@ -103,7 +99,6 @@ public function store(Request $request)
         $user['is_enable_login']    = $enableLogin;
         $user['referral_code']      = Utility::generateReferralCode();
 
-        // HANDLE AVATAR UPLOAD (SA path uses same helper)
         $avatarFilename = null;
         if ($request->hasFile('avatar')) {
             $filenameWithExt = $request->file('avatar')->getClientOriginalName();
@@ -118,7 +113,6 @@ public function store(Request $request)
             if (!($upload['flag'] ?? 0)) {
                 return redirect()->back()->with('error', __($upload['msg'] ?? 'Avatar upload failed.'));
             }
-            // Store only the filename; blade will resolve with Storage::url
             $avatarFilename = $fileNameToStore;
         }
         if ($avatarFilename) {
@@ -184,7 +178,6 @@ public function store(Request $request)
         $user['plan']              = Plan::first()->id;
         $user['is_enable_login']   = $enableLogin;
 
-        // HANDLE AVATAR UPLOAD (non-SA path also respects storage limit)
         $avatarFilename = null;
         if ($request->hasFile('avatar')) {
             $image_size = $request->file('avatar')->getSize();
@@ -206,7 +199,6 @@ public function store(Request $request)
                 return redirect()->back()->with('error', __($upload['msg'] ?? 'Avatar upload failed.'));
             }
 
-            // Adjust storage usage for previous file if any (new user has none).
             $avatarFilename = $fileNameToStore;
         }
         if ($avatarFilename) {
@@ -218,7 +210,6 @@ public function store(Request $request)
         $user->assignRole($role_r);
     }
 
-    // Final notification (kept your original)
     $uArr = ['email' => $user->email, 'password' => $psw ?? null];
     try { Utility::sendEmailTemplate('user_created', [$user->id => $user->email], $uArr); }
     catch (\Exception $e) { $smtp_error = __('E-Mail has been not sent due to SMTP configuration'); }
@@ -228,7 +219,6 @@ public function store(Request $request)
         __('User successfully added.') . ((isset($smtp_error)) ? '<br> <span class="text-danger">' . $smtp_error . '</span>' : '')
     );
 }
-
 
     public function edit($id)
     {
@@ -245,7 +235,6 @@ public function store(Request $request)
             return redirect()->back();
         }
     }
-
 
 public function update(Request $request, $id)
 {
@@ -270,11 +259,9 @@ public function update(Request $request, $id)
             return redirect()->back()->with('error', $validator->getMessageBag()->first());
         }
 
-        // fill basic fields
         $input = $request->only(['name','email']);
         $user->fill($input);
 
-        // handle avatar (no quota logic for SA, same as your store path)
         if ($request->hasFile('avatar')) {
             $filenameWithExt = $request->file('avatar')->getClientOriginalName();
             $filename        = pathinfo($filenameWithExt, PATHINFO_FILENAME);
@@ -289,7 +276,6 @@ public function update(Request $request, $id)
                 return redirect()->back()->with('error', __($upload['msg'] ?? 'Avatar upload failed.'));
             }
 
-            // store filename only (your list view uses Storage::url(... . $user->avatar))
             $user->avatar = $fileNameToStore;
         }
 
@@ -315,7 +301,6 @@ public function update(Request $request, $id)
         $user->email   = $request->email;
         $user->type    = $role->name;
 
-        // handle avatar with storage quota (mirrors your profile logic)
         if ($request->hasFile('avatar')) {
             $image_size = $request->file('avatar')->getSize();
             $result = Utility::updateStorageLimit(\Auth::user()->creatorId(), $image_size);
@@ -323,10 +308,8 @@ public function update(Request $request, $id)
                 return redirect()->back()->with('error', $result);
             }
 
-            // credit back old avatar file against quota, if any
-            $previousFileName = $user->avatar; // stored as filename
+            $previousFileName = $user->avatar;
             if (!empty($previousFileName)) {
-                // your Utility::changeStorageLimit previously received the file path/size reference
                 Utility::changeStorageLimit(\Auth::user()->creatorId(), $previousFileName);
             }
 
@@ -343,7 +326,6 @@ public function update(Request $request, $id)
                 return redirect()->back()->with('error', __($upload['msg'] ?? 'Avatar upload failed.'));
             }
 
-            // store filename only
             $user->avatar = $fileNameToStore;
         }
 
@@ -357,7 +339,6 @@ public function update(Request $request, $id)
         return redirect()->route('users.index')->with('success', 'User successfully updated.');
     }
 }
-
 
     public function destroy($id)
     {
@@ -373,12 +354,6 @@ public function update(Request $request, $id)
 
                     return redirect()->back()->with('success' , __('Company Successfully deleted'));
 
-                    // if ($user->delete_status == 0) {
-                    //     $user->delete_status = 1;
-                    // } else {
-                    //     $user->delete_status = 0;
-                    // }
-                    // $user->save();
                 } else {
                     $user->delete();
                 }
@@ -415,7 +390,6 @@ public function profile()
     return view('user.profile', compact('userDetail', 'customFields', 'recoveryCodes'));
 }
 
-
     public function editprofile(Request $request)
     {
         $userDetail = \Auth::user();
@@ -444,10 +418,7 @@ public function profile()
                 $image_path = $dir . $userDetail['avatar'];
 
                 $url = '';
-                // $path = $request->file('profile')->storeAs('uploads/avatar/', $fileNameToStore);
-                // dd($path);
                 $path = Utility::upload_file($request, 'profile', $fileNameToStore, $dir, []);
-                // dd($path);
                 if ($path['flag'] == 1) {
                     $url = $path['url'];
                 } else {
@@ -475,10 +446,7 @@ public function profile()
                     $image_path = $dir . $userDetail['avatar'];
 
                     $url = '';
-                    // $path = $request->file('profile')->storeAs('uploads/avatar/', $fileNameToStore);
-                    // dd($path);
                     $path = Utility::upload_file($request, 'profile', $fileNameToStore, $dir, []);
-                    // dd($path);
                     if ($path['flag'] == 1) {
                         $url = $path['url'];
                     } else {
@@ -574,7 +542,6 @@ public function profile()
         }
     }
 
-    // change mode 'dark or light'
     public function changeMode()
     {
         $usr = Auth::user();
@@ -610,7 +577,6 @@ public function profile()
             return redirect()->back()->with('error', $messages->first());
         }
 
-
         $user                 = User::where('id', $id)->first();
         $user->forceFill([
             'password' => Hash::make($request->password),
@@ -625,7 +591,6 @@ public function profile()
 
     public function LoginWithCompany(Request $request,   $id)
     {
-        // dd($request,  $request->user(), $id);
         $user = User::find($id);
         if ($user && auth()->check()) {
             Impersonate::take($request->user(), $user);
@@ -672,7 +637,6 @@ public function profile()
         }
         return response()->json('error');
     }
-
 
     public function Counter($id)
     {

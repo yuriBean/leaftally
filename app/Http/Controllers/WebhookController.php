@@ -10,7 +10,6 @@ class WebhookController extends Controller
 {
     public function index()
     {
-        //
     }
 
     public function create()
@@ -26,7 +25,6 @@ class WebhookController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
         $validator = \Validator::make(
             $request->all(),
             [

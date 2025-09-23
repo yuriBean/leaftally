@@ -1,9 +1,4 @@
-/**
- * Copyright (c) Tiny Technologies, Inc. All rights reserved.
- * Licensed under the LGPL or a commercial license.
- * For LGPL see License.txt in the project root for license information.
- * For commercial licenses see https://www.tiny.cloud/
- */
+
 .tox {
   box-shadow: none;
   box-sizing: content-box;
@@ -40,7 +35,7 @@
   white-space: inherit;
 }
 .tox *:not(svg):not(rect) {
-  /* stylelint-disable-line no-duplicate-selectors */
+  
   background: transparent;
   border: 0;
   box-shadow: none;
@@ -408,7 +403,7 @@ button::-moz-focus-inner {
   min-width: 36px;
 }
 .tox .tox-checkbox__input {
-  /* Hide from view but visible to screen readers */
+  
   height: 1px;
   overflow: hidden;
   position: absolute;
@@ -487,7 +482,7 @@ button::-moz-focus-inner {
   margin-right: 4px;
 }
 .tox {
-  /* stylelint-disable-next-line no-descending-specificity */
+  
 }
 .tox .tox-collection--toolbar .tox-collection__group {
   display: flex;
@@ -829,7 +824,7 @@ button::-moz-focus-inner {
   width: 6em;
 }
 .tox .tox-rgb-form input.tox-invalid {
-  /* Need !important to override Chrome's focus styling unfortunately */
+  
   border: 1px solid red !important;
 }
 .tox .tox-rgb-form .tox-rgba-preview {
@@ -1435,7 +1430,7 @@ button::-moz-focus-inner {
   transition-delay: 0s;
 }
 .tox.tox-platform-ie {
-  /* IE11 CSS styles go here */
+  
 }
 .tox.tox-platform-ie .tox-dialog-wrap {
   position: -ms-device-fixed;
@@ -1645,7 +1640,7 @@ body.tox-dialog__disable-scroll {
   cursor: not-allowed;
 }
 .tox:not([dir=rtl]) .tox-color-input {
-  /* stylelint-disable-next-line no-descending-specificity */
+  
 }
 .tox:not([dir=rtl]) .tox-color-input .tox-textfield {
   padding-left: 36px;
@@ -1654,7 +1649,7 @@ body.tox-dialog__disable-scroll {
   left: 6px;
 }
 .tox[dir="rtl"] .tox-color-input {
-  /* stylelint-disable-next-line no-descending-specificity */
+  
 }
 .tox[dir="rtl"] .tox-color-input .tox-textfield {
   padding-right: 36px;
@@ -2070,20 +2065,19 @@ body.tox-dialog__disable-scroll {
   width: 100%;
 }
 .tox:not([dir=rtl]) {
-  /* stylelint-disable-next-line no-descending-specificity */
+  
 }
 .tox:not([dir=rtl]) .tox-insert-table-picker > div:nth-child(10n) {
   border-right: 0;
 }
 .tox[dir=rtl] {
-  /* stylelint-disable-next-line no-descending-specificity */
+  
 }
 .tox[dir=rtl] .tox-insert-table-picker > div:nth-child(10n+1) {
   border-right: 0;
 }
 .tox {
-  /* stylelint-disable */
-  /* stylelint-enable */
+
 }
 .tox .tox-menu {
   background-color: #fff;
@@ -2127,7 +2121,7 @@ body.tox-dialog__disable-scroll {
 .tox.tox-tinymce:not(.tox-tinymce-inline) .tox-editor-header:not(:first-child) .tox-menubar {
   border-top: 1px solid #cccccc;
 }
-/* Deprecated. Remove in next major release */
+
 .tox .tox-mbtn {
   align-items: center;
   background: transparent;
@@ -2743,7 +2737,7 @@ body.tox-dialog__disable-scroll {
 .tox .tox-tbtn--disabled:hover svg,
 .tox .tox-tbtn:disabled svg,
 .tox .tox-tbtn:disabled:hover svg {
-  /* stylelint-disable-line no-descending-specificity */
+  
   fill: rgba(34, 47, 62, 0.5);
 }
 .tox .tox-tbtn--enabled,
@@ -2759,7 +2753,7 @@ body.tox-dialog__disable-scroll {
 }
 .tox .tox-tbtn--enabled svg,
 .tox .tox-tbtn--enabled:hover svg {
-  /* stylelint-disable-line no-descending-specificity */
+  
   fill: #222f3e;
 }
 .tox .tox-tbtn:focus:not(.tox-tbtn--disabled) {
@@ -3014,9 +3008,9 @@ body.tox-dialog__disable-scroll {
   flex: 1;
   position: relative;
 }
-/* stylelint-disable */
+
 .tox {
-  /* stylelint-enable */
+  
 }
 .tox .tox-dialog-loading::before {
   background-color: rgba(0, 0, 0, 0.5);

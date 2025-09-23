@@ -22,7 +22,6 @@ class RevenueController extends Controller
     {
         if (\Auth::user()->can('manage revenue')) {
 
-            // Show only active (non-deleted) options in filters
             $customer = TrashedSelect::activeOptions(Customer::class, \Auth::user()->creatorId())->prepend('Select Customer', '');
             $account  = TrashedSelect::activeOptions(BankAccount::class, \Auth::user()->creatorId(), 'holder_name')->prepend('Select Account', '');
             $category = ProductServiceCategory::where('created_by', \Auth::user()->creatorId())
@@ -61,7 +60,6 @@ class RevenueController extends Controller
     public function create()
     {
         if (\Auth::user()->can('create revenue')) {
-            // Only active options when creating a new revenue
             $customers  = TrashedSelect::activeOptions(Customer::class, \Auth::user()->creatorId())->prepend('--', 0);
             $categories = ProductServiceCategory::where('created_by', \Auth::user()->creatorId())
                 ->where('type', 'income')->get()->pluck('name', 'id');
@@ -143,7 +141,6 @@ class RevenueController extends Controller
             }
             Utility::bankAccountBalance($request->account_id, $revenue->amount, 'credit');
 
-            // With-trashed fetch to avoid nulls if the account is soft-deleted later
             $accountId = TrashedSelect::findWithTrashed(BankAccount::class, $revenue->account_id);
             if ($accountId) {
                 $data = [
@@ -173,7 +170,6 @@ class RevenueController extends Controller
                 $smtp_error = __('E-Mail has been not sent due to SMTP configuration');
             }
 
-            // Twilio Notification
             $setting  = Utility::settings(\Auth::user()->creatorId());
             $customer = Customer::find($request->customer_id);
             if ($customer && isset($setting['revenue_notification']) && $setting['revenue_notification'] == 1) {
@@ -186,7 +182,6 @@ class RevenueController extends Controller
                 Utility::send_twilio_msg($customer->contact, 'new_revenue', $uArr);
             }
 
-            // webhook
             $module  = 'New Revenue';
             $webhook = Utility::webhookSetting($module);
             if ($webhook) {
@@ -303,7 +298,6 @@ class RevenueController extends Controller
             $revenue->account    = $request->account_id;
             Transaction::editTransaction($revenue);
 
-            // Append a fresh transaction line (keeps history consistent)
             $accountId = TrashedSelect::findWithTrashed(BankAccount::class, $revenue->account_id);
             if ($accountId) {
                 $data = [
@@ -358,9 +352,6 @@ class RevenueController extends Controller
         return redirect()->back()->with('error', __('Permission denied.'));
     }
 
-    /**
-     * Export all (respects ?date= param for range or single day)
-     */
     public function export(Request $request)
     {
         if (!\Auth::user()->can('manage revenue')) {
@@ -375,9 +366,6 @@ class RevenueController extends Controller
         return Excel::download(new RevenueExport(['date' => $date]), $filename);
     }
 
-    /**
-     * Export selected rows
-     */
     public function exportSelected(Request $request)
     {
         if (!\Auth::user()->can('manage revenue')) {
@@ -385,7 +373,6 @@ class RevenueController extends Controller
         }
 
         $idsParam = $request->input('ids', []);
-        // support ids[]=.. and comma-separated
         $ids = collect(is_array($idsParam) ? $idsParam : explode(',', (string) $idsParam))
             ->filter()
             ->map(fn ($v) => (int) $v)
@@ -404,9 +391,6 @@ class RevenueController extends Controller
         return Excel::download(new RevenueExport(['ids' => $ids]), $filename);
     }
 
-    /**
-     * Bulk delete selected rows
-     */
     public function bulkDestroy(Request $request)
     {
         if (!\Auth::user()->can('delete revenue')) {

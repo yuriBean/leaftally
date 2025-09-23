@@ -30,12 +30,10 @@ class Utility extends Model
         self::$Setting = null;
         self::$settingById = null;
 
-        // Clear Laravel application cache if needed
         try {
             \Cache::forget('settings');
             \Cache::tags(['settings'])->flush();
         } catch (\Exception $e) {
-            // Cache clearing failed but continue
         }
     }
 
@@ -114,7 +112,6 @@ class Utility extends Model
             "display_landing_page" => "on",
             "title_text" => "",
             "footer_text" => "",
-            // 'gdpr_cookie' => " ",
             "enable_chatgpt" => "",
             "chatgpt_key" => "",
             "chatgpt_model_name" => "",
@@ -192,7 +189,6 @@ class Utility extends Model
             'payslip_url' => '',
         ];
 
-
         foreach ($data as $row) {
             $settings[$row->name] = $row->value;
         }
@@ -239,7 +235,6 @@ class Utility extends Model
 
         return $cookies;
     }
-
 
     private static $settingById = null;
     public static function settingsById($id)
@@ -311,7 +306,6 @@ class Utility extends Model
             "journal_prefix" => "#JUR",
             "display_landing_page" => "on",
             "title_text" => "",
-            // 'gdpr_cookie' => "off",
             'cookie_text' => "",
             "twilio_sid" => "",
             "twilio_token" => "",
@@ -439,28 +433,6 @@ class Utility extends Model
         return self::$languageSetting;
     }
 
-    // public static function languages()
-    // {
-    //     $dir     = base_path() . '/resources/lang/';
-    //     $glob    = glob($dir . "*", GLOB_ONLYDIR);
-    //     $arrLang = array_map(
-    //         function ($value) use ($dir) {
-    //             return str_replace($dir, '', $value);
-    //         },
-    //         $glob
-    //     );
-    //     $arrLang = array_map(
-    //         function ($value) use ($dir) {
-    //             return preg_replace('/[0-9]+/', '', $value);
-    //         },
-    //         $arrLang
-    //     );
-    //     $arrLang = array_filter($arrLang);
-
-    //     return $arrLang;
-    // }
-
-
     private static $storageSetting = null;
     public static function getStorageSetting()
     {
@@ -530,7 +502,6 @@ class Utility extends Model
                 $keyPosition = strpos($str, "{$envKey}=");
                 $endOfLinePosition = strpos($str, "\n", $keyPosition);
                 $oldLine = substr($str, $keyPosition, $endOfLinePosition - $keyPosition);
-                // If key does not exist, add it
                 if (!$keyPosition || !$endOfLinePosition || !$oldLine) {
                     $str .= "{$envKey}='{$envValue}'\n";
                 } else {
@@ -694,58 +665,11 @@ class Utility extends Model
         return $taxes;
     }
 
-
-    // public static function tax($taxes)
-    // {
-    //     if (self::$taxsData == null) {
-    //         $taxArr = explode(',', $taxes);
-    //         $taxes  = [];
-    //         foreach ($taxArr as $tax) {
-    //             $taxes[] = self::getTax($tax);
-    //         }
-    //         self::$taxsData = $taxes;
-    //     }
-
-    //     return self::$taxsData;
-    // }
-
-    // public static function taxRate($taxRate, $price, $quantity, $discount)
-    // {
-
-
-    //     return ($taxRate / 100) * ($price * $quantity - $discount);
-    // }
-    // public static function taxRate($taxRate, $price, $quantity)
-    // {
-
-    //     return ($taxRate / 100) * ($price * $quantity);
-    // }
-
-
-
     public static function taxRate($taxRate, $price, $quantity, $discount = 0)
     {
 
-        //        return ($taxRate / 100) * (($price-$discount) * $quantity);
         return (($price * $quantity) - $discount) * ($taxRate / 100);
     }
-
-
-
-    // public static function totalTaxRate($taxes)
-    // {
-
-    //     if (self::$taxRateData == null) {
-    //         $taxArr  = explode(',', $taxes);
-    //         $taxRate = 0;
-    //         foreach ($taxArr as $tax) {
-    //             $tax     = self::getTax($tax);
-    //             $taxRate += !empty($tax->rate) ? $tax->rate : 0;
-    //         }
-    //         self::$taxRateData = $taxRate;
-    //     }
-    //     return self::$taxRateData;
-    // }
 
     public static function totalTaxRate($taxes)
     {
@@ -823,7 +747,6 @@ class Utility extends Model
         }
     }
 
-    // get font-color code accourding to bg-color
     public static function hex2rgb($hex)
     {
         $hex = str_replace("#", "", $hex);
@@ -843,8 +766,7 @@ class Utility extends Model
             $b,
         );
 
-        //return implode(",", $rgb); // returns the rgb values separated by commas
-        return $rgb; // returns an array with the rgb values
+        return $rgb;
     }
 
     public static function getFontColor($color_code)
@@ -907,23 +829,20 @@ class Utility extends Model
             $settings = self::settings();
         }
         
-        // Use the general theme color if document color is not set or is default white
         if (empty($settings[$colorKey]) || $settings[$colorKey] == 'ffffff') {
             $themeColor = !empty($settings['color']) ? $settings['color'] : 'theme-3';
-            // Extract color from theme class (theme-3 = primary color)
             $colorMap = [
-                'theme-1' => '51459d',  // Blue
-                'theme-2' => 'ff3a6e',  // Pink  
-                'theme-3' => '007C38',  // Green (primary)
-                'theme-4' => 'ffa21d',  // Orange
-                'theme-5' => '3ec9d6',  // Cyan
+                'theme-1' => '51459d',
+                'theme-2' => 'ff3a6e',
+                'theme-3' => '007C38',
+                'theme-4' => 'ffa21d',
+                'theme-5' => '3ec9d6',
             ];
             return isset($colorMap[$themeColor]) ? $colorMap[$themeColor] : '007C38';
         }
         
         return $settings[$colorKey];
     }
-
 
     public static function delete_directory($dir)
     {
@@ -945,10 +864,8 @@ class Utility extends Model
         return rmdir($dir);
     }
 
-
     public static function getCompanyPaymentSettingWithOutAuth($user_id)
     {
-        // dd($user_id)
         $data = \DB::table('company_payment_settings');
         $settings = [];
         $data = $data->where('created_by', '=', $user_id);
@@ -960,32 +877,13 @@ class Utility extends Model
         return $settings;
     }
 
-    // public static function getAdminPaymentSetting()
-    // {
-    //     if (self::$adminSetting == null) {
-
-    //         $data     = \DB::table('admin_payment_settings');
-    //         $settings = [];
-    //         if (\Auth::check()) {
-    //             $user_id = 1;
-    //             $data    = $data->where('created_by', '=', $user_id);
-    //         }
-    //         self::$adminSetting = $data;
-    //         foreach ($data as $row) {
-    //             $settings[$row->name] = $row->value;
-    //         }
-    //     }
-
-    //     return self::$adminSetting;
-    // }
-
     public static function getAdminPaymentSetting()
     {
         if (self::$adminSetting === null) {
             $settings = [];
 
             if (\Auth::check()) {
-                $user_id = 1; // You may want to replace this with the actual user's ID.
+                $user_id = 1;
                 $data = \DB::table('admin_payment_settings')
                     ->where('created_by', $user_id)
                     ->get();
@@ -1001,14 +899,12 @@ class Utility extends Model
         return self::$adminSetting;
     }
 
-
     public static function getCompanyPaymentSetting($user_id)
     {
         $data = \DB::table('company_payment_settings');
         $settings = [];
         $data = $data->where('created_by', '=', $user_id);
         $data = $data->get();
-        // dd($data);
         foreach ($data as $row) {
             $settings[$row->name] = $row->value;
         }
@@ -1075,7 +971,6 @@ class Utility extends Model
         return $json;
     }
 
-    // get date format
     public static function getDateFormated($date, $time = false)
     {
         if (!empty($date) && $date != '0000-00-00') {
@@ -1089,7 +984,6 @@ class Utility extends Model
         }
     }
 
-
     public static function invoice_payment_settings($id)
     {
         $data = [];
@@ -1099,7 +993,6 @@ class Utility extends Model
             $data = DB::table('admin_payment_settings');
             $data->where('created_by', '=', $id);
             $data = $data->get();
-            //dd($data);
         }
 
         $res = [];
@@ -1120,7 +1013,6 @@ class Utility extends Model
             $data = DB::table('admin_payment_settings');
             $data->where('created_by', '=', $id);
             $data = $data->get();
-            //dd($data);
         }
 
         $res = [];
@@ -1131,7 +1023,6 @@ class Utility extends Model
 
         return $res;
     }
-
 
     public static function settingById($id)
     {
@@ -1190,7 +1081,6 @@ class Utility extends Model
             "journal_prefix" => "#JUR",
             "display_landing_page" => "on",
             "title_text" => "",
-            // 'gdpr_cookie' => "off",
             'cookie_text' => "",
             "invoice_starting_number" => "1",
             "proposal_starting_number" => "1",
@@ -1204,8 +1094,6 @@ class Utility extends Model
 
         return $settings;
     }
-
-
 
     public static function addNewData()
     {
@@ -1237,10 +1125,8 @@ class Utility extends Model
             'send contract mail',
             'manage retainer',
 
-
         ];
         foreach ($arrPermissions as $ap) {
-            // check if permission is not created then create it.
             $permission = Permission::where('name', 'LIKE', $ap)->first();
             if (empty($permission)) {
                 Permission::create(['name' => $ap]);
@@ -1274,7 +1160,6 @@ class Utility extends Model
             'manage retainer',
         ];
         foreach ($companyNewPermission as $op) {
-            // check if permission is not assign to owner then assign.
             if (!in_array($op, $companyPermissions)) {
                 $permission = Permission::findByName($op);
                 $companyRole->givePermissionTo($permission);
@@ -1282,10 +1167,8 @@ class Utility extends Model
         }
     }
 
-    // Twilio Notification
     public static function send_twilio_msg($to, $slug, $obj, $user_id = null)
     {
-        // dd($user_id);
         $notification_template = NotificationTemplates::where('slug', $slug)->first();
 
         if (!empty($notification_template) && !empty($obj)) {
@@ -1306,7 +1189,6 @@ class Utility extends Model
                 $msg = self::replaceVariable($curr_noti_tempLang->content, $obj);
             }
         }
-        // dd($msg);
         if (isset($msg)) {
             $settings = Utility::settings($user->id);
             $account_sid = $settings['twilio_sid'];
@@ -1320,11 +1202,8 @@ class Utility extends Model
                 ]);
             } catch (\Exception $e) {
             }
-            //  dd('SMS Sent Successfully.');
         }
     }
-
-    // inventory management (Quantity)
 
     public static function total_quantity($type, $quantity, $product_id)
     {
@@ -1357,12 +1236,9 @@ class Utility extends Model
             $data = DB::table('settings')->where('created_by', \Auth::user()->creatorId())->where('name', 'bill_starting_number')->update(array('value' => $id));
         }
 
-
         return $data;
     }
 
-
-    //add quantity in product stock
     public static function addProductStock($product_id, $quantity, $type, $description, $type_id)
     {
 
@@ -1480,7 +1356,6 @@ class Utility extends Model
         }
     }
 
-
     public static function getLayoutsSetting()
     {
         $data = DB::table('settings');
@@ -1488,7 +1363,6 @@ class Utility extends Model
         if (\Auth::check()) {
 
             $data = $data->where('created_by', '=', \Auth::user()->creatorId())->get();
-            // dd($data);
             if (count($data) == 0) {
                 $data = DB::table('settings')->where('created_by', '=', 1)->get();
             }
@@ -1509,7 +1383,6 @@ class Utility extends Model
         return $settings;
     }
 
-    // used for replace email variable (parameter 'template_name','id(get particular record by id for data)')
     public static function replaceVariable($content, $obj)
     {
         $arrVariable = [
@@ -1554,8 +1427,6 @@ class Utility extends Model
             '{payslip_name}',
             '{payslip_salary_month}',
             '{payslip_url}',
-
-
 
         ];
         $arrValue = [
@@ -1602,8 +1473,6 @@ class Utility extends Model
             'payslip_salary_month' => '',
             'payslip_url' => '',
 
-
-
         ];
 
         foreach ($obj as $key => $val) {
@@ -1620,23 +1489,19 @@ class Utility extends Model
         return str_replace($arrVariable, array_values($arrValue), $content);
     }
 
-
     public static function getSMTPDetails($user_id)
     {
         $settings = self::settingsById($user_id);
         
-        // Get port and encryption settings
         $mail_port = !empty($settings['mail_port']) ? $settings['mail_port'] : env('MAIL_PORT');
         $mail_encryption = !empty($settings['mail_encryption']) ? $settings['mail_encryption'] : env('MAIL_ENCRYPTION');
         
-        // Auto-correct encryption based on port if needed
         if ($mail_port == 465 && strtolower($mail_encryption) == 'tls') {
             $mail_encryption = 'ssl';
         } elseif ($mail_port == 587 && strtolower($mail_encryption) == 'ssl') {
             $mail_encryption = 'tls';
         }
         
-        // Use database settings if available, otherwise fall back to .env settings
         $smtpDetail = config(
             [
                 'mail.driver' => !empty($settings['mail_driver']) ? $settings['mail_driver'] : env('MAIL_DRIVER', 'smtp'),
@@ -1650,7 +1515,6 @@ class Utility extends Model
             ]
         );
 
-
         return $smtpDetail;
     }
 
@@ -1659,13 +1523,11 @@ class Utility extends Model
         try {
             $settings = self::settingsById($user_id);
             
-            // Check if SMTP settings exist
             $mail_host = !empty($settings['mail_host']) ? $settings['mail_host'] : env('MAIL_HOST');
             $mail_port = !empty($settings['mail_port']) ? $settings['mail_port'] : env('MAIL_PORT');
             $mail_username = !empty($settings['mail_username']) ? $settings['mail_username'] : env('MAIL_USERNAME');
             $mail_password = !empty($settings['mail_password']) ? $settings['mail_password'] : env('MAIL_PASSWORD');
             
-            // If essential SMTP settings are missing, return false
             if (empty($mail_host) || empty($mail_port) || empty($mail_username) || empty($mail_password)) {
                 return false;
             }
@@ -1681,25 +1543,21 @@ class Utility extends Model
         try {
             $settings = self::settingsById($user_id);
             
-            // Get SMTP settings
             $mail_host = !empty($settings['mail_host']) ? $settings['mail_host'] : env('MAIL_HOST');
             $mail_port = !empty($settings['mail_port']) ? $settings['mail_port'] : env('MAIL_PORT');
             $mail_encryption = !empty($settings['mail_encryption']) ? $settings['mail_encryption'] : env('MAIL_ENCRYPTION');
             
-            // Auto-correct encryption based on port
             if ($mail_port == 465 && strtolower($mail_encryption) == 'tls') {
                 $mail_encryption = 'ssl';
             } elseif ($mail_port == 587 && strtolower($mail_encryption) == 'ssl') {
                 $mail_encryption = 'tls';
             }
             
-            // First test DNS resolution
             $ip = gethostbyname($mail_host);
             if ($ip == $mail_host && !filter_var($mail_host, FILTER_VALIDATE_IP)) {
                 return ['success' => false, 'message' => 'DNS Error: Cannot resolve hostname ' . $mail_host . '. Please check your mail host setting.'];
             }
             
-            // Test connection
             $timeout = 10;
             $protocol = ($mail_encryption == 'ssl') ? 'ssl://' : '';
             
@@ -1728,16 +1586,13 @@ public static function sendEmailTemplate($emailTemplate, $mailTo, $obj)
 {
     $usr = \Auth::user();
 
-    // Normalize recipients to a flat list of emails
     $mailTo = array_values($mailTo);
 
-    // Find template by slug
     $template = EmailTemplate::where('slug', $emailTemplate)->first();
     if (!$template) {
         return ['is_success' => false, 'error' => __('Mail not send, email not found')];
     }
 
-    // Determine if active (keep your existing logic but do NOT touch mail config)
     $is_active = UserEmailTemplate::where('template_id', $template->id)->first();
     if ($template->id == 1 && $is_active) {
         $is_active->is_active = 1;
@@ -1746,16 +1601,13 @@ public static function sendEmailTemplate($emailTemplate, $mailTo, $obj)
         return ['is_success' => true, 'error' => false];
     }
 
-    // Load localized content
     $lang = $usr->lang ?? config('app.locale', 'en');
     $content = EmailTemplateLang::where('parent_id', $template->id)->where('lang', $lang)->first();
     if (!$content || empty($content->content)) {
         return ['is_success' => false, 'error' => __('Mail not send, email is empty')];
     }
 
-    // Replace variables in content
     $content->content = self::replaceVariable($content->content, $obj);
-    // Ensure subject exists (fallback)
     if (empty($content->subject)) {
         $content->subject = $template->name ?? (config('app.name') . ' Notification');
     }
@@ -1777,16 +1629,13 @@ public static function sendUserEmailTemplate($emailTemplate, $mailTo, $obj)
 {
     $usr = Auth::user();
 
-    // Normalize recipients
     $mailTo = array_values($mailTo);
 
-    // Find template by name
     $template = EmailTemplate::where('name', 'LIKE', $emailTemplate)->first();
     if (!$template) {
         return ['is_success' => false, 'error' => __('Mail not send, email not found')];
     }
 
-    // Active flag (no mail config changes)
     $creatorId = method_exists($usr, 'creatorId') ? $usr->creatorId() : ($usr->id ?? null);
     $is_active = UserEmailTemplate::where('template_id', $template->id)
         ->when($creatorId, fn($q) => $q->where('user_id', $creatorId))
@@ -1795,7 +1644,6 @@ public static function sendUserEmailTemplate($emailTemplate, $mailTo, $obj)
         return ['is_success' => true, 'error' => false];
     }
 
-    // Localized content
     $lang = $usr->lang ?? config('app.locale', 'en');
     $content = EmailTemplateLang::where('parent_id', $template->id)->where('lang', $lang)->first();
     if (!$content || empty($content->content)) {
@@ -1807,7 +1655,6 @@ public static function sendUserEmailTemplate($emailTemplate, $mailTo, $obj)
         $content->subject = $template->name ?? (config('app.name') . ' Notification');
     }
 
-    // From settings strictly from .env
     $settings = [
         'mail_from_address' => config('mail.from.address'),
         'mail_from_name'    => config('mail.from.name'),
@@ -1820,212 +1667,6 @@ public static function sendUserEmailTemplate($emailTemplate, $mailTo, $obj)
         return ['is_success' => false, 'error' => $e->getMessage()];
     }
 }
-
-    // public static function sendEmailTemplate($emailTemplate, $mailTo, $obj)
-    // {
-    //     $usr = \Auth::user();
-    //     //Remove Current Login user Email don't send mail to them
-    //     if ($usr->user_type != 'super admin') {
-    //         unset($mailTo[$usr->id]);
-
-    //         $mailTo = array_values($mailTo);
-
-    //         if ($usr->user_type != 'super admin') {
-    //             // find template is exist or not in our record
-    //             $template = EmailTemplate::where('slug', $emailTemplate)->first();
-    //             if (isset($template) && !empty($template)) {
-    //                 // check template is active or not by company
-
-    //                 $is_active = UserEmailTemplate::where('template_id', '=', $template->id)->first();
-
-    //                 if ($template->id == 1) {
-    //                     $is_active->is_active = 1;
-    //                 }
-
-    //                 if ($is_active->is_active == 1) {
-
-    //                     // get email content language base
-    //                     $content = EmailTemplateLang::where('parent_id', '=', $template->id)->where('lang', 'LIKE', $usr->lang)->first();
-
-    //                     $content->from = $template->from;
-
-
-    //                     if ($usr->user_type == 'super admin') {
-    //                         $settings = Utility::settings();
-    //                     } else {
-    //                         $setting = self::settings();
-    //                         if (empty($setting['mail_driver'])) {
-    //                             $setting = self::settingsById(1);
-    //                         }
-    //                         $settings = $setting;
-    //                     }
-
-    //                     config([
-    //                         'mail.default' => isset($settings['mail_driver']) ? $settings['mail_driver'] : '',
-    //                         'mail.mailers.smtp.host' => isset($settings['mail_host']) ? $settings['mail_host'] : '',
-    //                         'mail.mailers.smtp.port' => isset($settings['mail_port']) ? $settings['mail_port'] : '',
-    //                         'mail.mailers.smtp.encryption' => isset($settings['mail_encryption']) ? $settings['mail_encryption'] : '',
-    //                         'mail.mailers.smtp.username' => isset($settings['mail_username']) ? $settings['mail_username'] : '',
-    //                         'mail.mailers.smtp.password' => isset($settings['mail_password']) ? $settings['mail_password'] : '',
-    //                         'mail.from.address' => isset($settings['mail_from_address']) ? $settings['mail_from_address'] : '',
-    //                         'mail.from.name' => isset($settings['mail_from_name']) ? $settings['mail_from_name'] : '',
-    //                     ]);
-    //                     if (!empty($content->content)) {
-    //                         $content->content = self::replaceVariable($content->content, $obj);
-    //                         // send email
-    //                         try {
-    //                             Mail::to($mailTo)->send(new CommonEmailTemplate($content, $settings, $mailTo[0]));
-    //                         } catch (\Exception $e) {
-    //                             $error = __('E-Mail has been not sent due to SMTP configuration');
-    //                         }
-
-    //                         if (isset($error)) {
-    //                             $arReturn = [
-    //                                 'is_success' => false,
-    //                                 'error' => $error,
-    //                             ];
-    //                         } else {
-    //                             $arReturn = [
-    //                                 'is_success' => true,
-    //                                 'error' => false,
-    //                             ];
-    //                         }
-    //                     } else {
-    //                         $arReturn = [
-    //                             'is_success' => false,
-    //                             'error' => __('Mail not send, email is empty'),
-    //                         ];
-    //                     }
-
-    //                     return $arReturn;
-    //                 } else {
-    //                     return [
-    //                         'is_success' => true,
-    //                         'error' => false,
-    //                     ];
-    //                 }
-    //             } else {
-    //                 return [
-    //                     'is_success' => false,
-    //                     'error' => __('Mail not send, email not found'),
-    //                 ];
-    //             }
-    //         }
-    //     } else {
-    //         $mailTo = array_values($mailTo);
-
-    //         $template = EmailTemplate::where('slug', $emailTemplate)->first();
-
-    //         $content = EmailTemplateLang::where('parent_id', '=', $template->id)->where('lang', 'LIKE', 'en')->first();
-
-    //         $content->from = $template->from;
-    //         $settings = Utility::settings();
-
-    //         config(
-    //             [
-    //                 'mail.driver' => isset($settings['mail_driver']) ? $settings['mail_driver'] : '',
-    //                 'mail.host' => isset($settings['mail_host']) ? $settings['mail_host'] : '',
-    //                 'mail.port' => isset($settings['mail_port']) ? $settings['mail_port'] : '',
-    //                 'mail.encryption' => isset($settings['mail_encryption']) ? $settings['mail_encryption'] : '',
-    //                 'mail.username' => isset($settings['mail_username']) ? $settings['mail_username'] : '',
-    //                 'mail.password' => isset($settings['mail_password']) ? $settings['mail_password'] : '',
-    //                 'mail.from.address' => isset($settings['mail_from_address']) ? $settings['mail_from_address'] : '',
-    //                 'mail.from.name' => isset($settings['mail_from_name']) ? $settings['mail_from_name'] : '',
-    //             ]
-    //         );
-
-    //         if (!empty($content->content)) {
-
-    //             $content->content = self::replaceVariable($content->content, $obj);
-
-    //             try {
-    //                 Mail::to($mailTo)->send(new CommonEmailTemplate($content, $settings, $mailTo[0]));
-    //             } catch (\Exception $e) {
-
-
-    //                 $error = __('E-Mail has been not sent due to SMTP configuration');
-    //             }
-    //         }
-    //     }
-    // }
-
-    // public static function sendUserEmailTemplate($emailTemplate, $mailTo, $obj)
-    // {
-    //     $usr = Auth::user();
-    //     //Remove Current Login user Email don't send mail to them
-    //     // unset($mailTo[$usr->id]);
-    //     $mailTo = array_values($mailTo);
-
-    //     // find template is exist or not in our record
-    //     $template = EmailTemplate::where('name', 'LIKE', $emailTemplate)->first();
-    //     if (isset($template) && !empty($template)) {
-    //         // check template is active or not by company
-
-    //         $is_active = UserEmailTemplate::where('template_id', '=', $template->id)->where('user_id', '=', $usr->creatorId())->first();
-
-    //         if ($is_active->is_active == 1) {
-
-    //             $settings = self::settingsById(1);
-
-    //             // get email content language base
-    //             $content = EmailTemplateLang::where('parent_id', '=', $template->id)->where('lang', 'LIKE', $usr->lang)->first();
-    //             $content->from = $template->from;
-    //             if (!empty($content->content)) {
-    //                 $content->content = self::replaceVariable($content->content, $obj);
-    //                 // send email
-    //                 try {
-    //                     config(
-    //                         [
-    //                             'mail.driver' => $settings['mail_driver'],
-    //                             'mail.host' => $settings['mail_host'],
-    //                             'mail.port' => $settings['mail_port'],
-    //                             'mail.encryption' => $settings['mail_encryption'],
-    //                             'mail.username' => $settings['mail_username'],
-    //                             'mail.password' => $settings['mail_password'],
-    //                             'mail.from.address' => $settings['mail_from_address'],
-    //                             'mail.from.name' => $settings['mail_from_name'],
-    //                         ]
-    //                     );
-    //                     Mail::to($mailTo)->send(new CommonEmailTemplate($content, $settings));
-    //                 } catch (\Exception $e) {
-    //                     $error = $e->getMessage();
-    //                 }
-
-    //                 if (isset($error)) {
-    //                     $arReturn = [
-    //                         'is_success' => false,
-    //                         'error' => $error,
-    //                     ];
-    //                 } else {
-    //                     $arReturn = [
-    //                         'is_success' => true,
-    //                         'error' => false,
-    //                     ];
-    //                 }
-    //             } else {
-    //                 $arReturn = [
-    //                     'is_success' => false,
-    //                     'error' => __('Mail not send, email is empty'),
-    //                 ];
-    //             }
-
-    //             return $arReturn;
-    //         } else {
-    //             return [
-    //                 'is_success' => true,
-    //                 'error' => false,
-    //             ];
-    //         }
-    //     } else {
-    //         return [
-    //             'is_success' => false,
-    //             'error' => __('Mail not send, email not found'),
-    //         ];
-    //     }
-    // }
-
-    // Make Entry in email_tempalte_lang table when create new language
-    // makeEmailLang
 
     public static function newLangEmailTemp($lang)
     {
@@ -2041,8 +1682,6 @@ public static function sendUserEmailTemplate($emailTemplate, $mailTo, $obj)
         }
     }
 
-    // Email Template Modules Function END
-
 public static function upload_file($request, $key_name, $name, $path, $custom_validation = [])
 {
     try {
@@ -2051,7 +1690,6 @@ public static function upload_file($request, $key_name, $name, $path, $custom_va
             return ['flag' => 0, 'msg' => __('Please set proper configuration for storage.')];
         }
 
-        // Resolve limits + mime rules
         $storage  = $settings['storage_setting'];
         $max_size = $storage === 'wasabi'
             ? ($settings['wasabi_max_upload_size'] ?? '2048')
@@ -2065,7 +1703,6 @@ public static function upload_file($request, $key_name, $name, $path, $custom_va
                 ? ($settings['s3_storage_validation'] ?? '')
                 : ($settings['local_storage_validation'] ?? ''));
 
-        // Build validation rules
         $rules = $custom_validation ?: array_filter([
             $mimes ? ('mimes:' . $mimes) : null,
             'max:' . $max_size,
@@ -2077,7 +1714,6 @@ public static function upload_file($request, $key_name, $name, $path, $custom_va
             return ['flag' => 0, 'msg' => $validator->messages()->first()];
         }
 
-        // No file present
         if (!$request->hasFile($key_name)) {
             return ['flag' => 0, 'msg' => __('No file uploaded.')];
         }
@@ -2085,12 +1721,11 @@ public static function upload_file($request, $key_name, $name, $path, $custom_va
         $file = $request->file($key_name);
         $name = (string) $name;
 
-        // Normalize path once (no leading/trailing slashes)
         $path = trim($path, '/');
 
         if ($storage === 'local') {
             \Storage::disk('public')->putFileAs($path, $file, $name);
-            $stored = $path . '/' . $name; // relative to public disk => public/storage
+            $stored = $path . '/' . $name;
             return ['flag' => 1, 'msg' => 'success', 'url' => $stored];
         }
 
@@ -2124,12 +1759,10 @@ public static function upload_file($request, $key_name, $name, $path, $custom_va
     }
 }
 
-
     public static function file_validate()
     {
         try {
             $settings = Utility::getStorageSetting();
-            // dd($settings);
             if (!empty($settings['storage_setting'])) {
                 if ($settings['storage_setting'] == 'wasabi') {
                     $max_size = !empty($settings['wasabi_max_upload_size']) ? $settings['wasabi_max_upload_size'] : '2048';
@@ -2157,7 +1790,6 @@ public static function upload_file($request, $key_name, $name, $path, $custom_va
 
             }
         } catch (\Exception $e) {
-            // dd($e);
             $res = [
                 'flag' => 0,
                 'msg' => $e->getMessage(),
@@ -2165,7 +1797,6 @@ public static function upload_file($request, $key_name, $name, $path, $custom_va
             return $res;
         }
     }
-
 
     public static function get_file($path)
     {
@@ -2181,7 +1812,6 @@ public static function upload_file($request, $key_name, $name, $path, $custom_va
                         'filesystems.disks.wasabi.endpoint' => 'https://s3.' . $settings['wasabi_region'] . '.wasabisys.com'
                     ]
                 );
-                // return \Storage::disk($settings['storage_setting'])->url($path);
             } elseif ($settings['storage_setting'] == 's3') {
                 config(
                     [
@@ -2192,7 +1822,6 @@ public static function upload_file($request, $key_name, $name, $path, $custom_va
                         'filesystems.disks.s3.use_path_style_endpoint' => false,
                     ]
                 );
-                // return \Storage::disk($settings['storage_setting'])->url($path);
             }
 
             return url('/') . \Storage::disk($settings['storage_setting'])->url($path);
@@ -2252,8 +1881,6 @@ public static function upload_file($request, $key_name, $name, $path, $custom_va
         return false;
     }
 
-
-
     public static function WebhookCall($url = null, $parameter = null, $method = 'POST')
     {
 
@@ -2281,7 +1908,6 @@ public static function upload_file($request, $key_name, $name, $path, $custom_va
 
     public static $rates;
     public static $data;
-
 
     public static function getTaxData()
     {
@@ -2380,14 +2006,12 @@ public static function upload_file($request, $key_name, $name, $path, $custom_va
         return $file_size;
     }
 
-
     public static function updateStorageLimit($company_id, $image_size)
     {
         $image_size = number_format($image_size / 1048576, 2);
         $user = User::find($company_id);
         $plan = Plan::find($user->plan);
         $total_storage = $user->storage_limit + $image_size;
-
 
         if ($plan->storage_limit <= $total_storage && $plan->storage_limit != -1) {
             $error = __('Plan storage limit is over so please upgrade the plan.');
@@ -2446,7 +2070,6 @@ public static function upload_file($request, $key_name, $name, $path, $custom_va
             $end = date('Y-m-t');
         }
 
-        // foreach ($types as $type) {
         $total = TransactionLines::select(
             'chart_of_accounts.id',
             'chart_of_accounts.code',
@@ -2489,9 +2112,7 @@ public static function upload_file($request, $key_name, $name, $path, $custom_va
             ->selectRaw('SUM(credit) as totalCredit, SUM(debit) as totalDebit')
             ->first();
 
-
         $openingBalanceAdjustment = ($transactionsBeforeStart->totalCredit ?? 0) - ($transactionsBeforeStart->totalDebit ?? 0);
-
 
         return $bankOpeningBalance - $openingBalanceAdjustment;
     }
@@ -2545,7 +2166,6 @@ public static function upload_file($request, $key_name, $name, $path, $custom_va
                         $billchartArr[] = array_sum($invoiceyearArr);
                     }
                 } else {
-                    // Monthly
                     $billchartArr = $categoryData[$key];
                 }
             }
@@ -2617,7 +2237,6 @@ public static function upload_file($request, $key_name, $name, $path, $custom_va
                         $billchartArr[] = array_sum($invoiceyearArr);
                     }
                 } else {
-                    // Monthly
                     $billchartArr = $categoryData[$key];
                 }
             }
@@ -4152,8 +3771,6 @@ public static function upload_file($request, $key_name, $name, $path, $custom_va
 
     );
 
-
-    // chart of account for new company
     public static function chartOfAccountData1($user)
     {
         $chartOfAccounts = self::$chartOfAccount1;
@@ -4179,7 +3796,6 @@ public static function upload_file($request, $key_name, $name, $path, $custom_va
     public static function chartOfAccountData($user)
     {
         $chartOfAccounts = self::$chartOfAccount;
-        // dd($user, $chartOfAccounts);
         foreach ($chartOfAccounts as $account) {
             ChartOfAccount::create(
                 [
@@ -4321,7 +3937,6 @@ public static function upload_file($request, $key_name, $name, $path, $custom_va
     }
   public static function employeePayslipDetail($employeeId, $month)
     {
-        // allowance
         $earning['allowance'] = PaySlip::where('employee_id', $employeeId)->where('salary_month', $month)->get();
 
         $employess = Employee::find($employeeId);
@@ -4330,7 +3945,6 @@ public static function upload_file($request, $key_name, $name, $path, $custom_va
 
         $arrayJson = json_decode($earning['allowance']);
         foreach ($arrayJson as $earn) {
-            // dd($earn->basic_salary);
             $allowancejson = json_decode($earn->allowance);
             foreach ($allowancejson as $allowances) {
                 if ($allowances->type == 'percentage') {
@@ -4342,7 +3956,6 @@ public static function upload_file($request, $key_name, $name, $path, $custom_va
             }
         }
 
-        // commission
         $earning['commission'] = PaySlip::where('employee_id', $employeeId)->where('salary_month', $month)->get();
 
         $employess = Employee::find($employeeId);
@@ -4365,7 +3978,6 @@ public static function upload_file($request, $key_name, $name, $path, $custom_va
             }
         }
 
-        // otherpayment
         $earning['otherPayment'] = PaySlip::where('employee_id', $employeeId)->where('salary_month', $month)->get();
 
         $employess = Employee::find($employeeId);
@@ -4387,7 +3999,6 @@ public static function upload_file($request, $key_name, $name, $path, $custom_va
             }
         }
 
-        //overtime
         $earning['overTime'] = Payslip::where('employee_id', $employeeId)->where('salary_month', $month)->get();
 
         $ot = 0;
@@ -4401,7 +4012,6 @@ public static function upload_file($request, $key_name, $name, $path, $custom_va
             }
         }
 
-        // loan
         $deduction['loan'] = PaySlip::where('employee_id', $employeeId)->where('salary_month', $month)->get();
 
         $employess = Employee::find($employeeId);
@@ -4424,7 +4034,6 @@ public static function upload_file($request, $key_name, $name, $path, $custom_va
             }
         }
 
-        // saturation_deduction
         $deduction['deduction'] = PaySlip::where('employee_id', $employeeId)->where('salary_month', $month)->get();
 
         $employess = Employee::find($employeeId);
@@ -4434,7 +4043,6 @@ public static function upload_file($request, $key_name, $name, $path, $custom_va
         $arrayJson = json_decode($deduction['deduction']);
 
         foreach ($arrayJson as $deductions) {
-            // dd($deductions->basic_salary);
             $deduc = json_decode($deductions->saturation_deduction);
             foreach ($deduc as $deduction_option) {
                 if ($deduction_option->type == 'percentage') {

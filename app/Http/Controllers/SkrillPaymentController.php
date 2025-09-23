@@ -35,13 +35,11 @@ class SkrillPaymentController extends Controller
             $payment_setting = Utility::getCompanyPaymentSetting($user);
         }
 
-
         $this->email      = isset($payment_setting['skrill_email']) ? $payment_setting['skrill_email'] : '';
         $this->is_enabled = isset($payment_setting['is_skrill_enabled']) ? $payment_setting['is_skrill_enabled'] : 'off';
 
         return $this;
     }
-
 
     public function planPayWithSkrill(Request $request)
     {
@@ -89,8 +87,7 @@ class SkrillPaymentController extends Controller
             );
             $skill->cancel_url   = route('plan.skrill', [$request->plan_id]);
 
-            // create object instance of SkrillRequest
-            $skill->transaction_id  = MD5($tran_id); // generate transaction id
+            $skill->transaction_id  = MD5($tran_id);
             $skill->amount          = $price;
             $skill->currency        = $admin['currency'] ? $admin['currency'] : 'USD';
             $skill->language        = 'EN';
@@ -99,19 +96,15 @@ class SkrillPaymentController extends Controller
             $skill->site_name       = \Auth::user()->name;
             $skill->customer_email  = \Auth::user()->email;
 
-            // create object instance of SkrillClient
             $client = new SkrillClient($skill);
-            $sid    = $client->generateSID(); //return SESSION ID
+            $sid    = $client->generateSID();
 
-            // handle error
             $jsonSID = json_decode($sid);
             if ($jsonSID != null && $jsonSID->code == "BAD_REQUEST") {
                 return redirect()->back()->with('error', $jsonSID->message);
             }
 
-
-            // do the payment
-            $redirectUrl = $client->paymentRedirectUrl($sid); //return redirect url
+            $redirectUrl = $client->paymentRedirectUrl($sid);
             if ($tran_id) {
                 $data = [
                     'amount' => $price,
@@ -147,7 +140,6 @@ class SkrillPaymentController extends Controller
                             $userCoupon->coupon = $coupons->id;
                             $userCoupon->order  = $orderID;
                             $userCoupon->save();
-
 
                             $usedCoupun = $coupons->used_coupon();
                             if ($coupons->limit <= $usedCoupun) {
@@ -198,7 +190,6 @@ class SkrillPaymentController extends Controller
         $setting = Utility::settingsById($retainer->created_by);
         if ($retainer) {
 
-
             if (Auth::check()) {
                 $payment  = $this->paymentConfig();
                 $orderID  = strtoupper(str_replace('.', '', uniqid('', true)));
@@ -210,17 +201,13 @@ class SkrillPaymentController extends Controller
                 $settings = Utility::settingsById($retainer->created_by);
             }
 
-
-
             $result    = array();
 
             $price = $request->amount;
 
-
             if ($price > 0) {
 
                 $tran_id             = md5(date('Y-m-d') . strtotime('Y-m-d H:i:s') . 'user_id');
-
 
                 $skill               = new SkrillRequest();
 
@@ -235,7 +222,6 @@ class SkrillPaymentController extends Controller
                     ]
                 );
 
-
                 $skill->cancel_url   = route(
                     'retainer.skrill',
                     [
@@ -244,8 +230,7 @@ class SkrillPaymentController extends Controller
                     ]
                 );
 
-                // create object instance of SkrillRequest
-                $skill->transaction_id  = MD5($tran_id); // generate transaction id
+                $skill->transaction_id  = MD5($tran_id);
                 $skill->amount          = $price;
                 $skill->currency        = $setting['site_currency'];
                 $skill->language        = 'EN';
@@ -254,22 +239,17 @@ class SkrillPaymentController extends Controller
                 $skill->site_name       = $retainer->customer->name;
                 $skill->customer_email  =  $retainer->customer->email;
 
-
-                // create object instance of SkrillClient
                 $client = new SkrillClient($skill);
 
-                $sid    = $client->generateSID(); //return SESSION ID
+                $sid    = $client->generateSID();
 
-                // handle error
                 $jsonSID = json_decode($sid);
 
                 if ($jsonSID != null && $jsonSID->code == "BAD_REQUEST") {
                     return redirect()->back()->with('error', $jsonSID->message);
                 }
 
-
-                // do the payment
-                $redirectUrl = $client->paymentRedirectUrl($sid); //return redirect url
+                $redirectUrl = $client->paymentRedirectUrl($sid);
 
                 if ($tran_id) {
                     $data = [
@@ -310,8 +290,6 @@ class SkrillPaymentController extends Controller
             $objUser = $user;
         }
 
-
-
         $result    = array();
 
         if ($retainer) {
@@ -319,7 +297,6 @@ class SkrillPaymentController extends Controller
 
                 if (session()->has('skrill_data')) {
                     $get_data = session()->get('skrill_data');
-
 
                     $payments = RetainerPayment::create(
                         [
@@ -348,7 +325,6 @@ class SkrillPaymentController extends Controller
 
                     Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-                    //Twilio Notification
                     $setting  = Utility::settingsById($objUser->creatorId());
 
                     $customer = Customer::find($retainer->customer_id);
@@ -365,7 +341,6 @@ class SkrillPaymentController extends Controller
                         Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $retainer->created_by);
                     }
 
-                    // webhook
                     $module = 'New Payment';
 
                     $webhook =  Utility::webhookSetting($module, $retainer->created_by);
@@ -374,17 +349,9 @@ class SkrillPaymentController extends Controller
 
                         $parameter = json_encode($retainer);
 
-                        // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-
                         $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
 
-                        // if ($status == true) {
-                        //     return redirect()->route('payment.index')->with('success', __('Payment successfully created.') . ((isset($smtp_error)) ? '<br> <span class="text-danger">' . $smtp_error . '</span>' : ''));
-                        // } else {
-                        //     return redirect()->back()->with('error', __('Webhook call failed.'));
-                        // }
                     }
-
 
                     if (Auth::check()) {
                         return redirect()->route('retainer.show', \Crypt::encrypt($retainer->id))->with('success', __('Payment successfully added.'));
@@ -423,8 +390,6 @@ class SkrillPaymentController extends Controller
                 $settings = Utility::settingsById($invoice->created_by);
             }
 
-
-
             $result    = array();
 
             $price = $request->amount;
@@ -449,8 +414,7 @@ class SkrillPaymentController extends Controller
                     ]
                 );
 
-                // create object instance of SkrillRequest
-                $skill->transaction_id  = MD5($tran_id); // generate transaction id
+                $skill->transaction_id  = MD5($tran_id);
                 $skill->amount          = $price;
                 $skill->currency        = $setting['site_currency'];
                 $skill->language        = 'EN';
@@ -459,20 +423,16 @@ class SkrillPaymentController extends Controller
                 $skill->site_name       = $invoice->customer->name;
                 $skill->customer_email  =  $invoice->customer->email;
 
-                // create object instance of SkrillClient
                 $client = new SkrillClient($skill);
-                $sid    = $client->generateSID(); //return SESSION ID
+                $sid    = $client->generateSID();
 
-                // handle error
                 $jsonSID = json_decode($sid);
 
                 if ($jsonSID != null && $jsonSID->code == "BAD_REQUEST") {
                     return redirect()->back()->with('error', $jsonSID->message);
                 }
 
-
-                // do the payment
-                $redirectUrl = $client->paymentRedirectUrl($sid); //return redirect url
+                $redirectUrl = $client->paymentRedirectUrl($sid);
                 if ($tran_id) {
                     $data = [
                         'amount' => $price,
@@ -513,8 +473,6 @@ class SkrillPaymentController extends Controller
             $objUser = $user;
         }
 
-
-
         $result    = array();
 
         if ($invoice) {
@@ -522,7 +480,6 @@ class SkrillPaymentController extends Controller
 
                 if (session()->has('skrill_data')) {
                     $get_data = session()->get('skrill_data');
-
 
                     $payments = InvoicePayment::create(
                         [
@@ -551,8 +508,6 @@ class SkrillPaymentController extends Controller
 
                     Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-                    //Twilio Notification
-
                     $setting  = Utility::settingsById($objUser->creatorId());
 
                     $customer = Customer::find($invoice->customer_id);
@@ -573,8 +528,6 @@ class SkrillPaymentController extends Controller
 
                     Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-
-                    // webhook
                     $module = 'New Payment';
 
                     $webhook =  Utility::webhookSetting($module, $invoice->created_by);
@@ -583,17 +536,9 @@ class SkrillPaymentController extends Controller
 
                         $parameter = json_encode($invoice);
 
-                        // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-
                         $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
 
-                        // if ($status == true) {
-                        //     return redirect()->route('payment.index')->with('success', __('Payment successfully created.') . ((isset($smtp_error)) ? '<br> <span class="text-danger">' . $smtp_error . '</span>' : ''));
-                        // } else {
-                        //     return redirect()->back()->with('error', __('Webhook call failed.'));
-                        // }
                     }
-
 
                     if (Auth::check()) {
                         return redirect()->route('invoice.show', \Crypt::encrypt($invoice->id))->with('success', __('Payment successfully added.'));

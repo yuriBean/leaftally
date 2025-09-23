@@ -28,7 +28,6 @@
                 chart: {
                     height: 300,
                     type: 'bar',
-                    // type: 'line',
                     dropShadow: {
                         enabled: true,
                         color: '#000',
@@ -59,7 +58,6 @@
                     }
                 },
                 colors: ['#6fd944', '#6fd944'],
-
 
                 grid: {
                     strokeDashArray: 4,
@@ -127,12 +125,8 @@
     </script>
 @endpush
 
-
 @section('action-btn')
     <div class="d-flex">
-        <!-- <a class="btn btn-sm btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1" data-bs-toggle="tooltip" title="{{__('Filter')}}">
-            <i class="ti ti-filter"></i>
-        </a> -->
 
         <a href="#" class="btn btn-sm btn-primary" onclick="saveAsPDF()"data-bs-toggle="tooltip" title="{{__('Download PDF')}}" data-original-title="{{__('Download PDF')}}">
             <span class="btn-inner--icon"><i class="fas fa-file-pdf"></i></span>
@@ -140,8 +134,6 @@
 
     </div>
 @endsection
-
-
 
 @section('content')
     <div class="row">
@@ -189,7 +181,6 @@
                                         </div>
                                     </div>
 
-
                                 </div>
                             </div>
                             <div class="col-md-2 col-12">
@@ -203,7 +194,6 @@
                                         <a href="{{route('report.invoice.summary')}}" class="btn btn-sm btn-danger " data-bs-toggle="tooltip"  title="{{ __('Reset') }}" data-original-title="{{__('Reset')}}">
                                             <span class="btn-inner--icon"><i class="ti ti-refresh text-white-off "></i></span>
                                         </a>
-
 
                                     </div>
 
@@ -314,7 +304,6 @@
                                                 <tr>
                                                     <td class="Id Id px-4 py-3 border border-[#E5E5E5] text-gray-700">
                                                         <a class="border border-[#137051] leading-[24px] text-[#137051] rounded-[4px] text-[12px] font-[500] px-5" href="{{ route('invoice.show',\Crypt::encrypt($invoice->id)) }}" class="btn btn-outline-primary">{{ Auth::user()->invoiceNumberFormat($invoice->id) }}</a>                                                    </td>
-
 
                                                     </td>
                                                     <td class="px-4 py-3 border border-[#E5E5E5] text-gray-700">{{\Auth::user()->dateFormat($invoice->send_date)}}</td>

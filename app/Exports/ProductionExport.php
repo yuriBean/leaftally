@@ -100,18 +100,18 @@ class ProductionExport implements FromCollection, WithHeadings, WithMapping, Wit
     public function columnWidths(): array
     {
         return [
-            'A' => 16, // Code
-            'B' => 26, // BOM
-            'C' => 14, // Status
-            'D' => 14, // Planned Date
-            'E' => 14, // Started
-            'F' => 14, // Finished
-            'G' => 16, // Multiplier
-            'H' => 14, // Raw Cost
-            'I' => 18, // Manufacturing Cost
-            'J' => 14, // Total
-            'K' => 30, // Notes
-            'L' => 14, // Created Date
+            'A' => 16,
+            'B' => 26,
+            'C' => 14,
+            'D' => 14,
+            'E' => 14,
+            'F' => 14,
+            'G' => 16,
+            'H' => 14,
+            'I' => 18,
+            'J' => 14,
+            'K' => 30,
+            'L' => 14,
         ];
     }
 

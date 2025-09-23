@@ -9,10 +9,6 @@ use Modules\LandingPage\Entities\LandingPageSetting;
 
 class CustomPageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
     public function index()
     {
         $settings = LandingPageSetting::settings();
@@ -20,20 +16,11 @@ class CustomPageController extends Controller
         return view('landingpage::landingpage.menubar.index', compact('pages', 'settings'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
     public function create()
     {
         return view('landingpage::landingpage.menubar.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
     public function store(Request $request)
     {
         $settings = LandingPageSetting::settings();
@@ -78,21 +65,11 @@ class CustomPageController extends Controller
         return redirect()->back()->with(['success' => 'Page add successfully']);
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
     public function show($id)
     {
         return view('landingpage::show');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
     public function edit($key)
     {
 
@@ -102,12 +79,6 @@ class CustomPageController extends Controller
         return view('landingpage::landingpage.menubar.edit', compact('page', 'key'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
     public function update(Request $request, $key)
     {
         $settings = LandingPageSetting::settings();
@@ -149,16 +120,10 @@ class CustomPageController extends Controller
         $data[$key] = $datas;
         $data = json_encode($data);
 
-
         LandingPageSetting::updateOrCreate(['name' =>  'menubar_page'], ['value' => $data]);
         return redirect()->back()->with(['success' => 'Page Updated successfully']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
     public function destroy($key)
     {
         $settings = LandingPageSetting::settings();
@@ -168,7 +133,6 @@ class CustomPageController extends Controller
 
         return redirect()->back()->with(['success' => 'Page deleted successfully']);
     }
-
 
     public function customStore(Request $request)
     {
@@ -193,7 +157,6 @@ class CustomPageController extends Controller
         return redirect()->back()->with(['success' => 'Settings updated successfully']);
     }
 
-
     public function customPage($slug)
     {
 
@@ -202,7 +165,6 @@ class CustomPageController extends Controller
 
         foreach ($pages as $key => $page) {
             if ($page['page_slug'] == $slug) {
-                // dd($page);
                 return view('landingpage::layouts.custompage', compact('page', 'settings'));
             }
         }

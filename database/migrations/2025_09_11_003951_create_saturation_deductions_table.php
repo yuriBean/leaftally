@@ -6,11 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateSaturationDeductionsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('saturation_deductions', function (Blueprint $table) {
@@ -25,13 +20,6 @@ class CreateSaturationDeductionsTable extends Migration
         });
     }
 
-
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('saturation_deductions');

@@ -6,11 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateGenratePayslipOptionsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('genrate_payslip_options', function (Blueprint $table) {
@@ -19,11 +14,6 @@ class CreateGenratePayslipOptionsTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('genrate_payslip_options');

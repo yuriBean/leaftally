@@ -8,17 +8,10 @@ use Illuminate\Queue\InteractsWithQueue;
 
 class VerifyReCaptchaTokenLis
 {
-    /**
-     * Create the event listener.
-     */
     public function __construct()
     {
-        //
     }
 
-    /**
-     * Handle the event.
-     */
     public function handle(VerifyReCaptchaToken $event)
     {
         $request = $event->request->all();

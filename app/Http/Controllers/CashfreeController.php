@@ -178,7 +178,6 @@ class CashfreeController extends Controller
                 ],
             ]);
 
-
             $respons = json_decode($response->getBody());
             if ($respons->order_id && $respons->cf_payment_id != NULL) {
 
@@ -191,7 +190,6 @@ class CashfreeController extends Controller
                     ],
                 ]);
                 $info = json_decode($response->getBody());
-
 
                 if ($info->payment_status == "SUCCESS") {
 
@@ -319,12 +317,10 @@ class CashfreeController extends Controller
             $settings = DB::table('settings')->where('created_by', '=', \Auth::user()->creatorId())->get()->pluck('value', 'name');
             $objUser     = Auth::user();
             $payment_setting = Utility::getAdminPaymentSetting();
-            //            $this->setApiContext();
         } else {
             $user = User::where('id', $invoice->created_by)->first();
             $settings = Utility::settingById($invoice->created_by);
             $payment_setting = Utility::getCompanyPaymentSetting($invoice->created_by);
-            //            $this->non_auth_setApiContext($invoice->created_by);
             $objUser = $user;
         }
         $getAmount = $request->amount;
@@ -382,7 +378,6 @@ class CashfreeController extends Controller
                         ]
                     );
 
-
                     if ($invoice->getDue() <= 0) {
                         $invoice->status = 4;
                         $invoice->save();
@@ -417,7 +412,6 @@ class CashfreeController extends Controller
 
                     Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-                    //Twilio Notification
                     $setting  = Utility::settingsById($objUser->creatorId());
                     $customer = Customer::find($invoice->customer_id);
                     if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -433,7 +427,6 @@ class CashfreeController extends Controller
                         Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $invoice->created_by);
                     }
 
-                    // webhook
                     $module = 'New Payment';
 
                     $webhook =  Utility::webhookSetting($module, $invoice->created_by);
@@ -441,8 +434,6 @@ class CashfreeController extends Controller
                     if ($webhook) {
 
                         $parameter = json_encode($invoice);
-
-                        // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
 
                         $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
                     }
@@ -531,12 +522,10 @@ class CashfreeController extends Controller
             $settings = DB::table('settings')->where('created_by', '=', \Auth::user()->creatorId())->get()->pluck('value', 'name');
             $objUser     = Auth::user();
             $payment_setting = Utility::getAdminPaymentSetting();
-            //            $this->setApiContext();
         } else {
             $user = User::where('id', $retainer->created_by)->first();
             $settings = Utility::settingById($retainer->created_by);
             $payment_setting = Utility::getCompanyPaymentSetting($retainer->created_by);
-            //            $this->non_auth_setApiContext($invoice->created_by);
             $objUser = $user;
         }
         $getAmount = $request->amount;
@@ -625,7 +614,6 @@ class CashfreeController extends Controller
 
                     Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-                    //Twilio Notification
                     $setting  = Utility::settingsById($objUser->creatorId());
                     $customer = Customer::find($retainer->customer_id);
                     if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -641,7 +629,6 @@ class CashfreeController extends Controller
                         Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $retainer->created_by);
                     }
 
-                    // webhook\
                     $module = 'New Payment';
 
                     $webhook =  Utility::webhookSetting($module, $retainer->created_by);
@@ -649,8 +636,6 @@ class CashfreeController extends Controller
                     if ($webhook) {
 
                         $parameter = json_encode($retainer);
-
-                        // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
 
                         $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
                     }

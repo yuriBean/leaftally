@@ -36,7 +36,6 @@
     </div>
 @endsection
 
-
 @section('content')
     <div class="">
         <h2 class="mb-3 f-w-600">{{__('Forgot Password')}}</h2>
@@ -58,7 +57,6 @@
                 </span>
                 @enderror
             </div>
-
 
             {{-- @if($settings['recaptcha_module'] == 'yes')
                 <div class="form-group mb-3">
@@ -92,7 +90,6 @@
                     </div>
                 @endif
             @endif
-
 
             <div class="d-grid">
                 <button type="submit" class="btn-login btn btn-primary btn-block mt-2">{{ __('Send Password Reset Link') }}</button>

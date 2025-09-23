@@ -6,11 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateLoanOptionsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('loan_options', function (Blueprint $table) {
@@ -21,11 +16,6 @@ class CreateLoanOptionsTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('loan_options');

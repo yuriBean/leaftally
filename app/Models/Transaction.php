@@ -20,7 +20,6 @@ class Transaction extends Model
         'category'
     ];
 
-
     public function bankAccount()
     {
         return $this->hasOne('App\Models\BankAccount', 'id', 'account')->first();

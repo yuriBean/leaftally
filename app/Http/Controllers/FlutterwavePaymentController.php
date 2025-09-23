@@ -24,14 +24,12 @@ class FlutterwavePaymentController extends Controller
     public $public_key;
     public $is_enabled;
 
-
     public function paymentConfig()
     {
         if (Auth::check()) {
             $user = Auth::user();
         }
 
-        // $creatorId = \Auth::user()->creatorId();
         if (\Auth::user()->type == 'company') {
             $payment_setting = Utility::getAdminPaymentSetting();
         } else {
@@ -45,7 +43,6 @@ class FlutterwavePaymentController extends Controller
 
         return $this;
     }
-
 
     public function planPayWithFlutterwave(Request $request)
     {
@@ -104,14 +101,11 @@ class FlutterwavePaymentController extends Controller
                 $data    = array(
                     'txref' => $pay_id,
                     'SECKEY' => $this->secret_key,
-                    //secret key from pay button generated on rave dashboard
                 );
-                // make request to endpoint using unirest.
                 $headers = array('Content-Type' => 'application/json');
                 $body    = \Unirest\Request\Body::json($data);
-                $url     = "https://api.ravepay.co/flwv3-pug/getpaidx/api/v2/verify"; //please make sure to change this to production url when you go live
+                $url     = "https://api.ravepay.co/flwv3-pug/getpaidx/api/v2/verify";
 
-                // Make `POST` request and handle response with unirest
                 $response = \Unirest\Request::post($url, $headers, $body);
                 if (!empty($response)) {
                     $response = json_decode($response->raw_body, true);
@@ -127,7 +121,6 @@ class FlutterwavePaymentController extends Controller
                             $userCoupon->coupon = $coupons->id;
                             $userCoupon->order  = $orderID;
                             $userCoupon->save();
-
 
                             $usedCoupun = $coupons->used_coupon();
                             if ($coupons->limit <= $usedCoupun) {
@@ -225,7 +218,6 @@ class FlutterwavePaymentController extends Controller
 
     public function getRetainerPaymentStatus(Request $request,  $retainer_id, $pay_id)
     {
-        // dd($request->all(),$pay_id, $retainer_id);
         $retainerID = \Illuminate\Support\Facades\Crypt::decrypt($retainer_id);
         $retainer   = Retainer::find($retainerID);
 
@@ -247,24 +239,19 @@ class FlutterwavePaymentController extends Controller
         $result    = array();
 
         if ($retainer) {
-            // try {
 
             $data = array(
                 'txref' => $pay_id,
                 'SECKEY' => $this->secret_key,
-                //secret key from pay button generated on rave dashboard
             );
-            // make request to endpoint using unirest.
             $headers = array('Content-Type' => 'application/json');
             $body    = \Unirest\Request\Body::json($data);
-            $url     = "https://api.ravepay.co/flwv3-pug/getpaidx/api/v2/verify"; //please make sure to change this to production url when you go live
+            $url     = "https://api.ravepay.co/flwv3-pug/getpaidx/api/v2/verify";
 
-            // Make `POST` request and handle response with unirest
             $response = \Unirest\Request::post($url, $headers, $body);
             if (!empty($response)) {
                 $response = json_decode($response->raw_body, true);
             }
-            // if (isset($response['status']) && $response['status'] == 'success') {
             $paydata = $response['data'];
 
             $payments = RetainerPayment::create(
@@ -294,8 +281,6 @@ class FlutterwavePaymentController extends Controller
 
             Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-            // Twilio Notification
-
             $setting  = Utility::settingsById($objUser->creatorId());
             $customer = Customer::find($retainer->customer_id);
             if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -311,7 +296,6 @@ class FlutterwavePaymentController extends Controller
                 Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $retainer->created_by);
             }
 
-            // webhook
             $module = 'New Payment';
 
             $webhook =  Utility::webhookSetting($module, $retainer->created_by);
@@ -320,15 +304,8 @@ class FlutterwavePaymentController extends Controller
 
                 $parameter = json_encode($retainer);
 
-                // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-
                 $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
 
-                // if ($status == true) {
-                //     return redirect()->route('payment.index')->with('success', __('Payment successfully created.') . ((isset($smtp_error)) ? '<br> <span class="text-danger">' . $smtp_error . '</span>' : ''));
-                // } else {
-                //     return redirect()->back()->with('error', __('Webhook call failed.'));
-                // }
             }
 
             if (Auth::check()) {
@@ -337,34 +314,14 @@ class FlutterwavePaymentController extends Controller
                 return redirect()->back()->with('success', __(' Payment successfully added.'));
             }
 
-            // }
-            // else
-            // {
-            //     if (Auth::check()) {
-            //         return redirect()->route('customer.retainer.show', \Crypt::encrypt($retainer->id))->with('error', __('Transaction has been ' . $status));
-            //     } else {
-            //         return redirect()->back()->with('success', __('Transaction succesfull'));
-            //     }
-            // }
-            // }
-            // catch(\Exception $e)
-            // {
-            //     if (Auth::check()) {
-            //         return redirect()->route('customer.retainer.show', \Crypt::encrypt($retainer->id))->with('error', __('Transaction has been failed.'));
-            //     } else {
-            //         return redirect()->back()->with('success', __('Transaction has been complted.'));
-            //     }
-            // }
         }
     }
 
     public function getInvoicePaymentStatus(Request $request, $invoice_id, $pay_id)
     {
-        //   dd($request->all(),$pay_id, $invoice_id);
 
         $invoiceID = \Illuminate\Support\Facades\Crypt::decrypt($invoice_id);
         $invoice   = Invoice::find($invoiceID);
-        // $payment   = $this->paymentConfig();
 
         if (Auth::check()) {
             $payment   = $this->paymentConfig();
@@ -384,31 +341,22 @@ class FlutterwavePaymentController extends Controller
         $result    = array();
 
         if ($invoice) {
-            // try {
-
 
             $data = array(
                 'txref' => $pay_id,
                 'SECKEY' => $this->secret_key,
-                //secret key from pay button generated on rave dashboard
             );
 
-            // dd($data);
-            // make request to endpoint using unirest.
             $headers = array('Content-Type' => 'application/json');
             $body    = \Unirest\Request\Body::json($data);
-            $url     = "https://api.ravepay.co/flwv3-pug/getpaidx/api/v2/verify"; //please make sure to change this to production url when you go live
+            $url     = "https://api.ravepay.co/flwv3-pug/getpaidx/api/v2/verify";
 
-            // Make `POST` request and handle response with unirest
             $response = \Unirest\Request::post($url, $headers, $body);
 
             if (!empty($response)) {
                 $response = json_decode($response->raw_body, true);
             }
 
-
-            // dd($response);
-            // if (isset($response['status']) && $response['status'] == 'success') {
             $paydata = $response['data'];
 
             $payments = InvoicePayment::create(
@@ -438,7 +386,6 @@ class FlutterwavePaymentController extends Controller
 
             Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-            //Twilio Notification
             $setting  = Utility::settingsById($objUser->creatorId());
 
             $customer = Customer::find($invoice->customer_id);
@@ -455,7 +402,6 @@ class FlutterwavePaymentController extends Controller
                 Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $invoice->created_by);
             }
 
-            // webhook
             $module = 'New Payment';
 
             $webhook =  Utility::webhookSetting($module, $invoice->created_by);
@@ -464,15 +410,8 @@ class FlutterwavePaymentController extends Controller
 
                 $parameter = json_encode($invoice);
 
-                // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-
                 $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
 
-                // if ($status == true) {
-                //     return redirect()->route('payment.index')->with('success', __('Payment successfully created.') . ((isset($smtp_error)) ? '<br> <span class="text-danger">' . $smtp_error . '</span>' : ''));
-                // } else {
-                //     return redirect()->back()->with('error', __('Webhook call failed.'));
-                // }
             }
 
             if (Auth::check()) {
@@ -481,24 +420,6 @@ class FlutterwavePaymentController extends Controller
                 return redirect()->back()->with('success', __(' Payment successfully added.'));
             }
 
-            // }
-            // else
-            // {
-            //     if (Auth::check()) {
-            //         return redirect()->route('invoice.show', \Crypt::encrypt($invoice->id))->with('error', __('Transaction has been ' . $status));
-            //     } else {
-            //         return redirect()->back()->with('success', __('Transaction succesfull'));
-            //     }
-            // }
-            // }
-            // catch(\Exception $e)
-            // {
-            //     if (Auth::check()) {
-            //         return redirect()->route('invoice.show', \Crypt::encrypt($invoice->id))->with('error', __('Transaction has been failed.'));
-            //     } else {
-            //         return redirect()->back()->with('success', __('Transaction has been complted.'));
-            //     }
-            // }
         }
     }
 }

@@ -38,7 +38,6 @@ class PlanController extends Controller
             'year'     => __('Per Year'),
         ];
 
-        // Legacy feature list (kept for compatibility)
         $systemFeatures = [
             'manage product & service' => __('Product & Service Management'),
             'manage customer'          => __('Customer Management'),
@@ -70,10 +69,8 @@ class PlanController extends Controller
             'manage credit note'       => __('Credit Note Management'),
             'manage debit note'        => __('Debit Note Management'),
             'manage retainer'          => __('Retainer Management'),
-            // Manufacturing
             'manage bom'               => __('Bill of Materials'),
             'manage production'        => __('Production Management'),
-            // Config
             'manage constant tax'      => __('Tax Configuration'),
             'manage constant unit'     => __('Unit Configuration'),
             'manage constant category' => __('Category Configuration'),
@@ -81,7 +78,6 @@ class PlanController extends Controller
             'manage constant custom field'   => __('Custom Field Configuration'),
             'manage company settings'  => __('Company Settings'),
             'manage system settings'   => __('System Settings'),
-            // Commerce/others
             'manage coupon'            => __('Coupon Management'),
             'manage order'             => __('Order Management'),
             'enable_chatgpt'           => __('AI Chat GPT Integration'),
@@ -100,13 +96,11 @@ class PlanController extends Controller
             'name'          => 'required|unique:plans',
             'price'         => 'required|numeric|min:0',
             'duration'      => 'required',
-            // removed: max_employees / max_users (handled via quotas/links)
             'storage_limit' => 'required|numeric',
 
-            // Quotas (optional; numeric if present)
-            'max_users'           => 'nullable|numeric', // quota for user_access_management
+            'max_users'           => 'nullable|numeric',
             'invoice_quota'       => 'nullable|numeric',
-            'payroll_quota'       => 'nullable|numeric', // links to employees
+            'payroll_quota'       => 'nullable|numeric',
             'product_quota'       => 'nullable|numeric',
             'expense_quota'       => 'nullable|numeric',
             'client_quota'        => 'nullable|numeric',
@@ -117,10 +111,8 @@ class PlanController extends Controller
 
         $post = $request->all();
 
-        // Features JSON (legacy compatibility)
         $post['features'] = json_encode($request->input('features', []), JSON_UNESCAPED_UNICODE);
 
-        // Editable toggles
         $editableToggles = [
             'user_access_management',
             'payroll_enabled',
@@ -133,7 +125,6 @@ class PlanController extends Controller
             $post[$key] = $request->has($key) ? 1 : 0;
         }
 
-        // Always-on features
         $post['invoice_enabled']            = 1;
         $post['product_management_enabled'] = 1;
         $post['expense_tracking_enabled']   = 1;
@@ -141,7 +132,6 @@ class PlanController extends Controller
         $post['vendor_management_enabled']  = 1;
         $post['inventory_enabled']          = 1;
 
-        // Quotas default to -1
         $quotas = [
             'max_users',
             'invoice_quota',
@@ -156,12 +146,10 @@ class PlanController extends Controller
             $post[$q] = $request->filled($q) ? (int) $request->input($q) : -1;
         }
 
-        // Derive counts from quotas
-        $post['max_venders']   = (int) $post['vendor_quota']; // vendors limit from vendor quota
-        $post['max_customers'] = (int) $post['client_quota']; // customers limit from client quota
-        $post['max_employees'] = (int) $post['payroll_quota']; // employees limit is tied to payroll quota
+        $post['max_venders']   = (int) $post['vendor_quota'];
+        $post['max_customers'] = (int) $post['client_quota'];
+        $post['max_employees'] = (int) $post['payroll_quota'];
 
-        // Trial
         if ($request->has('trial')) {
             $post['trial'] = 1;
             $post['trial_days'] = $request->input('trial_days');
@@ -170,10 +158,8 @@ class PlanController extends Controller
             $post['trial_days'] = null;
         }
 
-        // ChatGPT toggle
         $post['enable_chatgpt'] = $request->has('enable_chatgpt') ? 'on' : 'off';
 
-        // Image upload
         if ($request->hasFile('image')) {
             $extension       = $request->file('image')->getClientOriginalExtension();
             $fileNameToStore = 'plan_' . time() . '.' . $extension;
@@ -206,7 +192,6 @@ class PlanController extends Controller
             'year'     => __('Per Year'),
         ];
 
-        // Same legacy list as create()
         $systemFeatures = [
             'manage product & service' => __('Product & Service Management'),
             'manage customer'          => __('Customer Management'),
@@ -268,12 +253,10 @@ class PlanController extends Controller
         return back()->with('error', __('Plan not found.'));
     }
 
-    // validate only what your edit form actually sends
     $request->validate([
         'name'          => 'required|unique:plans,name,' . $plan_id,
-        'price'         => 'nullable|numeric|min:0',   // present in your dump
+        'price'         => 'nullable|numeric|min:0',
         'storage_limit' => 'required|numeric',
-        // quotas (optional; numeric if present)
         'max_users'            => 'nullable|numeric',
         'invoice_quota'        => 'nullable|numeric',
         'payroll_quota'        => 'nullable|numeric',
@@ -282,27 +265,23 @@ class PlanController extends Controller
         'client_quota'         => 'nullable|numeric',
         'vendor_quota'         => 'nullable|numeric',
         'manufacturing_quota'  => 'nullable|numeric',
-        // 'duration' => 'sometimes|required|in:lifetime,month,year' // only if your edit view sends it
     ]);
 
-    // helpers
-    $b = fn($key) => $request->has($key) ? 1 : 0;                    // checkbox → 1/0
-    $q = fn($key) => $request->filled($key) ? (int)$request->input($key) : -1; // quota → int or -1
+    $b = fn($key) => $request->has($key) ? 1 : 0;
+    $q = fn($key) => $request->filled($key) ? (int)$request->input($key) : -1;
 
-    // basics
     $plan->name          = $request->input('name');
     if ($request->filled('price')) {
         $plan->price     = (float) $request->input('price');
     }
     if ($request->filled('description') || $request->has('description')) {
-        $plan->description = $request->input('description'); // nullable OK
+        $plan->description = $request->input('description');
     }
     if ($request->filled('duration')) {
-        $plan->duration  = $request->input('duration'); // only if your form includes it
+        $plan->duration  = $request->input('duration');
     }
     $plan->storage_limit = (int) $request->input('storage_limit');
 
-    // toggles (editables)
     $plan->user_access_management = $b('user_access_management');
     $plan->payroll_enabled        = $b('payroll_enabled');
     $plan->budgeting_enabled      = $b('budgeting_enabled');
@@ -310,7 +289,6 @@ class PlanController extends Controller
     $plan->audit_trail_enabled    = $b('audit_trail_enabled');
     $plan->manufacturing_enabled  = $b('manufacturing_enabled');
 
-    // always-on flags (keep enforced)
     $plan->invoice_enabled            = 1;
     $plan->product_management_enabled = 1;
     $plan->expense_tracking_enabled   = 1;
@@ -318,8 +296,7 @@ class PlanController extends Controller
     $plan->vendor_management_enabled  = 1;
     $plan->inventory_enabled          = 1;
 
-    // quotas (normalize)
-    $plan->max_users            = $q('max_users');           // quota for user access management
+    $plan->max_users            = $q('max_users');
     $plan->invoice_quota        = $q('invoice_quota');
     $plan->payroll_quota        = $q('payroll_quota');
     $plan->product_quota        = $q('product_quota');
@@ -328,15 +305,12 @@ class PlanController extends Controller
     $plan->vendor_quota         = $q('vendor_quota');
     $plan->manufacturing_quota  = $q('manufacturing_quota');
 
-    // derived counts from quotas
     $plan->max_customers = (int) $plan->client_quota;
     $plan->max_venders   = (int) $plan->vendor_quota;
-    $plan->max_employees = (int) $plan->payroll_quota; // employees tied to payroll
+    $plan->max_employees = (int) $plan->payroll_quota;
 
-    // feature list (legacy)
     $plan->features = json_encode($request->input('features', []), JSON_UNESCAPED_UNICODE);
 
-    // ChatGPT + Trial (only if present in your edit view)
     if ($request->has('enable_chatgpt')) {
         $plan->enable_chatgpt = 'on';
     } else {
@@ -350,7 +324,6 @@ class PlanController extends Controller
         $plan->trial_days = null;
     }
 
-    // image (optional)
     if ($request->hasFile('image')) {
         $extension       = $request->file('image')->getClientOriginalExtension();
         $fileNameToStore = 'plan_' . time() . '.' . $extension;
@@ -369,7 +342,6 @@ class PlanController extends Controller
         $plan->image = $fileNameToStore;
     }
 
-    // save
     if ($plan->save()) {
         \Artisan::call('optimize:clear');
         return back()->with('success', __('Plan successfully updated.'));
@@ -377,7 +349,6 @@ class PlanController extends Controller
 
     return back()->with('error', __('Something is wrong.'));
 }
-
 
     public function userPlan(Request $request)
     {

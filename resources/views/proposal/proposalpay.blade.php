@@ -150,8 +150,6 @@
                                     </small>
                                 </div>
 
-
-
                                 @if (!empty($customFields) && count($proposal->customField) > 0)
                                     @foreach ($customFields as $field)
                                         <div class="col text-end">
@@ -171,7 +169,7 @@
                                     <div class="table-responsive mt-2">
                                         <table class="table mb-0 ">
                                             <tr>
-                                                <th class="text-dark" data-width="40">#</th>
+                                                <th class="text-dark" data-width="40">
                                                 <th class="text-dark">{{ __('Product') }}</th>
                                                 <th class="text-dark">{{ __('Quantity') }}</th>
                                                 <th class="text-dark">{{ __('Rate') }}</th>

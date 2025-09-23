@@ -4,9 +4,7 @@
 .pb{
     padding-bottom: 70px;
 }
- /* ============================================= */
-/* !!!!          NICE SELECT CSS           !!!! */
-/* ============================================= */
+
 .nice-select {
     -webkit-tap-highlight-color: transparent;
     background-color: transparent;
@@ -186,7 +184,7 @@
 .no-csspointerevents .nice-select.open .list {
     display: block;
 }
-/*---vehicle booking page css start---*/ 
+ 
 .header-style-one .main-navigationbar .logo-col {
     max-width: 95px;
     width: 100%;
@@ -314,8 +312,7 @@ body.theme-1 .vehicle-booking-inner .form-control:focus,.checkbox-custom input:c
     -o-transform: translateY(-50%) rotate(45deg);
     -webkit-transform: translateY(-50%) rotate(45deg);
 }
-/*---vehicle booking page css end---*/ 
-/*--- booking form page css start---*/ 
+
 .booking-form-banner{
     position: relative;
     padding: 100px 0;
@@ -372,8 +369,6 @@ body.theme-1 .vehicle-booking-inner .form-control:focus,.checkbox-custom input:c
     display: none;
 }
 
-/*--- booking form page css end---*/ 
-/*--- search results section css start---*/ 
 .search-results-sec .search-result-bar{
     padding: 15px;
 }
@@ -405,8 +400,7 @@ body.theme-1 .vehicle-booking-inner .form-control:focus,.checkbox-custom input:c
     padding: 10px;
     line-height: 1;
 }
-/*--- search results section css end---*/ 
-/*******  booking from css start ********/
+
 .seating-arrangement{
     max-width: 85%;
     width: 100%;
@@ -512,9 +506,6 @@ body.theme-1 .vehicle-booking-inner .form-control:focus,.checkbox-custom input:c
     list-style: none;
 }
 
-
-/******** booking from css end ***********/
-/********   detail  css start  *********/
 .header-button svg{
     width: 15px;
     height: 15px;
@@ -530,8 +521,6 @@ body.theme-1 .vehicle-booking-inner .form-control:focus,.checkbox-custom input:c
     width: 50px;
 }
 
-/********* detail css end **********/
-/********  patment-sec css start  *********/
 .payment-sec{
     display: flex;
     flex-direction: column;
@@ -558,4 +547,4 @@ body.theme-1 .vehicle-booking-inner .form-control:focus,.checkbox-custom input:c
     height: 100%;
     margin: 0 auto;
 }
-/********  patment-sec css end  *********/
+

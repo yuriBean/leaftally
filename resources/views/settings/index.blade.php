@@ -45,21 +45,21 @@
             .btn-outline-success:active,
             .btn-outline-success.active,
             .btn-outline-success.dropdown-toggle.show {
-                color: #ffffff;
-                background-color: #6fd943 !important;
-                border-color: #6fd943 !important;
+                color:
+                background-color:
+                border-color:
 
             }
 
             .btn-outline-success:hover {
-                color: #ffffff;
-                background-color: #6fd943 !important;
-                border-color: #6fd943 !important;
+                color:
+                background-color:
+                border-color:
             }
 
             .btn.btn-outline-success {
-                color: #6fd943;
-                border-color: #6fd943 !important;
+                color:
+                border-color:
             }
         </style>
     @endif
@@ -70,21 +70,21 @@
             .btn-outline-success:active,
             .btn-outline-success.active,
             .btn-outline-success.dropdown-toggle.show {
-                color: #ffffff;
-                background: linear-gradient(141.55deg, rgbisset($setting['cookie_consent']) && $setting['cookie_consent']=='on' ? '' : 'disabled' a(240, 244, 243, 0) 3.46%, #4ebbd3 99.86%)#1f3996 !important;
-                border-color: #1F3996 !important;
+                color:
+                background: linear-gradient(141.55deg, rgbisset($setting['cookie_consent']) && $setting['cookie_consent']=='on' ? '' : 'disabled' a(240, 244, 243, 0) 3.46%,
+                border-color:
 
             }
 
             .btn-outline-success:hover {
-                color: #ffffff;
-                background: linear-gradient(141.55deg, rgba(240, 244, 243, 0) 3.46%, #4ebbd3 99.86%)#1f3996 !important;
-                border-color: #1F3996 !important;
+                color:
+                background: linear-gradient(141.55deg, rgba(240, 244, 243, 0) 3.46%,
+                border-color:
             }
 
             .btn.btn-outline-success {
-                color: #1F3996;
-                border-color: #1F3996 !important;
+                color:
+                border-color:
             }
         </style>
     @endif
@@ -95,21 +95,21 @@
             .btn-outline-success:active,
             .btn-outline-success.active,
             .btn-outline-success.dropdown-toggle.show {
-                color: #ffffff;
-                background-color: #584ed2 !important;
-                border-color: #584ed2 !important;
+                color:
+                background-color:
+                border-color:
 
             }
 
             .btn-outline-success:hover {
-                color: #ffffff;
-                background-color: #584ed2 !important;
-                border-color: #584ed2 !important;
+                color:
+                background-color:
+                border-color:
             }
 
             .btn.btn-outline-success {
-                color: #584ed2;
-                border-color: #584ed2 !important;
+                color:
+                border-color:
             }
         </style>
     @endif
@@ -120,21 +120,21 @@
             .btn-outline-success:active,
             .btn-outline-success.active,
             .btn-outline-success.dropdown-toggle.show {
-                color: #ffffff;
-                background: linear-gradient(141.55deg, rgba(81, 69, 157, 0) 3.46%, rgba(255, 58, 110, 0.6) 99.86%), #51459d !important;
-                border-color: #51459d !important;
+                color:
+                background: linear-gradient(141.55deg, rgba(81, 69, 157, 0) 3.46%, rgba(255, 58, 110, 0.6) 99.86%),
+                border-color:
 
             }
 
             .btn-outline-success:hover {
-                color: #ffffff;
-                background: linear-gradient(141.55deg, rgba(81, 69, 157, 0) 3.46%, rgba(255, 58, 110, 0.6) 99.86%), #51459d !important;
-                border-color: #51459d !important;
+                color:
+                background: linear-gradient(141.55deg, rgba(81, 69, 157, 0) 3.46%, rgba(255, 58, 110, 0.6) 99.86%),
+                border-color:
             }
 
             .btn.btn-outline-success {
-                color: #51459d;
-                border-color: #51459d !important;
+                color:
+                border-color:
             }
         </style>
     @endif
@@ -292,7 +292,6 @@
         }
     </script>
 
-
     <script>
         $(document).on("click", '.send_email', function(e) {
 
@@ -321,7 +320,6 @@
                 });
             }
         });
-
 
         $(document).on('submit', '#test_email', function(e) {
             e.preventDefault();
@@ -359,11 +357,9 @@
     <li class="breadcrumb-item">{{ __('Settings') }}</li>
 @endsection
 
-
-
 @section('content')
     <div class="row">
-        <!-- [ sample-page ] start -->
+        
         <div class="col-sm-12">
             <div class="row">
                 <div class="col-xl-3">
@@ -410,7 +406,7 @@
                 </div>
 
                 <div class="col-xl-9">
-                    <!--Site Setting-->
+                    
                     <div id="useradd-1" class="card">
 
                         <div class="card-header">
@@ -419,23 +415,23 @@
                         {{ Form::model($settings, ['url' => 'settings', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'class' => 'mb-0']) }}
 
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-lg-4 col-sm-6 col-md-6 dashboard-card">
-                                    <div class="card">
+                            <div class="row" style="margin: -15px;">
+                                <div class="col-lg-4 col-md-4 col-sm-12" style="padding: 15px; height: 100%;">
+                                    <div class="card h-100">
                                         <div class="card-header">
                                             <h5>{{ __('Logo dark') }}</h5>
                                         </div>
-                                        <div class="card-body pt-0">
-                                            <div class=" setting-card">
+                                        <div class="card-body pt-0 d-flex flex-column">
+                                            <div class="setting-card flex-grow-1">
                                                 <div class="logo-content mt-4">
                                                     <a href="{{ $logo . (isset($logo_dark) && !empty($logo_dark) ? $logo_dark : 'logo-dark.png') . '?' . time() }}"
                                                         target="_blank">
                                                         <img id="blah" alt="your image"
                                                             src="{{ $logo . (isset($logo_dark) && !empty($logo_dark) ? $logo_dark : 'logo-dark.png') . '?' . time() }}"
-                                                            width="150px" class="big-logo">
+                                                            style="width: 150px; max-width: 100%; height: auto;" class="big-logo">
                                                     </a>
                                                 </div>
-                                                <div class="choose-files mt-5">
+                                                <div class="choose-files mt-auto pt-4">
                                                     <label for="full_logo">
                                                         <div class=" bg-primary company_logo_update"> <i
                                                                 class="ti ti-upload px-1"></i>{{ __('Choose file here') }}
@@ -443,7 +439,6 @@
                                                         <input type="file" name="logo_dark" id="full_logo"
                                                             class="form-control file" data-filename="full_logo"
                                                             onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])">
-
 
                                                     </label>
                                                 </div>
@@ -458,22 +453,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-sm-6 col-md-6 dashboard-card">
-                                    <div class="card">
+                                <div class="col-lg-4 col-md-4 col-sm-12" style="padding: 15px; height: 100%;">
+                                    <div class="card h-100">
                                         <div class="card-header">
                                             <h5>{{ __('Logo Light') }}</h5>
                                         </div>
-                                        <div class="card-body pt-0">
-                                            <div class=" setting-card">
+                                        <div class="card-body pt-0 d-flex flex-column">
+                                            <div class="setting-card flex-grow-1">
                                                 <div class="logo-content mt-4">
                                                     <a href="{{ $logo . (isset($logo_light) && !empty($logo_light) ? $logo_light : 'logo-light.png') . '?' . time() }}"
                                                         target="_blank">
                                                         <img id="blah1" alt="your image"
                                                             src="{{ $logo . (isset($logo_light) && !empty($logo_light) ? $logo_light : 'logo-light.png') . '?' . time() }}"
-                                                            width="150px" class="big-logo img_setting">
+                                                            style="width: 150px; max-width: 100%; height: auto;" class="big-logo img_setting">
                                                     </a>
                                                 </div>
-                                                <div class="choose-files mt-5">
+                                                <div class="choose-files mt-auto pt-4">
                                                     <label for="logo_light">
                                                         <div class=" bg-primary dark_logo_update"> <i
                                                                 class="ti ti-upload px-1"></i>{{ __('Choose file here') }}
@@ -481,7 +476,6 @@
                                                         <input type="file" name="logo_light" id="logo_light"
                                                             class="form-control file" data-filename="dark_logo_update"
                                                             onchange="document.getElementById('blah1').src = window.URL.createObjectURL(this.files[0])">
-
 
                                                     </label>
                                                 </div>
@@ -496,22 +490,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-sm-6 col-md-6 dashboard-card">
-                                    <div class="card">
+                                <div class="col-lg-4 col-md-4 col-sm-12" style="padding: 15px; height: 100%;">
+                                    <div class="card h-100">
                                         <div class="card-header">
                                             <h5>{{ __('Favicon') }}</h5>
                                         </div>
-                                        <div class="card-body pt-0">
-                                            <div class=" setting-card">
+                                        <div class="card-body pt-0 d-flex flex-column">
+                                            <div class="setting-card flex-grow-1">
                                                 <div class="logo-content mt-4">
                                                     <a href="{{ $logo . (isset($company_favicon) && !empty($company_favicon) ? $company_favicon : 'favicon.png') . '?' . time() }}"
                                                         target="_blank">
                                                         <img id="blah2" alt="your image"
                                                             src="{{ $logo . (isset($company_favicon) && !empty($company_favicon) ? $company_ficon : 'favicon.png') . '?' . time() }}"
-                                                            width="60px" height="63px" class=" img_setting">
+                                                            style="width: 60px; height: 63px; max-width: 100%;" class="img_setting">
                                                     </a>
                                                 </div>
-                                                <div class="choose-files mt-5">
+                                                <div class="choose-files mt-auto pt-4">
                                                     <label for="favicon">
                                                         <div class="bg-primary company_favicon_update"> <i
                                                                 class="ti ti-upload px-1"></i>{{ __('Choose file here') }}
@@ -534,8 +528,8 @@
                                     </div>
                                 </div>
 
-                                <div class="row mt-4">
-                                    <div class="col-md-4">
+                                <div class="row mt-4" style="margin: -15px;">
+                                    <div class="col-md-4" style="padding: 15px;">
                                         <div class="form-group">
                                             {{ Form::label('title_text', __('Title Text'), ['class' => 'form-label']) }}
                                             {{ Form::text('title_text', null, ['class' => 'form-control', 'placeholder' => __('Enter Title Text')]) }}
@@ -546,7 +540,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-4" style="padding: 15px;">
                                         <div class="form-group">
                                             {{ Form::label('footer_text', __('Footer Text'), ['class' => 'form-label']) }}
                                             {{ Form::text('footer_text', Utility::getValByName('footer_text'), ['class' => 'form-control', 'placeholder' => __('Enter Footer Text')]) }}
@@ -557,7 +551,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-4" style="padding: 15px;">
                                         <div class="form-group">
                                             {{ Form::label('default_language', __('Default Language'), ['class' => 'form-label text-dark']) }}
                                             <div class="changeLanguage">
@@ -749,7 +743,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                         <div class="card-footer text-end">
@@ -759,7 +753,6 @@
                         {{ Form::close() }}
                     </div>
 
-                    <!--Email Setting-->
                     <div id="useradd-2" class="card">
                         <div class="card-header">
                             <h5>{{ __('Email Settings') }}</h5>
@@ -880,7 +873,6 @@
                         {{ Form::close() }}
                     </div>
 
-                    <!--Payment Setting-->
                     <div class="card" id="useradd-3">
                         <div class="card-header">
                             <h5>{{ __('Payment Settings') }}</h5>
@@ -892,7 +884,7 @@
                         @csrf
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-lg-4 col-md-4 col-sm-12" style="padding: 15px;">
                                     <div class="form-group">
                                         {{ Form::label('currency', __('Currency *'), ['class' => 'form-label']) }}
                                         {{ Form::select('currency', $currencies ,$admin['currency'] ?? 'USD', ['class' => 'form-control font-style', 'required', 'placeholder' => __('Enter Currency')]) }}
@@ -908,7 +900,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-lg-4 col-md-4 col-sm-12" style="padding: 15px;">
                                     <div class="form-group">
                                         {{ Form::label('currency_symbol', __('Currency Symbol *'), ['class' => 'form-label']) }}
                                         {{-- {{ Form::text('currency_symbol', $admin['currency_symbol'] ?? '', ['class' => 'form-control', 'required', 'placeholder' => __('Enter Currency Symbol')]) }} --}}
@@ -928,7 +920,7 @@
                                                 <div class="accordion accordion-flush setting-accordion"
                                                     id="accordionExample">
 
-                                                    {{-- //Manually --}}
+                                                    {{--
                                                     <div class="accordion-item">
                                                         <h2 class="accordion-header" id="headingOne">
                                                             <button class="accordion-button collapsed" type="button"
@@ -966,7 +958,6 @@
                                                         </div>
                                                     </div>
 
-                                                    <!-- Bank Transfer -->
                                                     <div class="accordion-item">
                                                         <h2 class="accordion-header" id="headingOne">
                                                             <button class="accordion-button collapsed" type="button"
@@ -1007,7 +998,6 @@
                                                         </div>
                                                     </div>
 
-                                                    <!-- Stripe -->
                                                     <div class="accordion-item">
                                                         <h2 class="accordion-header" id="headingOne">
                                                             <button class="accordion-button collapsed" type="button"
@@ -1035,7 +1025,7 @@
                                                             data-bs-parent="#accordionExample">
                                                             <div class="accordion-body">
                                                                 <div class="row gy-4">
-                                                                    <div class="col-lg-6">
+                                                                    <div class="col-lg-4 col-md-4 col-sm-12" style="padding: 15px;">
                                                                         <div class="input-edits">
                                                                             <div class="form-group">
                                                                                 <label for="stripe_key"
@@ -1048,7 +1038,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-lg-6">
+                                                                    <div class="col-lg-4 col-md-4 col-sm-12" style="padding: 15px;">
                                                                         <div class="input-edits">
                                                                             <div class="form-group">
                                                                                 <label for="stripe_secret"
@@ -1066,7 +1056,6 @@
                                                         </div>
                                                     </div>
 
-                                                    <!-- Paypal -->
                                                     <div class="accordion-item">
                                                         <h2 class="accordion-header" id="headingTwo">
                                                             <button class="accordion-button collapsed" type="button"
@@ -1133,7 +1122,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-md-6">
+                                                                    <div class="col-lg-4 col-md-4 col-sm-12" style="padding: 15px;">
                                                                         <div class="form-group">
                                                                             <label for="paypal_client_id"
                                                                                 class="col-form-label">{{ __('Client ID') }}</label>
@@ -1143,7 +1132,7 @@
                                                                                 placeholder="{{ __('Client ID') }}">
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-md-6">
+                                                                    <div class="col-lg-4 col-md-4 col-sm-12" style="padding: 15px;">
                                                                         <div class="form-group">
                                                                             <label for="paypal_secret_key"
                                                                                 class="col-form-label">{{ __('Secret Key') }}</label>
@@ -1159,7 +1148,6 @@
                                                         </div>
                                                     </div>
 
-                                                    <!-- Paystack -->
                                                     <div class="accordion-item">
                                                         <h2 class="accordion-header" id="headingThree">
                                                             <button class="accordion-button collapsed" type="button"
@@ -1185,7 +1173,7 @@
                                                             data-bs-parent="#accordionExample">
                                                             <div class="accordion-body">
                                                                 <div class="row gy-4">
-                                                                    <div class="col-md-6">
+                                                                    <div class="col-lg-4 col-md-4 col-sm-12" style="padding: 15px;">
                                                                         <div class="form-group">
                                                                             <label for="paypal_client_id"
                                                                                 class="col-form-label">{{ __('Public Key') }}</label>
@@ -1197,7 +1185,7 @@
                                                                                 placeholder="{{ __('Public Key') }}">
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-md-6">
+                                                                    <div class="col-lg-4 col-md-4 col-sm-12" style="padding: 15px;">
                                                                         <div class="form-group">
                                                                             <label for="paystack_secret_key"
                                                                                 class="col-form-label">{{ __('Secret Key') }}</label>
@@ -1217,7 +1205,6 @@
                                                         </div>
                                                     </div>
 
-                                                    <!-- Flutterwave -->
                                                     <div class="accordion-item">
                                                         <h2 class="accordion-header" id="headingFour">
                                                             <button class="accordion-button collapsed" type="button"
@@ -1274,7 +1261,6 @@
                                                         </div>
                                                     </div>
 
-                                                    <!-- Razorpay -->
                                                     <div class="accordion-item">
                                                         <h2 class="accordion-header" id="headingFive">
                                                             <button class="accordion-button collapsed" type="button"
@@ -1332,7 +1318,6 @@
                                                         </div>
                                                     </div>
 
-                                                    <!-- Paytm -->
                                                     <div class="accordion-item">
                                                         <h2 class="accordion-header" id="headingSix">
                                                             <button class="accordion-button collapsed" type="button"
@@ -1437,7 +1422,6 @@
                                                         </div>
                                                     </div>
 
-                                                    <!-- Mercado Pago -->
                                                     <div class="accordion-item">
                                                         <h2 class="accordion-header" id="headingseven">
                                                             <button class="accordion-button collapsed" type="button"
@@ -1519,7 +1503,6 @@
                                                         </div>
                                                     </div>
 
-                                                    <!-- Mollie -->
                                                     <div class="accordion-item">
                                                         <h2 class="accordion-header" id="headingeight">
                                                             <button class="accordion-button collapsed" type="button"
@@ -1584,7 +1567,6 @@
                                                         </div>
                                                     </div>
 
-                                                    <!-- Skrill -->
                                                     <div class="accordion-item">
                                                         <h2 class="accordion-header" id="headingnine">
                                                             <button class="accordion-button collapsed" type="button"
@@ -1626,7 +1608,6 @@
                                                         </div>
                                                     </div>
 
-                                                    <!-- CoinGate -->
                                                     <div class="accordion-item">
                                                         <h2 class="accordion-header" id="headingten">
                                                             <button class="accordion-button collapsed" type="button"
@@ -1711,7 +1692,6 @@
                                                         </div>
                                                     </div>
 
-                                                    <!-- PaymentWall -->
                                                     <div class="accordion-item">
                                                         <h2 class="accordion-header" id="headingeleven">
                                                             <button class="accordion-button collapsed" type="button"
@@ -1770,7 +1750,6 @@
                                                         </div>
                                                     </div>
 
-                                                    <!-- Toyyibpay -->
                                                     <div class="accordion-item">
                                                         <h2 class="accordion-header" id="headingtwelve">
                                                             <button class="accordion-button collapsed" type="button"
@@ -1827,7 +1806,6 @@
                                                         </div>
                                                     </div>
 
-                                                    <!-- Payfast -->
                                                     <div class="accordion accordion-flush setting-accordion"
                                                         id="accordionExample">
                                                         <div class="accordion-item">
@@ -1939,7 +1917,6 @@
                                                         </div>
                                                     </div>
 
-                                                    <!-- Iyzipay -->
                                                     <div class="accordion-item">
                                                         <h2 class="accordion-header" id="headingFourteen">
                                                             <button class="accordion-button collapsed" type="button"
@@ -2037,7 +2014,6 @@
                                                         </div>
                                                     </div>
 
-                                                    <!-- SSPAY -->
                                                     <div class="accordion accordion-flush setting-accordion"
                                                         id="accordionExample">
                                                         <div class="accordion-item">
@@ -2101,7 +2077,6 @@
                                                         </div>
                                                     </div>
 
-                                                    <!-- Paytab -->
                                                     <div class="accordion accordion-flush setting-accordion"
                                                         id="accordionExample">
                                                         <div class="accordion-item">
@@ -2193,7 +2168,6 @@
                                                         </div>
                                                     </div>
 
-                                                    <!-- Benefit -->
                                                     <div class="accordion accordion-flush setting-accordion"
                                                         id="accordionExample">
                                                         <div class="accordion-item">
@@ -2261,7 +2235,6 @@
                                                         </div>
                                                     </div>
 
-                                                    <!-- Cashfree -->
                                                     <div class="accordion accordion-flush setting-accordion"
                                                         id="accordionExample">
                                                         <div class="accordion-item">
@@ -2329,7 +2302,6 @@
                                                         </div>
                                                     </div>
 
-                                                    <!-- aamarpay -->
                                                     <div class="accordion accordion-flush setting-accordion"
                                                         id="accordionExample">
                                                         <div class="accordion-item">
@@ -2404,7 +2376,6 @@
                                                         </div>
                                                     </div>
 
-                                                    <!-- PayTR -->
                                                     <div class="accordion accordion-flush setting-accordion"
                                                         id="accordionExample">
                                                         <div class="accordion-item">
@@ -2478,7 +2449,6 @@
                                                         </div>
                                                     </div>
 
-                                                    <!-- YooKassa -->
                                                     <div class="accordion accordion-flush setting-accordion"
                                                         id="accordionExample">
                                                         <div class="accordion-item">
@@ -2541,7 +2511,6 @@
                                                         </div>
                                                     </div>
 
-                                                    <!-- Xendit -->
                                                     <div class="accordion accordion-flush setting-accordion"
                                                         id="accordionExample">
                                                         <div class="accordion-item">
@@ -2604,7 +2573,6 @@
                                                         </div>
                                                     </div>
 
-                                                    <!-- Midtrans -->
                                                     <div class="accordion accordion-flush setting-accordion"
                                                         id="accordionExample">
                                                         <div class="accordion-item">
@@ -3131,7 +3099,6 @@
                                                         </div>
                                                     </div>
 
-
                                                     {{-- Tap --}}
                                                     <div class="accordion-item card shadow-none">
                                                         <h2 class="accordion-header" id="heading-2-30">
@@ -3470,7 +3437,7 @@
                                     </div>
                                 </div>
                             </div>
-                           
+
                         </div>
                         <div class="card-footer text-end">
                                 <input class="btn btn-print-invoice  btn-primary m-r-10" type="submit"
@@ -3479,7 +3446,6 @@
                         </form>
                     </div>
 
-                    <!--ReCaptcha Setting-->
                     <div id="useradd-4" class="card mb-3">
                         {{ Form::model($settings, ['route' => 'recaptcha.settings.store', 'method' => 'post', 'accept-charset' => 'UTF-8', 'class' => 'mb-0']) }}
                         @csrf
@@ -3536,7 +3502,6 @@
                         {{ Form::close() }}
                     </div>
 
-                    <!--storage Setting-->
                     <div id="useradd-5" class="card mb-3">
                         {{ Form::open(['route' => 'storage.setting.store', 'enctype' => 'multipart/form-data','class' => 'mb-0']) }}
                         <div class="card-header">
@@ -3855,7 +3820,6 @@
                         {{ Form::close() }}
                     </div>
 
-
                     {{-- Cookie Consent --}}
                     <div class="card" id="useradd-7">
                         {{ Form::model($settings, ['route' => 'cookie.setting', 'method' => 'post','class' => 'mb-0']) }}
@@ -3957,7 +3921,6 @@
                         {{ Form::close() }}
                     </div>
 
-                    <!--cache Setting-->
                     <div id="useradd-8" class="card">
                         <div class="card-header">
                             <h5>{{ __('Cache Settings') }}</h5>
@@ -3982,7 +3945,6 @@
                         </div>
                     </div>
 
-                    <!-- chatgpt key  -->
                     <div id="useradd-9" class="card">
                         <div class="card-header">
                             {{ Form::model($settings, ['route' => 'settings.chatgptkey', 'method' => 'post','class' => 'mb-0']) }}
@@ -4010,7 +3972,6 @@
                         {{ Form::close() }}
                     </div>
 
-                    <!-- [ sample-page ] end -->
                 </div>
             </div>
 @endsection
@@ -4032,12 +3993,6 @@
             }, 300);
         });
 
-        // function check_theme(color_val) {
-
-        //     $('.theme-color').prop('checked', false);
-        //     $('input[value="' + color_val + '"]').prop('checked', true);
-        //     $('#color_value').val(color_val);
-        // }
     </script>
 
     <script>
@@ -4085,27 +4040,22 @@
             });
         };
     </script>
-    
+
 <script>
-    // Currency selection functionality
     $(document).ready(function() {
-        // Currency data mapping
         const currencyData = @json($currencies);
         const currencySymbols = @json(\App\Models\Currency::all()->pluck('symbol', 'code')->toArray());
-        
-        // Function to update currency symbol
+
         function updateCurrencySymbol() {
             const selectedCurrency = $('#currency').val();
             const symbol = currencySymbols[selectedCurrency] || '$';
             $('#currency-symbol').val(symbol);
         }
-        
-        // Update symbol when currency is changed
+
         $('#currency').on('change', function() {
             updateCurrencySymbol();
         });
-        
-        // Initialize symbol on page load
+
         updateCurrencySymbol();
     });
 </script>

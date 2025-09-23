@@ -12,19 +12,16 @@ class TwoFactorLoginController extends Controller
     {
         $user = $request->user();
 
-        // If not logged in or 2FA not enabled, go home
         if (!$user || $user->two_factor_secret === null) {
             return redirect()->intended(\App\Providers\RouteServiceProvider::HOME);
         }
 
-        // Respect "remember device" cookie
         $cookieName = "2fa_remember_{$user->id}";
         if ($request->cookie($cookieName) === '1') {
             $request->session()->put('2fa_passed', true);
             return redirect()->intended(\App\Providers\RouteServiceProvider::HOME);
         }
 
-        // If already passed in this session, go home
         if ($request->session()->get('2fa_passed') === true) {
             return redirect()->intended(\App\Providers\RouteServiceProvider::HOME);
         }
@@ -45,7 +42,6 @@ class TwoFactorLoginController extends Controller
             return redirect()->intended(\App\Providers\RouteServiceProvider::HOME);
         }
 
-        // Try TOTP
         $ok = false;
         if ($request->filled('code')) {
             $ok = $this->verifyTotp(
@@ -54,7 +50,6 @@ class TwoFactorLoginController extends Controller
             );
         }
 
-        // Fallback to recovery codes
         if (!$ok && $request->filled('recovery_code') && $user->two_factor_recovery_codes) {
             try {
                 $codes = json_decode(Crypt::decryptString($user->two_factor_recovery_codes), true) ?: [];
@@ -63,7 +58,6 @@ class TwoFactorLoginController extends Controller
             }
             $needle = strtoupper(trim($request->input('recovery_code')));
             if (in_array($needle, $codes, true)) {
-                // one-time use: remove it
                 $codes = array_values(array_filter($codes, fn ($c) => $c !== $needle));
                 $user->two_factor_recovery_codes = Crypt::encryptString(json_encode($codes));
                 $user->save();
@@ -77,32 +71,28 @@ class TwoFactorLoginController extends Controller
             ])->withInput();
         }
 
-        // Passed
         $request->session()->put('2fa_passed', true);
 
-        // Remember device 7 days
         if ($request->boolean('remember_device')) {
             $cookieName = "2fa_remember_{$user->id}";
-            $minutes    = 60 * 24 * 7; // 7 days
+            $minutes    = 60 * 24 * 7;
             $isSecure   = (bool) config('session.secure', false);
 
             cookie()->queue(cookie(
                 $cookieName,
                 '1',
                 $minutes,
-                '/',                        // path
-                config('session.domain'),   // domain or null
-                $isSecure,                  // secure
-                true,                       // httpOnly
-                false,                      // raw
-                'Lax'                       // sameSite
+                '/',
+                config('session.domain'),
+                $isSecure,
+                true,
+                false,
+                'Lax'
             ));
         }
 
         return redirect()->intended(\App\Providers\RouteServiceProvider::HOME);
     }
-
-    // ---- TOTP helpers (fully implemented) ----
 
     private function base32Decode(string $b32): string
     {
@@ -151,7 +141,6 @@ class TwoFactorLoginController extends Controller
         $now = time();
         $code = trim($code);
 
-        // basic format check to avoid non-numeric issues
         if ($code === '' || !ctype_digit($code) || strlen($code) !== 6) {
             return false;
         }
@@ -162,6 +151,6 @@ class TwoFactorLoginController extends Controller
                 return true;
             }
         }
-        return false; // <-- ensure a boolean is always returned
+        return false;
     }
 }

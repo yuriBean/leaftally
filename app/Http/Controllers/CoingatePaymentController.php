@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-// use App\Coingate\Coingate as CoingateCoingate;
 use App\Models\Coupon;
 use App\Models\Customer;
 use App\Models\Invoice;
@@ -22,7 +21,6 @@ use Illuminate\Support\Facades\DB;
 class CoingatePaymentController extends Controller
 {
 
-
     public $mode;
     public $coingate_auth_token;
     public $is_enabled;
@@ -41,7 +39,6 @@ class CoingatePaymentController extends Controller
 
         return $this;
     }
-
 
     public function planPayWithCoingate(Request $request)
     {
@@ -105,7 +102,6 @@ class CoingatePaymentController extends Controller
                 'title' => 'Plan #' . time(),
             );
 
-
             $order = Coingate::coingatePayment($post_params, 'POST');
             if($order['status_code'] === 200) { 
                 $response = $order['response']; 
@@ -118,7 +114,6 @@ class CoingatePaymentController extends Controller
             return redirect()->back()->with('error', 'Plan is deleted.');
         }
     }
-
 
     public function getPaymentStatus(Request $request, $plan)
     {
@@ -184,7 +179,6 @@ class CoingatePaymentController extends Controller
         $retainerID = \Illuminate\Support\Facades\Crypt::decrypt($request->retainer_id);
         $retainer   = Retainer::find($retainerID);
         $setting = Utility::settingsById($retainer->created_by);
-
 
         if ($retainer) {
             if (Auth::check()) {
@@ -300,7 +294,6 @@ class CoingatePaymentController extends Controller
 
             Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-            //Twilio Notification
             $setting  = Utility::settingsById($objUser->creatorId());
             $customer = Customer::find($retainer->customer_id);
             if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -316,7 +309,6 @@ class CoingatePaymentController extends Controller
                 Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $retainer->created_by);
             }
 
-            // webhook
             $module = 'New Payment';
 
             $webhook =  Utility::webhookSetting($module, $retainer->created_by);
@@ -325,17 +317,9 @@ class CoingatePaymentController extends Controller
 
                 $parameter = json_encode($retainer);
 
-                // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-
                 $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
 
-                // if ($status == true) {
-                //     return redirect()->route('payment.index')->with('success', __('Payment successfully created.') . ((isset($smtp_error)) ? '<br> <span class="text-danger">' . $smtp_error . '</span>' : ''));
-                // } else {
-                //     return redirect()->back()->with('error', __('Webhook call failed.'));
-                // }
             }
-
 
             if (Auth::check()) {
                 return redirect()->route('retainer.show', \Crypt::encrypt($retainer->id))->with('success', __('Payment successfully added.'));
@@ -359,7 +343,6 @@ class CoingatePaymentController extends Controller
         $setting = Utility::settingsById($invoice->created_by);
 
         if ($invoice) {
-            // dd($invoice);
             if (Auth::check()) {
                 $payment   = $this->paymentConfig();
                 $settings  = DB::table('settings')->where('created_by', '=', \Auth::user()->creatorId())->get()->pluck('value', 'name');
@@ -404,7 +387,6 @@ class CoingatePaymentController extends Controller
                     'title' => __('Invoice') . ' ' . Utility::invoiceNumberFormat($settings, $invoice->invoice_id),
                 );    
 
-                // $order = \CoinGate\Merchant\Order::create($post_params);
                 $order = Coingate::coingatePayment($post_params, 'POST');
 
                 if($order['status_code'] === 200) { 
@@ -475,7 +457,6 @@ class CoingatePaymentController extends Controller
 
             Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
             
-            // Twilio Notification
             $setting  = Utility::settingsById($objUser->creatorId());
 
             $customer = Customer::find($invoice->customer_id);
@@ -492,8 +473,6 @@ class CoingatePaymentController extends Controller
                 Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $invoice->created_by);
             }
 
-
-            // webhook
             $module = 'New Payment';
 
             $webhook =  Utility::webhookSetting($module, $invoice->created_by);
@@ -502,17 +481,9 @@ class CoingatePaymentController extends Controller
 
                 $parameter = json_encode($invoice);
 
-                // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-
                 $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
 
-                // if ($status == true) {
-                //     return redirect()->route('payment.index')->with('success', __('Payment successfully created.') . ((isset($smtp_error)) ? '<br> <span class="text-danger">' . $smtp_error . '</span>' : ''));
-                // } else {
-                //     return redirect()->back()->with('error', __('Webhook call failed.'));
-                // }
             }
-
 
             if (Auth::check()) {
                 return redirect()->route('invoice.show', \Crypt::encrypt($invoice->id))->with('success', __('Payment successfully added.'));

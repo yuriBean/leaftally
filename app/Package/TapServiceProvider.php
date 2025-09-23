@@ -6,11 +6,6 @@ use Illuminate\Support\ServiceProvider;
 class TapServiceProvider extends ServiceProvider
 {
 
-  /**
-     * Bootstrap the application events.
-     *
-     * @return void
-     */
     public function boot()
     {
         $this->publishes([
@@ -19,11 +14,6 @@ class TapServiceProvider extends ServiceProvider
 
     }
 
-    /**
-     * Register the service provider.
-     *
-     * @return void
-     */
     public function register()
     {
         $packageConfigFile = __DIR__.'/../config/tap_payment.php';
@@ -32,13 +22,8 @@ class TapServiceProvider extends ServiceProvider
             $packageConfigFile, 'tap_payment'
         );
 
-        //$this->registerBindings();
     }
 
-
-    /**
-     * Registers app bindings and aliases.
-     */
     protected function registerBindings()
     {
         $this->app->singleton(Payment::class, function () {

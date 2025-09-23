@@ -60,7 +60,6 @@
                 });
                 departmentDropdown.val('');
 
-                // Trigger change event on department dropdown to update designations
                 departmentDropdown.change();
             }
         });

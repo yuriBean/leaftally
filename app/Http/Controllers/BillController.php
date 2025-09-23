@@ -37,7 +37,6 @@ class BillController extends Controller
     {
         if (\Auth::user()->can('manage bill')) {
 
-            // Filter dropdown: show only active (non-deleted) vendors
             $vender = TrashedSelect::activeOptions(Vender::class, \Auth::user()->creatorId())->prepend('Select Vendor', '');
 
             $status = Bill::$statues;
@@ -70,7 +69,6 @@ class BillController extends Controller
         if (\Auth::user()->can('create bill')) {
             $customFields = CustomField::where('created_by', '=', \Auth::user()->creatorId())->where('module', '=', 'bill')->get();
 
-            // Create forms: only active options
             $category = TrashedSelect::activeOptions(
                 ProductServiceCategory::class,
                 \Auth::user()->creatorId(),
@@ -160,11 +158,9 @@ class BillController extends Controller
                     $billTotal = $billAccount->price;
                 }
 
-                // Increase stock only if the product currently exists (ignore if deleted)
                 if (ProductService::where('id', $billProduct->product_id)->exists()) {
                     Utility::total_quantity('plus', $billProduct->quantity, $billProduct->product_id);
 
-                    // Product Stock Report
                     if (!empty($products[$i]['item'])) {
                         $type        = 'bill';
                         $type_id     = $bill->id;
@@ -188,7 +184,6 @@ class BillController extends Controller
                 $billAccount->save();
             }
 
-            //Twilio Notification
             $setting  = Utility::settings(\Auth::user()->creatorId());
             $billId   = Crypt::encrypt($bill->id);
             $bill->url = route('bill.pdf', $billId);
@@ -202,7 +197,6 @@ class BillController extends Controller
                 Utility::send_twilio_msg($vendor->contact, 'new_bill', $uArr);
             }
 
-            // webhook
             $module  = 'New Bill';
             $webhook = Utility::webhookSetting($module);
             if ($webhook) {
@@ -286,7 +280,6 @@ class BillController extends Controller
             $id   = Crypt::decrypt($ids);
             $bill = Bill::find($id);
 
-            // Include active + used-trashed for edit dropdowns
             $category = TrashedSelect::optionsWithUsed(
                 ProductServiceCategory::class,
                 \Auth::user()->creatorId(),
@@ -303,7 +296,6 @@ class BillController extends Controller
                 [$bill->vender_id]
             );
 
-            // Products: include used soft-deleted
             $usedIds = BillProduct::where('bill_id', $bill->id)
                 ->pluck('product_id')
                 ->filter()
@@ -333,7 +325,6 @@ class BillController extends Controller
             $subAccounts->where('chart_of_accounts.created_by', \Auth::user()->creatorId());
             $subAccounts = $subAccounts->get()->toArray();
 
-            //for item and account show in repeater
             $item      = $bill->items;
             $accounts  = $bill->accounts;
             $items     = [];
@@ -395,11 +386,9 @@ class BillController extends Controller
                     $billProduct = BillProduct::find($products[$i]['id']);
 
                     if ($billProduct == null) {
-                        // New line
                         $billProduct          = new BillProduct();
                         $billProduct->bill_id = $bill->id;
 
-                        // Determine key ('item' or legacy 'items') and guard product existence
                         $idKey = isset($products[$i]['item']) ? 'item' : (isset($products[$i]['items']) ? 'items' : null);
                         if ($idKey && ProductService::where('id', $products[$i][$idKey])->exists()) {
                             Utility::total_quantity('plus', $products[$i]['quantity'], $products[$i][$idKey]);
@@ -408,13 +397,11 @@ class BillController extends Controller
                         $updatePrice = ($products[$i]['price'] * $products[$i]['quantity']) + ($products[$i]['itemTaxPrice']) - ($products[$i]['discount']);
                         Utility::updateUserBalance('vendor', $request->vender_id, $updatePrice, 'debit');
                     } else {
-                        // Revert previous qty from old product if it exists
                         if (ProductService::where('id', $billProduct->product_id)->exists()) {
                             Utility::total_quantity('minus', $billProduct->quantity, $billProduct->product_id);
                         }
                     }
 
-                    // Only set product if provided AND product still exists
                     if (isset($products[$i]['item']) && ProductService::where('id', $products[$i]['item'])->exists()) {
                         $billProduct->product_id = $products[$i]['item'];
                     }
@@ -448,7 +435,6 @@ class BillController extends Controller
                         }
                     }
 
-                    // Product Stock Report
                     $type    = 'bill';
                     $type_id = $bill->id;
                     StockReport::where('type', '=', 'bill')->where('type_id', '=', $bill->id)->delete();
@@ -505,7 +491,6 @@ class BillController extends Controller
                     }
                 }
 
-                // (Kept as-is to avoid changing behavior)
                 foreach ($bill_products as $bill_product) {
                     $product = ProductService::find($bill_product->product_id);
                     if ($product && !is_null($product->expense_chartaccount_id)) {
@@ -607,7 +592,6 @@ class BillController extends Controller
 
     public function product(Request $request)
     {
-        // Safe fetch that includes soft-deleted products
         $product = TrashedSelect::findWithTrashed(ProductService::class, $request->product_id);
 
         $data['product']      = $product;
@@ -618,7 +602,6 @@ class BillController extends Controller
         $quantity             = 1;
         $taxPrice             = ($taxRate / 100) * ($salePrice * $quantity);
         $data['totalAmount']  = ($salePrice * $quantity);
-        // Optional hints for UI
         $data['deleted_hint'] = $product ? 0 : 1;
         $data['display_name'] = $product ? $product->name : __('Deleted product (ID: :id)', ['id' => (string)$request->product_id]);
 
@@ -633,7 +616,6 @@ class BillController extends Controller
 
             Utility::updateUserBalance('vendor', $bill->vender_id, $request->amount, 'credit');
 
-            // Use stored product_id directly (works even if product was deleted)
             TransactionLines::where('reference_sub_id', $billProduct->product_id)->where('reference', 'Bill')->delete();
 
             BillProduct::where('id', '=', $request->id)->delete();
@@ -961,7 +943,6 @@ class BillController extends Controller
 
     public function vender(Request $request)
     {
-        // Safe fetch that includes soft-deleted vendors
         $vender = TrashedSelect::findWithTrashed(Vender::class, $request->id);
         return view('bill.vender_detail', compact('vender'));
     }
@@ -1134,7 +1115,6 @@ class BillController extends Controller
         $color        = '#' . $color;
         $font_color   = Utility::getFontColor($color);
 
-        // Get font from request or use default
         $font        = $request->get('font', 'Inter');
         $logo        = asset(Storage::url('uploads/logo/'));
         $company_logo = Utility::getValByName('company_logo_dark');
@@ -1223,13 +1203,11 @@ class BillController extends Controller
             $customFields = CustomField::where('created_by', '=', \Auth::user()->creatorId())->where('module', '=', 'bill')->get();
         }
 
-        //Set your logo
         $logo          = asset(Storage::url('uploads/logo/'));
         $company_logo  = Utility::getValByName('company_logo_dark');
         $settings_data = \App\Models\Utility::settingsById($bill->created_by);
         $bill_logo     = $settings_data['bill_logo'];
         if (isset($bill_logo) && !empty($bill_logo)) {
-            // In case of custom bill logo is configured differently, keep fallback for compatibility
             $img = isset($company_logo) && !empty($company_logo) ? asset($logo . '/' . $company_logo) . '?v=' . time() : '';
         } else {
             $img = isset($company_logo) && !empty($company_logo) ? asset($logo . '/' . $company_logo) . '?v=' . time() : '';
@@ -1467,7 +1445,6 @@ class BillController extends Controller
         $bill->totalDiscount = $totalDiscount;
         $bill->taxesData     = $taxesData;
 
-        //Set your logo
         $logo          = asset(Storage::url('uploads/logo/'));
         $company_logo  = Utility::getValByName('company_logo_dark');
         $settings_data = \App\Models\Utility::settingsById($bill->created_by);
@@ -1499,7 +1476,6 @@ class BillController extends Controller
         $date = date('Y-m-d_H-i-s');
         $filename = "bills_{$companyName}_{$date}.xlsx";
 
-        // Export all: pass null (no ID filter) to the export
         return \Maatwebsite\Excel\Facades\Excel::download(
             new \App\Exports\BillExport(null),
             $filename
@@ -1508,7 +1484,6 @@ class BillController extends Controller
 
     public function exportSelected(Request $request)
     {
-        // Accept either ids[] array or a CSV string; normalize to array<int>
         $raw = $request->input('ids');
         $ids = collect(is_array($raw) ? $raw : explode(',', (string) $raw))
             ->filter()
@@ -1535,7 +1510,6 @@ class BillController extends Controller
             return redirect()->back()->with('error', __('Permission denied.'));
         }
 
-        // Accept either ids[] array or a CSV string; normalize to Collection<int>
         $raw = $request->input('ids');
         $ids = collect(is_array($raw) ? $raw : explode(',', (string) $raw))
             ->filter()
@@ -1553,7 +1527,6 @@ class BillController extends Controller
 
         $deleted = 0;
         foreach ($bills as $bill) {
-            // Reverse payments, bank, transactions
             foreach ($bill->payments as $pay) {
                 \App\Models\Utility::bankAccountBalance($pay->account_id, $pay->amount, 'credit');
                 if ($tx = \App\Models\Transaction::where('payment_id', $pay->id)->first()) {
@@ -1562,12 +1535,10 @@ class BillController extends Controller
                 $pay->delete();
             }
 
-            // Adjust vendor balance if needed
             if ($bill->vender_id != 0 && $bill->status != 0) {
                 \App\Models\Utility::updateUserBalance('vendor', $bill->vender_id, $bill->getDue(), 'credit');
             }
 
-            // Linked records / lines
             \App\Models\TransactionLines::where('reference_id', $bill->id)->where('reference', 'Bill')->delete();
             \App\Models\TransactionLines::where('reference_id', $bill->id)->where('reference', 'Bill Account')->delete();
             \App\Models\TransactionLines::where('reference_id', $bill->id)->where('reference', 'Bill Payment')->delete();

@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateChartOfAccountTypesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create(
@@ -24,11 +19,6 @@ class CreateChartOfAccountTypesTable extends Migration
         );
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('chart_of_account_types');

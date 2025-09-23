@@ -6,7 +6,7 @@
         {{ Form::text($name, $value, [
             'class' => $class,
             'placeholder' => $placeholder,
-            'pattern' => '^\d{11}$',   // exactly 11 digits
+            'pattern' => '^\d{11}$',
             'id' => $id,
             'required' => $required
         ]) }}

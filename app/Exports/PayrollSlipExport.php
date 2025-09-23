@@ -7,9 +7,6 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 
 class PayrollSlipExport implements FromCollection
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
       protected $date;
 
     public function __construct($date = null)
@@ -29,7 +26,7 @@ class PayrollSlipExport implements FromCollection
                     'Basic Salary'   => $payroll->basic_salary,
                     'Net Salary'     => $payroll->net_salary,
                     'Payroll Month'  => $payroll->payroll_month,
-                    'Payment Month'  => $payroll->payment_date, // This should be 'payment_date' not 'payment_month'
+                    'Payment Month'  => $payroll->payment_date,
                     'Status'         => ucfirst($payroll->status),
                 ];
             });

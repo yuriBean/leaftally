@@ -10,7 +10,6 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class ProposalExport implements FromCollection, WithHeadings
 {
-    /** @var array<int,int|string>|null */
     protected ?array $ids;
 
     public function __construct(?array $ids = null)
@@ -20,7 +19,6 @@ class ProposalExport implements FromCollection, WithHeadings
 
     public function collection()
     {
-        // Base query: company/staff vs customer portal
         if (!Auth::guard('customer')->check()) {
             $q = Proposal::query()->where('created_by', Auth::user()->creatorId());
         } else {
@@ -34,7 +32,6 @@ class ProposalExport implements FromCollection, WithHeadings
 
         $rows = $q->get();
 
-        // Build friendly export data
         $out = collect();
         foreach ($rows as $p) {
             $statusText = [

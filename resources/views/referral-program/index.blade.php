@@ -7,7 +7,6 @@
     <li class="breadcrumb-item">{{ __('Referral Program') }}</li>
 @endsection
 
-
 @push('script-page')
     <link rel="stylesheet" href="{{ asset('css/summernote/summernote-bs4.css') }}">
     <script src="{{ asset('css/summernote/summernote-bs4.js') }}"></script>
@@ -73,7 +72,6 @@
                 <div class="col-xl-9">
                     {{--  Start for all settings tab --}}
 
-                    <!--Site Settings-->
                     <div id="transaction" class="card tab-content">
                         
                         <div class="card-header">
@@ -84,7 +82,7 @@
                                 <table class="table pc-dt-simple table datatable min-w-full text-sm text-left border rounded-lg overflow-x-auto dataTable-table" id="transaction">
                                     <thead class="bg-[#F6F6F6] text-[#323232] font-600 text-[12px] leading-[24px]">
                                         <tr>
-                                            <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] font-[600]">#</th>
+                                            <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] font-[600]">
                                             <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] font-[600]">{{ __('Company name') }}</th>
                                             <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] font-[600]">{{ __('Referral company name') }}</th>
                                             <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] font-[600]">{{ __('Plan name') }}</th>
@@ -121,7 +119,7 @@
                                     <table class="table pc-dt-simple table datatable min-w-full text-sm text-left border rounded-lg overflow-x-auto dataTable-table" id="payout-request">
                                         <thead class="bg-[#F6F6F6] text-[#323232] font-600 text-[12px] leading-[24px]">
                                             <tr>
-                                                <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] font-[600]">#</th>
+                                                <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] font-[600]">
                                                 <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] font-[600]">{{ __('Company name') }}</th>
                                                 <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] font-[600]">{{ __('Requested Date')}}</th>
                                                 <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] font-[600]">{{ __('Requested amount') }}</th>
@@ -197,8 +195,6 @@
                         </div>
                         {{ Form::close() }}
                     </div>
-
-
 
                 </div>
             </div>

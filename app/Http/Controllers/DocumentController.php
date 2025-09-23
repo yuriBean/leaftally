@@ -108,7 +108,6 @@ class DocumentController extends Controller
                     return redirect()->back()->with('error', $messages->first());
                 }
 
-
                 $document->name        = $request->name;
                 $document->is_required = $request->is_required;
                 $document->save();

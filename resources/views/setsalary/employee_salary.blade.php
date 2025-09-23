@@ -527,12 +527,10 @@
             $('.amount_label').html(label_text);
         });
 
-
         $(document).ready(function () {
             var d_id = $('#department_id').val();
             var designation_id = '{{ $employee->designation_id }}';
             getDesignation(d_id);
-
 
             $("#allowance-dataTable").dataTable({
                 "columnDefs": [

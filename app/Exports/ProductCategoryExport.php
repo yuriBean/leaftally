@@ -9,14 +9,8 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 
 class ProductCategoryExport implements FromCollection, WithHeadings, WithMapping
 {
-    /**
-     * @var array<int>
-     */
     protected $ids;
 
-    /**
-     * @param array<int>|null $ids  If provided, export only these IDs
-     */
     public function __construct(?array $ids = null)
     {
         $this->ids = $ids ?: [];

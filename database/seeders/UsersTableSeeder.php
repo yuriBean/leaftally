@@ -11,11 +11,6 @@ use Spatie\Permission\Models\Role;
 
 class UsersTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
 
@@ -1167,12 +1162,9 @@ class UsersTableSeeder extends Seeder
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
 
-
         ];
 
         Permission::insert($arrPermissions);
-
-        // Super admin
 
         $superAdminRole        = Role::create(
             [
@@ -1221,7 +1213,6 @@ class UsersTableSeeder extends Seeder
         );
         $superAdmin->assignRole($superAdminRole);
 
-        // customer
         $customerRole       = Role::create(
             [
                 'name' => 'customer',
@@ -1243,15 +1234,10 @@ class UsersTableSeeder extends Seeder
             'add comment',
             'add notes',
 
-
-
-
-
         ];
 
         $customerRole->givePermissionTo($customerPermission);
 
-        // vender
         $venderRole       = Role::create(
             [
                 'name' => 'vender',
@@ -1269,7 +1255,6 @@ class UsersTableSeeder extends Seeder
 
         $venderRole->givePermissionTo($venderPermission);
 
-        // company
         $companyRole        = Role::create(
             [
                 'name' => 'company',
@@ -1459,7 +1444,7 @@ class UsersTableSeeder extends Seeder
                 'type' => 'company',
                 'lang' => 'en',
                 'avatar' => '',
-                'plan' => null, // No free plan available
+                'plan' => null,
                 'created_by' => $superAdmin->id,
                 'email_verified_at' => date('Y-m-d H:i:s'),
                 'referral_code'         => Utility::generateReferralCode(),
@@ -1468,7 +1453,6 @@ class UsersTableSeeder extends Seeder
         );
         $company->assignRole($companyRole);
 
-        // accountant
         $accountantRole = Role::create(
             [
                 'name' => 'accountant',
@@ -1614,7 +1598,6 @@ class UsersTableSeeder extends Seeder
             'edit constant contract type',
             'delete constant contract type',
 
-
         ];
 
         $accountantRole->givePermissionTo($accountantPermission);
@@ -1650,9 +1633,6 @@ class UsersTableSeeder extends Seeder
         $company->userDefaultData();
         Utility::languagecreate();
 
-
-
-
         $data = [
             ['name'=>'local_storage_validation', 'value'=> 'jpg,jpeg,png,xlsx,xls,csv,pdf', 'created_by'=> 1, 'created_at'=> now(), 'updated_at'=> now()],
             ['name'=>'wasabi_storage_validation', 'value'=> 'jpg,jpeg,png,xlsx,xls,csv,pdf', 'created_by'=> 1, 'created_at'=> now(), 'updated_at'=> now()],
@@ -1665,8 +1645,6 @@ class UsersTableSeeder extends Seeder
         ];
 
         DB::table('settings')->insert($data);
-
-
 
     }
 }

@@ -35,7 +35,6 @@ class Budget extends Model
             $date .= ' - ' .$end_date.' ';
         }
 
-
         return $date;
     }
 

@@ -98,8 +98,6 @@
                     class="text-primary">{{ __('Register') }}</a></p>
         @endif
 
-
-
     </div>
     {{ Form::close() }}
 @endsection

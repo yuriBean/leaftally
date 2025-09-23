@@ -27,7 +27,6 @@ class ReferralProgramController extends Controller
 
                                'percentage' => 'required',
                                'minimum_threshold_amount' => 'required',
-                            //    'guideline' => 'required',
                            ]
         );
 

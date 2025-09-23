@@ -6,15 +6,11 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up()
 {
     Schema::table('plans', function (Blueprint $table) {
       $table->json('features')->nullable()->after('storage_limit');
 
-        // use ->json('features') if your DB supports JSON types
     });
 }
 

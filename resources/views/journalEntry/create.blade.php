@@ -17,9 +17,6 @@
     <script>
         var selector = "body";
         if ($(selector + " .repeater").length) {
-            // var $dragAndDrop = $("body .repeater tbody").sortable({
-            //     handle: '.sort-handler'
-            // });
             var $repeater = $(selector + ' .repeater').repeater({
                 initEmpty: false,
                 defaultValues: {
@@ -51,7 +48,6 @@
                         }
                         $('.totalDebit').html(totalDebit.toFixed(2));
 
-
                         var inputs = $(".credit");
                         var totalCredit = 0;
                         for (var i = 0; i < inputs.length; i++) {
@@ -59,11 +55,9 @@
                         }
                         $('.totalCredit').html(totalCredit.toFixed(2));
 
-
                     }
                 },
                 ready: function(setIndexes) {
-                    // $dragAndDrop.on('drop', setIndexes);
                 },
                 isFirstItemUndeletable: true
             });
@@ -87,7 +81,6 @@
             var credit = 0;
             el.find('.credit').val(credit);
             el.find('.amount').html(debit);
-
 
             var inputs = $(".debit");
             var totalDebit = 0;

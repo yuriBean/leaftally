@@ -10,7 +10,6 @@ final class PlanFeature
     public const AUDIT       = 'audit_trail_enabled';
     public const MANUFACTURING = 'manufacturing_enabled';
 
-    // Quotas (map to *_quota columns on plans)
     public const QUOTAS = [
         self::INVOICE       => 'invoice_quota',
         self::PAYROLL       => 'payroll_quota',

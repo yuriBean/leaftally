@@ -209,7 +209,6 @@
                         </div>
                     </div>
 
-
                     <div class="row">
                         <div class="col-lg-4 col-sm-4 form-group">
                             {{Form::label('shipping_country',__('Shipping Country'),array('class'=>'form-label'))}}<x-required></x-required>

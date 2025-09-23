@@ -2,7 +2,6 @@
 
 namespace App\Package;
 
-
 class Reference
 {
   protected $REQUIRED_CONFIG_VARS = ['company_tap_secret_key'=>true];
@@ -138,14 +137,12 @@ class Reference
     'INITIATED','ABANDONED','CANCELLED','FAILED','DECLINED','RESTRICTED','CAPTURED','VOID','TIMEDOUT','UNKNOWN'
   ];
 
-
   protected function cardValidator($data){
     foreach ($this->REQUIRED_CARD_VARS as $parm => $req_status) {
       if (key_exists($parm,$data)) {
         $this->CARD_VARS[$parm] = $data[$parm];
       }else{
         if($req_status){
-          // missing required parm
           throw new \InvalidArgumentException("InvalidArgumentException $parm field");
         }
       }
@@ -164,7 +161,6 @@ class Reference
                  $this->CHARGE_VARS[$Firstkey][$Secondkey] = $data[$Firstkey][$Secondkey];
                }else{
                  if($req_status3){
-                   // missing required parm
                    throw new \InvalidArgumentException("InvalidArgumentException $Firstkey.$Secondkey.$Thirdkey required");
                  }else{
                    if (in_array($Thirdkey,['country_code','number']) && $this->CHARGE_VARS[$Firstkey][$Secondkey][$Thirdkey] == null ) {
@@ -180,7 +176,6 @@ class Reference
                $this->CHARGE_VARS[$Firstkey][$Secondkey] = $data[$Firstkey][$Secondkey];
              }else{
                if($req_status2){
-                 // missing required parm
                  throw new \InvalidArgumentException("InvalidArgumentException $Firstkey.$Secondkey required");
                }
              }
@@ -191,14 +186,12 @@ class Reference
           $this->CHARGE_VARS[$Firstkey] = $data[$Firstkey];
         }else{
           if($req_status){
-            // missing required parm
             throw new \InvalidArgumentException("InvalidArgumentException $Firstkey field");
           }
         }
       }
     }
   }
-
 
   protected function refungValidator($data){
     foreach ($this->REQUIRED_REFUND_VARS as $Firstkey => $req_status) {
@@ -209,7 +202,6 @@ class Reference
              $this->REFUND_VARS[$Firstkey][$Secondkey] = $data[$Firstkey][$Secondkey];
            }else{
              if($req_status2){
-               // missing required parm
                throw new \InvalidArgumentException("InvalidArgumentException $Firstkey.$Secondkey required");
              }
            }
@@ -219,14 +211,12 @@ class Reference
           $this->REFUND_VARS[$Firstkey] = $data[$Firstkey];
         }else{
           if($req_status){
-            // missing required parm
             throw new \InvalidArgumentException("InvalidArgumentException $Firstkey field");
           }
         }
       }
     }
   }
-
 
   protected function chargesListValidator($options){
     if (isset($options['period'])) {
@@ -266,8 +256,6 @@ class Reference
     }
   }
 
-
-
   protected function refundsListValidator($options){
     if (isset($options['period'])) {
       if (isset($options['period']['date']['from'])) {
@@ -297,10 +285,5 @@ class Reference
       }
     }
   }
-
-
-
-
-
 
 }

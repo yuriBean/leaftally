@@ -18,11 +18,9 @@ use Illuminate\Support\Facades\DB;
 
 class RazorpayPaymentController extends Controller
 {
-    //
     public $secret_key;
     public $public_key;
     public $is_enabled;
-
 
     public function paymentConfig()
     {
@@ -39,7 +37,6 @@ class RazorpayPaymentController extends Controller
 
         return $this;
     }
-
 
     public function planPayWithRazorpay(Request $request)
     {
@@ -94,16 +91,12 @@ class RazorpayPaymentController extends Controller
         $user    = \Auth::user();
         $admin = Utility::getAdminPaymentSetting();
         if ($plan) {
-            //try {
             $orderID = time();
             $ch      = curl_init('https://api.razorpay.com/v1/payments/' . $pay_id . '');
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-            curl_setopt($ch, CURLOPT_USERPWD, $this->public_key . ':' . $this->secret_key); // Input your Razorpay Key Id and Secret Id here
+            curl_setopt($ch, CURLOPT_USERPWD, $this->public_key . ':' . $this->secret_key);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             $response = json_decode(curl_exec($ch));
-            // check that payment is authorized by razorpay or not
-
-            //if ($response->status == 'authorized') {
 
             if ($request->has('coupon_id') && $request->coupon_id != '') {
                 $coupons = Coupon::find($request->coupon_id);
@@ -113,7 +106,6 @@ class RazorpayPaymentController extends Controller
                     $userCoupon->coupon = $coupons->id;
                     $userCoupon->order  = $orderID;
                     $userCoupon->save();
-
 
                     $usedCoupun = $coupons->used_coupon();
                     if ($coupons->limit <= $usedCoupun) {
@@ -142,7 +134,6 @@ class RazorpayPaymentController extends Controller
             $order->user_id        = $user->id;
             $order->save();
 
-
             $assignPlan = $user->assignPlan($plan->id, $request->payment_frequency);
 
             if ($assignPlan['is_success']) {
@@ -150,14 +141,7 @@ class RazorpayPaymentController extends Controller
             } else {
                 return redirect()->route('plans.index')->with('error', __($assignPlan['error']));
             }
-            // } else {
-            //     return redirect()->route('plans.index')->with('error', __('Transaction has been failed! '));
-            // }
-            //} catch (\Exception $e) {
 
-
-            //    return redirect()->route('plans.index')->with('error', __('Plan not found!'));
-            //}
         }
     }
 
@@ -191,7 +175,6 @@ class RazorpayPaymentController extends Controller
 
     public function getRetainerPaymentStatus(Request $request, $retainer_id, $pay_id)
     {
-        // dd($request->all(),$pay_id, $retainer_id);
         $retainerID = \Illuminate\Support\Facades\Crypt::decrypt($retainer_id);
         $retainer   = Retainer::find($retainerID);
         if (Auth::check()) {
@@ -211,22 +194,17 @@ class RazorpayPaymentController extends Controller
         $result    = array();
 
         if ($retainer) {
-            // try {
             $orderID = time();
             $ch      = curl_init('https://api.razorpay.com/v1/payments/' . $pay_id . '');
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-            curl_setopt($ch, CURLOPT_USERPWD, $this->public_key . ':' . $this->secret_key); // Input your Razorpay Key Id and Secret Id here
+            curl_setopt($ch, CURLOPT_USERPWD, $this->public_key . ':' . $this->secret_key);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             $response = json_decode(curl_exec($ch));
-            // check that payment is authorized by razorpay or not
-
-            // if ($response->status == 'authorized') {
 
             $payments = RetainerPayment::create(
                 [
                     'retainer_id' => $retainer->id,
                     'date' => date('Y-m-d'),
-                    // 'amount' => isset($response->amount) ? $response->amount / 100 : 0,
                     'amount' => $pay_id,
                     'payment_method' => 1,
                     'order_id' => $orderID,
@@ -250,7 +228,6 @@ class RazorpayPaymentController extends Controller
 
             Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-            // Twilio Notification
             $setting  = Utility::settingsById($objUser->creatorId());
 
             $customer = Customer::find($retainer->customer_id);
@@ -267,7 +244,6 @@ class RazorpayPaymentController extends Controller
                 Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $retainer->created_by);
             }
 
-            // webhook
             $module = 'New Payment';
 
             $webhook =  Utility::webhookSetting($module, $retainer->created_by);
@@ -276,42 +252,16 @@ class RazorpayPaymentController extends Controller
 
                 $parameter = json_encode($retainer);
 
-                // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-
                 $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
 
-                // if ($status == true) {
-                //     return redirect()->route('payment.index')->with('success', __('Payment successfully created.') . ((isset($smtp_error)) ? '<br> <span class="text-danger">' . $smtp_error . '</span>' : ''));
-                // } else {
-                //     return redirect()->back()->with('error', __('Webhook call failed.'));
-                // }
             }
-
 
             if (Auth::check()) {
                 return redirect()->route('customer.retainer.show', \Crypt::encrypt($retainer->id))->with('success', __('Payment successfully added.'));
             } else {
                 return redirect()->back()->with('success', __(' Payment successfully added.'));
             }
-            // }
-            // else
-            // {
-            //     if (Auth::check()) {
-            //         return redirect()->route('customer.retainer.show', \Crypt::encrypt($retainer->id))->with('error', __('Transaction has been ' . $status));
-            //     } else {
-            //         return redirect()->back()->with('success', __('Transaction succesfull'));
-            //     }
-            // }
-            // }
-            // catch(\Exception $e)
-            // {
 
-            //     if (Auth::check()) {
-            //         return redirect()->route('customer.retainer.show', \Crypt::encrypt($retainer->id))->with('error', __('Transaction has been failed.'));
-            //     } else {
-            //         return redirect()->back()->with('success', __('Transaction has been complted.'));
-            //     }
-            // }
         }
     }
 
@@ -344,7 +294,6 @@ class RazorpayPaymentController extends Controller
 
     public function getInvoicePaymentStatus(Request $request, $invoice_id, $pay_id)
     {
-        // dd($request->all(),$pay_id, $invoice_id);
         $invoiceID = \Illuminate\Support\Facades\Crypt::decrypt($invoice_id);
         $invoice   = Invoice::find($invoiceID);
         if (Auth::check()) {
@@ -364,16 +313,12 @@ class RazorpayPaymentController extends Controller
         $result    = array();
 
         if ($invoice) {
-            // try {
             $orderID = time();
             $ch      = curl_init('https://api.razorpay.com/v1/payments/' . $pay_id . '');
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
-            curl_setopt($ch, CURLOPT_USERPWD, $this->public_key . ':' . $this->secret_key); // Input your Razorpay Key Id and Secret Id here
+            curl_setopt($ch, CURLOPT_USERPWD, $this->public_key . ':' . $this->secret_key);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             $response = json_decode(curl_exec($ch));
-            // check that payment is authorized by razorpay or not
-
-            // if ($response->status == 'authorized') {
 
             $payments = InvoicePayment::create(
                 [
@@ -402,8 +347,6 @@ class RazorpayPaymentController extends Controller
 
             Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-            //Twilio Notification
-
             $setting  = Utility::settingsById($objUser->creatorId());
             $customer = Customer::find($invoice->customer_id);
             if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -419,7 +362,6 @@ class RazorpayPaymentController extends Controller
                 Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $invoice->created_by);
             }
 
-            // webhook
             $module = 'New Payment';
 
             $webhook =  Utility::webhookSetting($module, $invoice->created_by);
@@ -428,15 +370,8 @@ class RazorpayPaymentController extends Controller
 
                 $parameter = json_encode($invoice);
 
-                // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-
                 $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
 
-                // if ($status == true) {
-                //     return redirect()->route('payment.index')->with('success', __('Payment successfully created.') . ((isset($smtp_error)) ? '<br> <span class="text-danger">' . $smtp_error . '</span>' : ''));
-                // } else {
-                //     return redirect()->back()->with('error', __('Webhook call failed.'));
-                // }
             }
 
             if (Auth::check()) {
@@ -444,25 +379,6 @@ class RazorpayPaymentController extends Controller
             } else {
                 return redirect()->back()->with('success', __(' Payment successfully added.'));
             }
-            // }
-            // else
-            // {
-            //     if (Auth::check()) {
-            //         return redirect()->route('invoice.show', \Crypt::encrypt($invoice->id))->with('error', __('Transaction has been ' . $status));
-            //     } else {
-            //         return redirect()->back()->with('success', __('Transaction succesfull'));
-            //     }
-            // }
-            // }
-            //             catch(\Exception $e)
-            //             {
-            // //dd($e);
-            //                 if (Auth::check()) {
-            //                     return redirect()->route('invoice.show', \Crypt::encrypt($invoice->id))->with('error', __('Transaction has been failed.'));
-            //                 } else {
-            //                     return redirect()->back()->with('success', __('Transaction has been complted.'));
-            //                 }
-            //             }
         }
     }
 }

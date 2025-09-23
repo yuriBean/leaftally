@@ -13,21 +13,11 @@ class BillSend extends Mailable
 
     public $bill;
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
     public function __construct($bill)
     {
         $this->bill = $bill;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
     public function build()
     {
         if(\Auth::user()->type == 'super admin')
@@ -38,7 +28,6 @@ class BillSend extends Mailable
         {
             return $this->from(Utility::getValByName('company_email'), Utility::getValByName('company_email_from_name'))->view('email.bill_send')->with('bill', $this->bill)->subject('Ragarding to product/service bill generator.');
         }
-
 
     }
 }

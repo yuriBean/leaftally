@@ -104,9 +104,6 @@ class ProductServiceUnitController extends Controller
         return redirect()->route('product-unit.index')->with('success', __('Unit successfully deleted.'));
     }
 
-    /**
-     * BULK DELETE
-     */
     public function bulkDestroy(Request $request)
     {
         if (!\Auth::user()->can('delete constant unit')) {
@@ -164,9 +161,6 @@ class ProductServiceUnitController extends Controller
         return redirect()->back()->with($deleted ? 'success' : 'error', $message);
     }
 
-    /**
-     * EXPORT ALL
-     */
     public function export()
     {
         if (!\Auth::user()->can('manage constant unit')) {
@@ -180,9 +174,6 @@ class ProductServiceUnitController extends Controller
         return Excel::download(new ProductUnitExport(), $file);
     }
 
-    /**
-     * EXPORT SELECTED
-     */
     public function exportSelected(Request $request)
     {
         if (!\Auth::user()->can('manage constant unit')) {
@@ -216,17 +207,15 @@ public function short(Request $request)
             ]
         );
 
-        // If validation fails
         if ($validator->fails()) {
             $messages = $validator->getMessageBag();
 
             return response()->json([
                 'status' => 0,
                 'message' => $messages->first(),
-            ], 400); // HTTP 400 Bad Request
+            ], 400);
         }
 
-        // Create the new unit
         $unit = new ProductServiceUnit();
         $unit->name = $request->name;
         $unit->created_by = \Auth::user()->creatorId();
@@ -244,11 +233,10 @@ public function short(Request $request)
             'options' => $options,
         ], 200);
     } else {
-        // Permission denied response
         return response()->json([
             'status' => 0,
             'message' => __('Permission denied.'),
-        ], 403); // HTTP 403 Forbidden
+        ], 403);
     }
 }
 

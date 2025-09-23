@@ -117,9 +117,6 @@ class TaxController extends Controller
         return redirect()->route('taxes.index')->with('success', __('Tax rate successfully deleted.'));
     }
 
-    /**
-     * BULK DELETE
-     */
     public function bulkDestroy(Request $request)
     {
         if (!\Auth::user()->can('delete constant tax')) {
@@ -181,9 +178,6 @@ class TaxController extends Controller
         return redirect()->back()->with($deleted ? 'success' : 'error', $message);
     }
 
-    /**
-     * EXPORT ALL
-     */
     public function export()
     {
         if (!\Auth::user()->can('manage constant tax')) {
@@ -198,9 +192,6 @@ class TaxController extends Controller
         return Excel::download(new TaxExport(), $filename);
     }
 
-    /**
-     * EXPORT SELECTED
-     */
     public function exportSelected(Request $request)
     {
         if (!\Auth::user()->can('manage constant tax')) {

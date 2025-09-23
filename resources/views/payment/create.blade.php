@@ -54,8 +54,6 @@
             </div>
         </div>
 
-
-
     </div>
     </div>
 </div>
@@ -65,7 +63,6 @@
 </div>
 
 {{ Form::close() }}
-
 
 @php
     $plan = \App\Models\Utility::getChatGPTSettings();
@@ -105,7 +102,7 @@
     <div class="row gutters-xs">
         @foreach (App\Models\Utility::templateData()['colors'] as $key => $hexNoHash)
             @php
-                $hex = '#'.$hexNoHash; // store with leading '#', same as the old color input
+                $hex = '#'.$hexNoHash;
             @endphp
             <div class="col-auto">
                 <label class="colorinput" title="{{ $hex }}">

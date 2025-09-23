@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateCouponsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create(
@@ -27,11 +22,6 @@ class CreateCouponsTable extends Migration
         );
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('coupons');

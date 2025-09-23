@@ -10,11 +10,6 @@ use Illuminate\Database\Seeder;
 
 class NotificationSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         $notifications = [
@@ -28,7 +23,6 @@ class NotificationSeeder extends Seeder
             'invoice_reminder' => 'Invoice Reminder',
 
         ];
-
 
         $defaultTemplate = [
             'new_customer' => [

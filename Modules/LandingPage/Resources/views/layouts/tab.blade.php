@@ -20,4 +20,3 @@
 
     <a href="{{ route('join_us.index') }}" class="list-group-item list-group-item-action border-0 {{ (Request::route()->getName() == 'join_us.index') ? ' active' : '' }}">{{ __('Join Us') }} <div class="float-end"><i class="ti ti-chevron-right"></i></div></a>
 
-

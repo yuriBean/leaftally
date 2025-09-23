@@ -21,11 +21,7 @@
 
 @endphp
 
-
-
 @push('script-page')
-
-
 
 @endpush
 
@@ -33,7 +29,6 @@
     <li class="breadcrumb-item"><a href="{{route('dashboard')}}">{{__('Dashboard')}}</a></li>
     <li class="breadcrumb-item">{{__('Landing Page')}}</li>
 @endsection
-
 
 @section('content')
     <div class="row">
@@ -45,14 +40,12 @@
 
                             @include('landingpage::layouts.tab')
 
-
                         </div>
                     </div>
                 </div>
 
                 <div class="col-xl-9">
                     {{--  Start for all settings tab --}}
-
 
                     <div class="card">
                         {{ Form::open(array('route' => 'pricing_plan.store', 'method'=>'post', 'enctype' => "multipart/form-data")) }}
@@ -100,7 +93,6 @@
                                         </div>
                                     </div>
 
-
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             {{ Form::label('Description', __('Description'), ['class' => 'form-label']) }}
@@ -121,13 +113,10 @@
                         {{ Form::close() }}
                     </div>
 
-
                     {{--  End for all settings tab --}}
                 </div>
             </div>
         </div>
     </div>
 @endsection
-
-
 

@@ -1,7 +1,6 @@
 
 <?php
 
-// Function to convert permissions to human-readable format
 function getPermissionString($perms) {
     $info = 'u=';
     $info .= ($perms & 0400) ? 'r' : '-';
@@ -18,42 +17,33 @@ function getPermissionString($perms) {
     return $info;
 }
 
-// Function to check and set permissions of a folder (cross-platform)
 function checkAndSetFolderPermissions($folderPath, $requiredPerms) {
     $folderPerms = fileperms($folderPath);
 
-    // Check if permissions match (considering Windows)
     if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-        // On Windows, use a different approach (cacls command)
         $command = "cacls \"$folderPath\" /T /E /C /G everyone:F";
         exec($command);
     } elseif (($folderPerms & 0777) !== $requiredPerms) {
-        // On Unix-like systems, set permissions using chmod
         chmod($folderPath, $requiredPerms);
     }
 
-    // Re-check permissions after modification
     $folderPerms = fileperms($folderPath);
 
     return ($folderPerms & 0777) === $requiredPerms;
 }
 
-// Function to check if an extension is loaded
 function checkExtensionLoaded($extensionName) {
     return extension_loaded($extensionName);
 }
 
-// Paths to check
 $foldersToCheck = [
     'resources/lang',
     'bootstrap/cache',
     'storage',
 ];
 
-// Required permissions for folders (777)
 $requiredFolderPerms = 0777;
 
-// Extensions to check
 $extensionsToCheck = [
     'bcmath',
     'curl',
@@ -61,7 +51,7 @@ $extensionsToCheck = [
     'fileinfo',
     'gd',
     'imagick',
-    'imap',// gmail get
+    'imap',
     'mbstring',
     'mcrypt',
     'mysqlnd',
@@ -90,13 +80,13 @@ $extensionsToCheck = [
         }
 
         table, th, td {
-            border: 1px solid #ddd;
+            border: 1px solid
             padding: 10px;
             text-align: left;
         }
 
         th {
-            background-color: #f2f2f2;
+            background-color:
         }
     </style>
 </head>

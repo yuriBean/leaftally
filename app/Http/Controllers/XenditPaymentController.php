@@ -170,7 +170,6 @@ class XenditPaymentController extends Controller
         $getInvoice = \App\Xendit\Invoice::retrieve($session['id']);
         $setting = Utility::settingsById($invoice->created_by);
 
-
         if (Auth::check()) {
             $settings = \DB::table('settings')->where('created_by', '=', \Auth::user()->creatorId())->get()->pluck('value', 'name');
             $objUser     = \Auth::user();
@@ -237,7 +236,6 @@ class XenditPaymentController extends Controller
 
             Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-            //Twilio Notification
             $setting  = Utility::settingsById($objUser->creatorId());
             $customer = Customer::find($invoice->customer_id);
             if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -253,7 +251,6 @@ class XenditPaymentController extends Controller
                 Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $invoice->created_by);
             }
 
-            // webhook
             $module = 'New Payment';
 
             $webhook =  Utility::webhookSetting($module, $invoice->created_by);
@@ -262,16 +259,12 @@ class XenditPaymentController extends Controller
 
                 $parameter = json_encode($invoice);
 
-                // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-
                 $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
             }
         }
         if (Auth::check()) {
-            // return redirect()->route('pay.invoice', $invoice->id)->with('success', __('Invoice paid Successfully!'));
             return redirect()->back()->with('success', __(' Payment successfully added.'));
         } else {
-            // return redirect()->route('pay.invoice', encrypt($invoice->id))->with('success', __('Invoice paid Successfully!'));
             return redirect()->back()->with('success', __(' Payment successfully added.'));
         }
     }
@@ -325,7 +318,6 @@ class XenditPaymentController extends Controller
         Xendit::setApiKey($xendit_api);
         $getretainer = \App\Xendit\Invoice::retrieve($session['id']);
         $setting = Utility::settingsById($retainer->created_by);
-
 
         if (Auth::check()) {
             $settings = \DB::table('settings')->where('created_by', '=', \Auth::user()->creatorId())->get()->pluck('value', 'name');
@@ -390,7 +382,6 @@ class XenditPaymentController extends Controller
 
             Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-            //Twilio Notification
             $setting  = Utility::settingsById($objUser->creatorId());
             $customer = Customer::find($retainer->customer_id);
             if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -406,7 +397,6 @@ class XenditPaymentController extends Controller
                 Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $retainer->created_by);
             }
 
-            // webhook
             $module = 'New Payment';
 
             $webhook =  Utility::webhookSetting($module, $retainer->created_by);
@@ -415,16 +405,12 @@ class XenditPaymentController extends Controller
 
                 $parameter = json_encode($retainer);
 
-                // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-
                 $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
             }
         }
         if (Auth::check()) {
-            // return redirect()->route('pay.invoice', $invoice->id)->with('success', __('Invoice paid Successfully!'));
             return redirect()->back()->with('success', __(' Payment successfully added.'));
         } else {
-            // return redirect()->route('pay.invoice', encrypt($invoice->id))->with('success', __('Invoice paid Successfully!'));
             return redirect()->back()->with('success', __(' Payment successfully added.'));
         }
     }

@@ -15,26 +15,22 @@ class EnsureTwoFactorConfirmed
             return $next($request);
         }
 
-        // Only for main 'users' guard (not customers/vendors)
         if (auth()->getDefaultDriver() !== 'web') {
             return $next($request);
         }
         if ($request->user()->two_factor_secret === null) {
-            return $next($request); // 2FA not enabled
+            return $next($request);
         }
 
-        // Remembered device cookie?
         $rememberCookie = "2fa_remember_{$user->id}";
         if ($request->cookies->get($rememberCookie) === '1') {
             return $next($request);
         }
 
-        // Session flag after challenge
         if ($request->session()->get('2fa_passed') === true) {
             return $next($request);
         }
 
-        // Allow the challenge pages themselves
         if ($request->routeIs('2fa.challenge.show') || $request->routeIs('2fa.challenge.confirm')) {
             return $next($request);
         }

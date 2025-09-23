@@ -51,9 +51,7 @@ class Customer extends Authenticatable
         'remember_token',
     ];
 
-
     public $settings;
-
 
     public function authId()
     {
@@ -157,16 +155,12 @@ class Customer extends Authenticatable
         $totalInvoice = Invoice::where('customer_id', \Auth::user()->id)->count();
         $unpaidArr    = array();
 
-
-
-
         for($i = 1; $i <= 12; $i++)
         {
             $unpaidInvoice  = Invoice:: where('customer_id', \Auth::user()->id)->whereRaw('year(`send_date`) = ?', array(date('Y')))->whereRaw('month(`send_date`) = ?', $i)->where('status', '1')->where('due_date', '>', date('Y-m-d'))->get();
             $paidInvoice    = Invoice:: where('customer_id', \Auth::user()->id)->whereRaw('year(`send_date`) = ?', array(date('Y')))->whereRaw('month(`send_date`) = ?', $i)->where('status', '4')->get();
             $partialInvoice = Invoice:: where('customer_id', \Auth::user()->id)->whereRaw('year(`send_date`) = ?', array(date('Y')))->whereRaw('month(`send_date`) = ?', $i)->where('status', '3')->get();
             $dueInvoice     = Invoice:: where('customer_id', \Auth::user()->id)->whereRaw('year(`send_date`) = ?', array(date('Y')))->whereRaw('month(`send_date`) = ?', $i)->where('status', '1')->where('due_date', '<', date('Y-m-d'))->get();
-
 
             $totalUnpaid = 0;
             for($j = 0; $j < count($unpaidInvoice); $j++)
@@ -213,7 +207,6 @@ class Customer extends Authenticatable
 
         $data['data'] = $statusData;
 
-
         $unpaidInvoice  = Invoice:: where('customer_id', \Auth::user()->id)->whereRaw('year(`send_date`) = ?', array(date('Y')))->where('status', '1')->where('due_date', '>', date('Y-m-d'))->get();
         $paidInvoice    = Invoice:: where('customer_id', \Auth::user()->id)->whereRaw('year(`send_date`) = ?', array(date('Y')))->where('status', '4')->get();
         $partialInvoice = Invoice:: where('customer_id', \Auth::user()->id)->whereRaw('year(`send_date`) = ?', array(date('Y')))->where('status', '3')->get();
@@ -237,10 +230,8 @@ class Customer extends Authenticatable
 
         $data['progressData'] = $progressData;
 
-
         return $data;
     }
-
 
     public function customerInvoice($customerId)
     {

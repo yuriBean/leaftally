@@ -29,21 +29,19 @@
 
 <head>
     <title>{{ env('APP_NAME') }}</title>
-    <!-- Meta -->
+    
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" />
 
     <meta name="title" content="{{ $metatitle }}">
     <meta name="description" content="{{ $metsdesc }}">
 
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ env('APP_URL') }}">
     <meta property="og:title" content="{{ $metatitle }}">
     <meta property="og:description" content="{{ $metsdesc }}">
     <meta property="og:image" content="{{ $meta_image . $meta_logo }}">
 
-    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="{{ env('APP_URL') }}">
     <meta property="twitter:title" content="{{ $metatitle }}">
@@ -55,9 +53,6 @@
     <link rel="stylesheet" href="  {{ asset('assets/fonts/fontawesome.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/fonts/material.css') }}" />
 
-
-
-    <!-- vendor css -->
     <link rel="stylesheet" href="  {{ asset('assets/css/style.css') }}" />
     <link rel="stylesheet" href=" {{ asset('assets/css/customizer.css') }}" />
     <link rel="stylesheet" href=" {{ asset('assets/landing-page/custom.css') }}" />
@@ -92,7 +87,7 @@
 
         <body class="{{ $themeColor }}">
 @endif
-<!-- [ Header ] start -->
+
 <header class="main-header">
     @if ($settings['topbar_status'] == 'on')
         <div class="announcement bg-dark text-center p-2">
@@ -145,7 +140,6 @@
                             @endforeach
                         @endif
 
-
                     </ul>
                     <button class="navbar-toggler bg-primary" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false"
@@ -168,8 +162,7 @@
         </div>
     @endif
 </header>
-<!-- [ Header ] End -->
-<!-- [ common banner ] start -->
+
 <section class="common-banner bg-primary">
     <div class="container">
         <div class="row align-items-center">
@@ -182,8 +175,6 @@
         </div>
     </div>
 </section>
-<!-- [ common banner ] end -->
-<!-- [ Static content ] start -->
 
 <section class="static-content section-gap">
     <div class="container">
@@ -249,8 +240,6 @@
     </div>
 </section>
 
-<!-- [ Static content ] end -->
-<!-- [ Footer ] start -->
 <footer class="site-footer bg-gray-100">
     <div class="container">
         <div class="footer-row">
@@ -284,8 +273,6 @@
                         @endforeach
                     @endif
 
-
-
                 </ul>
             </div>
             <div class="ftr-col">
@@ -300,7 +287,6 @@
                             @endif
                         @endforeach
                     @endif
-
 
                 </ul>
             </div>
@@ -324,26 +310,19 @@
                 Copyright © 2022 | Design By ERPGo
             </p> --}}
 
-
-
         <p class="mb-0">
             {{ __('©') }} {{ date('Y') }}
             {{ Utility::getValByName('footer_text') ? Utility::getValByName('footer_text') : config('app.name', 'WorkGo') }}
         </p>
 
-
     </div>
 </footer>
-<!-- [ Footer ] end -->
-<!-- Required Js -->
 
 <script src="{{ asset('assets/js/plugins/popper.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/feather.min.js') }}"></script>
 
-
 <script>
-    // Start [ Menu hide/show on scroll ]
     let ost = 0;
     document.addEventListener("scroll", function() {
         let cOst = document.documentElement.scrollTop;
@@ -360,7 +339,6 @@
         }
         ost = cOst;
     });
-    // End [ Menu hide/show on scroll ]
 
     var scrollSpy = new bootstrap.ScrollSpy(document.body, {
         target: "#navbar-example",

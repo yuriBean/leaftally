@@ -50,10 +50,10 @@ class CustomerController extends Controller
                 return $query->where('contact', 'like', "%{$contact}%");
             })
             ->when(request()->get('balance'), function ($query, $balance) {
-                return $query->where('balance', '=', $balance); // Adjust logic as needed (e.g., range filter)
+                return $query->where('balance', '=', $balance);
             })
             ->when(request()->get('last_login'), function ($query, $last_login) {
-                return $query->whereDate('last_login_at', '=', $last_login); // Adjust for date range if needed
+                return $query->whereDate('last_login_at', '=', $last_login);
             })
             ->get();
 
@@ -78,7 +78,6 @@ public function store(Request $request, String $short = null)
 {
     if (\Auth::user()->can('create customer')) {
 
-        // 1) Base rules: email unique within customers, excluding soft-deleted rows
         $rules = [
             'name'    => 'required',
             'contact' => 'required',
@@ -104,7 +103,6 @@ public function store(Request $request, String $short = null)
             }
         }
 
-        // 2) If login enabled, validate user_name uniqueness across customers + venders (ignore soft-deleted)
         $enableLogin = 0;
         if (!empty($request->password_switch) && $request->password_switch == 'on') {
             $enableLogin = 1;
@@ -121,7 +119,7 @@ public function store(Request $request, String $short = null)
                                 ->whereNull('deleted_at')
                                 ->exists();
 
-                            $existsInVenders = \DB::table('venders') // your table name as used in your codebase
+                            $existsInVenders = \DB::table('venders')
                                 ->where('user_name', $value)
                                 ->whereNull('deleted_at')
                                 ->exists();
@@ -221,7 +219,6 @@ public function store(Request $request, String $short = null)
             Utility::send_twilio_msg($request->contact, 'new_customer', $uArr);
         }
 
-        // webhook
         $module  = 'New Customer';
         $webhook = Utility::webhookSetting($module);
 
@@ -263,7 +260,6 @@ public function store(Request $request, String $short = null)
     }
 }
 
-
  public function customer_short(Request $request)
     {
        $venderController = app(CustomerController::class);
@@ -277,7 +273,6 @@ public function store(Request $request, String $short = null)
         $customer = Customer::find($id);
         return view('customer.show', compact('customer'));
     }
-
 
     public function edit($id)
     {
@@ -293,7 +288,6 @@ public function store(Request $request, String $short = null)
         }
     }
 
-
     public function update(Request $request, Customer $customer)
     {
 
@@ -304,7 +298,6 @@ public function store(Request $request, String $short = null)
                 'contact' => 'required',
                 'email' => 'required|email|unique:customers,email,' . $customer->id,
             ];
-
 
             $validator = \Validator::make($request->all(), $rules);
             if ($validator->fails()) {
@@ -341,7 +334,6 @@ public function store(Request $request, String $short = null)
             return redirect()->back()->with('error', __('Permission denied.'));
         }
     }
-
 
     public function destroy(Customer $customer)
     {
@@ -381,14 +373,8 @@ public function store(Request $request, String $short = null)
     {
 
         if (\Auth::user()->can('manage customer payment')) {
-            // $category = [
-            //     'Invoice' => 'Invoice',
-            //     'Deposit' => 'Deposit',
-            //     'Sales' => 'Sales',
-            // ];
 
             $category = ProductServiceCategory::where('created_by', \Auth::user()->creatorId())->where('type', 2)->get()->pluck('name', 'id');
-            // $category->prepend('Bill', '');
 
             $query = Transaction::where('user_id', \Auth::user()->id)->where('user_type', 'Customer')->where('type', 'Payment');
             if (isset($request->date) && !empty($request->date)) {
@@ -415,7 +401,6 @@ public function store(Request $request, String $short = null)
             $category = [
                 'Invoice' => 'Invoice',
                 'Retainer' => 'Retainer',
-                // 'Sales' => 'Sales',
             ];
 
             $query = Transaction::where('user_id', \Auth::user()->id)->where('user_type', 'Customer');
@@ -456,7 +441,6 @@ public function store(Request $request, String $short = null)
             $request,
             [
                 'name' => 'required|max:120',
-                // 'contact' => 'required',
                 'email' => 'required|email|unique:users,email,' . $userDetail['id'],
             ]
         );
@@ -478,10 +462,7 @@ public function store(Request $request, String $short = null)
                 $image_path = $dir . $userDetail['avatar'];
 
                 $url = '';
-                // $path = $request->file('profile')->storeAs('uploads/avatar/', $fileNameToStore);
-                // dd($path);
                 $path = Utility::upload_file($request, 'profile', $fileNameToStore, $dir, []);
-                // dd($path);
                 if ($path['flag'] == 1) {
                     $url = $path['url'];
                 } else {
@@ -509,10 +490,7 @@ public function store(Request $request, String $short = null)
                     $image_path = $dir . $userDetail['avatar'];
 
                     $url = '';
-                    // $path = $request->file('profile')->storeAs('uploads/avatar/', $fileNameToStore);
-                    // dd($path);
                     $path = Utility::upload_file($request, 'profile', $fileNameToStore, $dir, []);
-                    // dd($path);
                     if ($path['flag'] == 1) {
                         $url = $path['url'];
                     } else {
@@ -700,7 +678,6 @@ public function store(Request $request, String $short = null)
                 $customerData = new Customer();
                 $customerData->customer_id      = $cust_id;
             }
-            //            dd($customer);
 
             $customerData->name             = $customer[0] ?? "";
             $customerData->email            = $customer[1] ?? "";
@@ -741,7 +718,6 @@ public function store(Request $request, String $short = null)
         } else {
             $data['status'] = 'error';
             $data['msg']    = count($errorArray) . ' ' . __('Record imported fail out of' . ' ' . $totalCustomer . ' ' . 'record');
-
 
             foreach ($errorArray as $errorData) {
 
@@ -829,7 +805,6 @@ public function store(Request $request, String $short = null)
 
         $preview    = 1;
 
-
         $logo         = asset(Storage::url('uploads/logo/'));
         $company_logo = Utility::getValByName('company_logo_dark');
         $img          = isset($company_logo) && !empty($company_logo) ? asset($logo . '/' . $company_logo) . '?v=' . time() : '';
@@ -855,14 +830,12 @@ public function store(Request $request, String $short = null)
             $invoice_payment->whereBetween('date',  [$data['from_date'], $data['until_date']]);
         }
         $invoice_payment = $invoice_payment->get();
-        //        dd($invoice_payment);
         $user = \Auth::user();
         $logo         = asset(Storage::url('uploads/logo/'));
         $company_logo = Utility::getValByName('company_logo_dark');
         $img          = isset($company_logo) && !empty($company_logo) ? asset($logo . '/' . $company_logo) . '?v=' . time() : '';
 
         $invoice_id = Invoice::where('created_by', '=', \Auth::user()->creatorId())->where('customer_id', '=', $customer->id)->first();
-        // dd($customer->id, $invoice_id);
 
         if (!empty($invoice_id)) {
             $invoice_total = Invoice::find($invoice_id->id);
@@ -903,7 +876,6 @@ public function store(Request $request, String $short = null)
 
             return redirect()->back()->with('error', $messages->first());
         }
-
 
         $customer                 = Customer::where('id', $id)->first();
         $customer->forceFill([
@@ -954,7 +926,6 @@ public function exportSelected(Request $request)
     $date = date('Y-m-d_H-i-s');
     $filename = "customers_selected_{$companyName}_{$date}.xlsx";
 
-    // Pass selected ids to export
     return Excel::download(new CustomerExport($ids), $filename);
 }
 

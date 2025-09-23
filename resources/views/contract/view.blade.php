@@ -96,7 +96,6 @@
                     show_toastr('{{ __('error') }}', 'This operation is not perform due to demo mode.',
                         'error');
 
-
                 }
             },
             error: function(file, response) {
@@ -671,7 +670,7 @@
                                                         <span class="text-white"><i class="ti ti-download"></i></span>
                                                         </a>
                                                     </div> --}}
-                                                        <!-- <div class="action-btn bg-warning"> -->
+                                                        
                                                             @php
                                                                 $attachments = \App\Models\Utility::get_file(
                                                                     'contract_attachment',
@@ -687,8 +686,6 @@
                                                                             class="ti ti-download"></i></span>
                                                                 </a>
                                                             </div>
-                                                           
-                                                        <!-- </div> -->
 
                                                         @if ($contract->files)
                                                             <div class="action-btn me-2">
@@ -710,9 +707,7 @@
                             </div>
                         </div>
 
-
                     </div>
-
 
                     <div id="comment" role="tabpanel" aria-labelledby="pills-comments-tab">
                         <div class="row pt-2">
@@ -841,7 +836,6 @@
                                                                         {!! Form::close() !!}
                                                                     </div>
                                                                 @endif
-
 
                                                                 @if (
                                                                     \Auth::user()->type != 'company' &&

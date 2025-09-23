@@ -57,7 +57,6 @@ class StripePaymentController extends Controller
         }
     }
 
-
     public function refund(Request $request, $id, $user_id)
     {
         Order::where('id', $request->id)->update(['is_refund' => 1]);
@@ -68,7 +67,6 @@ class StripePaymentController extends Controller
 
         return redirect()->back()->with('success', __('We successfully planned a refund and assigned a free plan.'));
     }
-
 
     public function stripe($code)
     {
@@ -95,7 +93,6 @@ class StripePaymentController extends Controller
             return redirect()->back()->with('error', 'Not Found');
         }
     }
-
 
     public function stripePost(Request $request)
     {
@@ -127,7 +124,6 @@ class StripePaymentController extends Controller
 
                 $orderID = strtoupper(str_replace('.', '', uniqid('', true)));
 
-
                 if ($price > 0.0) {
                     Stripe\Stripe::setApiKey($admin_payment_setting['stripe_secret']);
 
@@ -155,7 +151,6 @@ class StripePaymentController extends Controller
                     $data['captured']        = 1;
                     $data['status']          = 'succeeded';
                 }
-
 
                 if ($data['amount_refunded'] == 0 && empty($data['failure_code']) && $data['paid'] == 1 && $data['captured'] == 1) {
 
@@ -213,11 +208,8 @@ class StripePaymentController extends Controller
         }
     }
 
-
-    //invoice
     public function addPayment(Request $request, $id)
     {
-        // dd($request->all());
         $invoice = Invoice::find($id);
         if (Auth::check()) {
             $user_id = \Auth::user()->creatorId();
@@ -260,7 +252,6 @@ class StripePaymentController extends Controller
                     ],
                 ]);
 
-
                 if ($data['amount_refunded'] == 0 && empty($data['failure_code']) && $data['paid'] == 1 && $data['captured'] == 1) {
                     $payments = InvoicePayment::create(
                         [
@@ -281,7 +272,6 @@ class StripePaymentController extends Controller
                         ]
                     );
 
-                  
                     if ($invoice->getDue() <= 0) {
                         $invoice->status = 4;
                     } elseif (($invoice->getDue() - $payments->amount) == 0) {
@@ -313,9 +303,6 @@ class StripePaymentController extends Controller
 
                     Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-
-                    // Twilio Notification
-
                     $setting  = Utility::settingsById($objUser->creatorId());
                     $customer = Customer::find($invoice->customer_id);
                     if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -331,14 +318,12 @@ class StripePaymentController extends Controller
                         Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $invoice->created_by);
                     }
 
-                    // webhook
                     $module = 'New Payment';
                     $webhook =  Utility::webhookSetting($module, $invoice->created_by);
 
                     if ($webhook) {
                         $parameter = json_encode($invoice);
 
-                        // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
                         $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
 
                     }
@@ -380,12 +365,10 @@ class StripePaymentController extends Controller
 
         $setting = Utility::settingsById($retainer->created_by);
 
-
         if ($retainer) {
             if ($request->amount > $retainer->getDue()) {
                 return redirect()->back()->with('error', __('Invalid amount.'));
             } else {
-
 
                 $orderID = strtoupper(str_replace('.', '', uniqid('', true)));
                 $price   = $request->amount;
@@ -408,8 +391,6 @@ class StripePaymentController extends Controller
                         ]
                     ],
                 ]);
-
-
 
                 if ($data['amount_refunded'] == 0 && empty($data['failure_code']) && $data['paid'] == 1 && $data['captured'] == 1) {
                     $payments = RetainerPayment::create(
@@ -459,13 +440,10 @@ class StripePaymentController extends Controller
                     $retainerPayment->account     = 0;
                     Transaction::addTransaction($retainerPayment);
 
-
-
                     Utility::userBalance('customer', $retainer->customer_id, $request->amount, 'debit');
 
                     Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-                    //Twilio Notification
                     $setting  = Utility::settingsById($objUser->creatorId());
                     $customer = Customer::find($retainer->customer_id);
                     if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -478,11 +456,9 @@ class StripePaymentController extends Controller
                             'user_name' => $objUser->name,
                         ];
 
-
                         Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $retainer->created_by);
                     }
 
-                    // webhook
                     $module = 'New Payment';
 
                     $webhook =  Utility::webhookSetting($module, $retainer->created_by);
@@ -491,14 +467,7 @@ class StripePaymentController extends Controller
 
                         $parameter = json_encode($retainer);
 
-                        // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-
                         $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
-                        // if ($status == true) {
-                        //     return redirect()->route('payment.index')->with('success', __('Payment successfully created.') . ((isset($smtp_error)) ? '<br> <span class="text-danger">' . $smtp_error . '</span>' : ''));
-                        // } else {
-                        //     return redirect()->back()->with('error', __('Webhook call failed.'));
-                        // }
                     }
 
                     if (Auth::check()) {
@@ -580,9 +549,7 @@ class StripePaymentController extends Controller
                 return '&return_type=' . $return_type . '&payment_processor=stripe';
             };
 
-            /* Initiate Stripe */
             \Stripe\Stripe::setApiKey($this->stripe_secret);
-
 
             $stripe_session = \Stripe\Checkout\Session::create(
                 [

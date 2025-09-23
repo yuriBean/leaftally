@@ -22,7 +22,6 @@
             <div class="form-icon-user">
                 {{Form::date('date',date('Y-m-d'),array('class'=>'form-control','required'=>'required'))}}
 
-
             </div>
         </div>
         <div class="form-group col-md-12">

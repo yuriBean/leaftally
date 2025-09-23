@@ -9,10 +9,6 @@ use Modules\LandingPage\Entities\LandingPageSetting;
 
 class TestimonialsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
     public function index()
     {
         $settings = LandingPageSetting::settings();
@@ -20,20 +16,11 @@ class TestimonialsController extends Controller
         return view('landingpage::landingpage.testimonials.index',compact('settings','testimonials'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
     public function create()
     {
         return view('landingpage::landingpage.testimonials.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
     public function store(Request $request)
     {
         $data['is_testimonials_section_on']= isset($request->is_testimonials_section_on) && $request->is_testimonials_section_on == 'on' ? 'on' : 'off' ;
@@ -48,55 +35,28 @@ class TestimonialsController extends Controller
         return redirect()->back()->with(['success'=> 'Setting update successfully']);
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
     public function show($id)
     {
         return view('landingpage::show');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
     public function edit($id)
     {
         return view('landingpage::edit');
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
     public function update(Request $request, $id)
     {
-        //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
     public function destroy($id)
     {
-        //
     }
-
-
 
     public function testimonials_create(){
         $settings = LandingPageSetting::settings();
         return view('landingpage::landingpage.testimonials.create');
     }
-
-
 
     public function testimonials_store(Request $request){
 
@@ -112,7 +72,6 @@ class TestimonialsController extends Controller
             }
             $datas['testimonials_user_avtar'] = $testimonials_user_avtar;
         }
-
 
         $datas['testimonials_title']= $request->testimonials_title;
         $datas['testimonials_description']= $request->testimonials_description;
@@ -133,7 +92,6 @@ class TestimonialsController extends Controller
         $testimonial = $testimonials[$key];
         return view('landingpage::landingpage.testimonials.edit', compact('testimonial','key'));
     }
-
 
     public function testimonials_update(Request $request, $key){
 
@@ -156,14 +114,11 @@ class TestimonialsController extends Controller
         $data[$key]['testimonials_designation'] = $request->testimonials_designation;
         $data[$key]['testimonials_star'] = $request->testimonials_star;
 
-
         $data = json_encode($data);
         LandingPageSetting::updateOrCreate(['name' =>  'testimonials'],['value' => $data]);
 
         return redirect()->back()->with(['success'=> 'Testimonials update successfully']);
     }
-
-
 
     public function testimonials_delete($key){
 

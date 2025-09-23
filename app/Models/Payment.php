@@ -20,13 +20,11 @@ class Payment extends Model
 
     public function category()
     {
-        // Include archived categories
         return $this->hasOne('App\Models\ProductServiceCategory', 'id', 'category_id')->withTrashed();
     }
 
     public function vender()
     {
-        // show even if vendor was soft-deleted
         return $this->hasOne('App\Models\Vender', 'id', 'vender_id')->withTrashed();
     }
 

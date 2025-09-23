@@ -48,7 +48,6 @@
             </div>
         </div>
 
-
     </div>
 </div>
 <div class="modal-footer">
@@ -57,7 +56,6 @@
     <input type="submit" value="{{__('Create')}}" class="btn  btn-primary">
 </div>
 {{Form::close()}}
-
 
 <script>
     document.getElementById('document').onchange = function () {

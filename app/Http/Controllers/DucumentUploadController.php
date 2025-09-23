@@ -37,7 +37,6 @@ class DucumentUploadController extends Controller
         }
     }
 
-
     public function create()
     {
         if(\Auth::user()->can('create document'))
@@ -53,7 +52,6 @@ class DucumentUploadController extends Controller
         }
     }
 
-
     public function store(Request $request)
     {
 
@@ -62,7 +60,6 @@ class DucumentUploadController extends Controller
             $validator = \Validator::make(
                 $request->all(), [
                                    'name' => 'required',
-//                                   'document' => 'mimes:jpeg,png,jpg,svg,pdf,doc,zip|max:20480',
                                ]
             );
             if($validator->fails())
@@ -74,7 +71,6 @@ class DucumentUploadController extends Controller
 
             $document              = new DucumentUpload();
             $document->name        = $request->name;
-//            $document->document    = !empty($request->document) ? $fileNameToStore : '';
             if(!empty($request->document))
             {
                 $fileName = time() . "_" . $request->document->getClientOriginalName();
@@ -84,8 +80,6 @@ class DucumentUploadController extends Controller
                 if($path['flag']==0){
                     return redirect()->back()->with('error', __($path['msg']));
                 }
-//                $request->document  = $fileName;
-//                $document->save();
             }
             $document->role        = $request->role;
             $document->description = $request->description;
@@ -100,12 +94,9 @@ class DucumentUploadController extends Controller
         }
     }
 
-
     public function show(DucumentUpload $ducumentUpload)
     {
-        //
     }
-
 
     public function edit($id)
     {
@@ -132,7 +123,6 @@ class DucumentUploadController extends Controller
             $validator = \Validator::make(
                 $request->all(), [
                                    'name' => 'required',
-//                                   'document' => 'mimes:jpeg,png,jpg,svg,pdf,doc,zip|max:20480',
                                ]
             );
             if($validator->fails())
@@ -176,7 +166,6 @@ class DucumentUploadController extends Controller
         }
     }
 
-
     public function destroy($id)
     {
         if(\Auth::user()->can('delete document'))
@@ -187,11 +176,6 @@ class DucumentUploadController extends Controller
                 $document->delete();
 
                 $dir = storage_path('uploads/documentUpload/');
-
-//                if(!empty($document->document))
-//                {
-//                    unlink($dir . $document->document);
-//                }
 
                 return redirect()->route('document-upload.index')->with('success', __('Document successfully deleted.'));
             }

@@ -27,7 +27,6 @@
                 chart: {
                     height: 300,
                     type: 'area',
-                    // type: 'line',
                     dropShadow: {
                         enabled: true,
                         color: '#000',
@@ -65,15 +64,6 @@
                 legend: {
                     show: false,
                 },
-                // markers: {
-                //     size: 4,
-                //     colors: ['#ffa21d', '#FF3A6E'],
-                //     opacity: 0.9,
-                //     strokeWidth: 2,
-                //     hover: {
-                //         size: 7,
-                //     }
-                // },
                 yaxis: {
                     title: {
                         text: '{{ __("Amount") }}'
@@ -88,7 +78,7 @@
     </script>
 @endpush
 @section('breadcrumb')
-    <!-- <li class="breadcrumb-item"><a href="{{route('customer.dashboard')}}">{{__('Dashboard')}}</a></li> -->
+    
 @endsection
 @section('content')
     <div class="row">
@@ -199,5 +189,4 @@
 
     </div>
 @endsection
-
 

@@ -14,5 +14,4 @@ class EmailTemplateLang extends Model
         'content',
     ];
 
-  
 }

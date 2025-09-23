@@ -65,7 +65,6 @@
                                                 </div>
                                             </div>
 
-
                                             <div class="row">
                                                 <div class="col-12 text-end mt-1">
                                                     {{ Form::button('<i class="ti ti-plus"></i> '.__('Save Change'), ['type' => 'submit','class' => 'btn btn-primary']) }}
@@ -261,7 +260,6 @@
                                                 </div>
                                             </div>
 
-
                                             <div class="row">
                                                 <div class="col-12 text-end mt-1">
                                                     {{ Form::button('<i class="ti ti-plus"></i> '.__('Save Change'), ['type' => 'submit','class' => 'btn btn-primary']) }}
@@ -403,7 +401,6 @@
                                                 </div>
                                             </div>
 
-
                                             <div class="row">
                                                 <div class="col-12 text-end mt-1">
                                                     {{ Form::button('<i class="ti ti-plus"></i> '.__('Save Change'), ['type' => 'submit','class' => 'btn btn-primary']) }}
@@ -486,7 +483,6 @@
                                             </div>
                                             {{Form::close()}}
 
-
                                             <hr>
                                             <div class="table-responsive">
                                                 <table class="table table-striped mb-0" id="overtime-dataTable">
@@ -537,7 +533,6 @@
         </section>
     </div>
 
-
 @endsection
 
 @push('script-page')
@@ -548,7 +543,6 @@
             var d_id = $('#department_id').val();
             var designation_id = '{{ $employee->designation_id }}';
             getDesignation(d_id);
-
 
             $("#allowance-dataTable").dataTable({
                 "columnDefs": [
@@ -585,7 +579,6 @@
                     {"sortable": false, "targets": [1]}
                 ]
             });
-
 
         });
 

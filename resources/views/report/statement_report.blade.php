@@ -47,12 +47,8 @@
     <li class="breadcrumb-item">{{__('Account Statement Summary')}}</li>
 @endsection
 
-
 @section('action-btn')
     <div class="d-flex">
-        <!-- <a class="btn btn-sm btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1" data-bs-toggle="tooltip" title="{{__('Filter')}}">
-            <i class="ti ti-filter"></i>
-        </a> -->
 
         <a href="{{route('accountstatement.export')}}" data-bs-toggle="tooltip" title="{{__('Export')}}" class="btn btn-sm btn-primary me-2">
             <i class="fas fa-file-pdf"></i>
@@ -64,7 +60,6 @@
 
     </div>
 @endsection
-
 
 @section('content')
 
@@ -118,7 +113,6 @@
                                         <a href="{{route('report.account.statement')}}" class="btn btn-sm btn-danger " data-bs-toggle="tooltip"  title="{{ __('Reset') }}" data-original-title="{{__('Reset')}}">
                                             <span class="btn-inner--icon"><i class="ti ti-refresh text-white-off "></i></span>
                                         </a>
-
 
                                     </div>
 

@@ -7,7 +7,6 @@
     <li class="breadcrumb-item">{{ __('Role') }}</li>
 @endsection
 
-
 @section('action-btn')
     <div class="float-end">
         @can('create role')
@@ -95,7 +94,6 @@
                                             </div>
                                             {{--  </td>  --}}
 
-
                                             {{--  <button class="absolute top-3 right-3 text-gray-400 hover:text-gray-600 cursor-pointer" type="button" class="btn " data-bs-toggle="dropdown"
                                                     aria-haspopup="true" aria-expanded="false">
                                                     <i class="ti ti-dots-vertical"></i>
@@ -120,8 +118,6 @@
                                                         </a>
                                                         {!! Form::close() !!}
                                                     @endcan  --}}
-
-
 
                                             {{-- <span>
                                         @can('edit role')

@@ -18,49 +18,31 @@
 
 @section('action-btn')
     <style>
-        .low-stock { background-color: #fff1f2 !important; }
+        .low-stock { background-color:
         .mcheck{display:inline-flex;align-items:center;cursor:pointer;user-select:none}
         .mcheck input{position:absolute;opacity:0;width:0;height:0}
-        .mcheck .box{width:20px;height:20px;border:2px solid #D1D5DB;border-radius:6px;background:#fff;display:inline-block;position:relative;transition:all .15s}
+        .mcheck .box{width:20px;height:20px;border:2px solid
         .mcheck .box:hover{box-shadow:0 1px 3px rgba(0,0,0,.08)}
         .mcheck input:focus + .box{box-shadow:0 0 0 3px rgba(0,124,56,.2)}
-        .mcheck input:checked + .box{background:#007C38;border-color:#007C38}
-        .mcheck input:checked + .box::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:2px solid #fff;border-top:none;border-left:none;transform:rotate(45deg)}
+        .mcheck input:checked + .box{background:
+        .mcheck input:checked + .box::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:2px solid
 
-        #products-table {
             table-layout: fixed !important;
             width: 100% !important;
         }
 
-        #products-table th,
-        #products-table td {
             border-collapse: separate !important;
             border-spacing: 0 !important;
             text-align: left !important;
             vertical-align: middle !important;
         }
 
-        #products-table th:nth-child(1) { width: 50px !important; }
-        #products-table th:nth-child(2) { width: 150px !important; }
-        #products-table th:nth-child(3) { width: 100px !important; }
-        #products-table th:nth-child(4) { width: 120px !important; }
-        #products-table th:nth-child(5) { width: 120px !important; }
-        #products-table th:nth-child(6) { width: 100px !important; }
-        #products-table th:nth-child(7) { width: 120px !important; }
-        #products-table th:nth-child(8) { width: 80px !important; }
-        #products-table th:nth-child(9) { width: 100px !important; }
-        #products-table th:nth-child(10) { width: 120px !important; }
-        #products-table th:nth-child(11) { width: 80px !important; }
-        #products-table th:nth-child(12) { width: 120px !important; }
-        #products-table th:nth-child(13) { width: 100px !important; }
-
         .dataTables_length,
         .dataTables_wrapper .dataTables_length,
         div.dataTables_length,
-        #products-table_length {
             background: white !important;
             padding: 8px 12px !important;
-            border: 1px solid #E5E5E5 !important;
+            border: 1px solid
             border-radius: 6px !important;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
             margin-bottom: 10px !important;
@@ -68,17 +50,15 @@
         }
 
         .dataTables_length label,
-        #products-table_length label {
             margin: 0 !important;
             font-weight: 500 !important;
-            color: #323232 !important;
+            color:
         }
 
         .dataTables_length select,
-        #products-table_length select {
             margin: 0 4px !important;
             padding: 4px 8px !important;
-            border: 1px solid #E5E5E5 !important;
+            border: 1px solid
             border-radius: 4px !important;
         }
     </style>
@@ -117,14 +97,14 @@
                     {{ Form::open(['route' => ['productservice.index'], 'method' => 'GET', 'id' => 'product_service']) }}
                     <div class="row d-flex align-items-center justify-content-end text-md">
                         <div class="flex justify-end">
-                            <!-- Category Filter -->
+                            
                             <div class="">
                                 {{ Form::select('category', $categories, request('category'), [
                                     'class' => 'form-control select  px-2 py-1 outline-none w-[160px] rounded-none rounded-tl-[6px] rounded-bl-[6px]',
                                     'id' => 'choices-category'
                                 ]) }}
                             </div>
-                            <!-- Material Type Filter (NEW) -->
+                            
                             <div class="">
                                 {{ Form::select('material_type', $materialTypes ?? ['' => __('All Materials')], request('material_type'), [
                                     'class' => 'form-control select px-2 py-1 outline-none w-[180px] rounded-none',
@@ -185,7 +165,7 @@
                                     <th class="border-0 border-b border-r border-[#E5E5E5] px-4 py-3 bg-[#F6F6F6] text-xs font-semibold">{{ __('Quantity') }}</th>
                                     <th class="border-0 border-b border-r border-[#E5E5E5] px-4 py-3 bg-[#F6F6F6] text-xs font-semibold">{{ __('Reorder Level') }}</th>
                                     <th class="border-0 border-b border-r border-[#E5E5E5] px-4 py-3 bg-[#F6F6F6] text-xs font-semibold">{{ __('Type') }}</th>
-                                    <!-- NEW column -->
+                                    
                                     <th class="border-0 border-b border-r border-[#E5E5E5] px-4 py-3 bg-[#F6F6F6] text-xs font-semibold">{{ __('Material') }}</th>
                                     <th class="border-0 border-b border-[#E5E5E5] px-4 py-3 bg-[#F6F6F6] text-xs font-semibold">{{ __('Action') }}</th>
 =======
@@ -201,7 +181,7 @@
                                     <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] text-sm font-semibold">{{ __('Quantity') }}</th>
                                     <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] text-sm font-semibold">{{ __('Reorder Level') }}</th> 
                                     <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] text-sm font-semibold">{{ __('Type') }}</th>
-                                    <!-- NEW column -->
+                                    
                                     <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] text-sm font-semibold">{{ __('Material') }}</th>
                                     <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] text-sm font-semibold">{{ __('Action') }}</th>
 >>>>>>> e913e7eefde6f89ab8509dd6cf5133d7e3e7ed85
@@ -284,7 +264,6 @@
                                             {{ $productService->type }}
                                         </td>
 
-                                        <!-- Material label -->
                                         <td class="border-0 border-b border-r border-[#E5E5E5] px-4 py-3 text-sm text-[#323232]">
                                             @php
                                                 $mt = $productService->material_type;
@@ -344,9 +323,9 @@
 <style>
 .swal2-popup .swal2-actions .swal2-cancel.swal2-cancel-custom,
 .swal2-cancel.swal2-cancel-custom {
-    background-color: #ffffff !important;
-    border: 1px solid #15803D !important;
-    color: #15803D !important;
+    background-color:
+    border: 1px solid
+    color:
     font-weight: 500 !important;
     box-shadow: none !important;
     margin: 8px !important;
@@ -355,16 +334,16 @@
 }
 .swal2-popup .swal2-actions .swal2-cancel.swal2-cancel-custom:hover,
 .swal2-cancel.swal2-cancel-custom:hover {
-    background-color: #f0fdf4 !important;
-    border-color: #15803D !important;
-    color: #15803D !important;
+    background-color:
+    border-color:
+    color:
 }
 
 .swal2-popup .swal2-actions .swal2-confirm.swal2-confirm-custom,
 .swal2-confirm.swal2-confirm-custom {
-    background-color: #15803D !important;
-    border: 1px solid #15803D !important;
-    color: #ffffff !important;
+    background-color:
+    border: 1px solid
+    color:
     font-weight: 500 !important;
     box-shadow: none !important;
     margin: 8px !important;
@@ -373,9 +352,9 @@
 }
 .swal2-popup .swal2-actions .swal2-confirm.swal2-confirm-custom:hover,
 .swal2-confirm.swal2-confirm-custom:hover {
-    background-color: #166534 !important;
-    border-color: #166534 !important;
-    color: #ffffff !important;
+    background-color:
+    border-color:
+    color:
 }
 </style>
 <script>
@@ -401,18 +380,14 @@ function showProductServiceTypeSelection() {
     });
 }
 
-// Force fixed positioning for DataTable length menu
 $(document).ready(function() {
-    // Remove custom positioning - let it scroll naturally
     function styleDataTableLength() {
         const lengthElements = document.querySelectorAll('.dataTables_length, #products-table_length');
         lengthElements.forEach(function(element) {
-            // Remove any custom positioning
             element.style.position = '';
             element.style.top = '';
             element.style.left = '';
             element.style.zIndex = '';
-            // Keep styling but remove positioning
             element.style.background = 'white';
             element.style.padding = '8px 12px';
             element.style.border = '1px solid #E5E5E5';
@@ -423,13 +398,10 @@ $(document).ready(function() {
         });
     }
 
-    // Apply immediately
     styleDataTableLength();
 
-    // Apply after a short delay to ensure DataTable is fully loaded
     setTimeout(styleDataTableLength, 500);
 
-    // Apply when DataTable is drawn/redrawn
     $(document).on('draw.dt', '#products-table', function() {
         setTimeout(styleDataTableLength, 100);
     });

@@ -12,8 +12,6 @@
     $logo = \App\Models\Utility::get_file('uploads/landing_page_image');
 @endphp
 
-
-
 @push('script-page')
 @endpush
 
@@ -21,7 +19,6 @@
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a></li>
     <li class="breadcrumb-item">{{ __('Landing Page') }}</li>
 @endsection
-
 
 @section('content')
     <div class="row">
@@ -33,14 +30,12 @@
 
                             @include('landingpage::layouts.tab')
 
-
                         </div>
                     </div>
                 </div>
 
                 <div class="col-xl-9">
                     {{--  Start for all settings tab --}}
-
 
                     <div class="card">
                         {{ Form::open(['route' => 'screenshots.store', 'method' => 'post', 'enctype' => 'multipart/form-data']) }}
@@ -88,7 +83,6 @@
                                     </div>
                                 </div>
 
-
                             </div>
                         </div>
                         <div class="card-footer text-end">
@@ -98,7 +92,6 @@
                         {{ Form::close() }}
 
                     </div>
-
 
                     <div class="card">
                         <div class="card-header">
@@ -178,9 +171,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
 
                     {{--  End for all settings tab --}}
                 </div>

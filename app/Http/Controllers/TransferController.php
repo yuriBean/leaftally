@@ -27,12 +27,6 @@ class TransferController extends Controller
                
                 $query->where('date', $request->date);
             }
-            
-            // if(!empty($request->date))
-            // {
-            //     $date_range = explode(' to ', $request->date);
-            //     $query->whereBetween('date', $date_range);
-            // }
 
             if(!empty($request->f_account))
             {
@@ -153,7 +147,6 @@ class TransferController extends Controller
             $transfer->description    = $request->description;
             $transfer->save();
 
-
             Utility::bankAccountBalance($request->from_account, $request->amount, 'debit');
             Utility::bankAccountBalance($request->to_account, $request->amount, 'credit');
 
@@ -164,7 +157,6 @@ class TransferController extends Controller
             return redirect()->back()->with('error', __('Permission denied.'));
         }
     }
-
 
     public function destroy(Transfer $transfer)
     {

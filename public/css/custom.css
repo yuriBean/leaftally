@@ -46,12 +46,12 @@
 
 .dash-sidebar .main-logo {
     justify-content: center;
-    /*height: 100%;*/
+    
     min-height: 80px;
     max-height: 80px;
     width: 100%;
     min-width: 288px;
-    /*max-width: 288px;*/
+    
 }
 
 a.b-brand {
@@ -334,7 +334,6 @@ a.b-brand {
     border: 2px solid #000 !important;
 }
 
-/* product items search box */
 .container { margin: 150px auto; }
   .searchBoxElement{
   background-color: white;
@@ -389,7 +388,6 @@ body.theme-4 .formTextbox:focus{
   padding: 0 5px;
 }
 
-
 .searchBoxElement li{
   background-color: white;
   color: black;
@@ -405,7 +403,6 @@ body.theme-4 .formTextbox:focus{
   color: white;
 }
 
-/*start balance-sheet new theme*/
 .nav-pills.cust-nav {
     background: #E1E9ED;
 }
@@ -426,13 +423,10 @@ body.theme-4 .formTextbox:focus{
     flex: 1;
 }
 
-/* end balance-sheet new theme*/
-
 .disabledCookie {
     pointer-events: none;
     opacity: 0.4;
 }
-
 
 .setting-accordion .accordion-item {
     border: 1px solid #E0E6EF !important;
@@ -485,8 +479,6 @@ body.theme-4 .formTextbox:focus{
     margin-right: 10px;
 }
 
-/* custom dark-mode && rtl css */
-
 [dir="rtl"] .dash-sidebar {
     left: auto !important;
 }
@@ -511,7 +503,6 @@ body.theme-4 .formTextbox:focus{
     margin-left: 10px !important;
 }
 
-
 [dir="rtl"] .header-wrapper .ms-auto {
     margin-left: 0 !important;
 }
@@ -528,11 +519,6 @@ body.theme-4 .formTextbox:focus{
 [dir="rtl"] .box {
     margin-right: 5px;
 }
-/*  custom End dark-mode && rtl css  */
-
-/* .ps--active-y  {
-    height: 100vh !important;
-} */
 
 body.no-scroll{
     overflow: hidden;
@@ -548,11 +534,10 @@ body.no-scroll{
     width: 100%;
 }
 
-/* Nav scroller */
 .dash-sidebar .navbar-content{
     height: calc(100vh - 70px);
 }
-/* Auth Mobile responsive */
+
 @media screen and (max-width:767px){
     .auth-wrapper{
         align-items: flex-start !important;
@@ -589,13 +574,12 @@ body.no-scroll{
     display: block;
     padding: 16.66667px 25px;
     color: #212529;
-    /* background-color: #ffffff; */
+    
     border: 1px solid #f1f1f1;
 }
 
-/*end for input search*/
 .account-inner p{
-    /*max-width: 25%;*/
+    
     width: 100%;
 }
 
@@ -624,7 +608,6 @@ body.no-scroll{
     width: 100px;
 }
 
-/* border-color */
 body.theme-1 .border-primary {
     border-color: #0CAF60 !important;
 }
@@ -656,7 +639,6 @@ body.theme-10 .border-primary {
     border-color: #0c7785 !important;
 }
 
-/*  all Cancel button background change*/
 .modal-footer .btn.btn-light,
 .btn.custom-cancel-btn {
     background-color: #ffffff !important;
@@ -664,17 +646,13 @@ body.theme-10 .border-primary {
     border: 1px solid #007C38 !important;
 }
 
-/* templates css */
 .invoice-row {
     gap: 20px 0;
 }
 .language-sidebar .list-group-item {
     padding: 10px 25px;
 }
-/* templates css */
 
-
-/* button color list start */
 .btn-primary-subtle{
     background-color: #0CAF60 !important;
 }
@@ -693,5 +671,4 @@ body.theme-10 .border-primary {
 .bg-light-green-subtitle{
     background: #9bb958 !important;
 }
-/* button color list end */
 

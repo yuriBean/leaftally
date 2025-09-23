@@ -37,7 +37,6 @@
 	margin: 7px 0;
 }
 
-/* PAGER */
 .dataTable-pagination ul {
 	margin: 0;
 	padding-left: 0;
@@ -87,7 +86,6 @@
 	font-weight: bold;
 }
 
-/* TABLE */
 .dataTable-table {
 	max-width: 100%;
 	width: 100%;

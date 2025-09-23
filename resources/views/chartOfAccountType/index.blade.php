@@ -52,7 +52,6 @@
                                                     {!! Form::close() !!}
                                                 </div>
 
-
                                                     {{-- <a href="#" class="mx-3 btn btn-sm align-items-center" data-bs-toggle="tooltip" data-original-title="{{__('Delete')}}" data-confirm="{{__('Are You Sure?').'|'.__('This action can not be undone. Do you want to continue?')}}" data-confirm-yes="document.getElementById('delete-form-{{$type->id}}').submit();">
                                                     <i class="ti ti-trash text-white"></i>
                                                 </a>
@@ -71,6 +70,5 @@
             </div>
         
     </div>
-
 
 @endsection

@@ -85,7 +85,6 @@ var util = {
 		return el && el !== document.body && (fn(el) ? el : util.closest(el.parentNode, fn));
 	},
 	delegate: function(parent, child, evt, callback, scope) {
-		// Allow selector strings
 		if (typeof parent === "string") {
 			parent = document.querySelector(parent);
 		}
@@ -95,7 +94,6 @@ var util = {
 
 			var t = e.target;
 
-			// Climb the DOM tree from the current target until we find the matching selector
 			for (; t && t !== document; t = t.parentNode) {
 				if (t.matches(child)) {
 					e.delegateTarget = t;
@@ -104,7 +102,6 @@ var util = {
 			}
 		};
 
-		// Attach the event listener to the parent
 		parent.addEventListener(evt, func, false);
 	},
 	on: function(e, type, callback, scope) {

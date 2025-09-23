@@ -31,9 +31,6 @@ class AuthorizeNetController extends Controller
     {
         $payment_setting = Utility::getAdminPaymentSetting();
         $currency = isset($payment_setting['currency']) ? $payment_setting['currency'] : 'USD';
-        // if ($currency != 'USD') {
-        //     return redirect()->route('plans.index')->with('error', __('Your currency is not USD'));
-        // }
         $planID    = \Illuminate\Support\Facades\Crypt::decrypt($request->plan_id);
         $plan      = Plan::find($planID);
         $authuser  = Auth::user();
@@ -142,7 +139,6 @@ class AuthorizeNetController extends Controller
             $merchantAuthentication->setName($admin_settings['authorizenet_merchant_login_id']);
             $merchantAuthentication->setTransactionKey($admin_settings['authorizenet_merchant_transaction_key']);
             $refId                  = 'ref' . time();
-            // Create the payment data for a credit card
             $creditCard = new AnetAPI\CreditCardType();
             $creditCard->setCardNumber($input['cardNumber']);
             $creditCard->setExpirationDate($input['year'] . '-' . $input['month']);
@@ -150,12 +146,10 @@ class AuthorizeNetController extends Controller
 
             $paymentOne             = new AnetAPI\PaymentType();
             $paymentOne->setCreditCard($creditCard);
-            // Create a TransactionRequestType object and add the previous objects to it
             $transactionRequestType = new AnetAPI\TransactionRequestType();
             $transactionRequestType->setTransactionType("authCaptureTransaction");
             $transactionRequestType->setAmount($amount);
             $transactionRequestType->setPayment($paymentOne);
-            // Assemble the complete transaction request
             $requestNet             = new AnetAPI\CreateTransactionRequest();
             $requestNet->setMerchantAuthentication($merchantAuthentication);
             $requestNet->setRefId($refId);
@@ -166,11 +160,11 @@ class AuthorizeNetController extends Controller
         $controller = new AnetController\CreateTransactionController($requestNet);
         if (!empty($admin_settings['authorizenet_mode']) && $admin_settings['authorizenet_mode'] == 'live') {
 
-            $response   = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION); // change SANDBOX to PRODUCTION in live mode
+            $response   = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
 
         } else {
 
-            $response   = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX); // change SANDBOX to PRODUCTION in live mode
+            $response   = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
         }
 
         if ($response != null) {
@@ -299,7 +293,6 @@ class AuthorizeNetController extends Controller
             $merchantAuthentication->setName($company_payment_setting['authorizenet_merchant_login_id']);
             $merchantAuthentication->setTransactionKey($company_payment_setting['authorizenet_merchant_transaction_key']);
             $refId                  = 'ref' . time();
-            // Create the payment data for a credit card
             $creditCard = new AnetAPI\CreditCardType();
             $creditCard->setCardNumber($input['cardNumber']);
             $creditCard->setExpirationDate($input['year'] . '-' . $input['month']);
@@ -307,26 +300,23 @@ class AuthorizeNetController extends Controller
 
             $paymentOne             = new AnetAPI\PaymentType();
             $paymentOne->setCreditCard($creditCard);
-            // Create a TransactionRequestType object and add the previous objects to it
             $transactionRequestType = new AnetAPI\TransactionRequestType();
             $transactionRequestType->setTransactionType("authCaptureTransaction");
             $transactionRequestType->setAmount($amount);
             $transactionRequestType->setPayment($paymentOne);
-            // Assemble the complete transaction request
             $requestNet             = new AnetAPI\CreateTransactionRequest();
             $requestNet->setMerchantAuthentication($merchantAuthentication);
             $requestNet->setRefId($refId);
             $requestNet->setTransactionRequest($transactionRequestType);
 
-
             $controller = new AnetController\CreateTransactionController($requestNet);
             if (!empty($company_payment_setting['authorizenet_mode']) && $company_payment_setting['authorizenet_mode'] == 'live') {
 
-                $response   = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION); // change SANDBOX to PRODUCTION in live mode
+                $response   = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
 
             } else {
 
-                $response   = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX); // change SANDBOX to PRODUCTION in live mode
+                $response   = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
             }
 
         if ($response != null) {
@@ -366,10 +356,8 @@ class AuthorizeNetController extends Controller
                             $invoice->save();
                         }
 
-                        //for customer balance update
                         Utility::updateUserBalance('customer', $invoice->customer_id, $request->amount, 'debit');
 
-                        //For Notification
                         $setting  = Utility::settingsById($invoice->created_by);
                         $customer = Customer::find($invoice->customer_id);
                         $notificationArr = [
@@ -377,22 +365,18 @@ class AuthorizeNetController extends Controller
                                 'invoice_payment_type' => 'Aamarpay',
                                 'customer_name' => $customer->name,
                             ];
-                        //Slack Notification
                         if(isset($settings['payment_notification']) && $settings['payment_notification'] ==1)
                         {
                             Utility::send_slack_msg('new_invoice_payment', $notificationArr,$invoice->created_by);
                         }
-                        //Telegram Notification
                         if(isset($settings['telegram_payment_notification']) && $settings['telegram_payment_notification'] == 1)
                         {
                             Utility::send_telegram_msg('new_invoice_payment', $notificationArr,$invoice->created_by);
                         }
-                        //Twilio Notification
                         if(isset($settings['twilio_payment_notification']) && $settings['twilio_payment_notification'] ==1)
                         {
                             Utility::send_twilio_msg($customer->contact,'new_invoice_payment', $notificationArr,$invoice->created_by);
                         }
-                        //webhook
                         $module ='New Invoice Payment';
                         $webhook=  Utility::webhookSetting($module,$invoice->created_by);
                         if($webhook)
@@ -490,7 +474,6 @@ class AuthorizeNetController extends Controller
             $merchantAuthentication->setName($company_payment_setting['authorizenet_merchant_login_id']);
             $merchantAuthentication->setTransactionKey($company_payment_setting['authorizenet_merchant_transaction_key']);
             $refId                  = 'ref' . time();
-            // Create the payment data for a credit card
             $creditCard = new AnetAPI\CreditCardType();
             $creditCard->setCardNumber($input['cardNumber']);
             $creditCard->setExpirationDate($input['year'] . '-' . $input['month']);
@@ -498,26 +481,23 @@ class AuthorizeNetController extends Controller
 
             $paymentOne             = new AnetAPI\PaymentType();
             $paymentOne->setCreditCard($creditCard);
-            // Create a TransactionRequestType object and add the previous objects to it
             $transactionRequestType = new AnetAPI\TransactionRequestType();
             $transactionRequestType->setTransactionType("authCaptureTransaction");
             $transactionRequestType->setAmount($amount);
             $transactionRequestType->setPayment($paymentOne);
-            // Assemble the complete transaction request
             $requestNet             = new AnetAPI\CreateTransactionRequest();
             $requestNet->setMerchantAuthentication($merchantAuthentication);
             $requestNet->setRefId($refId);
             $requestNet->setTransactionRequest($transactionRequestType);
 
-
         $controller = new AnetController\CreateTransactionController($requestNet);
         if (!empty($company_payment_setting['authorizenet_mode']) && $company_payment_setting['authorizenet_mode'] == 'live') {
 
-            $response   = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION); // change SANDBOX to PRODUCTION in live mode
+            $response   = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::PRODUCTION);
 
         } else {
 
-            $response   = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX); // change SANDBOX to PRODUCTION in live mode
+            $response   = $controller->executeWithApiResponse(\net\authorize\api\constants\ANetEnvironment::SANDBOX);
         }
         if ($response != null) {
             if ($response->getMessages()->getResultCode() == "Ok") {
@@ -555,10 +535,8 @@ class AuthorizeNetController extends Controller
                             $retainer->status = 3;
                             $retainer->save();
                         }
-                        //for customer balance update
                         Utility::updateUserBalance('customer', $retainer->customer_id, $request->amount, 'debit');
 
-                        //For Notification
                         $setting  = Utility::settingsById($retainer->created_by);
                         $customer = Customer::find($retainer->customer_id);
                         $notificationArr = [
@@ -566,22 +544,18 @@ class AuthorizeNetController extends Controller
                                 'retainer_payment_type' => 'Aamarpay',
                                 'customer_name' => $customer->name,
                             ];
-                        //Slack Notification
                         if(isset($settings['payment_notification']) && $settings['payment_notification'] ==1)
                         {
                             Utility::send_slack_msg('new_retainer_payment', $notificationArr,$retainer->created_by);
                         }
-                        //Telegram Notification
                         if(isset($settings['telegram_payment_notification']) && $settings['telegram_payment_notification'] == 1)
                         {
                             Utility::send_telegram_msg('new_retainer_payment', $notificationArr,$retainer->created_by);
                         }
-                        //Twilio Notification
                         if(isset($settings['twilio_payment_notification']) && $settings['twilio_payment_notification'] ==1)
                         {
                             Utility::send_twilio_msg($customer->contact,'new_retainer_payment', $notificationArr,$retainer->created_by);
                         }
-                        //webhook
                         $module ='New retainer Payment';
                         $webhook=  Utility::webhookSetting($module,$retainer->created_by);
                         if($webhook)

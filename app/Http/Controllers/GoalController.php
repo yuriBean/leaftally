@@ -60,7 +60,6 @@ class GoalController extends Controller
 
     public function show(Goal $goal)
     {
-        //
     }
 
     public function edit(Goal $goal)
@@ -120,9 +119,6 @@ class GoalController extends Controller
         return redirect()->route('goal.index')->with('success', __('Goal successfully deleted.'));
     }
 
-    /**
-     * BULK DELETE
-     */
     public function bulkDestroy(Request $request)
     {
         if (!\Auth::user()->can('delete goal')) {
@@ -154,9 +150,6 @@ class GoalController extends Controller
             : redirect()->back()->with('success', $msg);
     }
 
-    /**
-     * EXPORT ALL
-     */
     public function export()
     {
         if (!\Auth::user()->can('manage goal')) {
@@ -171,9 +164,6 @@ class GoalController extends Controller
         return Excel::download(new GoalExport(), $filename);
     }
 
-    /**
-     * EXPORT SELECTED
-     */
     public function exportSelected(Request $request)
     {
         if (!\Auth::user()->can('manage goal')) {

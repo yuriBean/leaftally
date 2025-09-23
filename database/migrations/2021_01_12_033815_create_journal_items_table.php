@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateJournalItemsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create(
@@ -26,11 +21,6 @@ class CreateJournalItemsTable extends Migration
         );
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('journal_items');

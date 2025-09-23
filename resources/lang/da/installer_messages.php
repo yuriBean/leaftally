@@ -2,11 +2,6 @@
 
 return [
 
-    /**
-     *
-     * Shared translations.
-     *
-     */
     'title' => 'Installer',
     'next' => 'Next Step',
     'back' => 'Previous',
@@ -15,11 +10,6 @@ return [
         'errorTitle' => 'The Following errors occurred:',
     ],
 
-    /**
-     *
-     * Home page translations.
-     *
-     */
     'welcome' => [
         'templateTitle' => 'Welcome',
         'title'   => 'Installer',
@@ -27,33 +17,18 @@ return [
         'next'    => 'Check Requirements',
     ],
 
-    /**
-     *
-     * Requirements page translations.
-     *
-     */
     'requirements' => [
         'templateTitle' => 'Step 1 | Server Requirements',
         'title' => 'Server Requirements',
         'next'    => 'Check Permissions',
     ],
 
-    /**
-     *
-     * Permissions page translations.
-     *
-     */
     'permissions' => [
         'templateTitle' => 'Step 2 | Permissions',
         'title' => 'Permissions',
         'next' => 'Configure Environment',
     ],
 
-    /**
-     *
-     * Environment page translations.
-     *
-     */
     'environment' => [
         'menu' => [
             'templateTitle' => 'Step 3 | Environment Settings',
@@ -169,20 +144,10 @@ return [
 
     'install' => 'Install',
 
-    /**
-     *
-     * Installed Log translations.
-     *
-     */
     'installed' => [
         'success_log_message' => 'Installer successfully INSTALLED on ',
     ],
 
-    /**
-     *
-     * Final page translations.
-     *
-     */
     'final' => [
         'title' => 'Installation Finished',
         'templateTitle' => 'Installation Finished',
@@ -194,45 +159,20 @@ return [
         'exit' => 'Click here to exit',
     ],
 
-    /**
-     *
-     * Update specific translations
-     *
-     */
     'updater' => [
-        /**
-         *
-         * Shared translations.
-         *
-         */
         'title' => 'Updater',
 
-        /**
-         *
-         * Welcome page translations for update feature.
-         *
-         */
         'welcome' => [
             'title'   => 'Welcome To The Updater',
             'message' => 'Welcome to the update wizard.',
         ],
 
-        /**
-         *
-         * Welcome page translations for update feature.
-         *
-         */
         'overview' => [
             'title'   => 'Overview',
             'message' => 'There is 1 update.|There are :number updates.',
             'install_updates' => "Install Updates"
         ],
 
-        /**
-         *
-         * Final page translations.
-         *
-         */
         'final' => [
             'title' => 'Finished',
             'finished' => 'Application\'s database has been successfully updated.',

@@ -102,7 +102,6 @@
 
 @push('script-page')
 <script>
-  // Prevent dropdown clicks from breaking datatable row behavior
   $(document).on('click', '.dropdown-menu, [data-bs-toggle="dropdown"]', function(e){
     e.stopPropagation();
   });

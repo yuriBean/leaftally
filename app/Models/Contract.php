@@ -23,13 +23,11 @@ class Contract extends Model
 
     public function clients()
     {
-        // show even if customer was soft-deleted later
         return $this->hasOne('App\Models\Customer', 'id', 'customer')->withTrashed();
     }
 
     public function types()
     {
-        // ContractType uses SoftDeletes -> include trashed
         return $this->hasOne('App\Models\ContractType', 'id', 'type')->withTrashed();
     }
 

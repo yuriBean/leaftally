@@ -17,7 +17,6 @@
     <li class="breadcrumb-item">{{ __('Landing Page') }}</li>
 @endsection
 
-
 @section('content')
     <div class="row">
         <div class="col-sm-12">
@@ -28,14 +27,12 @@
 
                             @include('landingpage::layouts.tab')
 
-
                         </div>
                     </div>
                 </div>
 
                 <div class="col-xl-9">
                     {{--  Start for all settings tab --}}
-
 
                     <div class="card">
                         {{ Form::open(['route' => 'testimonials.store', 'method' => 'post', 'enctype' => 'multipart/form-data']) }}
@@ -96,8 +93,6 @@
                                     </div>
                                 </div>
 
-
-
                             </div>
                         </div>
                         <div class="card-footer text-end">
@@ -107,7 +102,6 @@
                         {{ Form::close() }}
 
                     </div>
-
 
                     <div class="card">
                         <div class="card-header">
@@ -188,9 +182,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
 
                     {{--  End for all settings tab --}}
                 </div>

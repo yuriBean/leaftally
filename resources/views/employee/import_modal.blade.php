@@ -38,11 +38,6 @@
                 }
             });
 
-            // if (column_name in column_data) {
-            //     show_toastr('Error', 'You have already define ' + column_name + ' column', 'Error');
-            //     $(this).val('');
-            //     // return false;
-            // }
             $('.set_column_data').each(function() {
                 var $this = $(this);
                 var col_num = $this.data('column_number');
@@ -134,7 +129,6 @@
                         $('#message').html(data.response);
                         $('#commonModalOver').modal('hide')
                         show_toastr('Success', data.response, 'Success');
-                        // location.reload();
                     }
 
                 }

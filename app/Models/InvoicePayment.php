@@ -23,7 +23,6 @@ class InvoicePayment extends Model
         
     ];
 
-
     public function bankAccount()
     {
         return $this->hasOne('App\Models\BankAccount', 'id', 'account_id');

@@ -1,7 +1,6 @@
 @extends('layouts.admin') @section('page-title') {{ __('Retainer Detail') }} @endsection @php $TAX_ENABLED = \App\Services\Feature::for(\Auth::user()) ->enabled(\App\Enum\PlanFeature::TAX); @endphp @push('css-page')
 <style>
-    #card-element {
-            border: 1px solid #a3afbb !important;
+            border: 1px solid
             border-radius: 10px !important;
             padding: 10px !important;
         }
@@ -22,24 +21,19 @@
             var stripe = Stripe('{{ $company_payment_setting['stripe_key'] }}');
             var elements = stripe.elements();
 
-            // Custom styling can be passed to options when creating an Element.
             var style = {
                 base: {
-                    // Add your base input styles here. For example:
                     fontSize: '14px',
                     color: '#32325d',
                 },
             };
 
-            // Create an instance of the card Element.
             var card = elements.create('card', {
                 style: style
             });
 
-            // Add an instance of the card Element into the `card-element` <div>.
             card.mount('#card-element');
 
-            // Create a token or display an error when the form is submitted.
             var form = document.getElementById('payment-form');
             form.addEventListener('submit', function(event) {
                 event.preventDefault();
@@ -49,14 +43,12 @@
                         $("#card-errors").html(result.error.message);
                         show_toastr('error', result.error.message, 'error');
                     } else {
-                        // Send the token to your server.
                         stripeTokenHandler(result.token);
                     }
                 });
             });
 
             function stripeTokenHandler(token) {
-                // Insert the token ID into the form so it gets submitted to the server
                 var form = document.getElementById('payment-form');
                 var hiddenInput = document.createElement('input');
                 hiddenInput.setAttribute('type', 'hidden');
@@ -64,7 +56,6 @@
                 hiddenInput.setAttribute('value', token.id);
                 form.appendChild(hiddenInput);
 
-                // Submit the form
                 form.submit();
             }
         @endif
@@ -74,7 +65,6 @@
                 $('#paystack-payment-form').ajaxForm(function(res) {
                     var amount = res.total_price;
                     if (res.flag == 1) {
-                        // var paystack_callback = "{{ url('/retainer/paystack') }}";
 
                         var handler = PaystackPop.setup({
                             key: '{{ $company_payment_setting['paystack_public_key'] }}',
@@ -83,7 +73,7 @@
                             currency: res.currency,
                             ref: 'pay_ref_id' + Math.floor((Math.random() * 1000000000) +
                                 1
-                            ), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+                            ),
                             metadata: {
                                 custom_fields: [{
                                     display_name: "Email",
@@ -114,7 +104,6 @@
         @endif
 
         @if (isset($company_payment_setting['flutterwave_public_key']))
-            //    Flaterwave Payment
             $(document).on("click", "#pay_with_flaterwave", function() {
                 $('#flaterwave-payment-form').ajaxForm(function(res) {
 
@@ -146,10 +135,9 @@
                                         '{{ \Illuminate\Support\Facades\Crypt::encrypt($retainer->id) }}' +
                                         '/' + txref;
                                 } else {
-                                    // redirect to a failure page.
                                 }
                                 x
-                                    .close(); // use this to close the modal immediately after payment.
+                                    .close();
                             }
                         });
                     } else if (res.flag == 2) {
@@ -163,16 +151,14 @@
         @endif
 
         @if (isset($company_payment_setting['razorpay_public_key']))
-            // Razorpay Payment
             $(document).on("click", "#pay_with_razorpay", function() {
                 $('#razorpay-payment-form').ajaxForm(function(res) {
                     if (res.flag == 1) {
                         var amount = res.total_price;
-                        // var razorPay_callback = '{{ url('/retainer/razorpay') }}';
                         var totalAmount = res.total_price * 100;
                         var coupon_id = res.coupon;
                         var options = {
-                            "key": "{{ $company_payment_setting['razorpay_public_key'] }}", // your Razorpay Key Id
+                            "key": "{{ $company_payment_setting['razorpay_public_key'] }}",
                             "amount": totalAmount,
                             "name": 'Plan',
                             "currency": '{{ App\Models\Utility::getValByName('site_currency') }}',
@@ -183,9 +169,6 @@
                                     '{{ \Illuminate\Support\Facades\Crypt::encrypt($retainer->id) }}' +
                                     '/' + amount;
 
-                                // window.location.href = '{{ route('customer.retainer.razorpay', ['response.razorpay_payment_id', \Illuminate\Support\Facades\Crypt::encrypt($retainer->id)]) }}' ;
-
-                                // window.location.href = razorPay_callback + '/' + response.razorpay_payment_id + '/' + '{{ \Illuminate\Support\Facades\Crypt::encrypt($retainer->id) }}' + '?amount=' + amount;
                             },
                             "theme": {
                                 "color": "#528FF0"
@@ -203,7 +186,6 @@
                 }).submit();
             });
         @endif
-
 
         $('.cp_link').on('click', function() {
             var value = $(this).attr('data-link');
@@ -226,7 +208,6 @@
                     'is_display': is_display,
                 },
                 success: function(data) {
-                    // console.log(data);
                 }
             });
         })
@@ -317,9 +298,7 @@
                             </a>
         </div>
         @endif @if ($retainer->status != 4)
-        <!-- <div class="all-button-box mr-2">
-                                                            <a href="{{ route('retainer.payment.reminder', $retainer->id) }}" class="btn btn-sm btn-primary">{{ __('Receipt Reminder') }}</a>
-                                                        </div> -->
+        
         @endif
         <div class="all-button-box mr-2">
             <a href="{{ route('retainer.resent', $retainer->id) }}" class="btn btn-sm btn-primary bs-resend-confirm">{{ __('Resend Retainer') }}</a>
@@ -361,7 +340,7 @@
 @endif
 
 <div class="row">
-    <!-- <div class="col-12"> -->
+    
     <div class="card">
         <div class="card-body">
             <div class="invoice">
@@ -455,8 +434,6 @@
                                 </small>
                         </div>
 
-
-
                         @if (!empty($customFields) && count($retainer->customField) > 0) @foreach ($customFields as $field)
                         <div class="col text-md-right">
                             <small>
@@ -474,7 +451,7 @@
                             <div class="table-responsive mt-2">
                                 <table class="table mb-0 table-striped">
                                     <tr>
-                                        <th data-width="40" class="text-dark">#</th>
+                                        <th data-width="40" class="text-dark">
                                         <th class="text-dark">{{ __('Product') }}</th>
                                         <th class="text-dark">{{ __('Quantity') }}</th>
                                         <th class="text-dark">{{ __('Rate') }}</th>
@@ -598,11 +575,8 @@
             </div>
         </div>
 
-        <!-- </div> -->
     </div>
 
-
-    <!-- <div class="col-12"> -->
     <h5 class="h4 d-inline-block font-weight-400 mb-2">{{ __('Receipt Summary') }}</h5>
     <div class="card">
         <div class="card-body table-border-style">
@@ -710,10 +684,10 @@
                 </div>
             </div>
         </div>
-        <!-- </div> -->
+        
         {{--
         <div class="row"></div>
-        <!-- <div class="col-12"> -->
+        
         <h5 class="h4 d-inline-block font-weight-400 mb-2">{{__('Credit Note Summary')}}</h5>
         <div class="card">
             <div class="card-body table-border-style table-border-style">
@@ -763,7 +737,7 @@
                 </div>
             </div>
         </div>
-        <!-- </div> -->
+        
     </div> --}} @auth('customer') @if ($retainer->getDue() > 0)
     <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -926,9 +900,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- <div class="form-group mt-3">
-                                                                                                                        <button class="btn btn-sm btn-primary rounded-pill" type="submit">{{ __('Make Payment') }}</button>
-                                                                                                                    </div> -->
+                                        
                                         <div class="col-12 form-group mt-3 text-end">
                                             <button class="btn btn-sm btn-primary m-r-10" type="submit">{{ __('Make Payment') }} </button>
                                         </div>
@@ -951,9 +923,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- <div class="form-group mt-3">
-                                                                                                                        <button class="btn btn-sm btn-primary rounded-pill" name="submit" type="submit">{{ __('Make Payment') }}</button>
-                                                                                                                    </div> -->
+                                        
                                         <div class="col-12 form-group mt-3 text-end">
                                             <button class="btn btn-sm btn-primary m-r-10" name="submit" type="submit">{{ __('Make Payment') }} </button>
                                         </div>
@@ -974,9 +944,7 @@
 
                                             </div>
                                         </div>
-                                        <!-- <div class="form-group mt-3">
-                                                                                                                        <input class="btn btn-sm btn-primary rounded-pill" id="pay_with_paystack" type="button" value="{{ __('Make Payment') }}">
-                                                                                                                    </div> -->
+                                        
                                         <div class="col-12 form-group mt-3 text-end">
                                             <button class="btn btn-sm btn-primary m-r-10" id="pay_with_paystack" type="submit">{{ __('Make Payment') }} </button>
                                         </div>
@@ -998,9 +966,7 @@
 
                                             </div>
                                         </div>
-                                        <!-- <div class="form-group mt-3">
-                                                                                                                        <input class="btn btn-sm btn-primary rounded-pill" id="pay_with_flaterwave" type="button" value="{{ __('Make Payment') }}">
-                                                                                                                    </div> -->
+                                        
                                         <div class="col-12 form-group mt-3 text-end">
                                             <button class="btn btn-sm btn-primary m-r-10" id="pay_with_flaterwave" type="submit">{{ __('Make Payment') }} </button>
                                         </div>
@@ -1022,9 +988,7 @@
 
                                             </div>
                                         </div>
-                                        <!-- <div class="form-group mt-3">
-                                                                                                                        <input class="btn btn-sm btn-primary rounded-pill" id="pay_with_razorpay" type="button" value="{{ __('Make Payment') }}">
-                                                                                                                    </div> -->
+                                        
                                         <div class="col-12 form-group mt-3 text-end">
                                             <button class="btn btn-sm btn-primary m-r-10" id="pay_with_razorpay" type="submit">{{ __('Make Payment') }} </button>
                                         </div>
@@ -1046,9 +1010,7 @@
 
                                             </div>
                                         </div>
-                                        <!-- <div class="form-group mt-3">
-                                                                                                                        <input type="submit" id="pay_with_mercado" value="{{ __('Make Payment') }}" class="btn btn-sm btn-primary rounded-pill">
-                                                                                                                    </div> -->
+                                        
                                         <div class="col-12 form-group mt-3 text-end">
                                             <button class="btn btn-sm btn-primary m-r-10" id="pay_with_mercado" type="submit">{{ __('Make Payment') }} </button>
                                         </div>
@@ -1076,9 +1038,7 @@
                                                 <input type="text" id="mobile" name="mobile" class="form-control mobile" data-from="mobile" placeholder="{{ __('Enter Mobile Number') }}" required>
                                             </div>
                                         </div>
-                                        <!-- <div class="form-group mt-3">
-                                                                                                                        <input type="submit" id="pay_with_paytm" value="{{ __('Make Payment') }}" class="btn btn-sm btn-primary rounded-pill">
-                                                                                                                    </div> -->
+                                        
                                         <div class="col-12 form-group mt-3 text-end">
                                             <button class="btn btn-sm btn-primary m-r-10" id="pay_with_paytm" type="submit">{{ __('Make Payment') }} </button>
                                         </div>
@@ -1100,9 +1060,7 @@
 
                                             </div>
                                         </div>
-                                        <!-- <div class="form-group mt-3">
-                                                                                                                        <input type="submit" id="pay_with_mollie" value="{{ __('Make Payment') }}" class="btn btn-sm btn-primary rounded-pill">
-                                                                                                                    </div> -->
+                                        
                                         <div class="col-12 form-group mt-3 text-end">
                                             <button class="btn btn-sm btn-primary m-r-10" id="pay_with_mollie" type="submit">{{ __('Make Payment') }} </button>
                                         </div>
@@ -1125,9 +1083,7 @@
                                             </div>
                                         </div>
                                         @php $skrill_data = [ 'transaction_id' => md5(date('Y-m-d') . strtotime('Y-m-d H:i:s') . 'user_id'), 'user_id' => 'user_id', 'amount' => 'amount', 'currency' => 'currency', ]; session()->put('skrill_data', $skrill_data); @endphp
-                                        <!-- <div class="form-group mt-3">
-                                                                                                                        <input type="submit" id="pay_with_skrill" value="{{ __('Make Payment') }}" class="btn btn-sm btn-primary rounded-pill">
-                                                                                                                    </div> -->
+                                        
                                         <div class="col-12 form-group mt-3 text-end">
                                             <button class="btn btn-sm btn-primary m-r-10" id="pay_with_skrill" type="submit">{{ __('Make Payment') }} </button>
                                         </div>
@@ -1149,9 +1105,7 @@
 
                                             </div>
                                         </div>
-                                        <!-- <div class="form-group mt-3">
-                                                                                                                        <input type="submit" id="pay_with_coingate" value="{{ __('Make Payment') }}" class="btn btn-sm btn-primary rounded-pill">
-                                                                                                                    </div> -->
+                                        
                                         <div class="col-12 form-group mt-3 text-end">
                                             <button class="btn btn-sm btn-primary m-r-10" id="pay_with_coingate" type="submit">{{ __('Make Payment') }} </button>
                                         </div>
@@ -1160,7 +1114,7 @@
                                 </div>
                                 @endif @if ( !empty($company_payment_setting) && $company_payment_setting['is_paymentwall_enabled'] == 'on' && !empty($company_payment_setting['is_paymentwall_enabled']) && !empty($company_payment_setting['paymentwall_secret_key']))
                                 <div class="tab-pane fade " id="paymentwall-payment" role="tabpanel" aria-labelledby="paymentwall-payment">
-                                    <!-- <div class="card"> -->
+                                    
                                     <form class="w3-container w3-display-middle w3-card-4" method="POST" id="paymentwall-payment-form" action="{{ route('retainer.paymentwallpayment') }}">
                                         @csrf
                                         <input type="hidden" name="retainer_id" value="{{ \Illuminate\Support\Facades\Crypt::encrypt($retainer->id) }}">
@@ -1177,7 +1131,7 @@
                                             <button class="btn btn-sm btn-primary m-r-10" id="pay_with_paymentwall" name="submit" type="submit">{{ __('Make Payment') }} </button>
                                         </div>
                                     </form>
-                                    <!-- </div> -->
+                                    
                                 </div>
                                 @endif @if ( !empty($company_payment_setting) && isset($company_payment_setting['is_toyyibpay_enabled']) && $company_payment_setting['is_toyyibpay_enabled'] == 'on' && !empty($company_payment_setting['toyyibpay_secret_key']) && !empty($company_payment_setting['category_code']))
                                 <div class="tab-pane fade " id="toyyibpay-payment" role="tabpanel" aria-labelledby="toyyibpay-payment">
@@ -1389,7 +1343,6 @@
                                     </form>
                                 </div>
                                 @endif
-
 
                             </div>
                         </section>

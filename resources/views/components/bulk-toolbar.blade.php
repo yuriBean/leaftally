@@ -1,6 +1,6 @@
 @props([
-    'deleteRoute' => null,     // can be null (no Delete button)
-    'exportRoute' => null,     // can be null (no Export button)
+    'deleteRoute' => null,
+    'exportRoute' => null,
     'scope' => 'items',
     'tableId' => null,
     'selectedLabel' => 'selected',
@@ -9,10 +9,10 @@
 @php
   $barId         = 'bulkbar-'.$scope;
   $countId       = 'bulkcount-'.$scope;
-  $formId        = 'bulkform-'.$scope;          // hidden form for DELETE (non-AJAX)
-  $holderId      = 'bulkids-'.$scope;           // where ids[] hidden inputs go
+  $formId        = 'bulkform-'.$scope;
+  $holderId      = 'bulkids-'.$scope;
 
-  $exportFormId   = 'bulkexportform-'.$scope;   // hidden form for Export Selected
+  $exportFormId   = 'bulkexportform-'.$scope;
   $exportHolderId = 'bulkexportids-'.$scope;
 
   $tableSel      = $tableId ? '#'.$tableId : 'table';
@@ -34,7 +34,6 @@
 </form>
 @endif
 
-<!-- Bulk toolbar (hidden until something is selected) -->
 <div id="{{ $barId }}" class="card border-0 shadow-sm rounded-[8px] mb-4 overflow-hidden" style="display:none">
   <div class="card-body p-4 bg-[#F8FAFC]">
     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -112,12 +111,10 @@
 
   function refresh() {
     const selected = new Set(getSel());
-    // sync row checkboxes
     $table.find('tbody input.jsb-item[data-scope="'+scope+'"]').each(function(){
       const id = String($(this).data('id') || $(this).val());
       $(this).prop('checked', selected.has(id));
     });
-    // master state
     const $master = $table.find('thead input.jsb-master[data-scope="'+scope+'"]');
     const $rows = $table.find('tbody input.jsb-item[data-scope="'+scope+'"]');
     if ($rows.length) {
@@ -134,17 +131,14 @@
   const delSel = (ids)=>{ const s=new Set(getSel()); ids.forEach(i=>s.delete(String(i))); saveSel(Array.from(s)); setCount(); toggleBar(); };
   const clrSel = ()=>{ saveSel([]); setCount(); toggleBar(); };
 
-  // prevent row click navigation when interacting with controls
   $(document).on('click', 'input[type=checkbox], label.mcheck, .dropdown-menu, [data-bs-toggle="dropdown"]', function(e){ e.stopPropagation(); });
 
-  // item change
   $(document).on('change', 'input.jsb-item[data-scope="'+scope+'"]', function(){
     const id = String($(this).data('id') || $(this).val());
     if ($(this).is(':checked')) addSel([id]); else delSel([id]);
     refresh();
   });
 
-  // master change (delegated)
   $(document).on('change', 'input.jsb-master[data-scope="'+scope+'"]', function(){
     const $rows = $table.find('tbody input.jsb-item[data-scope="'+scope+'"]');
     const ids = $rows.map(function(){ return String($(this).data('id') || $(this).val()); }).get();
@@ -153,19 +147,16 @@
     refresh();
   });
 
-  // select visible page
   $(document).on('click', '[data-bulk-select-page][data-scope="'+scope+'"]', function(){
     const $rows = $table.find('tbody input.jsb-item[data-scope="'+scope+'"]');
     const ids = $rows.map(function(){ return String($(this).data('id') || $(this).val()); }).get();
     addSel(ids); refresh();
   });
 
-  // clear all
   $(document).on('click', '[data-bulk-clear][data-scope="'+scope+'"]', function(){
     clrSel(); refresh();
   });
 
-  // bulk delete — NON-AJAX submit so redirect + flash work
   $(document).on('click', '[data-bulk-delete][data-scope="'+scope+'"]', function(){
     const ids = getSel();
     if (!ids.length) {
@@ -196,7 +187,6 @@
     });
   });
 
-  // export selected — POST into new tab
   $(document).on('click', '[data-bulk-export][data-scope="'+scope+'"]', function(){
     const ids = getSel();
     if (!ids.length) {

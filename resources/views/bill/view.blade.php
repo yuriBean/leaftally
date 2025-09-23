@@ -18,7 +18,6 @@
                     'is_display': is_display,
                 },
                 success: function(data) {
-                    // console.log(data);
                 }
             });
         })
@@ -190,8 +189,6 @@
                                 </div>
                             </div>
 
-
-
                             <div class="row">
                                 <div class="col text-end">
                                     <div class="d-flex align-items-center justify-content-end">
@@ -210,7 +207,6 @@
                                     </div>
                                 </div>
                             </div>
-
 
                             <div class="row">
                                 <strong>
@@ -297,8 +293,6 @@
                                     </small>
                                 </div>
 
-
-
                                 @if (!empty($customFields) && count($bill->customField) > 0)
                                     @foreach ($customFields as $field)
                                         <div class="col text-md-end">
@@ -319,7 +313,7 @@
                                    <div class="table-responsive table-new-design mt-3">
     <table class="table datatable border border-[#E5E5E5] rounded-[8px] mb-0">
         <tr>
-            <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] font-[600] text-[12px]" data-width="40">#</th>
+            <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] font-[600] text-[12px]" data-width="40">
             <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] font-[600] text-[12px]">
                 {{ __('Product') }}
             </th>
@@ -357,8 +351,6 @@
                                                 $totalDiscount = 0;
                                                 $taxesData = [];
                                             @endphp
-
-
 
                                             @foreach ($items as $key => $item)
                                                 @if (!empty($item->product_id))
@@ -475,7 +467,6 @@
                                                         <td class="text-end">
                                                             {{ \Auth::user()->priceFormat($item['amount']) }}</td>
                                                         <td></td>
-
 
                                                     </tr>
                                                 @endif

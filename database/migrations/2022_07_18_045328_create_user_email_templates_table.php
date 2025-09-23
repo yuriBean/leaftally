@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateUserEmailTemplatesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create(
@@ -21,15 +16,9 @@ class CreateUserEmailTemplatesTable extends Migration
             $table->integer('is_active')->default(1);
             $table->timestamps();
 
-        
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('user_email_templates');

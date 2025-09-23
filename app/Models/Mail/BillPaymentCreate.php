@@ -12,21 +12,11 @@ class BillPaymentCreate extends Mailable
     use Queueable, SerializesModels;
     public $payment;
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
     public function __construct($payment)
     {
         $this->payment = $payment;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
     public function build()
     {
         if(\Auth::user()->type == 'super admin')

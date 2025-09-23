@@ -9,13 +9,8 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class ContractExport implements FromCollection, WithHeadings
 {
-    /** @var array<int> */
     protected $ids;
 
-    /**
-     * @param array<int>|null $ids  If provided, export only these IDs (Export Selected).
-     *                              If null/empty, export all visible to the user (Export All).
-     */
     public function __construct(?array $ids = null)
     {
         $this->ids = $ids ?? [];
@@ -30,7 +25,6 @@ class ContractExport implements FromCollection, WithHeadings
         if ($user->type === 'company') {
             $q->where('created_by', $user->creatorId());
         } else {
-            // customers see only their own contracts
             $q->where('customer', $user->id);
         }
 

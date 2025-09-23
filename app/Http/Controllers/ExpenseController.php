@@ -30,7 +30,6 @@ class ExpenseController extends Controller
         }
     }
 
-
     public function create()
     {
         if(\Auth::user()->can('create expense'))
@@ -46,7 +45,6 @@ class ExpenseController extends Controller
             return response()->json(['error' => __('Permission denied.')], 401);
         }
     }
-
 
     public function store(Request $request)
     {
@@ -99,7 +97,6 @@ class ExpenseController extends Controller
         }
     }
 
-
     public function edit(Expense $expense)
     {
         if(\Auth::user()->can('edit expense'))
@@ -122,7 +119,6 @@ class ExpenseController extends Controller
             return response()->json(['error' => __('Permission denied.')], 401);
         }
     }
-
 
     public function update(Request $request, Expense $expense)
     {
@@ -183,7 +179,6 @@ class ExpenseController extends Controller
             return redirect()->back()->with('error', __('Permission denied.'));
         }
     }
-
 
     public function destroy(Expense $expense)
     {

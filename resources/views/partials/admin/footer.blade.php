@@ -1,4 +1,4 @@
-<!-- [ Main Content ] end -->
+
 @php
     use App\Models\Utility;
     $settings = Utility::settingsById(\Auth::user()->creatorId1());
@@ -19,10 +19,6 @@
     </div>
 </footer>
 
-
-
-<!-- Warning Section Ends -->
-<!-- Required Js -->
 <script src="{{ asset('js/jquery.min.js') }}"></script>
 <script src="{{ asset('js/jquery.form.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/popper.min.js') }}"></script>
@@ -39,15 +35,10 @@
 <script src="{{ asset('assets/js/plugins/sweetalert2.all.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/simple-datatables.js') }}"></script>
 
-<!-- sweet alert Js -->
 {{-- <script src="{{ asset('assets/js/plugins/sweetalert.min.js') }}"></script> --}}
 
-
-<!--Botstrap switch-->
 <script src="{{ asset('assets/js/plugins/bootstrap-switch-button.min.js') }}"></script>
 
-
-<!-- Apex Chart -->
 <script src="{{ asset('assets/js/plugins/apexcharts.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/main.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/flatpickr.min.js') }}"></script>
@@ -71,14 +62,10 @@
     </script>
 @endif
 
-
 @stack('script-page')
-
-
 
 <script>
     feather.replace();
-
 
     function removeClassByPrefix(node, prefix) {
         for (let i = 0; i < node.classList.length; i++) {

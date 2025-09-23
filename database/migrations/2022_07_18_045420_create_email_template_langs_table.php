@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateEmailTemplateLangsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('email_template_langs', function (Blueprint $table) {
@@ -24,11 +19,6 @@ class CreateEmailTemplateLangsTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('email_template_langs');

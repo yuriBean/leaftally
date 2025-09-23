@@ -20,9 +20,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
     .dash-footer {
         margin-left: 0 !important;
     }
-    /* .card-footer {
-        padding: 2 !important;
-    } */
 </style>
 
 {{-- <link rel="stylesheet" href="{{ asset('assets/css/footer-style.css') }}"> --}}
@@ -42,7 +39,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
             success: function(response) {
                 if (response.is_success) {
                     -
-                    // show_toastr('success', '{{ __('Link Copy on Clipboard') }}');
                     show_toastr('success', response.success, 'success');
                     if (chbox.val() == 1) {
                         $('#' + chbox.attr('id')).val(0);
@@ -89,60 +85,50 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
         $('a[data-value]').removeClass('active_color');
         $('a[data-value="' + color_val + '"]').addClass('active_color');
         
-        // Auto-sync document colors with main theme if they are set to default (white)
         updateDocumentColors(color_val);
     }
     
     function updateDocumentColors(themeValue) {
-        // Color mapping from theme to hex values
         var colorMap = {
-            'theme-1': '51459d',  // Blue
-            'theme-2': 'ff3a6e',  // Pink  
-            'theme-3': '007C38',  // Green (primary)
-            'theme-4': 'ffa21d',  // Orange
-            'theme-5': '3ec9d6'   // Cyan
+            'theme-1': '51459d',
+            'theme-2': 'ff3a6e',
+            'theme-3': '007C38',
+            'theme-4': 'ffa21d',
+            'theme-5': '3ec9d6'
         };
         
         var newColor = colorMap[themeValue] || '007C38';
         
-        // Update invoice color if it's set to default white or not selected
         var invoiceColorChecked = $('input[name="invoice_color"]:checked').val();
         if (!invoiceColorChecked || invoiceColorChecked === 'ffffff') {
             $('input[name="invoice_color"][value="' + newColor + '"]').prop('checked', true);
-            // Update invoice preview if it exists
             if ($('#invoice_frame').length) {
                 var template = $("select[name='invoice_template']").val();
                 $('#invoice_frame').attr('src', '{{ url('/invoices/preview') }}/' + template + '/' + newColor);
             }
         }
         
-        // Update proposal color if it's set to default white or not selected
         var proposalColorChecked = $('input[name="proposal_color"]:checked').val();
         if (!proposalColorChecked || proposalColorChecked === 'ffffff') {
             $('input[name="proposal_color"][value="' + newColor + '"]').prop('checked', true);
-            // Update proposal preview if it exists
             if ($('#proposal_frame').length) {
                 var template = $("select[name='proposal_template']").val();
                 $('#proposal_frame').attr('src', '{{ url('/proposal/preview') }}/' + template + '/' + newColor);
             }
         }
         
-        // Update bill color if it's set to default white or not selected
         var billColorChecked = $('input[name="bill_color"]:checked').val();
         if (!billColorChecked || billColorChecked === 'ffffff') {
             $('input[name="bill_color"][value="' + newColor + '"]').prop('checked', true);
-            // Update bill preview if it exists
             if ($('#bill_frame').length) {
                 var template = $("select[name='bill_template']").val();
                 $('#bill_frame').attr('src', '{{ url('/bill/preview') }}/' + template + '/' + newColor);
             }
         }
         
-        // Update retainer color if it's set to default white or not selected
         var retainerColorChecked = $('input[name="retainer_color"]:checked').val();
         if (!retainerColorChecked || retainerColorChecked === 'ffffff') {
             $('input[name="retainer_color"][value="' + newColor + '"]').prop('checked', true);
-            // Update retainer preview if it exists
             if ($('#retainer_frame').length) {
                 var template = $("select[name='retainer_template']").val();
                 $('#retainer_frame').attr('src', '{{ url('/retainer/preview') }}/' + template + '/' + newColor);
@@ -249,7 +235,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
 <script type="text/javascript">
     $(document).ready(function() {
         var checkBox = document.getElementById('tax_number');
-        // Check if the element is selected/checked
         if (checkBox.checked) {
             $('#tax_checkbox_id').removeClass('d-none');
         } else {
@@ -294,7 +279,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
         }
     });
 
-
     $(document).on('submit', '#test_email', function(e) {
         e.preventDefault();
         $("#email_sending").show();
@@ -332,7 +316,7 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
 
 @section('content')
 <div class="row">
-    <!-- [ sample-page ] start -->
+    
     <div class="col-sm-12">
         <div class="row">
             <div class="col-xl-3">
@@ -391,10 +375,8 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                 </div>
             </div>
 
-
             <div class="col-xl-9">
 
-                <!--Business Setting-->
                 <div id="useradd-1" class="card border-0 rounded-2xl shadow-md overflow-hidden my-3">
                         <div class="h-1 w-full" style="background:#007C38;"></div>
                   
@@ -484,7 +466,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                                                         class="form-control file" data-filename="company_logo_update"
                                                         onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])">
 
-                                                  
                                                 </label>
                                             </div>
                                             @error('company_logo')
@@ -525,7 +506,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                                                         id="company_logo_light" class="form-control file"
                                                         data-filename="dark_logo_update"
                                                         onchange="document.getElementById('blah1').src = window.URL.createObjectURL(this.files[0])">
-
 
                                                 </label>
                                             </div>
@@ -592,7 +572,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                             </span>
                             @enderror
                             </div>
-
 
                             <div class="col-3 my-auto">
                                 <div class="form-group">
@@ -673,7 +652,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                             </div>
                         </div> --}}
 
-
                         {{-- <div class="col-3 form-group">
                             <div class="custom-control custom-switch">
                                 <label class=" mb-1 mt-1 " for="SITE_RTL">{{ __('Enable RTL') }}</label>
@@ -683,7 +661,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                                 </div>
                             </div>
                         </div> --}}
-
 
                     </div>
                     <h4 class="small-title">{{ __('Theme Customizer') }}</h4>
@@ -802,7 +779,7 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                 {{ Form::close() }}
             
         </div>
-        <!--System Setting-->
+        
         <div id="useradd-2" class="card border-0 rounded-2xl shadow-md overflow-hidden my-3">
                 <div class="h-1 w-full" style="background:#007C38;"></div>
 
@@ -1021,7 +998,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                 @enderror
             </div>
 
-
             <div class="form-group col-md-6">
                 {{ Form::label('shipping_display', __('Display Shipping in Proposal / Invoice / Bill'), ['class' => 'form-label']) }}
                 <div class=" form-switch form-switch-left">
@@ -1057,7 +1033,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
     {{ Form::close() }}
 </div>
 
-<!--Company Setting-->
 <div id="useradd-3" class="card border-0 rounded-2xl shadow-md overflow-hidden my-3">
     <div class="h-1 w-full" style="background:#007C38;"></div>
 
@@ -1188,7 +1163,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
     {{ Form::close() }}
 </div>
 
-<!--Email Setting-->
 <div id="useradd-12" class="card d-none">
     <div class="card-header">
         <h5>{{ __('Email Settings') }}</h5>
@@ -1295,7 +1269,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
         </div>
     </div>
 
-    <!-- <div class="row"> -->
         <div class="card-footer d-flex justify-content-end mb-0">
             <div class="mb-0 me-2">
                 <a href="javascript:void(0)" class="btn btn-primary send_email "
@@ -1308,12 +1281,11 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                 <input class="btn btn-primary  m-r-10" type="submit" value="{{ __('Save Changes') }}">
             </div>
         </div>
-    <!-- </div> -->
+    
     {{ Form::close() }}
     
 </div>
 
-<!--Proposal Print Setting-->
 <div id="useradd-4" class="card d-none">
     <div class="card-header">
         <h5>{{ __('Proposal Print Settings') }}</h5>
@@ -1417,7 +1389,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
 
 </div>
 
-<!--Retainer Print Setting-->
 <div id="useradd-10" class="card d-none">
     <div class="card-header">
         <h5>{{ __('Retainer Print Settings') }}</h5>
@@ -1487,7 +1458,7 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                                         name="retainer_logo" id="retainer_logo"
                                         data-filename="retainer_logo_update"
                                         onchange="document.getElementById('blah5').src = window.URL.createObjectURL(this.files[0])">
-                                    <!-- <input type="file" class="form-control file" name="retainer_logo" id="retainer_logo" data-filename="retainer_logo_update"> -->
+                                    
                                 </label>
                             </div>
                         </div>
@@ -1523,7 +1494,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
 
 </div>
 
-<!--Invoice Setting-->
 <div id="useradd-5" class="card border-0 rounded-2xl shadow-md overflow-hidden my-3">
     <div class="h-1 w-full" style="background:#007C38;"></div>
 
@@ -1611,7 +1581,7 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                                         name="invoice_logo" id="invoice_logo"
                                         data-filename="invoice_logo_update"
                                         onchange="document.getElementById('blah6').src = window.URL.createObjectURL(this.files[0])">
-                                    <!-- <input type="file" class="form-control file" name="invoice_logo" id="invoice_logo" data-filename="invoice_logo_update"> -->
+                                    
                                 </label>
                             </div>
                         </div>
@@ -1632,118 +1602,11 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                 @endif
             </div>
 
-
         </div>
     </div>
-
 
 </div>
 
-<!--Bill Setting-->
-<!-- <div id="useradd-8" class="card border-0 rounded-2xl shadow-md overflow-hidden my-3">
-    <div class="card-header">
-        <h5>{{ __('Bill Print Settings') }}</h5>
-        <small class="text-muted">{{ __('Edit your company bill details') }}</small>
-    </div>
-
-    <div class="bg-none">
-        <div class="row company-setting">
-            <div class="col-md-4">
-                <div class="card-header card-body">
-                    <form id="setting-form" method="post"
-                        action="{{ route('bill.template.setting') }}" enctype="multipart/form-data">
-                        @csrf
-                        <div class="form-group">
-                            <label for="address"
-                                class="form-label">{{ __('Bill Template') }}</label>
-                            <select class="form-control" name="bill_template">
-                                @foreach (App\Models\Utility::templateData()['templates'] as $key => $template)
-                                <option value="{{ $key }}"
-                                    {{ isset($settings['bill_template']) && $settings['bill_template'] == $key ? 'selected' : '' }}>
-                                    {{ $template }}
-                                </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        {{-- <div class="col-md-4"> --}}
-                        <div class="form-group">
-                            <label for="address"
-                                class="col-form-label">{{ __('QR Display?') }}</label>
-                            <div class="d-flex align-items-center">
-                                <div class="form-check form-switch custom-switch-v1 mt-2">
-                                    <input type="hidden" name="bill_qr_display" value="off">
-                                    <input type="checkbox" class="form-check-input input-primary"
-                                        id="customswitchv1-1 bill_qr_display" name="bill_qr_display"
-                                        {{ isset($settings['bill_qr_display']) && $settings['bill_qr_display'] == 'on' ? 'checked="checked"' : '' }}>
-                                </div>
-                            </div>
-                        </div>
-                        {{-- </div> --}}
-                        <div class="form-group">
-                            <label class="col-form-label">{{ __('Color Input') }}</label>
-                            <div class="row gutters-xs">
-                                @foreach (Utility::templateData()['colors'] as $key => $color)
-                                <div class="col-auto">
-                                    <label class="colorinput">
-                                        <input name="bill_color" type="radio"
-                                            value="{{ $color }}" class="colorinput-input"
-                                            {{ isset($settings['bill_color']) && $settings['bill_color'] == $color ? 'checked' : '' }}>
-                                        <span class="colorinput-color"
-                                            style="background: #{{ $color }}"></span>
-                                    </label>
-                                </div>
-                                @endforeach
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="bill_font" class="col-form-label">{{ __('Font Family') }}</label>
-                            <select class="form-control" name="bill_font" id="bill_font">
-                                <option value="Inter" {{ isset($settings['bill_font']) && $settings['bill_font'] == 'Inter' ? 'selected' : '' }}>Inter (Default)</option>
-                                <option value="Arial" {{ isset($settings['bill_font']) && $settings['bill_font'] == 'Arial' ? 'selected' : '' }}>Arial</option>
-                                <option value="Helvetica" {{ isset($settings['bill_font']) && $settings['bill_font'] == 'Helvetica' ? 'selected' : '' }}>Helvetica</option>
-                                <option value="Times New Roman" {{ isset($settings['bill_font']) && $settings['bill_font'] == 'Times New Roman' ? 'selected' : '' }}>Times New Roman</option>
-                                <option value="Georgia" {{ isset($settings['bill_font']) && $settings['bill_font'] == 'Georgia' ? 'selected' : '' }}>Georgia</option>
-                                <option value="Verdana" {{ isset($settings['bill_font']) && $settings['bill_font'] == 'Verdana' ? 'selected' : '' }}>Verdana</option>
-                                <option value="Roboto" {{ isset($settings['bill_font']) && $settings['bill_font'] == 'Roboto' ? 'selected' : '' }}>Roboto</option>
-                                <option value="Montserrat" {{ isset($settings['bill_font']) && $settings['bill_font'] == 'Montserrat' ? 'selected' : '' }}>Montserrat</option>
-                                <option value="Open Sans" {{ isset($settings['bill_font']) && $settings['bill_font'] == 'Open Sans' ? 'selected' : '' }}>Open Sans</option>
-                                <option value="Lato" {{ isset($settings['bill_font']) && $settings['bill_font'] == 'Lato' ? 'selected' : '' }}>Lato</option>
-                                <option value="Poppins" {{ isset($settings['bill_font']) && $settings['bill_font'] == 'Poppins' ? 'selected' : '' }}>Poppins</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-form-label">{{ __('Bill Logo') }}</label>
-                            <div class="choose-files mt-5 ">
-                                <label for="bill_logo">
-                                    <div class=" bg-primary bill_logo_update"> <i
-                                            class="ti ti-upload px-1"></i>{{ __('Choose file here') }}
-                                    </div>
-                                    <img id="blah7" class="mt-3" width="70%" />
-                                    <input type="file" class="form-control file" name="bill_logo"
-                                        id="bill_logo" data-filename="bill_logo_update"
-                                        onchange="document.getElementById('blah7').src = window.URL.createObjectURL(this.files[0])">
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group mt-2 text-end">
-                            <input type="submit" value="{{ __('Save Changes') }}"
-                                class="btn btn-print-invoice  btn-primary m-r-10">
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="col-md-8">
-                @if (isset($settings['bill_template']) && isset($settings['bill_color']))
-                <iframe id="bill_frame" class="w-100 h-100" frameborder="0"
-                    src="{{ route('bill.preview', [$settings['bill_template'], $settings['bill_color']]) }}"></iframe>
-                @else
-                <iframe id="bill_frame" class="w-100 h-100" frameborder="0"
-                    src="{{ route('bill.preview', ['template1', 'ffffff']) }}"></iframe>
-                @endif
-            </div>
-        </div>
-    </div>
-</div> -->
 <div id="useradd-6" class="card border-0 rounded-2xl shadow-md overflow-hidden my-3">
     <div class="h-1 w-full" style="background:#007C38;"></div>
 
@@ -1756,7 +1619,7 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                         <div class="row company-setting">
                             <div class="col-md-4">
                                 <div class="card-header card-body">
-                                    <!-- <h5></h5> -->
+                                    
                                     <form id="setting-form" method="post" action="{{ route('bill.template.setting') }}" enctype="multipart/form-data">
                                         @csrf
                                         <div class="form-group">
@@ -1819,8 +1682,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                     </div>
                 </div>
 
-
-    <!--Payment Setting-->
     <div class="card d-none" id="useradd-7">
         <div class="card-header">
             <h5>{{ __('Payment Settings') }}</h5>
@@ -1839,7 +1700,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                                 <div class="accordion accordion-flush setting-accordion"
                                     id="accordionExample">
 
-                                    <!-- Bank Transfer -->
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="headingOne">
                                             <button class="accordion-button collapsed" type="button"
@@ -1880,7 +1740,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                                         </div>
                                     </div>
 
-                                    <!-- Stripe -->
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="headingOne">
                                             <button class="accordion-button collapsed" type="button"
@@ -1939,7 +1798,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                                         </div>
                                     </div>
 
-                                    <!-- Paypal -->
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="headingTwo">
                                             <button class="accordion-button collapsed" type="button"
@@ -2035,7 +1893,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                                         </div>
                                     </div>
 
-                                    <!-- Paystack -->
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="headingThree">
                                             <button class="accordion-button collapsed" type="button"
@@ -2094,7 +1951,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                                         </div>
                                     </div>
 
-                                    <!-- Flutterwave -->
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="headingFour">
                                             <button class="accordion-button collapsed" type="button"
@@ -2152,7 +2008,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                                         </div>
                                     </div>
 
-                                    <!-- Razorpay -->
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="headingFive">
                                             <button class="accordion-button collapsed" type="button"
@@ -2210,7 +2065,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                                         </div>
                                     </div>
 
-                                    <!-- Paytm -->
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="headingSix">
                                             <button class="accordion-button collapsed" type="button"
@@ -2317,7 +2171,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                                         </div>
                                     </div>
 
-                                    <!-- Mercado Pago -->
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="headingseven">
                                             <button class="accordion-button collapsed" type="button"
@@ -2402,7 +2255,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                                         </div>
                                     </div>
 
-                                    <!-- Mollie -->
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="headingeight">
                                             <button class="accordion-button collapsed" type="button"
@@ -2470,7 +2322,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                                         </div>
                                     </div>
 
-                                    <!-- Skrill -->
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="headingnine">
                                             <button class="accordion-button collapsed" type="button"
@@ -2512,7 +2363,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                                         </div>
                                     </div>
 
-                                    <!-- CoinGate -->
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="headingten">
                                             <button class="accordion-button collapsed" type="button"
@@ -2597,7 +2447,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                                         </div>
                                     </div>
 
-                                    <!-- PaymentWall -->
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="headingeleven">
                                             <button class="accordion-button collapsed" type="button"
@@ -2656,7 +2505,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                                         </div>
                                     </div>
 
-                                    <!-- Toyyibpay -->
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="headingtwelve">
                                             <button class="accordion-button collapsed" type="button"
@@ -2713,7 +2561,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                                         </div>
                                     </div>
 
-                                    <!-- Payfast -->
                                     <div class="accordion accordion-flush setting-accordion"
                                         id="accordionExample">
                                         <div class="accordion-item">
@@ -2825,7 +2672,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                                         </div>
                                     </div>
 
-                                    <!-- Iyzipay -->
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="headingFourteen">
                                             <button class="accordion-button collapsed" type="button"
@@ -2923,7 +2769,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                                         </div>
                                     </div>
 
-                                    <!-- SSPAY -->
                                     <div class="accordion accordion-flush setting-accordion"
                                         id="accordionExample">
                                         <div class="accordion-item">
@@ -2987,7 +2832,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                                         </div>
                                     </div>
 
-                                    <!-- Paytab -->
                                     <div class="accordion accordion-flush setting-accordion"
                                         id="accordionExample">
                                         <div class="accordion-item">
@@ -3079,7 +2923,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                                         </div>
                                     </div>
 
-                                    <!-- Benefit -->
                                     <div class="accordion accordion-flush setting-accordion"
                                         id="accordionExample">
                                         <div class="accordion-item">
@@ -3147,7 +2990,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                                         </div>
                                     </div>
 
-                                    <!-- Cashfree -->
                                     <div class="accordion accordion-flush setting-accordion"
                                         id="accordionExample">
                                         <div class="accordion-item">
@@ -3214,7 +3056,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                                         </div>
                                     </div>
 
-                                    <!-- aamarpay -->
                                     <div class="accordion accordion-flush setting-accordion"
                                         id="accordionExample">
                                         <div class="accordion-item">
@@ -3289,7 +3130,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                                         </div>
                                     </div>
 
-                                    <!-- PayTR -->
                                     <div class="accordion accordion-flush setting-accordion"
                                         id="accordionExample">
                                         <div class="accordion-item">
@@ -3363,7 +3203,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                                         </div>
                                     </div>
 
-                                    <!-- YooKassa -->
                                     <div class="accordion accordion-flush setting-accordion"
                                         id="accordionExample">
                                         <div class="accordion-item">
@@ -3426,7 +3265,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                                         </div>
                                     </div>
 
-                                    <!-- Xendit -->
                                     <div class="accordion accordion-flush setting-accordion"
                                         id="accordionExample">
                                         <div class="accordion-item">
@@ -3489,7 +3327,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                                         </div>
                                     </div>
 
-                                    <!-- Midtrans -->
                                     <div class="accordion accordion-flush setting-accordion"
                                         id="accordionExample">
                                         <div class="accordion-item">
@@ -4363,7 +4200,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
         {{ Form::close() }}
     </div>
 
-    <!--Twilio Setting-->
     <div id="useradd-7" class="card d-none">
         <div class="card-header">
             <h5>{{ __('Twilio Settings') }}</h5>
@@ -4408,7 +4244,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                         @enderror
                     </div>
                 </div>
-
 
                 <div class="col-md-12 mt-4 mb-2">
                     <h5 class="small-title">{{ __('Module Settings') }}</h5>
@@ -4491,8 +4326,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
                     </ul>
                 </div>
 
-
-
             </div>
            
         </div>
@@ -4504,7 +4337,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
 
     </div>
 
-    <!--Email Notification Setting-->
     <div id="useradd-9" class="card border-0 rounded-2xl shadow-md overflow-hidden my-3">
         <div class="h-1 w-full" style="background:#007C38;"></div>
 
@@ -4550,7 +4382,6 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
         {{ Form::close() }}
     </div>
 
-    <!--Webhook Setting-->
     <div class="d-none" id="useradd-10">
         <div class="card border-0 rounded-2xl shadow-md overflow-hidden my-3">
             <div class="h-1 w-full" style="background:#007C38;"></div>
@@ -4629,15 +4460,12 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
         </div>
     </div>
 
-
+</div>
 
 </div>
-<!-- [ sample-page ] end -->
-</div>
-<!-- [ Main Content ] end -->
+
 </div>
 @endsection
-
 
 @push('css-page')
 <link rel="stylesheet" href="{{asset('css/summernote/summernote-bs4.css')}}">
@@ -4730,25 +4558,20 @@ $flag = !empty($setting['color_flag']) ? $setting['color_flag'] : 'false';
 </script>
 
 <script>
-    // Currency selection functionality
     $(document).ready(function() {
-        // Currency data mapping
         const currencyData = @json($currencies);
         const currencySymbols = @json(\App\Models\Currency::all()->pluck('symbol', 'code')->toArray());
         
-        // Function to update currency symbol
         function updateCurrencySymbol() {
             const selectedCurrency = $('#currency-select').val();
             const symbol = currencySymbols[selectedCurrency] || '$';
             $('#currency-symbol').val(symbol);
         }
         
-        // Update symbol when currency is changed
         $('#currency-select').on('change', function() {
             updateCurrencySymbol();
         });
         
-        // Initialize symbol on page load
         updateCurrencySymbol();
     });
 </script>

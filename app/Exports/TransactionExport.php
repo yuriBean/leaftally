@@ -8,9 +8,6 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class TransactionExport implements FromCollection, WithHeadings
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
     public function collection()
     {
         $data = [];
@@ -22,7 +19,6 @@ class TransactionExport implements FromCollection, WithHeadings
         else{
             $data = Transaction::get();
         } 
-        // $data = Transaction::where('created_by' , \Auth::user()->id)->get();
 
         if (!empty($data)) {
             foreach ($data as $k => $Transaction) {

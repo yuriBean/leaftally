@@ -9,9 +9,9 @@ return new class extends Migration {
         Schema::create('bom_outputs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('bom_id')->index();
-            $table->unsignedBigInteger('product_id')->index();      // finished product
-            $table->decimal('qty_per_batch', 15, 4);                 // produced per batch
-            $table->boolean('is_primary')->default(false);           // optional flag
+            $table->unsignedBigInteger('product_id')->index();
+            $table->decimal('qty_per_batch', 15, 4);
+            $table->boolean('is_primary')->default(false);
             $table->timestamps();
 
             $table->foreign('bom_id')->references('id')->on('boms')->cascadeOnDelete();

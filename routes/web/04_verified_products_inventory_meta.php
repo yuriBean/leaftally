@@ -8,7 +8,6 @@ use App\Http\Controllers\{
 
 Route::group(['middleware' => ['auth','2fa']], function () {
 
-    // Product & Inventory
     Route::get('productservice/index', [ProductServiceController::class, 'index'])->name('productservice.index')->middleware(['auth','XSS']);
     Route::get('export/productservice', [ProductServiceController::class, 'export'])->name('productservice.export');
 
@@ -29,7 +28,6 @@ Route::get('/productservice/short', [ProductServiceController::class, 'createSho
     Route::post('/productstock/export-selected', [ProductStockController::class, 'exportSelected'])
     ->name('productstock.export-selected');
 
-    // Product meta
     Route::post('product-category/bulk-destroy', [ProductServiceCategoryController::class, 'bulkDestroy'])
         ->name('product-category.bulk-destroy');
 
@@ -47,7 +45,6 @@ Route::get('/productservice/short', [ProductServiceController::class, 'createSho
     Route::post('product-unit/bulk-destroy', [ProductServiceUnitController::class, 'bulkDestroy'])
         ->name('product-unit.bulk-destroy');
 
-    // Exports
     Route::get('product-unit/export', [ProductServiceUnitController::class, 'export'])
         ->name('product-unit.export');
 

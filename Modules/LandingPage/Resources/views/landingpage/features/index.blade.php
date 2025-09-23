@@ -25,7 +25,6 @@
     <li class="breadcrumb-item">{{ __('Landing Page') }}</li>
 @endsection
 
-
 @section('content')
     <div class="row">
         <div class="col-sm-12">
@@ -40,7 +39,6 @@
 
                 <div class="col-xl-9">
                     {{--  Start for all settings tab --}}
-
 
                     <div class="card">
                         {{ Form::open(['route' => 'features.store', 'method' => 'post', 'enctype' => 'multipart/form-data']) }}
@@ -122,7 +120,6 @@
 
                     </div>
 
-
                     <div class="card">
                         <div class="card-header">
                             <div class="row align-items-center">
@@ -193,12 +190,9 @@
                                 </table>
                             </div>
 
-
                         </div>
 
-
                     </div>
-
 
                     <div class="card">
                         {{ Form::open(['route' => 'feature_highlight_create', 'method' => 'post', 'enctype' => 'multipart/form-data']) }}
@@ -275,7 +269,6 @@
                                     </div>
                                 </div>
 
-
                             </div>
                         </div>
                         <div class="card-footer text-end">
@@ -284,10 +277,7 @@
                         </div>
                         {{ Form::close() }}
 
-
-
                     </div>
-
 
                     <div class="card">
                         <div class="card-header">
@@ -367,9 +357,7 @@
                                 </table>
                             </div>
 
-
                         </div>
-
 
                     </div>
                     {{--  End for all settings tab --}}

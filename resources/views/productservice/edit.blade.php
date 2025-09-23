@@ -109,7 +109,6 @@
             {{ Form::select('unit_id', $unit, null, ['class' => 'form-control select', 'required' => 'required']) }}
         </div>
 
-        <!-- Quantity (Product only) -->
         <div class="form-group col-md-3 quantity {{ $productService->type=='Service' ? 'd-none' : 'd-block' }}">
             {{ Form::label('quantity', __('Quantity'), ['class' => 'form-label']) }}<x-required></x-required>
             {{ Form::text('quantity', null, ['class' => 'form-control', 'required' => $productService->type=='Service' ? false : true]) }}
@@ -119,7 +118,6 @@
             {{ Form::text('reorder_level', null, ['class' => 'form-control', 'required' => $productService->type=='Service' ? false : true]) }}
         </div>
 
-        <!-- Type radios -->
         <div class="col-md-6">
             <div class="form-group">
                 <label class="d-block form-label">{{ __('Type') }}</label>
@@ -142,7 +140,6 @@
             </div>
         </div>
 
-        <!-- Material Type radios (Product only) -->
         <div class="col-md-12 mb-3 material-type-wrap {{ $productService->type=='Service' ? 'd-none' : '' }}">
             <div class="form-group">
                 <label class="d-block form-label">{{ __('Material') }}</label>

@@ -1,22 +1,22 @@
 <div class="card bg-none card-box payroll-view">
   <style>
-    .payroll-view{--acc:#007C38;--acc-600:#01612c;--line:#E5E7EB;--ink:#0F172A;--muted:#6B7280;--bg:#F7F8FA}
+    .payroll-view{--acc:
     .pv-wrap{padding:16px}
     .pv-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:6px}
-    .pv-stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:.8rem .9rem}
-    .pv-stat .k{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:#6B7280;font-weight:800;margin-bottom:.15rem}
-    .pv-stat .v{font-weight:800;color:#111827}
-    .pv-net{background:linear-gradient(135deg,rgba(0,124,56,.08),#fff);border:1px solid rgba(0,124,56,.2);border-radius:12px}
+    .pv-stat{background:
+    .pv-stat .k{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:
+    .pv-stat .v{font-weight:800;color:
+    .pv-net{background:linear-gradient(135deg,rgba(0,124,56,.08),
     .pv-net .k{color:var(--acc)}
     .pv-tabs{border-bottom:1px solid var(--line);margin:10px 0 12px}
     .pv-tabs .nav{gap:.45rem;flex-wrap:wrap}
-    .pv-tabs .nav-link{border:1px solid var(--line)!important;border-radius:999px!important;color:#374151!important;font-weight:700;padding:.4rem .8rem}
+    .pv-tabs .nav-link{border:1px solid var(--line)!important;border-radius:999px!important;color:
     .pv-tabs .nav-link.active{background:rgba(0,124,56,.09)!important;border-color:rgba(0,124,56,.25)!important;color:var(--acc)!important}
-    .pv-section{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px}
+    .pv-section{background:
     .pv-table{width:100%;border-collapse:separate;border-spacing:0}
-    .pv-table thead th{font-size:12px;text-transform:uppercase;letter-spacing:.06em;background:#F6F6F6;border:1px solid var(--line);padding:.6rem .65rem;font-weight:800;color:#374151}
+    .pv-table thead th{font-size:12px;text-transform:uppercase;letter-spacing:.06em;background:
     .pv-table tbody td{border:1px solid var(--line);padding:.8rem .7rem;vertical-align:middle}
-    .chip{display:inline-flex;align-items:center;gap:.45rem;background:#fff;border:1px solid var(--line);border-radius:999px;padding:.18rem .55rem;font-weight:800;font-size:.75rem;color:#374151}
+    .chip{display:inline-flex;align-items:center;gap:.45rem;background:
     .chip i{width:.5rem;height:.5rem;border-radius:999px;background:var(--acc)}
     @media (max-width:992px){.pv-summary{grid-template-columns:1fr 1fr}}
     @media (max-width:576px){.pv-summary{grid-template-columns:1fr}}

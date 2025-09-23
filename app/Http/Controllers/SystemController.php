@@ -54,7 +54,6 @@ class SystemController extends Controller
                     return redirect()->back()->with('error', __($path['msg']));
                 }
 
-
             }
 
             if ($request->logo_light) {
@@ -64,7 +63,6 @@ class SystemController extends Controller
                     ]
                 );
                 $lightlogoName = 'logo-light.png';
-
 
                 $dir = 'uploads/logo/';
 
@@ -117,13 +115,10 @@ class SystemController extends Controller
                 $path            = $request->file('landing_logo')->storeAs('uploads/logo/', $landingLogoName);
             }
 
-
-
             $arrEnv = [
                 'SITE_RTL' => !isset($request->SITE_RTL) ? 'off' : 'on',
             ];
             Utility::setEnvironmentValue($arrEnv);
-        
 
             $settings = Utility::settings();
             if (!empty($request->title_text) || !empty($request->email_verification) || !empty($request->footer_text) || !empty($request->default_language) || isset($request->display_landing_page) || isset($request->enable_signup) || isset($request->color) || isset($request->cust_theme_bg) || isset($request->cust_darklayout)) {
@@ -286,7 +281,6 @@ class SystemController extends Controller
 
             self::adminPaymentSettings($request);
 
-            // Get currency symbol based on selected currency code
             $currency = \App\Models\Currency::getByCode($request->currency);
             $currency_symbol = $currency ? $currency->symbol : $request->currency_symbol;
 
@@ -313,7 +307,6 @@ class SystemController extends Controller
         }
     }
 
-
     public function saveSystemSettings(Request $request)
     {
         if (\Auth::user()->can('manage company settings')) {
@@ -330,7 +323,6 @@ class SystemController extends Controller
                 $post['shipping_display'] = 'off';
             }
 
-            // Get currency symbol based on selected currency code
             if (isset($post['site_currency'])) {
                 $currency = \App\Models\Currency::getByCode($post['site_currency']);
                 if ($currency) {
@@ -376,7 +368,6 @@ class SystemController extends Controller
                     ]
                 );
 
-
                 $logoName     = $user->id . '-logo-dark.png';
                 $dir = 'uploads/logo/';
 
@@ -394,7 +385,6 @@ class SystemController extends Controller
                     Utility::changeStorageLimit(\Auth::user()->creatorId(), $file_path);
                     $path = Utility::upload_file($request, 'company_logo_dark', $logoName, $dir, $validation);
 
-
                     if ($path['flag'] == 1) {
                         $company_logo_dark = $path['url'];
                     } else {
@@ -404,9 +394,7 @@ class SystemController extends Controller
                     return redirect()->back()->with('error', $result);
                 }
 
-                // $path         = $request->file('company_logo_dark')->storeAs('uploads/logo/', $logoName);
                 $company_logo = !empty($request->company_logo_dark) ? $logoName : 'logo-dark.png';
-                // dd($company_logo);
                 \DB::insert(
                     'insert into settings (`value`, `name`,`created_by`) values (?, ?, ?) ON DUPLICATE KEY UPDATE `value` = VALUES(`value`) ',
                     [
@@ -416,7 +404,6 @@ class SystemController extends Controller
                     ]
                 );
                 
-                // Clear settings cache to reflect new logo
                 Utility::clearSettingsCache();
             }
 
@@ -427,7 +414,6 @@ class SystemController extends Controller
                         'company_logo_light' => 'image',
                     ]
                 );
-
 
                 $logoName     = $user->id . '-logo-light.png';
 
@@ -456,7 +442,6 @@ class SystemController extends Controller
                     return redirect()->back()->with('error', $result);
                 }
 
-                // $path         = $request->file('company_logo_light')->storeAs('uploads/logo/', $logoName);
                 $company_logo = !empty($request->company_logo_light) ? $logoName : 'logo-light.png';
 
                 \DB::insert(
@@ -468,7 +453,6 @@ class SystemController extends Controller
                     ]
                 );
                 
-                // Clear settings cache to reflect new logo
                 Utility::clearSettingsCache();
             }
             if ($request->company_favicon) {
@@ -478,7 +462,6 @@ class SystemController extends Controller
                     ]
                 );
                 $favicon = $user->id . '_favicon.png';
-
 
                 $dir = 'uploads/logo/';
 
@@ -505,9 +488,6 @@ class SystemController extends Controller
                     return redirect()->back()->with('error', $result);
                 }
 
-
-                // $path    = $request->file('company_favicon')->storeAs('uploads/logo/', $favicon);
-
                 $company_favicon = !empty($request->favicon) ? $favicon : 'favicon.png';
 
                 \DB::insert(
@@ -519,7 +499,6 @@ class SystemController extends Controller
                     ]
                 );
                 
-                // Clear settings cache to reflect new favicon
                 Utility::clearSettingsCache();
             }
 
@@ -529,7 +508,6 @@ class SystemController extends Controller
                 $post = $request->all();
 
                 unset($post['_token'], $post['company_logo_dark'], $post['company_logo_light'], $post['company_favicon']);
-
 
                 if (!isset($request->SITE_RTL)) {
                     $post['SITE_RTL'] = 'off';
@@ -666,7 +644,6 @@ class SystemController extends Controller
         } else {
             $post['is_mercado_enabled'] = 'off';
         }
-        // dd($post);
 
         if (isset($request->is_paytm_enabled) && $request->is_paytm_enabled == 'on') {
             $request->validate([
@@ -693,7 +670,6 @@ class SystemController extends Controller
             $post['mollie_api_key']    = $request->mollie_api_key;
             $post['mollie_profile_id'] = $request->mollie_profile_id;
             $post['mollie_partner_id'] = $request->mollie_partner_id;
-            //dd($request->mollie_partner_id);
         } else {
             $post['is_mollie_enabled'] = 'off';
         }
@@ -721,7 +697,6 @@ class SystemController extends Controller
             $post['is_coingate_enabled'] = 'off';
         }
 
-        //save paymentwall Detail
         if (isset($request->is_paymentwall_enabled) && $request->is_paymentwall_enabled == 'on') {
             $request->validate(
                 [
@@ -736,7 +711,6 @@ class SystemController extends Controller
             $post['is_paymentwall_enabled'] = 'off';
         }
 
-        //save Toyyibpay Detail
         if (isset($request->is_toyyibpay_enabled) && $request->is_toyyibpay_enabled == 'on') {
             $request->validate(
                 [
@@ -751,7 +725,6 @@ class SystemController extends Controller
             $post['is_toyyibpay_enabled'] = 'off';
         }
 
-        // PayFast :
         if (isset($request->is_payfast_enabled) && $request->is_payfast_enabled == 'on') {
 
             $request->validate(
@@ -760,7 +733,6 @@ class SystemController extends Controller
                     'payfast_merchant_key' => 'required|string',
                     'payfast_signature' => 'required|string',
                     'payfast_mode' => 'required',
-
 
                 ]
             );
@@ -774,7 +746,6 @@ class SystemController extends Controller
             $post['is_payfast_enabled'] = 'off';
         }
 
-        // Bank :
         if (isset($request->is_bank_enabled) && $request->is_bank_enabled == 'on') {
 
             $request->validate(
@@ -791,7 +762,6 @@ class SystemController extends Controller
             $post['is_bank_enabled'] = 'off';
         }
 
-        // IyziPay
         if (isset($request->is_iyzipay_enabled) && $request->is_iyzipay_enabled == 'on') {
 
             $request->validate(
@@ -810,7 +780,6 @@ class SystemController extends Controller
             $post['is_iyzipay_enabled'] = 'off';
         }
 
-        // Sspay
         if (isset($request->is_sspay_enabled) && $request->is_sspay_enabled == 'on') {
 
             $request->validate(
@@ -827,7 +796,6 @@ class SystemController extends Controller
             $post['is_sspay_enabled'] = 'off';
         }
 
-        // Paytab
         if (isset($request->is_paytab_enabled) && $request->is_paytab_enabled == 'on') {
 
             $request->validate(
@@ -847,7 +815,6 @@ class SystemController extends Controller
             $post['is_paytab_enabled'] = 'off';
         }
 
-        // Benefit
         if (isset($request->is_benefit_enabled) && $request->is_benefit_enabled == 'on') {
             $request->validate(
                 [
@@ -863,7 +830,6 @@ class SystemController extends Controller
             $post['is_benefit_enabled'] = 'off';
         }
 
-        // Cashfree
         if (isset($request->is_cashfree_enabled) && $request->is_cashfree_enabled == 'on') {
 
             $request->validate(
@@ -880,7 +846,6 @@ class SystemController extends Controller
             $post['is_cashfree_enabled'] = 'off';
         }
 
-        // Aarampay
         if (isset($request->is_aamarpay_enabled) && $request->is_aamarpay_enabled == 'on') {
             $request->validate(
                 [
@@ -898,7 +863,6 @@ class SystemController extends Controller
             $post['is_aamarpay_enabled'] = 'off';
         }
 
-        // PayTR
         if (isset($request->is_paytr_enabled) && $request->is_paytr_enabled == 'on') {
             $request->validate(
                 [
@@ -916,7 +880,6 @@ class SystemController extends Controller
             $post['is_paytr_enabled'] = 'off';
         }
 
-        // YooKassa
         if (isset($request->is_yookassa_enabled) && $request->is_yookassa_enabled == 'on') {
             $request->validate(
                 [
@@ -1108,7 +1071,6 @@ class SystemController extends Controller
             $post['is_tap_enabled'] = 'off';
         }
 
-        // AuthorizeNet
         if (isset($request->is_authorizenet_enabled) && $request->is_authorizenet_enabled == 'on') {
 
             $validator = \Validator::make(
@@ -1130,9 +1092,7 @@ class SystemController extends Controller
         } else {
             $post['is_authorizenet_enabled']         = 'off';
         }
-        //End AuthorizeNet
 
-        // Khalti
         if (isset($request->is_khalti_enabled) && $request->is_khalti_enabled == 'on') {
 
             $validator = \Validator::make(
@@ -1154,9 +1114,7 @@ class SystemController extends Controller
         } else {
             $post['is_khalti_enabled']    = 'off';
         }
-        //End Khalti
 
-            // ozow
             if (isset($request->is_ozow_enabled) && $request->is_ozow_enabled == 'on') {
 
                 $validator = \Validator::make(
@@ -1181,7 +1139,6 @@ class SystemController extends Controller
                 $post['is_ozow_enabled']    = 'off';
             }
 
-
         foreach ($post as $key => $data) {
 
             $arr = [
@@ -1195,10 +1152,8 @@ class SystemController extends Controller
             );
         }
 
-
         return redirect()->back()->with('success', __('Payment setting successfully updated.'));
     }
-
 
     public function testMail(Request $request)
     {
@@ -1216,37 +1171,6 @@ class SystemController extends Controller
 
         return view('settings.test_mail', compact('data'));
     }
-
-    // public function testMail()
-    // {
-    //     return view('settings.test_mail');
-    // }
-
-
-    // public function testSendMail(Request $request)
-    // {
-    //     $validator = \Validator::make($request->all(), ['email' => 'required|email']);
-    //     if($validator->fails())
-    //     {
-    //         $messages = $validator->getMessageBag();
-
-    //         return redirect()->back()->with('error', $messages->first());
-    //     }
-
-    //     try
-    //     {
-    //         Mail::to($request->email)->send(new testMail());
-    //     }
-    //     catch(\Exception $e)
-    //     {
-    //         $smtp_error = __('E-Mail has been not sent due to SMTP configuration');
-    //     }
-
-    //     return redirect()->back()->with('success', __('Email send Successfully.') . ((isset($smtp_error)) ? '<br> <span class="text-danger">' . $smtp_error . '</span>' : ''));
-
-    // }
-
-
 
     public function testSendMail(Request $request)
     {
@@ -1348,7 +1272,6 @@ class SystemController extends Controller
         } else {
             $post['is_paystack_enabled'] = 'off';
         }
-        // dd($post['is_paystack_enabled'], $post['paystack_public_key'], $post['paystack_secret_key']);
 
         if (isset($request->is_flutterwave_enabled) && $request->is_flutterwave_enabled == 'on') {
             $request->validate(
@@ -1481,7 +1404,6 @@ class SystemController extends Controller
             $post['is_toyyibpay_enabled'] = 'off';
         }
 
-        // PayFast :
         if (isset($request->is_payfast_enabled) && $request->is_payfast_enabled == 'on') {
 
             $request->validate(
@@ -1501,7 +1423,6 @@ class SystemController extends Controller
             $post['is_payfast_enabled'] = 'off';
         }
 
-        // Manually :
         if (isset($request->is_manually_enabled) && $request->is_manually_enabled == 'on') {
 
             $request->validate(
@@ -1515,7 +1436,6 @@ class SystemController extends Controller
             $post['is_manually_enabled'] = 'off';
         }
 
-        // Bank :
         if (isset($request->is_bank_enabled) && $request->is_bank_enabled == 'on') {
 
             $request->validate(
@@ -1533,7 +1453,6 @@ class SystemController extends Controller
             $post['is_bank_enabled'] = 'off';
         }
 
-        // IyziPay
         if (isset($request->is_iyzipay_enabled) && $request->is_iyzipay_enabled == 'on') {
 
             $request->validate(
@@ -1552,9 +1471,7 @@ class SystemController extends Controller
             $post['is_iyzipay_enabled'] = 'off';
         }
 
-        // Sspay
         if (isset($request->is_sspay_enabled) && $request->is_sspay_enabled == 'on') {
-
 
             $request->validate(
                 [
@@ -1570,7 +1487,6 @@ class SystemController extends Controller
             $post['is_sspay_enabled'] = 'off';
         }
 
-        // Paytab
         if (isset($request->is_paytab_enabled) && $request->is_paytab_enabled == 'on') {
 
             $request->validate(
@@ -1590,7 +1506,6 @@ class SystemController extends Controller
             $post['is_paytab_enabled'] = 'off';
         }
 
-        // Benefit
         if (isset($request->is_benefit_enabled) && $request->is_benefit_enabled == 'on') {
             $request->validate(
                 [
@@ -1606,7 +1521,6 @@ class SystemController extends Controller
             $post['is_benefit_enabled'] = 'off';
         }
 
-        // Cashfree
         if (isset($request->is_cashfree_enabled) && $request->is_cashfree_enabled == 'on') {
             $request->validate(
                 [
@@ -1622,7 +1536,6 @@ class SystemController extends Controller
             $post['is_cashfree_enabled'] = 'off';
         }
 
-        // Aarampay
         if (isset($request->is_aamarpay_enabled) && $request->is_aamarpay_enabled == 'on') {
             $request->validate(
                 [
@@ -1640,7 +1553,6 @@ class SystemController extends Controller
             $post['is_aamarpay_enabled'] = 'off';
         }
 
-        // PayTR
         if (isset($request->is_paytr_enabled) && $request->is_paytr_enabled == 'on') {
             $request->validate(
                 [
@@ -1658,7 +1570,6 @@ class SystemController extends Controller
             $post['is_paytr_enabled'] = 'off';
         }
 
-        // YooKassa
         if (isset($request->is_yookassa_enabled) && $request->is_yookassa_enabled == 'on') {
             $request->validate(
                 [
@@ -1675,7 +1586,6 @@ class SystemController extends Controller
             $post['is_yookassa_enabled'] = 'off';
         }
 
-        // xendit
         if (isset($request->is_xendit_enabled) && $request->is_xendit_enabled == 'on') {
             $request->validate(
                 [
@@ -1851,7 +1761,6 @@ class SystemController extends Controller
             $post['is_tap_enabled'] = 'off';
         }
 
-        // AuthorizeNet
         if (isset($request->is_authorizenet_enabled) && $request->is_authorizenet_enabled == 'on') {
 
             $validator = \Validator::make(
@@ -1874,7 +1783,6 @@ class SystemController extends Controller
             $post['is_authorizenet_enabled']         = 'off';
         }
 
-        // Khalti
         if (isset($request->is_khalti_enabled) && $request->is_khalti_enabled == 'on') {
 
             $validator = \Validator::make(
@@ -1897,7 +1805,6 @@ class SystemController extends Controller
             $post['is_khalti_enabled']    = 'off';
         }
 
-        //ozow
         if (isset($request->is_ozow_enabled) && $request->is_ozow_enabled == 'on') {
 
             $validator = \Validator::make(
@@ -1924,8 +1831,6 @@ class SystemController extends Controller
 
         foreach ($post as $key => $data) {
 
-
-
             $arr = [
                 $data,
                 $key,
@@ -1937,7 +1842,6 @@ class SystemController extends Controller
             );
         }
     }
-
 
     public function saveTwilioSettings(Request $request)
     {
@@ -1953,8 +1857,6 @@ class SystemController extends Controller
         $post['proposal_notification'] = $request->has('proposal_notification') ? $request->input('proposal_notification') : 0;
         $post['payment_notification'] = $request->has('payment_notification') ? $request->input('payment_notification') : 0;
         $post['reminder_notification'] = $request->has('reminder_notification') ? $request->input('reminder_notification') : 0;
-
-
 
         if (isset($post) && !empty($post) && count($post) > 0) {
             $created_at = $updated_at = date('Y-m-d H:i:s');
@@ -1979,7 +1881,6 @@ class SystemController extends Controller
     public function recaptchaSettingStore(Request $request)
     {
         $rules = [];
-
 
         if ($request->recaptcha_module == 'yes') {
             $rules['google_recaptcha_key'] = 'required|string|max:50';
@@ -2109,7 +2010,6 @@ class SystemController extends Controller
         return redirect()->back()->with('success', 'Storage setting successfully updated.');
     }
 
-
     public function SeoSettings(Request $request)
     {
 
@@ -2118,14 +2018,12 @@ class SystemController extends Controller
             [
                 'meta_keywords' => 'required',
                 'meta_description' => 'required',
-                // 'meta_image' => 'required',
             ]
         );
         if ($validator->fails()) {
             $messages = $validator->getMessageBag();
             return redirect()->back()->with('error', $messages->first());
         }
-
 
         if (!empty($request->meta_image)) {
             if ($request->meta_image) {
@@ -2148,14 +2046,12 @@ class SystemController extends Controller
             ];
 
             $path = Utility::upload_file($request, 'meta_image', $img_name, $dir, $validation);
-            // dd($path);
 
             if ($path['flag'] == 1) {
                 $logo_dark = $path['url'];
             } else {
                 return redirect()->back()->with('error', __($path['msg']));
             }
-
 
             $post['meta_image']  = $img_name;
         }
@@ -2190,20 +2086,16 @@ class SystemController extends Controller
                     return in_array($level, $allowed_levels);
                 });
                 $whichbrowser = new \WhichBrowser\Parser($_SERVER['HTTP_USER_AGENT']);
-                // Generate new CSV line
                 $browser_name = $whichbrowser->browser->name ?? null;
                 $os_name = $whichbrowser->os->name ?? null;
                 $browser_language = isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? mb_substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) : null;
                 $device_type = Utility::get_device_type($_SERVER['HTTP_USER_AGENT']);
 
                 $ip = $_SERVER['REMOTE_ADDR'];
-                // $ip = '49.36.83.154';
                 $query = @unserialize(file_get_contents('http://ip-api.com/php/' . $ip));
-
 
                 $date = (new \DateTime())->format('Y-m-d');
                 $time = (new \DateTime())->format('H:i:s') . ' UTC';
-
 
                 $new_line = implode(',', [
                     $ip, $date, $time, json_encode($request['cookie']), $device_type, $browser_language, $browser_name, $os_name,
@@ -2268,7 +2160,6 @@ class SystemController extends Controller
 
         foreach ($post as $key => $data) {
 
-
             if (in_array($key, array_keys($settings))) {
 
                 \DB::insert(
@@ -2323,7 +2214,6 @@ class SystemController extends Controller
 
     public function saveCompanyEmailSetting(Request $request)
     {
-        // if (\Auth::user()->can('manage system settings')) {
         $request->validate(
             [
                 'mail_driver' => 'required|string|max:255',
@@ -2341,7 +2231,6 @@ class SystemController extends Controller
         unset($post['_token']);
 
         $settings = Utility::settings();
-        // dd($settings);
         foreach ($post as $key => $data) {
             if (in_array($key, array_keys($settings))) {
                 \DB::insert(
@@ -2358,8 +2247,5 @@ class SystemController extends Controller
         }
 
         return redirect()->back()->with('success', __('Email setting successfully updated.'));
-        // } else {
-        //     return redirect()->back()->with('error', 'Permission denied.');
-        // }
     }
 }

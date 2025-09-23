@@ -10,9 +10,7 @@
 @push('script-page')
     <script src="{{asset('js/jquery-ui.min.js')}}"></script>
     <script>
-        // Income Total
         $(document).on('keyup', '.income_data', function () {
-            // Category wise total
             var el = $(this).parent().parent();
             var inputs = $(el.find('.income_data'));
             var totalincome = 0;
@@ -22,7 +20,6 @@
             }
             el.find('.totalIncome').html(totalincome);
 
-            // Month wise total
             var month_income = $(this).data('month');
             var month_inputs = $(el.parent().find('.' + month_income + '_income'));
             var month_totalincome = 0;
@@ -33,7 +30,6 @@
             var month_total_income = month_income + '_total_income';
             el.parent().find('.' + month_total_income).html(month_totalincome);
 
-            // All total
             var total_inputs = $(el.parent().find('.totalIncome'));
             var income = 0;
             for (var i = 0; i < total_inputs.length; i++) {
@@ -43,9 +39,7 @@
             el.parent().find('.income').html(income);
         });
 
-        // Expense Total
         $(document).on('keyup', '.expense_data', function () {
-            // Category wise total
             var el = $(this).parent().parent();
             var inputs = $(el.find('.expense_data'));
             var totalexpense = 0;
@@ -55,7 +49,6 @@
             }
             el.find('.totalExpense').html(totalexpense);
 
-            // Month wise total
             var month_expense = $(this).data('month');
             var month_inputs = $(el.parent().find('.' + month_expense + '_expense'));
             var month_totalexpense = 0;
@@ -66,7 +59,6 @@
             var month_total_expense = month_expense + '_total_expense';
             el.parent().find('.' + month_total_expense).html(month_totalexpense);
 
-            // All total
             var total_inputs = $(el.parent().find('.totalExpense'));
             var expense = 0;
             for (var i = 0; i < total_inputs.length; i++) {
@@ -76,22 +68,18 @@
             el.parent().find('.expense').html(expense);
         });
 
-        // Hide & Show
         $(document).on('change', '.period', function () {
             var period = $(this).val();
             $('.budget_plan').removeClass('d-block').addClass('d-none');
             $('#' + period).removeClass('d-none').addClass('d-block');
         });
 
-        // Trigger
         $('.period').trigger('change');
     </script>
 @endpush
 
 @section('action-btn')
-    <!-- <div class="float-end">
-         <a href="{{ route('budget.index') }}" class="btn btn-sm btn-primary">{{__('Back')}}</a>
-    </div> -->
+    
 @endsection
 
 <style type="text/css">
@@ -128,7 +116,7 @@
                                     @endforeach
                                 </tr>
                             </thead>
-                            <!---- INCOME Category ---->
+                            
                             <tr>
                                 <th colspan="37" class="px-4 py-3 bg-green-100 border border-[#E5E5E5] text-gray-700">
                                     <span><strong>{{__('Income :')}}</strong></span>
@@ -193,7 +181,7 @@
                                     @endforeach
                                 @endif
                             </tr>
-                            <!---- EXPENSE Category ---->
+                            
                             <tr>
                                 <th colspan="37" class="px-4 py-3 bg-green-100 border border-[#E5E5E5] text-gray-700">
                                     <span><strong>{{__('Expense :')}}</strong></span>
@@ -307,7 +295,7 @@
                                     @endforeach
                                 </tr>
                             </thead>
-                            <!---- INCOME Category ---->
+                            
                             <tr>
                                 <th colspan="37" class="px-4 py-3 border border-[#E5E5E5] text-gray-700">
                                     <span class="text-[12px] text-[#323232] font-[600] leading-[24px]">{{__('Income :')}}</span>
@@ -372,7 +360,7 @@
                                     @endforeach
                                 @endif
                             </tr>
-                            <!---- EXPENSE Category ---->
+                            
                             <tr>
                                 <th colspan="37" class="px-4 py-3 border border-[#E5E5E5] text-gray-700">
                                     <span class="text-[12px] text-[#323232] font-[600] leading-[24px]">{{__('Expense :')}}</span>
@@ -486,7 +474,7 @@
                                     @endforeach
                                 </tr>
                             </thead>
-                            <!---- INCOME Category ---->
+                            
                             <tr>
                                 <th colspan="37" class="px-4 py-3 border border-[#E5E5E5] text-gray-700">
                                     <span class="text-[12px] text-[#323232] font-[600] leading-[24px]">{{__('Income :')}}</span>
@@ -551,7 +539,7 @@
                                     @endforeach
                                 @endif
                             </tr>
-                            <!---- EXPENSE Category ---->
+                            
                             <tr>
                                 <th colspan="37" class="px-4 py-3 border border-[#E5E5E5] text-gray-700">
                                     <span class="text-[12px] text-[#323232] font-[600] leading-[24px]">{{__('Expense :')}}</span>
@@ -665,7 +653,7 @@
                                     @endforeach
                                 </tr>
                             </thead>
-                            <!---- INCOME Category ---->
+                            
                             <tr>
                                 <th colspan="37" class="px-4 py-3 border border-[#E5E5E5] text-gray-700">
                                     <span class="text-[12px] text-[#323232] font-[600] leading-[24px]">{{__('Income :')}}</span>
@@ -728,7 +716,7 @@
                                     </td>
                                 @endforeach
                             </tr>
-                            <!---- EXPENSE Category ---->
+                            
                             <tr>
                                 <th colspan="37" class="px-4 py-3 border border-[#E5E5E5] text-gray-700">
                                     <span class="text-[12px] text-[#323232] font-[600] leading-[24px]">{{__('Expense :')}}</span>

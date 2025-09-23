@@ -33,7 +33,6 @@ class RetainerController extends Controller
             return redirect()->back()->with('error', __('Permission Denied.'));
         }
 
-        // show only active customers in filter dropdown
         $customer = TrashedSelect::activeOptions(Customer::class, \Auth::user()->creatorId())
             ->prepend('Select Customer', '');
 
@@ -70,7 +69,6 @@ class RetainerController extends Controller
         $customFields    = CustomField::where('created_by', \Auth::user()->creatorId())->where('module', 'retainer')->get();
         $retainer_number = \Auth::user()->retainerNumberFormat($this->retainerNumber());
 
-        // Active (non-deleted) options for new retainers
         $customers = TrashedSelect::activeOptions(Customer::class, \Auth::user()->creatorId())
             ->prepend('Select Customer', '');
 
@@ -173,7 +171,6 @@ class RetainerController extends Controller
         $retainer        = Retainer::find($id);
         $retainer_number = \Auth::user()->retainerNumberFormat($retainer->retainer_id);
 
-        // Include active + *used* soft-deleted customers in dropdown
         $customers = TrashedSelect::optionsWithUsed(
             Customer::class,
             \Auth::user()->creatorId(),
@@ -185,7 +182,6 @@ class RetainerController extends Controller
             ->where('type', 'income')->get()->pluck('name', 'id');
         $category->prepend('Select Category', '');
 
-        // Include any used (even if soft-deleted) products so existing lines remain editable
         $usedIds = RetainerProduct::where('retainer_id', $retainer->id)
             ->pluck('product_id')->filter()->unique()->values()->all();
 
@@ -220,7 +216,6 @@ class RetainerController extends Controller
 
     public function product(Request $request)
     {
-        // fetch product including soft-deleted
         $product = TrashedSelect::findWithTrashed(ProductService::class, $request->product_id);
 
         $data['product'] = $product;
@@ -232,7 +227,6 @@ class RetainerController extends Controller
         $quantity            = 1;
         $data['totalAmount'] = ($salePrice * $quantity);
 
-        // helpful UI hints if a deleted product is referenced
         $data['deleted_hint'] = $product ? 0 : 1;
         $data['display_name'] = $product ? $product->name : __('Deleted product (ID: :id)', ['id' => (string)$request->product_id]);
 
@@ -318,7 +312,6 @@ class RetainerController extends Controller
         }
 
         foreach ($retainer->payments as $retPay) {
-            // reverse bank balance
             Utility::bankAccountBalance($retPay->account_id, $retPay->amount, 'debit');
 
             $retainerpayment = RetainerPayment::find($retPay->id);
@@ -583,7 +576,6 @@ class RetainerController extends Controller
             $customFields = CustomField::where('created_by', \Auth::user()->creatorId())->where('module', 'retainer')->get();
         }
 
-        // logo
         $logo          = asset(Storage::url('uploads/logo/'));
         $company_logo  = Utility::getValByName('company_logo_dark');
         $settings_data = Utility::settingsById($retainer->created_by);
@@ -746,7 +738,6 @@ class RetainerController extends Controller
         $color      = '#' . $color;
         $font_color = Utility::getFontColor($color);
 
-        // font from request or default
         $font = $request->get('font', 'Inter');
 
         $logo          = asset(Storage::url('uploads/logo/'));
@@ -891,7 +882,6 @@ class RetainerController extends Controller
             $smtp_error = __('E-Mail has been not sent due to SMTP configuration');
         }
 
-        // webhook
         $module  = 'New Reminder';
         $webhook = Utility::webhookSetting($module);
         if ($webhook) {
@@ -982,7 +972,6 @@ class RetainerController extends Controller
 
                 Utility::total_quantity('minus', $duplicateProduct->quantity, $duplicateProduct->product_id);
 
-                // Product Stock Report
                 $type        = 'invoice';
                 $type_id     = $convertInvoice->id;
                 $description = $duplicateProduct->quantity . '  ' . __(' quantity sold in invoice') . ' ' . \Auth::user()->invoiceNumberFormat($convertInvoice->invoice_id);
@@ -1049,7 +1038,6 @@ class RetainerController extends Controller
         $customer = $retainer->customer;
         $iteams   = $retainer->items;
 
-        // fix: use creator ID, not encrypted $id
         $company_payment_setting = Utility::getCompanyPaymentSetting($retainer->created_by);
 
         return view('retainer.view', compact('retainer', 'customer', 'iteams', 'company_payment_setting'));

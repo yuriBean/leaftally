@@ -8,58 +8,53 @@
 
 @section('content')
 <style>
-  /* ===== lightweight, sectioned layout (no heavy cards) ===== */
-  .page{--acc:#007C38;--acc-600:#01612c;--bg:#F8FAFC;--line:#E5E7EB;--ink:#0F172A;--muted:#6B7280}
+  .page{--acc:
   .page{background:var(--bg)}
   .container-w{max-width:1140px;margin:0 auto}
   .grid{display:grid;grid-template-columns:280px 1fr;gap:2rem}
   @media (max-width: 992px){.grid{grid-template-columns:1fr}}
   .sticky{position:sticky;top:70px}
-  .aside{background:#fff;border:1px solid var(--line);border-radius:14px;padding:1rem}
+  .aside{background:
   .aside .name{font-weight:800;color:var(--ink);font-size:1rem}
   .aside .meta{color:var(--muted);font-size:.9rem}
-  .chip{display:inline-flex;align-items:center;gap:.45rem;padding:.3rem .6rem;border:1px solid var(--line);border-radius:999px;font-weight:700;font-size:.75rem;background:#fff}
+  .chip{display:inline-flex;align-items:center;gap:.45rem;padding:.3rem .6rem;border:1px solid var(--line);border-radius:999px;font-weight:700;font-size:.75rem;background:
   .chip i{width:.6rem;height:.6rem;border-radius:999px;background:var(--acc)}
   .actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.75rem}
-  .btn{border-radius:10px;padding:.55rem .8rem;font-weight:700;border:1px solid var(--line);background:#fff;color:#111827}
-  .btn:hover{background:#F9FAFB}
-  .btn-primary{background:var(--acc);color:#fff;border:none}
+  .btn{border-radius:10px;padding:.55rem .8rem;font-weight:700;border:1px solid var(--line);background:
+  .btn:hover{background:
+  .btn-primary{background:var(--acc);color:
   .btn-primary:hover{background:var(--acc-600)}
 
-  /* vertical tabs */
   .vnav{display:flex;flex-direction:column;gap:.35rem;margin-top:1rem}
-  .vtab{display:flex;align-items:center;gap:.6rem;padding:.6rem .75rem;border-radius:10px;color:#334155;border:1px solid transparent;background:transparent;font-weight:700;cursor:pointer}
+  .vtab{display:flex;align-items:center;gap:.6rem;padding:.6rem .75rem;border-radius:10px;color:
   .vtab svg{width:18px;height:18px}
   .vtab.active{background:rgba(0,124,56,.08);border-color:rgba(0,124,56,.25);color:var(--acc)}
   .vtab:focus{outline:3px solid rgba(0,124,56,.2)}
   .content > section{display:none}
   .content > section.active{display:block}
 
-  /* section header */
   .section-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:.75rem}
   .title{font-weight:800;color:var(--ink);letter-spacing:.1px}
   .subtitle{color:var(--muted);font-size:.95rem}
   .divider{height:1px;background:var(--line);margin:0 0 1rem}
 
-  /* form grid */
   .formgrid{display:grid;grid-template-columns:repeat(12,1fr);gap:1rem}
   .col-6{grid-column:span 6}
   .col-4{grid-column:span 4}
   .col-12{grid-column:span 12}
   @media (max-width: 768px){.col-6,.col-4{grid-column:span 12}}
-  .field label{display:block;font-size:.85rem;font-weight:700;color:#374151;margin:0 0 .35rem}
-  .ctl{width:100%;border:1px solid var(--line);border-radius:10px;padding:.55rem .7rem;font-size:.95rem;background:#fff}
+  .field label{display:block;font-size:.85rem;font-weight:700;color:
+  .ctl{width:100%;border:1px solid var(--line);border-radius:10px;padding:.55rem .7rem;font-size:.95rem;background:
   .ctl:focus{outline:none;box-shadow:0 0 0 3px rgba(0,124,56,.14);border-color:var(--acc)}
 
-  /* tables: clean, borderless with zebra & sticky head */
-  .tablewrap{overflow:auto;border:1px solid var(--line);border-radius:12px;background:#fff}
+  .tablewrap{overflow:auto;border:1px solid var(--line);border-radius:12px;background:
   table.clean{width:100%;border-collapse:separate;border-spacing:0}
-  thead th{position:sticky;top:0;background:#F8FAFC;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:#475569;border-bottom:1px solid var(--line);padding:.7rem .8rem}
-  tbody td{padding:.85rem .8rem;border-bottom:1px solid #F1F5F9}
-  tbody tr:nth-child(odd){background:#FCFCFD}
-  .badge{display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:800;border-radius:999px;padding:.15rem .5rem;border:1px solid #D1FAE5;background:#ECFDF5;color:#065F46}
-  .menu-btn{border:none;background:transparent;color:#64748B}
-  .menu-btn:hover{color:#0F172A}
+  thead th{position:sticky;top:0;background:
+  tbody td{padding:.85rem .8rem;border-bottom:1px solid
+  tbody tr:nth-child(odd){background:
+  .badge{display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:800;border-radius:999px;padding:.15rem .5rem;border:1px solid
+  .menu-btn{border:none;background:transparent;color:
+  .menu-btn:hover{color:
 
   .savebar{display:flex;justify-content:flex-end;margin-top:.5rem}
 </style>
@@ -123,9 +118,8 @@
         </div>
       </aside>
 
-      <!-- RIGHT: Content -->
       <main class="content">
-        <!-- SALARY -->
+        
         <section id="tab-salary" class="active">
           <div class="section-head">
             <div>
@@ -158,7 +152,6 @@
           {{ Form::close() }}
         </section>
 
-        <!-- ALLOWANCE -->
         <section id="tab-allowance">
           <div class="section-head">
             <div>
@@ -234,7 +227,6 @@
           </div>
         </section>
 
-        <!-- COMMISSION -->
         <section id="tab-commission">
           <div class="section-head">
             <div>
@@ -302,7 +294,6 @@
           </div>
         </section>
 
-        <!-- LOAN -->
         <section id="tab-loan">
           <div class="section-head">
             <div>
@@ -401,7 +392,6 @@
           </div>
         </section>
 
-        <!-- DEDUCTION -->
         <section id="tab-deduction">
           <div class="section-head">
             <div>
@@ -477,7 +467,6 @@
           </div>
         </section>
 
-        <!-- OTHER PAYMENT -->
         <section id="tab-other">
           <div class="section-head">
             <div>
@@ -545,7 +534,6 @@
           </div>
         </section>
 
-        <!-- OVERTIME -->
         <section id="tab-overtime">
           <div class="section-head">
             <div>
@@ -636,7 +624,6 @@
 
 @push('script-page')
 <script>
-  // vertical tabs
   document.querySelectorAll('.vtab').forEach(btn=>{
     btn.addEventListener('click',()=>{
       const id = btn.dataset.tab
@@ -647,7 +634,6 @@
     })
   })
 
-  // datatables keep
   $(function () {
     $("#allowance-dataTable").dataTable({ "columnDefs":[{"sortable":false,"targets":[4]}] });
     $("#commission-dataTable").dataTable({ "columnDefs":[{"sortable":false,"targets":[3]}] });
@@ -657,7 +643,6 @@
     $("#overtime-dataTable").dataTable({ "columnDefs":[{"sortable":false,"targets":[5]}] });
   });
 
-  // keep your ajax modal hook
   $(document).on('click','[data-ajax-popup="true"]',function(e){ e.preventDefault(); });
 </script>
 @endpush

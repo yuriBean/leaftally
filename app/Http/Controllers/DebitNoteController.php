@@ -31,7 +31,6 @@ class DebitNoteController extends Controller
     public function index()
     {
         if (\Auth::user()->can('manage debit note')) {
-            // Active bills list for the page
             $bills = Bill::where('created_by', \Auth::user()->creatorId())->get();
 
             return view('debitNote.index', compact('bills'));
@@ -126,7 +125,6 @@ class DebitNoteController extends Controller
 
         $debit = DebitNote::find($debitNote_id);
 
-        // rollback previous effect
         Utility::updateUserBalance('vendor', $bill->vender_id, $debit->amount, 'debit');
 
         $debit->date        = $request->date;
@@ -134,7 +132,6 @@ class DebitNoteController extends Controller
         $debit->description = $request->description;
         $debit->save();
 
-        // apply new effect
         Utility::updateUserBalance('vendor', $bill->vender_id, $request->amount, 'credit');
 
         return redirect()->back()->with('success', __('Debit Note successfully updated.'));
@@ -161,7 +158,6 @@ class DebitNoteController extends Controller
             return redirect()->back()->with('error', __('Permission denied.'));
         }
 
-        // Only active bills in dropdown
         $bills = Bill::where('created_by', \Auth::user()->creatorId())->get()->pluck('bill_id', 'id');
         return view('debitNote.custom_create', compact('bills'));
     }

@@ -1,5 +1,3 @@
-// Source: npm package: emojilib
-// Images provided by twemoji: https://github.com/twitter/twemoji
 window.tinymce.Resource.add("tinymce.plugins.emoticons", {
   100: {
     keywords: [ "score", "perfect", "numbers", "century", "exam", "quiz", "test", "pass", "hundred" ],

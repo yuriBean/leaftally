@@ -3,7 +3,6 @@
 @section('page-title', __('Account Setup'))
 
 @php
-  // convenience color
   $brand = '#007C38';
 @endphp
 
@@ -44,7 +43,7 @@
     {{-- Financial / Tax --}}
     <section>
       <h2 class="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">{{ __('Financial & Tax') }}</h2>
-      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style="width: 100%; min-height: 200px;">
         @can('manage constant bank')
           @include('constants._card', [
             'icon' => 'bank.svg',
@@ -94,7 +93,7 @@
     {{-- Sales & Products --}}
     <section>
       <h2 class="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">{{ __('Sales & Products') }}</h2>
-      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style="width: 100%; min-height: 200px;">
         @can('manage constant category')
         @include('constants._card', [
           'icon' => 'product_&_services.svg',
@@ -145,7 +144,7 @@
     {{-- Projects / Contracts / Custom Fields --}}
     <section>
       <h2 class="mb-3 text-sm font-semibold uppercase tracking-wide text-slate-500">{{ __('Projects & Customisation') }}</h2>
-      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style="width: 100%; min-height: 200px;">
         @can('manage constant contract type')
         @include('constants._card', [
           'icon' => 'contract.svg',
@@ -163,7 +162,7 @@
 
         @can('manage constant custom field')
         @include('constants._card', [
-          'icon' => 'custom-field.svg', // add this asset or reuse 'setting.svg'
+          'icon' => 'custom-field.svg',
           'title' => __('Custom Fields'),
           'desc' => __('Add extra fields to forms (customers, invoices, etc.).'),
           'indexRoute' => route('custom-field.index'),
@@ -178,7 +177,6 @@
       </div>
     </section>
 
-   
   </div>
 </div>
 

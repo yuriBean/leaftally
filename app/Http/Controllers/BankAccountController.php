@@ -32,10 +32,8 @@ class BankAccountController extends Controller
     {
         if (\Auth::user()->can('create bank account')) {
 
-            // Fetch chart accounts
             $chartAccounts = ChartOfAccount::select([\DB::raw('CONCAT(code, " - ", name) AS code_name'),'id'])->where('parent', '=', 0)->where('created_by', \Auth::user()->creatorId())->get()->pluck('code_name', 'id')->prepend('Select Account', 0);
 
-            // Fetch sub-accounts
             $subAccounts = ChartOfAccount::select(['chart_of_accounts.id', 'chart_of_accounts.code', 'chart_of_accounts.name', 'chart_of_account_parents.account'])->leftjoin('chart_of_account_parents', 'chart_of_accounts.parent', '=', 'chart_of_account_parents.id')->where('chart_of_accounts.parent', '!=', 0)->where('chart_of_accounts.created_by', \Auth::user()->creatorId())->get()->toArray();    
             
             $customFields = CustomField::where('created_by', '=', \Auth::user()->creatorId())->where('module', '=', 'account')->get();
@@ -78,7 +76,6 @@ class BankAccountController extends Controller
             $account->save();
             CustomField::saveData($account, $request->customField);
 
-            // $accountId = BankAccount::where('chart_account_id', $account->chart_account_id)->first();
             $data = [
                 'account_id' => $account->chart_account_id,
                 'transaction_type' => 'Credit',
@@ -91,26 +88,22 @@ class BankAccountController extends Controller
 
             Utility::addTransactionLines($data);
 
-
             return redirect()->route('bank-account.index')->with('success', __('Account successfully created.'));
         } else {
             return redirect()->back()->with('error', __('Permission denied.'));
         }
     }
 
-
     public function edit(BankAccount $bankAccount)
     {
         if (\Auth::user()->can('edit bank account')) {
             if ($bankAccount->created_by == \Auth::user()->creatorId()) {
 
-                // Fetch chart accounts
                 $chartAccounts = ChartOfAccount::select([
                     \DB::raw('CONCAT(code, " - ", name) AS code_name'),
                     'id'
                 ])->where('parent', '=', 0)->where('created_by', \Auth::user()->creatorId())->get()->pluck('code_name', 'id')->prepend('Select Account', 0);
 
-                // Fetch sub-accounts
                 $subAccounts = ChartOfAccount::select(['chart_of_accounts.id', 'chart_of_accounts.code', 'chart_of_accounts.name', 'chart_of_account_parents.account'])->leftjoin('chart_of_account_parents', 'chart_of_accounts.parent', '=', 'chart_of_account_parents.id')->where('chart_of_accounts.parent', '!=', 0)->where('chart_of_accounts.created_by', \Auth::user()->creatorId())->get()->toArray();
 
                 $bankAccount->customField = CustomField::getData($bankAccount, 'account');
@@ -124,7 +117,6 @@ class BankAccountController extends Controller
             return response()->json(['error' => __('Permission denied.')], 401);
         }
     }
-
 
     public function update(Request $request, BankAccount $bankAccount)
     {
@@ -175,7 +167,6 @@ class BankAccountController extends Controller
         }
     }
 
-
     public function destroy(BankAccount $bankAccount)
     {
         if (\Auth::user()->can('delete bank account')) {
@@ -191,7 +182,6 @@ class BankAccountController extends Controller
                 } else {
                     TransactionLines::where('reference_id', $bankAccount->id)->where('reference', 'Bank Account')->delete();
                     $bankAccount->delete();
-
 
                     return redirect()->route('bank-account.index')->with('success', __('Account successfully deleted.'));
                 }

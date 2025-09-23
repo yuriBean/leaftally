@@ -1,52 +1,89 @@
 <script src="{{ asset('js/unsaved.js') }}"></script>
 
-{{-- resources/views/customer/edit.blade.php --}}
-
 {{ Form::model($customer, [
     'route'  => ['customer.update', $customer->id],
     'method' => 'PUT',
     'class'  => 'needs-validation',
     'novalidate'
 ]) }}
-<div class="modal-body p-6 bg-[#FAFBFC]">
-   <div class="bg-white rounded-[8px] border border-[#E5E7EB] mb-6 shadow-sm overflow-hidden">
-      <div class="heading-cstm-form">
-         <h6 class="mb-0 flex items-center gap-2">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-            </svg>
-            {{ __('Basic Info') }}
-         </h6>
-      </div>
-      <div class="row p-6">
-         <div class="col-lg-4 col-md-4 col-sm-6">
-            <div class="form-group">
-               {{ Form::label('name', __('Name'), ['class' => 'form-label']) }}
-               <x-required></x-required>
-               <div class="form-icon-user">
-                  {{ Form::text('name', null, ['class' => 'form-control', 'required' => 'required']) }}
-               </div>
-            </div>
-         </div>
-         <x-mobile div-class="col-md-4 " name="contact" label="{{ __('Contact') }} " required></x-mobile>
-         <div class="col-lg-4 col-md-4 col-sm-6">
-            <div class="form-group">
-               {{ Form::label('email', __('Email'), ['class' => 'form-label']) }}
-               <x-required></x-required>
-               <div class="form-icon-user">
-                  {{ Form::text('email', null, ['class' => 'form-control', 'required' => 'required']) }}
-               </div>
-            </div>
-         </div>
-         {!! Form::hidden('role', 'company', ['class' => 'form-control select2', 'required' => 'required']) !!}
-         <div class="col-lg-4 col-md-4 col-sm-6">
-            <div class="form-group">
-               {{ Form::label('tax_number', __('Tax Number'), ['class' => 'form-label']) }}
-               <div class="form-icon-user">
-                  {{ Form::text('tax_number', null, ['class' => 'form-control']) }}
-               </div>
-            </div>
-         </div>
+
+<div class="modal-body" style="background: var(--zameen-background-section); padding: 1.5rem;">
+  
+  <div style="background: linear-gradient(135deg, #00b98d 0%, #00d4a3 100%); padding: 1.75rem 2rem 1.25rem; border-radius: 12px 12px 0 0; margin: 0 1.5rem;">
+    <div style="color: white; margin-bottom: 0.5rem;">
+      <h4 style="margin: 0; font-weight: 600; font-size: 1.5rem; color: white;">{{ __('Edit Customer') }}</h4>
+      <p style="margin: 0; opacity: 0.9; font-size: 0.875rem;">{{ __('Update customer information') }}</p>
+    </div>
+  </div>
+
+  <div style="padding: 2rem; background: white; margin: 0 1.5rem; border-radius: 0 0 12px 12px;">
+    <div style="display: flex; flex-direction: column; gap: 1.5rem; max-width: 720px; margin: 0 auto; padding: 1.5rem;">
+
+      <div class="zameen-form-section">
+        <h6 class="zameen-section-title">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display: inline; margin-right: 8px;">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+          </svg>
+          {{ __('Basic Information') }}
+        </h6>
+
+        <div class="zameen-form-group">
+          <label class="zameen-form-label">
+            {{ __('Customer Name') }}
+            <span style="color: #ef4444; margin-left: 4px;">*</span>
+          </label>
+          {{ Form::text('name', null, [
+            'class' => 'zameen-form-input',
+            'placeholder' => __('Enter customer name'),
+            'required' => 'required'
+          ]) }}
+          @error('name')
+            <div class="zameen-form-error">{{ $message }}</div>
+          @enderror
+        </div>
+
+        <div class="zameen-form-group">
+          <label class="zameen-form-label">
+            {{ __('Contact') }}
+            <span style="color: #ef4444; margin-left: 4px;">*</span>
+          </label>
+          {{ Form::text('contact', null, [
+            'class' => 'zameen-form-input',
+            'placeholder' => __('Enter contact number'),
+            'required' => 'required'
+          ]) }}
+          @error('contact')
+            <div class="zameen-form-error">{{ $message }}</div>
+          @enderror
+        </div>
+
+        <div class="zameen-form-group">
+          <label class="zameen-form-label">
+            {{ __('Email Address') }}
+            <span style="color: #ef4444; margin-left: 4px;">*</span>
+          </label>
+          {{ Form::email('email', null, [
+            'class' => 'zameen-form-input',
+            'placeholder' => __('Enter email address'),
+            'required' => 'required'
+          ]) }}
+          @error('email')
+            <div class="zameen-form-error">{{ $message }}</div>
+          @enderror
+        </div>
+
+        <div class="zameen-form-group">
+          <label class="zameen-form-label">{{ __('Tax Number') }}</label>
+          {{ Form::text('tax_number', null, [
+            'class' => 'zameen-form-input',
+            'placeholder' => __('Enter tax number')
+          ]) }}
+          @error('tax_number')
+            <div class="zameen-form-error">{{ $message }}</div>
+          @enderror
+        </div>
+
+        {!! Form::hidden('role', 'company') !!}
                   @if($customer->is_enable_login == 1)
          <div class="col-lg-4 col-md-4 col-sm-6">
             <div class="form-group">
@@ -64,7 +101,7 @@
    </div>
    <div class="row">
       <div class="col-md-6">
-         <!--billing address start here-->
+         
          <div class="bg-white rounded-[8px] border border-[#E5E7EB] shadow-sm overflow-hidden">
             <div class="heading-cstm-form">
                <h6 class="mb-0 flex items-center gap-2">
@@ -132,7 +169,7 @@
          </div>
       </div>
       <div class="col-md-6">
-         <!--shipping address starts here-->
+         
          <div class="bg-white rounded-[8px] border border-[#E5E7EB] shadow-sm overflow-hidden">
             <div class="heading-cstm-form">
                <h6 class="mb-0 flex items-center gap-2">

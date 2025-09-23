@@ -25,7 +25,6 @@
         <i class="ti ti-plus text-white" data-bs-toggle="tooltip" data-bs-original-title="{{ __('Create') }}"></i></span>
     </a>
 
-     
     @endif
 @endsection
 @section('filter')
@@ -61,16 +60,7 @@
                                                         <i class="ti ti-trash" data-bs-toggle="tooltip" data-bs-original-title="{{ __('Delete') }}"></i>{{ __('Delete') }}
                                                     </a>
                                                 {!! Form::close() !!}
-                                                    <!-- <form method="POST" action="{{ route('contract.destroy', $contract->id) }}">
-                                                        @csrf
-                                                        <input name="_method" type="hidden" value="DELETE">
-                                                        <button type="submit" class="mx-3 btn btn-sm d-inline-flex align-items-center show_confirm" data-bs-toggle="tooltip"
-                                                        title='Delete'>
-                                                        <span class=""> <i
-                                                        class="ti ti-trash"></i></span>
-                                                        {{ __('Delete') }}
-                                                        </button>
-                                                    </form> -->
+                                                    
                                             </div>
                                         </div>
                                     </div>

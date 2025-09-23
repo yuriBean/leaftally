@@ -16,7 +16,6 @@
     </div>
 
     @php
-      // Plan features
       $planFeature = \App\Services\Feature::for(\Auth::user());
       $F = fn(string $k) => $planFeature->enabled($k);
 
@@ -25,7 +24,6 @@
       $featTax           = $F(\App\Enum\PlanFeature::TAX);
       $featManufacturing = $F(\App\Enum\PlanFeature::MANUFACTURING);
 
-      // All modules
 $modules = [
     'dashboard','user','role','invoice','bill','revenue','payment',
     'invoice product','bill product',
@@ -46,12 +44,10 @@ $modules = [
         $modules[] = 'permission';
       }
 
-      // Gate map
       $gateMap = [
         'user'                 => $featUserAccess,
         'role'                 => $featUserAccess,
 
-        // Payroll-related
         'constant branch'      => $featPayroll,
         'constant designation' => $featPayroll,
         'constant department'  => $featPayroll,
@@ -59,19 +55,14 @@ $modules = [
         'constant deduction'   => $featPayroll,
         'constant bonus'       => $featPayroll,
 
-        // Tax
         'constant tax'         => $featTax,
 
-        // Manufacturing
         'bom'                  => $featManufacturing,
         'production'           => $featManufacturing,
       ];
 
-      // Filter out modules not in plan
       $visibleModules = array_values(array_filter($modules, fn($m) => $gateMap[$m] ?? true));
 
-      // Permissions lookup helpers
-      // $permissions expected as [id => 'permission name']
       $permNames = array_values((array) $permissions);
     @endphp
 

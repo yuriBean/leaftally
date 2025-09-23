@@ -1,3 +1,4 @@
+# Laravel Framework
 /.idea
 /.vscode
 /vendor
@@ -5,13 +6,24 @@
 /public/storage
 /storage/*.key
 .env
+.env.*
+.env.backup
+.env.production
+.env.local
+.env.development
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
-/.idea
-/.vscode
-/.env.backup
 npm-debug.log
+yarn-error.log
+
+# Dependencies
+vendor/
+node_modules/
+
+# Environment files
+.env
+.env.*
 
 
 

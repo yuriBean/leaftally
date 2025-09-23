@@ -83,7 +83,6 @@ class Asset extends Model
 
         $date = $date ?: \Carbon\Carbon::now()->format('Y-m-d');
         
-        // Find the depreciation expense and accumulated depreciation accounts
         $depreciationExpenseAccount = ChartOfAccount::where('name', 'Depreciation Expense')
             ->where('created_by', $this->created_by)
             ->first();
@@ -96,7 +95,6 @@ class Asset extends Model
             return null;
         }
 
-        // Create journal entry
         $journalEntry = JournalEntry::create([
             'date' => $date,
             'reference' => 'DEP-' . $this->id . '-' . date('Ymd'),
@@ -105,7 +103,6 @@ class Asset extends Model
             'created_by' => $this->created_by,
         ]);
 
-        // Create debit entry (Depreciation Expense)
         JournalItem::create([
             'journal' => $journalEntry->id,
             'account' => $depreciationExpenseAccount->id,
@@ -113,7 +110,6 @@ class Asset extends Model
             'credit' => 0,
         ]);
 
-        // Create credit entry (Accumulated Depreciation)
         JournalItem::create([
             'journal' => $journalEntry->id,
             'account' => $accumulatedDepreciationAccount->id,

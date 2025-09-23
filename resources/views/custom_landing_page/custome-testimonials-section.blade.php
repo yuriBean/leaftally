@@ -1,6 +1,6 @@
 <div class="bg-gredient2" id="section">
     <div class="container">
-        <!-- TESTIMONIALS -->
+        
         <section class="testimonials">
             <div class="container">
                 <h3>Testimonials</h3>
@@ -13,7 +13,7 @@
                 </div>
             </div>
         </section>
-        <!-- END OF TESTIMONIALS -->
+        
     </div>
 </div>
 <div id="ul-section">

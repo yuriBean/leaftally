@@ -8,9 +8,6 @@ use Illuminate\View\Component;
 
 class Mobile extends Component
 {
-    /**
-     * Create a new component instance.
-     */
     public $divClass;
     public $label;
     public $name;
@@ -32,9 +29,6 @@ class Mobile extends Component
         $this->required = $required;
     }
 
-    /**
-     * Get the view / contents that represent the component.
-     */
     public function render(): View|Closure|string
     {
         return view('components.mobile');

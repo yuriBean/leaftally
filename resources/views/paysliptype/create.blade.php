@@ -3,7 +3,6 @@
     {{Form::open(array('url'=>'paysliptype','method'=>'post', 'class'=>'needs-validation', 'novalidate'))}}
     <div class="modal-body">
 
-
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">

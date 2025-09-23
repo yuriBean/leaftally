@@ -16,7 +16,6 @@ use Lab404\Impersonate\Models\Impersonate;
 use App\Models\ReferralTransactionOrder;
 use App\Models\ReferralTransaction;
 
-
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasRoles;
@@ -57,8 +56,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'two_factor_confirmed_at',
     ];
 
-    // For some extra keyword of notification template
-
     public function extraKeyword()
     {
         $keyArr = [
@@ -69,7 +66,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
         ];
     }
-
 
     protected $casts = [
         'email_verified_at' => 'datetime',
@@ -102,7 +98,6 @@ class User extends Authenticatable implements MustVerifyEmail
         }
     }
 
-
     public function currentLanguage()
     {
         return $this->lang;
@@ -117,12 +112,9 @@ class User extends Authenticatable implements MustVerifyEmail
         } else {
             $decimal_number = 2;
         }
-        // dd($settings, $price,  number_format($price, $settings['decimal_number']));
-        // $price = floatval($price);
 
         return (($settings['site_currency_symbol_position'] == "pre") ? $settings['site_currency_symbol'] : '') . number_format($price, $settings['decimal_number']) . (($settings['site_currency_symbol_position'] == "post") ? $settings['site_currency_symbol'] : '');
     }
-
 
     public function currencySymbol()
     {
@@ -216,7 +208,6 @@ class User extends Authenticatable implements MustVerifyEmail
             $customers = Customer::where('created_by', '=', $this->id)->get();
             $venders   = Vender::where('created_by', '=', $this->id)->get();
 
-
             if ($plan->max_users == -1) {
                 foreach ($users as $user) {
                     $user->is_active = 1;
@@ -254,7 +245,6 @@ class User extends Authenticatable implements MustVerifyEmail
                     }
                 }
             }
-
 
             if ($plan->max_venders == -1) {
                 foreach ($venders as $vender) {
@@ -295,22 +285,16 @@ class User extends Authenticatable implements MustVerifyEmail
         $subscription_id = $data[1];
         switch ($type) {
             case 'stripe':
-                /* Initiate Stripe */
                 \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-                /* Cancel the Stripe Subscription */
                 $subscription = \Stripe\Subscription::retrieve($subscription_id);
                 $subscription->cancel();
                 break;
             case 'paypal':
-                /* Initiate paypal */
                 $paypal = new \PayPal\Rest\ApiContext(new \PayPal\Auth\OAuthTokenCredential(env('PAYPAL_CLIENT_ID'), env('PAYPAL_SECRET_KEY')));
                 $paypal->setConfig(['mode' => env('PAYPAL_MODE')]);
-                /* Create an Agreement State Descriptor, explaining the reason to suspend. */
                 $agreement_state_descriptior = new \PayPal\Api\AgreementStateDescriptor();
                 $agreement_state_descriptior->setNote('Suspending the agreement');
-                /* Get details about the executed agreement */
                 $agreement = \PayPal\Api\Agreement::get($subscription_id, $paypal);
-                /* Suspend */
                 $agreement->suspend($agreement_state_descriptior, $paypal);
                 break;
         }
@@ -467,7 +451,6 @@ class User extends Authenticatable implements MustVerifyEmail
         $month[]          = __('December');
         $dataArr['month'] = $month;
 
-
         for ($i = 1; $i <= 12; $i++) {
             $monthlyIncome = Revenue::selectRaw('sum(amount) amount')->where('created_by', '=', $this->creatorId())->whereRaw('year(`date`) = ?', array(date('Y')))->whereRaw('month(`date`) = ?', $i)->first();
           
@@ -477,12 +460,9 @@ class User extends Authenticatable implements MustVerifyEmail
             foreach ($invoices as $invoice) {
                 $invoiceArray[] = $invoice->getTotal();
             }
-            
-            // $totalIncome = (!empty($monthlyIncome) ? $monthlyIncome->amount : 0) + (!empty($invoiceArray) ? array_sum($invoiceArray) : 0);
-            // $incomeArr[] = !empty($totalIncome) ? number_format($totalIncome, 2) : 0;
 
             $totalIncome = ($monthlyIncome->amount ?? 0) + array_sum($invoiceArray);
-            $incomeArr[] = round($totalIncome, 2); // numeric only
+            $incomeArr[] = round($totalIncome, 2);
 
             $monthlyExpense = Payment::selectRaw('sum(amount) amount')->where('created_by', '=', $this->creatorId())->whereRaw('year(`date`) = ?', array(date('Y')))->whereRaw('month(`date`) = ?', $i)->first();
             $bills          = Bill::select('*')->where('created_by', \Auth::user()->creatorId())->whereRaw('year(`send_date`) = ?', array(date('Y')))->whereRaw('month(`send_date`) = ?', $i)->get();
@@ -491,39 +471,17 @@ class User extends Authenticatable implements MustVerifyEmail
                 $billArray[] = $bill->getTotal();
             }
 
-            // $totalExpense = (!empty($monthlyExpense) ? $monthlyExpense->amount : 0) + (!empty($billArray) ? array_sum($billArray) : 0);
-            // $expenseArr[] = !empty($totalExpense) ? number_format($totalExpense, 2) : 0;
-            
             $totalExpense = ($monthlyExpense->amount ?? 0) + array_sum($billArray);
-            $expenseArr[] = round($totalExpense, 2); // Keep it numeric
-            
-            
+            $expenseArr[] = round($totalExpense, 2);
 
         }
 
         $dataArr['income']  = $incomeArr;
         $dataArr['expense'] = $expenseArr;
 
-        // dd( $dataArr['income'] ,  $dataArr['expense'] );
         return $dataArr;
        
     }
-
-    //default bank account for new company
-    // public function userDefaultBankAccount($user_id)
-    // {
-    //     BankAccount::create(
-    //         [
-    //             'holder_name' => 'cash',
-    //             'bank_name' => '',
-    //             'account_number' => '-',
-    //             'opening_balance' => '0.00',
-    //             'contact_number' => '-',
-    //             'bank_address' => '-',
-    //             'created_by' => $user_id,
-    //         ]
-    //     );
-    // }
 
     public function getIncExpLineChartDate()
     {
@@ -695,7 +653,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public static function userDefaultData()
     {
-        // Make Entry In User_Email_Template
         $allEmail = EmailTemplate::all();
 
         foreach ($allEmail as $email) {
@@ -711,7 +668,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function userDefaultDataRegister($user_id)
     {
-        // Make Entry In User_Email_Template
         $allEmail = EmailTemplate::all();
         foreach ($allEmail as $email) {
             UserEmailTemplate::create(
@@ -726,7 +682,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function defaultEmail()
     {
-        // Email Template
         $emailTemplate = [
             'New Bill Payment',
             'Customer Invoice Sent',
@@ -756,7 +711,6 @@ class User extends Authenticatable implements MustVerifyEmail
                 );
             }
         }
-
 
         $defaultTemplate = [
             'new_bill_payment' => [
@@ -2596,11 +2550,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
             ],
 
-
         ];
 
         $email = EmailTemplate::all();
-
 
         foreach ($email as $e) {
 
@@ -2632,7 +2584,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
         return $ReferralTransaction - $paidAmount;
     }
-
 
         public static function employeeIdFormat($number)
     {

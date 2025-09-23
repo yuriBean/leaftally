@@ -2,13 +2,7 @@
 <html lang="en">
 <head>
     <title>Bootstrap 5 Admin Template</title>
-    <!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 11]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <!-- Meta -->
+
     <meta charset="utf-8" />
     <meta
         name="viewport"
@@ -19,36 +13,30 @@
     <meta name="keywords" content="Dashboard Template" />
     <meta name="author" content="Workdo" />
 
-    <!-- Primary Meta Tags -->
     <meta name="title" content="Meta Tags — Preview, Edit and Generate">
     <meta name="description" content="With Meta Tags you can edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more!">
 
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://metatags.io/">
     <meta property="og:title" content="Meta Tags — Preview, Edit and Generate">
     <meta property="og:description" content="With Meta Tags you can edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more!">
     <meta property="og:image" content="https://metatags.io/assets/meta-tags-16a33a6a8531e519cc0936fbba0ad904e52d35f34a46c97a2c9f6f7dd7d336f2.png">
 
-    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://metatags.io/">
     <meta property="twitter:title" content="Meta Tags — Preview, Edit and Generate">
     <meta property="twitter:description" content="With Meta Tags you can edit and experiment with your content then preview how your webpage will look on Google, Facebook, Twitter and more!">
     <meta property="twitter:image" content="https://metatags.io/assets/meta-tags-16a33a6a8531e519cc0936fbba0ad904e52d35f34a46c97a2c9f6f7dd7d336f2.png">
 
-
-    <!-- Favicon icon -->
     <link rel="icon" href="{{asset('assets/images/favicon.svg')}}" type="image/x-icon" />
 
     <link rel="stylesheet" href="{{asset('assets/css/plugins/animate.min.css')}}" />
-    <!-- font css -->
+    
     <link rel="stylesheet" href="{{asset('assets/fonts/tabler-icons.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/fonts/feather.css')}}">
     <link rel="stylesheet" href="{{asset('assets/fonts/fontawesome.css')}}">
     <link rel="stylesheet" href="{{asset('assets/fonts/material.css')}}">
 
-    <!-- vendor css -->
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}" id="main-style-link">
     <link rel="stylesheet" href="{{asset('assets/css/customizer.css')}}">
 
@@ -56,7 +44,7 @@
 </head>
 
 <body class="theme-1">
-<!-- [ Nav ] start -->
+
 <nav class="navbar navbar-expand-md navbar-dark default top-nav-collapse">
     <div class="container">
         <a class="navbar-brand bg-transparent" href="">
@@ -103,8 +91,7 @@
         </div>
     </div>
 </nav>
-<!-- [ Nav ] start -->
-<!-- [ Header ] start -->
+
 <header id="home" class="bg-primary">
     <div class="container">
         <div class="row align-items-center justify-content-between">
@@ -145,8 +132,7 @@
         </div>
     </div>
 </header>
-<!-- [ Header ] End -->
-<!-- [ client ] Start -->
+
 <section id="dashboard" class="theme-alt-bg dashboard-block">
     <div class="container">
         <div class="row justify-content-center">
@@ -209,8 +195,7 @@
         />
     </div>
 </section>
-<!-- [ client ] End -->
-<!-- [ dashboard ] start -->
+
 <section class="">
     <div class="container">
         <div class="row align-items-center justify-content-end mb-5">
@@ -275,8 +260,7 @@
         </div>
     </div>
 </section>
-<!-- [ dashboard ] End -->
-<!-- [ feature ] start -->
+
 <section id="feature" class="feature">
     <div class="container">
         <div class="row justify-content-center">
@@ -393,8 +377,7 @@
         </div>
     </div>
 </section>
-<!-- [ feature ] End -->
-<!-- [ dashboard ] start -->
+
 <section class="">
     <div class="container">
         <div class="row align-items-center justify-content-end mb-5">
@@ -459,8 +442,7 @@
         </div>
     </div>
 </section>
-<!-- [ dashboard ] End -->
-<!-- [ price ] start -->
+
 <section id="price" class="price-section">
     <div class="container">
         <div class="row justify-content-center">
@@ -653,8 +635,7 @@
         </div>
     </div>
 </section>
-<!-- [ price ] End -->
-<!-- [ faq ] start -->
+
 <section class="faq">
     <div class="container">
         <div class="row justify-content-center">
@@ -779,8 +760,7 @@
         </div>
     </div>
 </section>
-<!-- [ faq ] End -->
-<!-- [ dashboard ] start -->
+
 <section class="side-feature">
     <div class="container">
         <div class="row align-items-center">
@@ -875,8 +855,7 @@
         </div>
     </div>
 </section>
-<!-- [ dashboard ] End -->
-<!-- [ dashboard ] start -->
+
 <section class="footer">
     <div class="container">
         <div class="row">
@@ -903,13 +882,11 @@
         </div>
     </div>
 </section>
-<!-- [ dashboard ] End -->
-<!-- Required Js -->
+
 <script src="{{asset('assets/js/plugins/popper.min.js')}}"></script>
 <script src="{{asset('assets/js/plugins/bootstrap.min.js')}}"></script>
 <script src="{{asset('assets/js/pages/wow.min.js')}}"></script>
 <script>
-    // Start [ Menu hide/show on scroll ]
     let ost = 0;
     document.addEventListener("scroll", function () {
         let cOst = document.documentElement.scrollTop;
@@ -926,9 +903,8 @@
         }
         ost = cOst;
     });
-    // End [ Menu hide/show on scroll ]
     var wow = new WOW({
-        animateClass: "animate__animated", // animation css class (default is animated)
+        animateClass: "animate__animated",
     });
     wow.init();
     var scrollSpy = new bootstrap.ScrollSpy(document.body, {

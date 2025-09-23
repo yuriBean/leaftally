@@ -174,12 +174,9 @@ p.price sub{left:-3px;font-size:13px;}
 .pricing-plan .container{z-index:999;position:relative;}
 .col-lg-12.logo-img{padding-bottom:50px;}
 
-
-/* modal css */
-
 .modal.left .modal-dialog,
 .modal.right .modal-dialog {
-    /*position: fixed;*/
+    
     margin: auto !important;
     width: 320px !important;
     height: 100% !important;
@@ -200,7 +197,6 @@ p.price sub{left:-3px;font-size:13px;}
     padding: 15px 15px 80px;
 }
 
-/*Left*/
 .modal.left.fade .modal-dialog{
     left: -320px;
     -webkit-transition: opacity 0.3s linear, left 0.3s ease-out;
@@ -213,7 +209,6 @@ p.price sub{left:-3px;font-size:13px;}
     left: 0;
 }
 
-/*Right*/
 .modal.right.fade .modal-dialog {
     right: -760px;
     -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
@@ -226,7 +221,6 @@ p.price sub{left:-3px;font-size:13px;}
     right: 0;
 }
 
-/* ----- MODAL STYLE ----- */
 .modal-content {
     border-radius: 0;
     border: none;
@@ -258,38 +252,32 @@ p.price sub{left:-3px;font-size:13px;}
     position: relative;
 }
 
-/* Tooltip1 container */
-
 .tooltip1 .tooltip1text li:hover {
     background-color: rgb(15, 94, 247);
 }
 .tooltip1 .tooltip1text .list-group-item{
     padding: unset;
 }
-/* Tooltip1 text */
+
 .tooltip1 .tooltip1text {
     visibility: hidden;
     width: 120px;
     text-align: left;
     top: 10%;
-    /*padding: 5px 0;*/
+    
     border-radius: 6px;
 
-    /* Position the tooltip1 text */
     position: absolute;
     z-index: 1;
-    /* bottom: 50%;*/
+    
     left: 8%;
     margin-left: -60px;
 
-    /* Fade in tooltip1 */
     opacity: 0;
     transition: opacity 0.3s;
 
-
 }
 
-/* Tooltip1 arrow */
 .tooltip1 .tooltip1text::after {
     content: "";
     position: absolute;
@@ -300,7 +288,6 @@ p.price sub{left:-3px;font-size:13px;}
     border-style: solid;
     border-color: #fff transparent transparent transparent;
 }
-
 
 @media (max-width: 640px) {
     .tooltip1 .tooltip1text {
@@ -318,9 +305,3 @@ p.price sub{left:-3px;font-size:13px;}
     margin-right: 0 !important;
 }
 
-
-/* Show the tooltip1 text when you mouse over the tooltip1 container */
-/*.tooltip1:hover .tooltip1text {
-  visibility: visible;
-  opacity: 1;
-}*/

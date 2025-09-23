@@ -7,9 +7,6 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 
 class GeneratedPayrollExport implements FromCollection
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
      protected $date;
 
     public function __construct($date = null)
@@ -19,7 +16,6 @@ class GeneratedPayrollExport implements FromCollection
 
     public function collection()
     {
-        // You can filter by $this->date if needed
         return Payroll::with('employee')->whereNotNull('payroll_month')
             ->get()
             ->map(function ($payroll) {

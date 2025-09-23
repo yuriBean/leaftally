@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateContractsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create(
@@ -22,7 +17,6 @@ class CreateContractsTable extends Migration
             $table->integer('type')->default(0);
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
-            // $table->string('status')->nullable();
             $table->string('edit_status')->default('pending');
             $table->text('description')->nullable();
             $table->longText('notes')->nullable();
@@ -35,11 +29,6 @@ class CreateContractsTable extends Migration
 
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('contracts');

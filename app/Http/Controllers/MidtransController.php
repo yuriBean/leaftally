@@ -53,13 +53,9 @@ class MidtransController extends Controller
                 }
             }
             $production = isset($payment_setting['midtrans_mode']) && $payment_setting['midtrans_mode'] == 'live' ? true : false;
-            // Set your Merchant Server Key
             \Midtrans\Config::$serverKey = $midtrans_secret;
-            // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
             \Midtrans\Config::$isProduction = $production;
-            // Set sanitization on (default)
             \Midtrans\Config::$isSanitized = true;
-            // Set 3DS transaction for credit card to true
             \Midtrans\Config::$is3ds = true;
 
             $params = array(
@@ -172,17 +168,12 @@ class MidtransController extends Controller
         $get_amount = round($request->amount);
         $orderID = strtoupper(str_replace('.', '', uniqid('', true)));
 
-
         try {
             if ($invoice) {
                 $production = isset($payment_setting['midtrans_mode']) && $payment_setting['midtrans_mode'] == 'live' ? true : false;
-                // Set your Merchant Server Key
                 \Midtrans\Config::$serverKey = $midtrans_secret;
-                // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
                 \Midtrans\Config::$isProduction = $production;
-                // Set sanitization on (default)
                 \Midtrans\Config::$isSanitized = true;
-                // Set 3DS transaction for credit card to true
                 \Midtrans\Config::$is3ds = true;
 
                 $params = array(
@@ -198,7 +189,6 @@ class MidtransController extends Controller
                     ),
                 );
                 $snapToken = \Midtrans\Snap::getSnapToken($params);
-
 
                 $data = [
                     'snap_token' => $snapToken,
@@ -216,7 +206,6 @@ class MidtransController extends Controller
             return redirect()->back()->with('error', $e->getMessage());
         }
     }
-
 
     public function getInvociePaymentStatus(Request $request)
     {
@@ -294,14 +283,12 @@ class MidtransController extends Controller
                         $invoicePayment->description = 'Invoice ' . Utility::invoiceNumberFormat($settings, $invoice->invoice_id);
                         $invoicePayment->account     = 0;
 
-
                         \App\Models\Transaction::addTransaction($invoicePayment);
 
                         Utility::updateUserBalance('customer', $invoice->customer_id, $request->amount, 'debit');
 
                         Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-                        //Twilio Notification
                         $setting  = Utility::settingsById($objUser->creatorId());
                         $customer = Customer::find($invoice->customer_id);
                         if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -317,7 +304,6 @@ class MidtransController extends Controller
                             Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $invoice->created_by);
                         }
 
-                        // webhook
                         $module = 'New Payment';
 
                         $webhook =  Utility::webhookSetting($module, $invoice->created_by);
@@ -325,8 +311,6 @@ class MidtransController extends Controller
                         if ($webhook) {
 
                             $parameter = json_encode($invoice);
-
-                            // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
 
                             $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
                         }
@@ -365,7 +349,6 @@ class MidtransController extends Controller
         $retainer = Retainer::find($retainer_id);
         $getAmount = $request->amount;
 
-
         $user = User::where('id', $retainer->created_by)->first();
 
         $payment_setting = Utility::getCompanyPaymentSetting($user->id);
@@ -378,13 +361,9 @@ class MidtransController extends Controller
         try {
             if ($retainer) {
                 $production = isset($payment_setting['midtrans_mode']) && $payment_setting['midtrans_mode'] == 'live' ? true : false;
-                // Set your Merchant Server Key
                 \Midtrans\Config::$serverKey = $midtrans_secret;
-                // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
                 \Midtrans\Config::$isProduction = $production;
-                // Set sanitization on (default)
                 \Midtrans\Config::$isSanitized = true;
-                // Set 3DS transaction for credit card to true
                 \Midtrans\Config::$is3ds = true;
 
                 $params = array(
@@ -400,7 +379,6 @@ class MidtransController extends Controller
                     ),
                 );
                 $snapToken = \Midtrans\Snap::getSnapToken($params);
-
 
                 $data = [
                     'snap_token' => $snapToken,
@@ -436,7 +414,6 @@ class MidtransController extends Controller
             $payment_setting = Utility::getCompanyPaymentSettingWithOutAuth($retainer->created_by);
             $objUser = $user;
         }
-
 
         $response = json_decode($request->json, true);
         if ($retainer) {
@@ -495,7 +472,6 @@ class MidtransController extends Controller
 
                         Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-                        //Twilio Notification
                         $setting  = Utility::settingsById($objUser->creatorId());
                         $customer = Customer::find($retainer->customer_id);
                         if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -511,7 +487,6 @@ class MidtransController extends Controller
                             Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $retainer->created_by);
                         }
 
-                        // webhook
                         $module = 'New Payment';
 
                         $webhook =  Utility::webhookSetting($module, $retainer->created_by);
@@ -519,8 +494,6 @@ class MidtransController extends Controller
                         if ($webhook) {
 
                             $parameter = json_encode($retainer);
-
-                            // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
 
                             $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
                         }

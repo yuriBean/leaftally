@@ -10,17 +10,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
     <style type="text/css">
         :root {
-            --theme-color: #007C38;
-            --theme-light: #007C3820;
-            --theme-gradient: linear-gradient(135deg, #007C38 0%, #007C38DD 100%);
-            --white: #ffffff;
-            --black: #1a1a1a;
-            --gray-50: #f9fafb;
-            --gray-100: #f3f4f6;
-            --gray-200: #e5e7eb;
-            --gray-300: #d1d5db;
-            --gray-600: #4b5563;
-            --gray-800: #1f2937;
+            --theme-color:
+            --theme-light:
+            --theme-gradient: linear-gradient(135deg,
+            --white:
+            --black:
+            --gray-50:
+            --gray-100:
+            --gray-200:
+            --gray-300:
+            --gray-600:
+            --gray-800:
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
             --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
@@ -33,7 +33,7 @@
         }
 
         .trial-balance-container.printable {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg,
             min-height: 100vh;
             padding: 20px 0;
         }
@@ -300,7 +300,6 @@
             display: none;
         }
 
-        /* Print Styles */
         @media print {
             .trial-balance-container {
                 background: white !important;
@@ -331,7 +330,6 @@
             }
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
             .trial-balance-main {
                 margin: 0 16px;
@@ -399,7 +397,6 @@
             }
         }
     </style>
-
 
 @push('script-page')
     <script type="text/javascript" src="{{ asset('js/html2pdf.bundle.min.js') }}"></script>
@@ -670,7 +667,6 @@
         </div>
     </div>
 @endsection
-
 
 @push('script-page')
     <script>

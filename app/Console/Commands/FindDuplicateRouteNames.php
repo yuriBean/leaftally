@@ -14,7 +14,6 @@ class FindDuplicateRouteNames extends Command
 
     public function handle()
     {
-        // Collect routes with their names and associated file paths
         $routes = collect(Route::getRoutes())->map(function ($route) {
             $routeName = $route->getName();
             $action = $route->getAction()['uses'] ?? null;
@@ -22,11 +21,9 @@ class FindDuplicateRouteNames extends Command
             $filePath = 'N/A';
 
             if ($action instanceof \Closure) {
-                // For closure actions
                 $reflection = new ReflectionFunction($action);
                 $filePath = $reflection->getFileName();
             } elseif (is_string($action) && strpos($action, '@') !== false) {
-                // For controller methods
                 [$class, $method] = explode('@', $action);
                 if (class_exists($class) && method_exists($class, $method)) {
                     $reflection = new ReflectionMethod($class, $method);
@@ -39,7 +36,6 @@ class FindDuplicateRouteNames extends Command
             return !is_null($route['name']);
         });
 
-        // Find duplicates by name
         $duplicates = $routes->groupBy('name')->filter(function ($group) {
             return $group->count() > 1;
         });

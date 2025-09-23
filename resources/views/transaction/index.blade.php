@@ -12,44 +12,35 @@
     <style>
         .card-shadow {
             box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-            border: 1px solid #E5E5E5
+            border: 1px solid
         }
 
         .gray-text {
-            color: #6B7280;
-            /* A darker gray for descriptive text */
+            color:
         }
 
         .report-text {
             font-size: 0.875rem;
-            /* Equivalent to text-sm */
         }
 
-        /* Icon styling for font-awesome if used, or you can use inline SVGs */
         .icon-container {
             padding: 8px 12px;
         }
 
-        .icon-container bg-[#F6F6F6]border r der-[] {
+        .icon-container bg-[
             display: flex;
             align-items: center;
             justify-content: center;
             width: 40px;
-            /* Adjust size as needed */
             height: 40px;
-            /* Adjust size as needed */
-            background-color: #e0f2f7;
-            /* Light blue background for icon circle */
+            background-color:
             border-radius: 50%;
-            /* Circular background */
             margin-right: 1rem;
         }
 
-        .icon-container bg-[#F6F6F6]border r der-[] i {
+        .icon-container bg-[
             font-size: 1.25rem;
-            /* Adjust icon size */
-            color: #007C38;
-            /* Green color for icon */
+            color:
 
         }
     </style>
@@ -112,7 +103,6 @@
 
     </div>
 @endsection
-
 
 @section('content')
     <div class="row">
@@ -178,10 +168,10 @@
 
     <div id="printableArea">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-            <!-- Report Summary Card -->
+            
             <div class="bg-white rounded-xl card-shadow flex flex-col justify-between">
                 <div class="flex flex-col mb-4">
-                    <!-- Example icon - you can replace with relevant icons -->
+                    
                     <div class="icon-container bg-green-100 border-b-4 border-solid border-green-700">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -189,7 +179,7 @@
                                 d="M13 6.25034C13 6.80262 12.5523 7.25034 12 7.25034C11.4477 7.25034 11 6.80262 11 6.25034C11 5.69805 11.4477 5.25034 12 5.25034C12.5523 5.25034 13 5.69805 13 6.25034ZM13.0316 2.32465C12.417 1.87616 11.583 1.87616 10.9684 2.32465L3.54657 7.7406C2.56949 8.4536 3.07382 10.0003 4.2834 10.0003H4.5V15.8002C3.60958 16.2554 3 17.1817 3 18.2503V19.7503C3 20.1645 3.33579 20.5003 3.75 20.5003H20.25C20.6642 20.5003 21 20.1645 21 19.7503V18.2503C21 17.1817 20.3904 16.2554 19.5 15.8002V10.0003H19.7166C20.9262 10.0003 21.4305 8.45361 20.4534 7.7406L13.0316 2.32465ZM11.8526 3.53633C11.9404 3.47226 12.0596 3.47226 12.1474 3.53633L18.9499 8.50034H5.05011L11.8526 3.53633ZM18 10.0003V15.5003H16V10.0003H18ZM14.5 10.0003V15.5003H12.75V10.0003H14.5ZM11.25 10.0003V15.5003H9.5V10.0003H11.25ZM5.75 17.0003H18.25C18.9404 17.0003 19.5 17.56 19.5 18.2503V19.0003H4.5V18.2503C4.5 17.56 5.05964 17.0003 5.75 17.0003ZM6 15.5003V10.0003H8V15.5003H6Z"
                                 fill="#323232" />
                         </svg>
-                        <!-- Report icon -->
+                        
                     </div>
                     <div class="p-4">
                         <h7 class="text-[10px] text-[#727272] font-[600]">{{ __('Report') }} :</h7>
@@ -197,11 +187,9 @@
                         </h6>
                     </div>
                 </div>
-                <!-- This section would typically show a value, but based on your original snippet, it's just descriptive text.
-                             If you have a value for 'Transaction Summary', you can add it here. -->
+                
             </div>
 
-            <!-- Account Card -->
             @if (isset($filter['account']) && $filter['account'] != __('All'))
                 <div class="bg-white rounded-xl card-shadow flex flex-col justify-between">
                     <div class="flex flex-col mb-4">
@@ -222,7 +210,6 @@
                 </div>
             @endif
 
-            <!-- Category Card -->
             @if (isset($filter['category']) && $filter['category'] != __('All'))
                 <div class="bg-white rounded-xl card-shadow flex flex-col justify-between">
                     <div class="flex flex-col mb-4">
@@ -243,7 +230,6 @@
                 </div>
             @endif
 
-            <!-- Duration Card -->
             <div class="bg-white rounded-xl card-shadow flex flex-col justify-between">
                 <div class="flex flex-col mb-4">
                     <div class="icon-container bg-green-100 border-b-4 border-solid border-green-700">

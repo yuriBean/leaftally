@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateBillsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create(
@@ -32,11 +27,6 @@ class CreateBillsTable extends Migration
         );
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('bills');

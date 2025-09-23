@@ -3,7 +3,7 @@
     'method' => 'PUT',
     'class' => 'needs-validation',
     'novalidate',
-    'files' => true,   // <<< IMPORTANT
+    'files' => true,
 ]) }}
 <div class="modal-body bg-[#FAFBFC]">
   <div class="bg-white p-6 rounded-[8px] border border-[#E5E5EB] shadow-sm overflow-hidden">

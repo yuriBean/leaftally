@@ -12,9 +12,6 @@ use App\Http\Controllers\{
     ReportController
 };
 
-
-
-
 Route::group(['middleware' => ['verified']], function () {
 
     Route::resource('banktransfer', BankTransferController::class)->middleware(['auth','XSS','revalidate']);
@@ -29,14 +26,12 @@ Route::group(['middleware' => ['verified']], function () {
     Route::get('retainer-change-status/{id}/{response}', [BankTransferController::class, 'retainerchangestatus'])->name('retainer.change.status')->middleware(['XSS','revalidate']);
     Route::delete('retainer-delete/{id}', [BankTransferController::class, 'retainerdestroy'])->name('retainer.delete');
 
-    // ===== Plans & Expenses =====
     Route::resource('plans', PlanController::class)->middleware(['auth','XSS','revalidate']);
     Route::get('plan/plan-trial/{id}', [PlanController::class, 'PlanTrial'])->name('plan.trial');
     Route::post('plan-disable', [PlanController::class, 'planDisable'])->name('plan.disable')->middleware(['auth','XSS','revalidate']);
 
     Route::resource('expenses', ExpenseController::class)->middleware(['auth','XSS','revalidate','feature:expense_tracking_enabled']);
 
-    // ===== Plan Request Module & Referral Program =====
     Route::get('plan_request', [PlanRequestController::class, 'index'])->name('plan_request.index')->middleware(['auth','XSS']);
     Route::get('request_frequency/{id}', [PlanRequestController::class, 'requestView'])->name('request.view')->middleware(['auth','XSS']);
     Route::get('request_send/{id}', [PlanRequestController::class, 'userRequest'])->name('send.request')->middleware(['auth','XSS']);
@@ -50,7 +45,6 @@ Route::group(['middleware' => ['verified']], function () {
     Route::post('request-amount-store/{id}', [ReferralProgramController::class, 'requestedAmountStore'])->name('request.amount.store');
     Route::get('request-amount/{id}/{status}', [ReferralProgramController::class, 'requestedAmount'])->name('amount.request');
 });
-
 
  Route::group(['middleware' => ['auth','XSS','revalidate','feature:payroll','2fa']], function () {
     Route::resource('allowance', AllowanceController::class);

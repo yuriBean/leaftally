@@ -31,7 +31,6 @@
     $setting_arr = \App\Models\Utility::file_validate();
 @endphp
 
-
 <!DOCTYPE html>
 <html lang="en" dir="{{ $settings_data['SITE_RTL'] == 'on' ? 'rtl' : '' }}">
 <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}">
@@ -40,18 +39,15 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
 
-    <!-- Primary Meta Tags -->
     <meta name="title" content={{ $seo_setting['meta_keywords'] }}>
     <meta name="description" content={{ $seo_setting['meta_description'] }}>
 
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content={{ env('APP_URL') }}>
     <meta property="og:title" content={{ $seo_setting['meta_keywords'] }}>
     <meta property="og:description" content={{ $seo_setting['meta_description'] }}>
     <meta property="og:image" content={{ asset('/' . $seo_setting['meta_image']) }}>
 
-    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content={{ env('APP_URL') }}>
     <meta property="twitter:title" content={{ $seo_setting['meta_keywords'] }}>
@@ -65,22 +61,18 @@
         href="{{ $logo . '/' . (isset($company_favicon) && !empty($company_favicon) ? $company_favicon : 'favicon.png') }}"
         type="image" sizes="16x16">
 
-
     <link rel="stylesheet" href="{{ asset('assets/css/plugins/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/plugins/animate.min.css') }}">
 
     <link rel="stylesheet" href="{{ asset('assets/css/plugins/datepicker-bs5.min.css') }}">
 
-    <!--bootstrap switch-->
     <link rel="stylesheet" href="{{ asset('assets/css/plugins/bootstrap-switch-button.min.css') }}">
 
-    <!-- font css -->
     <link rel="stylesheet" href="{{ asset('assets/fonts/tabler-icons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/fonts/feather.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/fonts/fontawesome.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/fonts/material.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/plugins/main.css') }}">
-    <!-- vendor css -->
 
     <link rel="stylesheet" href="{{ asset('assets/css/plugins/flatpickr.min.css') }}">
 
@@ -139,7 +131,7 @@
             </div>
         </div>
     </div>
-    <!-- Required Js -->
+    
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/jquery.form.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/popper.min.js') }}"></script>
@@ -155,21 +147,15 @@
     <script src="{{ asset('assets/js/plugins/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/simple-datatables.js') }}"></script>
 
-    <!-- sweet alert Js -->
     {{-- <script src="{{ asset('assets/js/plugins/sweetalert.min.js') }}"></script> --}}
 
-
-    <!--Botstrap switch-->
     <script src="{{ asset('assets/js/plugins/bootstrap-switch-button.min.js') }}"></script>
 
-
-    <!-- Apex Chart -->
     <script src="{{ asset('assets/js/plugins/apexcharts.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/main.min.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/flatpickr.min.js') }}"></script>
     @stack('theme-script')
     @stack('scripts')
-
 
     <script>
         var toster_pos = "{{ env('SITE_RTL') == 'on' ? 'left' : 'right' }}";
@@ -179,7 +165,6 @@
     <script type="text/javascript">
         var defaults = {
             'messageLocales': {
-                /*'en': 'We use cookies to make sure you can have the best experience on our website. If you continue to use this site we assume that you will be happy with it.'*/
                 'en': "{{\App\Models\Utility::getValByName1('cookie_text')}}"
             },
             'buttonLocales': {

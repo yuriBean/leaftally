@@ -2,7 +2,7 @@
  use App\Models\Utility;
     $logo         = Utility::get_file('uploads/logo');
     $company_logo = Utility::getValByName('company_logo');
-    $company_name = Utility::getValByName('company_name') ?? Utility::getValByName('company_name'); // fallback in case of typo
+    $company_name = Utility::getValByName('company_name') ?? Utility::getValByName('company_name');
     $company_name = Utility::getValByName('company_name');
     $company_addr = Utility::getValByName('company_address');
     $company_city = Utility::getValByName('company_city');
@@ -20,8 +20,8 @@
   {{-- Bootstrap (standalone styling) --}}
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    body { background:#f8fafc; }
-    .invoice { background:#fff; border:1px solid #e5e7eb; border-radius:10px; box-shadow:0 4px 16px rgba(0,0,0,.04); }
+    body { background:
+    .invoice { background:
     .invoice-title h4 { margin:0; }
     .invoice-number img { max-height:70px; }
     .table>:not(caption)>*>* { vertical-align: middle; }
@@ -30,7 +30,7 @@
     .btn-download { position: sticky; top: 16px; z-index: 10; }
     @media print {
       .no-print { display:none !important; }
-      body { background:#fff; }
+      body { background:
       .invoice { border:none; box-shadow:none; }
     }
   </style>
@@ -40,7 +40,7 @@
 <div class="container my-4">
   <div class="d-flex justify-content-end no-print mb-2">
     <button class="btn btn-warning btn-download" onclick="saveAsPDF()" title="Download PDF">
-      <!-- small inline download icon -->
+      
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M5 20h14a1 1 0 1 1 0 2H5a1 1 0 1 1 0-2zm7-18a1 1 0 0 1 1 1v9.586l2.293-2.293a1 1 0 0 1 1.414 1.414l-4 4a1 1 0 0 1-1.414 0l-4-4A1 1 0 1 1 8.707 10.293L11 12.586V3a1 1 0 0 1 1-1z"/></svg>
     </button>
   </div>
@@ -163,7 +163,6 @@
             {{-- Overtime --}}
             @foreach(($payslipDetail['earning']['overTime'] ?? []) as $row)
               @php
-                // row may be array or object with keys number_of_days, hours, rate, title (optional)
                 $title = is_array($row) ? ($row['title'] ?? 'Overtime') : ($row->title ?? 'Overtime');
                 $d = (float)(is_array($row) ? ($row['number_of_days'] ?? 0) : ($row->number_of_days ?? 0));
                 $h = (float)(is_array($row) ? ($row['hours'] ?? 0) : ($row->hours ?? 0));
@@ -265,8 +264,7 @@
     {{-- Footer --}}
     <hr>
 
-
-  </div> {{-- /#printableArea --}}
+  </div> {{-- /
 </div>
 
 <script src="{{ asset('js/html2pdf.bundle.min.js') }}"></script>

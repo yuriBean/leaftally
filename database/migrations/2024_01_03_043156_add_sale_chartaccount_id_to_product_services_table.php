@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         if (!Schema::hasColumn('product_services', 'sale_chartaccount_id','expense_chartaccount_id')) {
@@ -19,13 +16,9 @@ return new class extends Migration
         }
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::table('product_services', function (Blueprint $table) {
-            //
         });
     }
 };

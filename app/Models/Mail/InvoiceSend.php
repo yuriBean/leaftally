@@ -13,21 +13,11 @@ class InvoiceSend extends Mailable
 
     public $invoice;
 
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
     public function __construct($invoice)
     {
         $this->invoice = $invoice;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
     public function build()
     {
 

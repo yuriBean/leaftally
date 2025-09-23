@@ -9,7 +9,6 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class ProductServiceExport implements FromCollection, WithHeadings
 {
-    /** @var array<int,int|string>|null */
     protected ?array $ids;
 
     public function __construct(?array $ids = null)
@@ -19,7 +18,6 @@ class ProductServiceExport implements FromCollection, WithHeadings
 
     public function collection()
     {
-        // Start with the same scope you had
         $q = ProductService::query();
         if (Auth::user()->type == 'company') {
             $q->where('created_by', Auth::user()->id);
@@ -45,7 +43,6 @@ class ProductServiceExport implements FromCollection, WithHeadings
                     $ProductService->updated_at,
                 );
 
-                // Overwrite display fields to friendly text
                 $data[$k]['tax_id']      = $taxe;
                 $data[$k]['unit_id']     = $unit;
                 $data[$k]['category_id'] = $category;

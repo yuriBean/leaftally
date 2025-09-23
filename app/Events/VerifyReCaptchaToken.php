@@ -14,9 +14,6 @@ class VerifyReCaptchaToken
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /**
-     * Create a new event instance.
-     */
     public $request;
 
     public function __construct($request)
@@ -24,11 +21,6 @@ class VerifyReCaptchaToken
         $this->request = $request;
     }
 
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return array<int, \Illuminate\Broadcasting\Channel>
-     */
     public function broadcastOn(): array
     {
         return [

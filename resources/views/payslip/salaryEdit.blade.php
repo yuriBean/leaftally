@@ -1,20 +1,20 @@
 <div class="col-form-label pay-modal">
   <style>
-    .pay-modal{--acc:#007C38;--acc-600:#01612c;--line:#E5E7EB;--ink:#0F172A;--muted:#6B7280}
+    .pay-modal{--acc:
     .pay-modal .summary{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:10px}
-    .pay-modal .stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:.8rem .9rem}
-    .pay-modal .stat .k{font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:#6B7280;font-weight:800;margin-bottom:.15rem}
-    .pay-modal .stat .v{font-weight:800;color:#111827}
+    .pay-modal .stat{background:
+    .pay-modal .stat .k{font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;color:
+    .pay-modal .stat .v{font-weight:800;color:
     .pay-modal .nav-wrap{border-bottom:1px solid var(--line);margin:.75rem 0 1rem}
     .pay-modal .nav-pills{gap:.4rem;flex-wrap:wrap}
-    .pay-modal .nav-pills .nav-link{border:1px solid var(--line);border-radius:999px;color:#374151;font-weight:700;padding:.4rem .8rem}
+    .pay-modal .nav-pills .nav-link{border:1px solid var(--line);border-radius:999px;color:
     .pay-modal .nav-pills .nav-link.active{background:rgba(0,124,56,.08);border-color:rgba(0,124,56,.25);color:var(--acc)}
-    .pay-modal .section{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px}
+    .pay-modal .section{background:
     .pay-modal .row.compact > [class*="col-"]{margin-bottom:12px}
-    .pay-modal label.col-form-label{font-weight:700;color:#374151;margin-bottom:.35rem}
+    .pay-modal label.col-form-label{font-weight:700;color:
     .pay-modal .form-control{border:1px solid var(--line);border-radius:10px;padding:.55rem .7rem}
     .pay-modal .form-control:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(0,124,56,.14)}
-    .pay-modal .badge-chip{display:inline-flex;align-items:center;gap:.45rem;background:#fff;border:1px solid var(--line);border-radius:999px;padding:.25rem .6rem;font-weight:800;font-size:.75rem;color:#374151}
+    .pay-modal .badge-chip{display:inline-flex;align-items:center;gap:.45rem;background:
     .pay-modal .badge-chip i{width:.55rem;height:.55rem;border-radius:999px;background:var(--acc)}
     .pay-modal .modal-footer{border-top:1px solid var(--line);margin-top:12px;padding-top:12px}
     @media (max-width:768px){.pay-modal .summary{grid-template-columns:1fr}}

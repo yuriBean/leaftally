@@ -10,14 +10,8 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 
 class DepartmentExport implements FromCollection, WithHeadings, WithMapping
 {
-    /**
-     * @var array<int>
-     */
     protected $ids;
 
-    /**
-     * @param array<int>|null $ids
-     */
     public function __construct(?array $ids = null)
     {
         $this->ids = $ids ?: [];
@@ -41,9 +35,6 @@ class DepartmentExport implements FromCollection, WithHeadings, WithMapping
         return ['ID', 'Name', 'Created At'];
     }
 
-    /**
-     * @param \App\Models\Department $row
-     */
     public function map($row): array
     {
         return [

@@ -15,11 +15,9 @@
 
     $emailTemplate = App\Models\EmailTemplate::first();
 
-    // Plan feature helper for current user (used only to lock items, not remove)
     $planFeature = PlanFeatureService::for(\Auth::user());
     $F = fn(string $k) => $planFeature->enabled($k);
 
-    // Flags to apply
     $featUserAccess     = $F(PF::USER_ACCESS);
     $featBudget         = $F(PF::BUDGETING);
     $featPayroll        = $F(PF::PAYROLL);
@@ -28,28 +26,19 @@
     $featManufacturing  = $F(PF::MANUFACTURING);
 @endphp
 
-<style>
-    h3.title-of-dashboard {
-        font-size: 12px;
-        background: #007c38;
-        color: #fff;
-        border-radius: 6px;
-    }
-    .nav-locked { opacity:.6; cursor:not-allowed; }
-    .nav-locked i { font-size:.9rem; margin-left:.25rem; }
-</style>
-
 @if(\Auth::user()->type == 'super admin')
+@push('css-page')
 <style>
     .title-of-dashboard{
         display: none;
     }
 </style>
+@endpush
 @endif
 
 <nav class="dash-sidebar light-sidebar transprent-bg">
-    <div class="navbar-wrapper w-72 min-h-screen bg-white/90 backdrop-blur shadow-[0_10px_30px_rgba(0,124,56,0.12)] flex flex-col px-4 py-4">        
-        <div class="flex items-center justify-between pb-3" style="border-bottom: 1px solid #e5e7eb;">
+    <div class="navbar-wrapper w-72 min-h-screen bg-white/90 backdrop-blur shadow-[0_10px_30px_rgba(0,124,56,0.12)] flex flex-col px-6 py-4 mr-3 rounded-lg">
+        <div class="flex items-center justify-between pb-3 pr-2" style="border-bottom: 1px solid #e5e7eb;">
                <div class="flex items-center gap-2">
                 <img src="{{ !empty($company_logo) ? \App\Models\Utility::get_file('uploads/logo/' . $company_logo) : asset(Storage::url('uploads/logo/logo-dark.png')) }}" alt="logo" style="width:30px">
                 <h1 class="text-2xl font-bold text-black">LeafTally</h1>
@@ -84,72 +73,6 @@
             @endif
         </div>
 
-        @if (Gate::check('create product & service') ||
-                Gate::check('create customer') ||
-                Gate::check('create vender') ||
-                Gate::check('create proposal') ||
-                Gate::check('create invoice') ||
-                Gate::check('create bill') ||
-                Gate::check('create goal') ||
-                Gate::check('create bank account'))
-            <button class="dropdown dash-h-item w-full">
-                <div class="dropdown notification-icon">    
-                    <a class="dropdown-toggle arrow-none mt-2 w-full border border-transparent bg-[#007C38] text-white hover:bg-[#007C38]/90  font-semibold py-2 rounded-lg flex items-center justify-center transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                             stroke-linecap="round" stroke-linejoin="round"
-                             class="w-4 h-4 mr-2">
-                          <path d="M5 12h14"></path>
-                          <path d="M12 5v14"></path>
-                        </svg>
-                        New
-                      </a>
-                      
-                 
-                    <div class="dropdown-menu" aria-labelledby="dropdownBookmark">
-                        @if (Gate::check('create product & service'))
-                            <a class="dropdown-item" href="{{ route('productservice.create') }}" data-title="{{ __('Create New Product') }}"><i
-                                    class="ti ti-shopping-cart"></i>{{ __('Create New Product') }}</a>
-                        @endif
-                        @if (Gate::check('create customer'))
-                            <a class="dropdown-item" href="#" data-size="lg"
-                                data-url="{{ route('customer.create') }}" data-ajax-popup="true"
-                                data-title="{{ __('Create New Customer') }}"><i
-                                    class="ti ti-user"></i>{{ __('Create New Customer') }}</a>
-                        @endif
-                        @if (Gate::check('create vender'))
-                            <a class="dropdown-item" href="#" data-size="lg"
-                                data-url="{{ route('vender.create') }}" data-ajax-popup="true"
-                                data-title="{{ __('Create New Vendor') }}"><i
-                                    class="ti ti-note"></i>{{ __('Create New Vendor') }}</a>
-                        @endif
-                        <!-- @if (Gate::check('create proposal'))
-                            <a class="dropdown-item" href="{{ route('proposal.create', 0) }}"><i
-                                    class="ti ti-file"></i>{{ __('Create New Proposal') }}</a>
-                        @endif -->
-                        @if (Gate::check('create invoice'))
-                            <a class="dropdown-item" href="{{ route('invoice.create', 0) }}"><i
-                                    class="ti ti-file-invoice"></i>{{ __('Create New Invoice') }}</a>
-                        @endif
-                        @if (Gate::check('create bill'))
-                            <a class="dropdown-item" href="{{ route('bill.create', 0) }}"><i
-                                    class="ti ti-report-money"></i>{{ __('Create New Bill') }}</a>
-                        @endif
-                        @if (Gate::check('create bank account'))
-                            <a class="dropdown-item" href="#" data-url="{{ route('bank-account.create') }}"
-                                data-ajax-popup="true" data-title="{{ __('Create New Account') }}"><i
-                                    class="ti ti-building-bank"></i>{{ __('Create New Account') }}</a>
-                        @endif
-                        @if (Gate::check('create goal'))
-                            <a class="dropdown-item" href="#" data-url="{{ route('goal.create') }}"
-                                data-ajax-popup="true" data-title="{{ __('Create New Goal') }}"><i
-                                    class="ti ti-target"></i>{{ __('Create New Goal') }}</a>
-                        @endif
-                    </div>
-                </div>
-            </button>
-        @endif
-
         <div class="mt-6 navbar-content">
        @if (!Auth::guard('customer')->check() && !Auth::guard('vender')->check())
        <div class="mt-6 my-3 px-3">
@@ -164,7 +87,6 @@
         <div class="mt-1 h-[2px] w-full rounded bg-gradient-to-r from-[#007C38] via-[#26A269] to-transparent"></div>
       </div>        @endif
 
-
             <ul class="dash-navbar space-y-2 my-4">
                 {{-- ------- Dashboard ---------- --}}
                 <li class="dash-item">
@@ -174,7 +96,7 @@
                       $isActive   = Request::route()->getName() == ($isCustomer ? 'customer.dashboard' : ($isVendor ? 'vender.dashboard' : 'dashboard'));
                       $route      = $isCustomer ? route('customer.dashboard') : ($isVendor ? route('vender.dashboard') : route('dashboard'));
                     @endphp
-                
+
                     <a href="{{ $route }}"
                        class="group flex items-center gap-3 rounded-lg px-3 py-2.5 transition-all
                               {{ $isActive
@@ -187,31 +109,6 @@
                       <span class="font-medium flex-1">{{ __('Dashboard') }}</span>
                     </a>
                   </li>
-                  
-<!--                 @if (Gate::check('manage customer proposal'))
-                    <li class="dash-item dash-hasmenu {{ Request::segment(1) == 'customer.proposal' || Request::segment(1) == 'customer.retainer' || in_array(Request::route()->getName(), ['customer.proposal', 'customer.proposal.show', 'customer.retainer', 'customer.retainer.show']) ? ' active dash-trigger' : '' }}">
-                        <a href="#!"
-                            class="flex mb-2 items-center gap-2 px-2 py-2 rounded hover:bg-[#007C380F] text-gray-700 hover:font-semibold hover:text-[#007C38]">
-                            <img src="{{ asset('web-assets/dashboard/icons/dashboard.svg') }}" alt="dashboard">
-                            <span>{{ __('Presale') }}</span>
-                            <span class="dash-arrow"><i data-feather="chevron-right"></i></span>
-                        </a>
-                        <ul class="dash-submenu {{ Request::segment(1) == 'customer.proposal' || Request::segment(1) == 'customer.retainer' ? 'show' : '' }}">
-                            @can('manage customer proposal')
-                                <li class="dash-item {{ in_array(Request::route()->getName(), ['customer.proposal', 'customer.proposal.show']) ? 'font-semibold active' : '' }}">
-                                    <a class="flex items-center gap-2 px-2 py-2 rounded hover:bg-[#007C380F] text-gray-700 hover:font-semibold hover:text-[#007C38] ml-[30px]"
-                                       href="{{ route('customer.proposal') }}">{{ __('Proposal') }}</a>
-                                </li>
-                            @endcan
-                            @can('manage customer proposal')
-                                <li class="dash-item {{ in_array(Request::route()->getName(), ['customer.retainer', 'customer.retainer.show']) ? 'font-semibold active' : '' }}">
-                                    <a class="flex items-center gap-2 px-2 py-2 rounded hover:bg-[#007C380F] text-gray-700 hover:font-semibold hover:text-[#007C38] ml-[30px]"
-                                       href="{{ route('customer.retainer') }}">{{ __('Retainers') }}</a>
-                                </li>
-                            @endcan
-                        </ul>
-                    </li>
-                @endif -->
 
                 {{-- ------- Customer Invoice ---------- --}}
                 @can('manage customer invoice')
@@ -219,8 +116,8 @@
                     <li class="dash-item {{ $isActive ? 'active' : '' }}">
                         <a href="{{ route('customer.invoice') }}"
                         class="group flex items-center gap-3 rounded-lg px-3 py-2.5 transition-all
-                                {{ $isActive 
-                                    ? 'bg-[#007C38] text-[#007C38] shadow-sm' 
+                                {{ $isActive
+                                    ? 'bg-[#007C38] text-[#007C38] shadow-sm'
                                     : 'text-slate-600 hover:bg-[#007C38]/10 hover:text-[#007C38]' }}">
                         <span class="flex h-8 w-8 items-center justify-center rounded-md
                                     {{ $isActive ? 'bg-white/15' : 'bg-slate-100 group-hover:bg-[#007C38]/10' }}">
@@ -240,8 +137,8 @@
                     <li class="dash-item {{ $isActive ? 'active' : '' }}">
                         <a href="{{ route('customer.payment') }}"
                         class="group flex items-center gap-3 rounded-lg px-3 py-2.5 transition-all
-                                {{ $isActive 
-                                    ? 'bg-[#007C38] text-[#007C38] shadow-sm' 
+                                {{ $isActive
+                                    ? 'bg-[#007C38] text-[#007C38] shadow-sm'
                                     : 'text-slate-600 hover:bg-[#007C38]/10 hover:text-[#007C38]' }}">
                         <span class="flex h-8 w-8 items-center justify-center rounded-md
                                     {{ $isActive ? 'bg-white/15' : 'bg-slate-100 group-hover:bg-[#007C38]/10' }}">
@@ -261,8 +158,8 @@
                     <li class="dash-item {{ $isActive ? 'active' : '' }}">
                         <a href="{{ route('customer.transaction') }}"
                         class="group flex items-center gap-3 rounded-lg px-3 py-2.5 transition-all
-                                {{ $isActive 
-                                    ? 'bg-[#007C38] text-[#007C38] shadow-sm' 
+                                {{ $isActive
+                                    ? 'bg-[#007C38] text-[#007C38] shadow-sm'
                                     : 'text-slate-600 hover:bg-[#007C38]/10 hover:text-[#007C38]' }}">
                         <span class="flex h-8 w-8 items-center justify-center rounded-md
                                     {{ $isActive ? 'bg-white/15' : 'bg-slate-100 group-hover:bg-[#007C38]/10' }}">
@@ -282,8 +179,8 @@
                     <li class="dash-item {{ $isActive ? 'active' : '' }}">
                         <a href="{{ route('vender.bill') }}"
                         class="group flex items-center gap-3 rounded-lg px-3 py-2.5 transition-all
-                                {{ $isActive 
-                                    ? 'bg-[#007C38] text-[#007C38] shadow-sm' 
+                                {{ $isActive
+                                    ? 'bg-[#007C38] text-[#007C38] shadow-sm'
                                     : 'text-slate-600 hover:bg-[#007C38]/10 hover:text-[#007C38]' }}">
                         <span class="flex h-8 w-8 items-center justify-center rounded-md
                                     {{ $isActive ? 'bg-white/15' : 'bg-slate-100 group-hover:bg-[#007C38]/10' }}">
@@ -303,8 +200,8 @@
                     <li class="dash-item {{ $isActive ? 'active' : '' }}">
                         <a href="{{ route('vender.payment') }}"
                         class="group flex items-center gap-3 rounded-lg px-3 py-2.5 transition-all
-                                {{ $isActive 
-                                    ? 'bg-[#007C38] text-[#007C38] shadow-sm' 
+                                {{ $isActive
+                                    ? 'bg-[#007C38] text-[#007C38] shadow-sm'
                                     : 'text-slate-600 hover:bg-[#007C38]/10 hover:text-[#007C38]' }}">
                         <span class="flex h-8 w-8 items-center justify-center rounded-md
                                     {{ $isActive ? 'bg-white/15' : 'bg-slate-100 group-hover:bg-[#007C38]/10' }}">
@@ -324,8 +221,8 @@
                     <li class="dash-item {{ $isActive ? 'active' : '' }}">
                         <a href="{{ route('vender.transaction') }}"
                         class="group flex items-center gap-3 rounded-lg px-3 py-2.5 transition-all
-                                {{ $isActive 
-                                    ? 'bg-[#007C38] text-[#007C38] shadow-sm' 
+                                {{ $isActive
+                                    ? 'bg-[#007C38] text-[#007C38] shadow-sm'
                                     : 'text-slate-600 hover:bg-[#007C38]/10 hover:text-[#007C38]' }}">
                         <span class="flex h-8 w-8 items-center justify-center rounded-md
                                     {{ $isActive ? 'bg-white/15' : 'bg-slate-100 group-hover:bg-[#007C38]/10' }}">
@@ -340,7 +237,6 @@
                     </li>
                     @endcan
 
-
                 {{-- ------- Staff ---------- --}}
                 @if (\Auth::user()->type == 'super admin')
                     @can('manage user')
@@ -348,8 +244,8 @@
                         <li class="dash-item {{ $isActive ? 'active' : '' }}">
                         <a href="{{ route('users.index') }}"
                             class="group flex items-center gap-3 rounded-lg px-3 py-2.5 transition-all
-                                    {{ $isActive 
-                                        ? 'bg-[#007C38] text-[#007C38] shadow-sm' 
+                                    {{ $isActive
+                                        ? 'bg-[#007C38] text-[#007C38] shadow-sm'
                                         : 'text-slate-600 hover:bg-[#007C38]/10 hover:text-[#007C38]' }}">
                             <span class="flex h-8 w-8 items-center justify-center rounded-md
                                         {{ $isActive ? 'bg-white/15' : 'bg-slate-100 group-hover:bg-[#007C38]/10' }}">
@@ -364,8 +260,8 @@
                     <li class="dash-item {{ $isActive ? 'active' : '' }}">
                         <a href="{{ route('plans.index') }}"
                         class="group flex items-center gap-3 rounded-lg px-3 py-2.5 transition-all
-                                {{ $isActive 
-                                    ? 'bg-[#007C38] text-[#007C38] shadow-sm' 
+                                {{ $isActive
+                                    ? 'bg-[#007C38] text-[#007C38] shadow-sm'
                                     : 'text-slate-600 hover:bg-[#007C38]/10 hover:text-[#007C38]' }}">
                         <span class="flex h-8 w-8 items-center justify-center rounded-md
                                     {{ $isActive ? 'bg-white/15' : 'bg-slate-100 group-hover:bg-[#007C38]/10' }}">
@@ -379,8 +275,8 @@
                     <li class="dash-item {{ $isActive ? 'active' : '' }}">
                         <a href="{{ route('userlogs.index') }}"
                         class="group flex items-center gap-3 rounded-lg px-3 py-2.5 transition-all
-                                {{ $isActive 
-                                    ? 'bg-[#007C38] text-[#007C38] shadow-sm' 
+                                {{ $isActive
+                                    ? 'bg-[#007C38] text-[#007C38] shadow-sm'
                                     : 'text-slate-600 hover:bg-[#007C38]/10 hover:text-[#007C38]' }}">
                         <span class="flex h-8 w-8 items-center justify-center rounded-md
                                     {{ $isActive ? 'bg-white/15' : 'bg-slate-100 group-hover:bg-[#007C38]/10' }}">
@@ -397,15 +293,15 @@
                         <li class="dash-item dash-hasmenu {{ $isStaffActive ? 'active dash-trigger' : '' }}">
                         <a href="#!"
                             class="group flex items-center gap-3 rounded-lg px-3 py-2.5 transition-all
-                                    {{ $isStaffActive 
-                                        ? 'bg-[#007C38] text-[#007C38] shadow-sm' 
+                                    {{ $isStaffActive
+                                        ? 'bg-[#007C38] text-[#007C38] shadow-sm'
                                         : 'text-slate-600 hover:bg-[#007C38]/10 hover:text-[#007C38]' }}">
                             <span class="flex h-8 w-8 items-center justify-center rounded-md
                                         {{ $isStaffActive ? 'bg-white/15' : 'bg-slate-100 group-hover:bg-[#007C38]/10' }}">
                             <img src="{{ asset('web-assets/dashboard/icons/staff.svg') }}" alt="staff" class="h-4 w-4">
                             </span>
                             <span class="font-medium flex-1">{{ __('Staff') }}</span>
-                            <svg class="h-4 w-4 transition-transform {{ $isStaffActive ? 'rotate-90 text-[#007C38]' : 'text-slate-400 group-hover:text-[#007C38]' }}" 
+                            <svg class="h-4 w-4 transition-transform {{ $isStaffActive ? 'rotate-90 text-[#007C38]' : 'text-slate-400 group-hover:text-[#007C38]' }}"
                                 fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path d="M9 5l7 7-7 7" />
                             </svg>
@@ -420,8 +316,8 @@
                                     {{ __('User') }}
                                 </a>
                                 @else
-                                <a href="javascript:void(0)" 
-                                    class="flex items-center gap-2 ml-[30px] px-3 py-2 rounded text-gray-500 nav-locked" 
+                                <a href="javascript:void(0)"
+                                    class="flex items-center gap-2 ml-[30px] px-3 py-2 rounded text-gray-500 nav-locked"
                                     title="{{ __('Upgrade required to access User Management') }}">
                                     {{ __('User') }} <i class="ti ti-lock"></i>
                                 </a>
@@ -437,8 +333,8 @@
                                     {{ __('Role') }}
                                 </a>
                                 @else
-                                <a href="javascript:void(0)" 
-                                    class="flex items-center gap-2 ml-[30px] px-3 py-2 rounded text-gray-500 nav-locked" 
+                                <a href="javascript:void(0)"
+                                    class="flex items-center gap-2 ml-[30px] px-3 py-2 rounded text-gray-500 nav-locked"
                                     title="{{ __('Upgrade required to access Roles') }}">
                                     {{ __('Role') }} <i class="ti ti-lock"></i>
                                 </a>
@@ -462,7 +358,7 @@
                         <span class="uppercase">Customer Management</span>
                         </h3>
                         <div class="mt-2 h-[3px] w-full rounded bg-gradient-to-r from-[#007C38] via-[#26A269] to-transparent"></div>
-                    </div>    
+                    </div>
                     @endif
                 {{-- Customer --}}
                         @if (Gate::check('manage customer'))
@@ -500,7 +396,6 @@
                     </li>
                     @endif
 
-
                 @if (!Auth::guard('customer')->check() && !Auth::guard('vender')->check())
                 <div class="mt-6 my-3 px-3">
                     <h3 class="flex items-center gap-2 text-xs font-semibold tracking-wide text-slate-600 uppercase">
@@ -513,7 +408,7 @@
                     <span class="uppercase">Inventory Management</span>
                     </h3>
                     <div class="mt-2 h-[3px] w-full rounded bg-gradient-to-r from-[#007C38] via-[#26A269] to-transparent"></div>
-                </div>    
+                </div>
                 @endif
 
                 {{-- ------- Product & Service ---------- --}}
@@ -558,23 +453,23 @@
                                     in_array(Request::route()->getName(), ['bom.index','bom.create','bom.edit','bom.show','production.index','production.create','production.edit','production.show']);
                     @endphp
                     <li class="dash-item dash-hasmenu {{ $mfgActive ? 'active dash-trigger' : '' }}">
-                        
+
                         <a href="#!"
                             class="group flex items-center gap-3 rounded-lg px-3 py-2.5 transition-all
-                                    {{ $mfgActive 
-                                        ? 'bg-[#007C38] text-[#007C38] shadow-sm' 
+                                    {{ $mfgActive
+                                        ? 'bg-[#007C38] text-[#007C38] shadow-sm'
                                         : 'text-slate-600 hover:bg-[#007C38]/10 hover:text-[#007C38]' }}">
                             <span class="flex h-8 w-8 items-center justify-center rounded-md
                                         {{ $mfgActive ? 'bg-white/15' : 'bg-slate-100 group-hover:bg-[#007C38]/10' }}">
                             <img src="{{ asset('web-assets/dashboard/icons/inventory.svg') }}" alt="staff" class="h-4 w-4">
                             </span>
                             <span class="font-medium flex-1">{{ __('Manufacturing') }}</span>
-                            <svg class="h-4 w-4 transition-transform {{ $mfgActive ? 'rotate-90 text-[#007C38]' : 'text-slate-400 group-hover:text-[#007C38]' }}" 
+                            <svg class="h-4 w-4 transition-transform {{ $mfgActive ? 'rotate-90 text-[#007C38]' : 'text-slate-400 group-hover:text-[#007C38]' }}"
                                 fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path d="M9 5l7 7-7 7" />
                             </svg>
                         </a>
-                        
+
                         <ul id="mfg-sub" class="dash-submenu {{ $mfgActive ? 'show' : '' }} pl-2 space-y-1">
                         @can('manage bom')
                             @php $subActive = in_array(Request::route()->getName(), ['bom.index','bom.create','bom.edit','bom.show']); @endphp
@@ -619,34 +514,7 @@
                     </li>
                     @endif
 
-
                 {{-- ------- Presale ---------- --}}
-               <!--  @if (Gate::check('manage proposal') || Gate::check('manage retainer'))
-                    <li class="dash-item dash-hasmenu {{ Request::segment(1) == 'proposal' || Request::segment(1) == 'retainer' || in_array(Request::route()->getName(), ['proposal.index', 'proposal.create', 'proposal.edit', 'proposal.show', 'retainer.index', 'retainer.create', 'retainer.edit', 'retainer.show']) ? ' active dash-trigger' : '' }}">
-                        <a href="#!"
-                           class="flex mb-2 items-center gap-2 px-2 py-2 rounded hover:bg-[#007C380F] text-gray-700 hover:font-semibold hover:text-[#007C38]">
-                            <img src="{{ asset('web-assets/dashboard/icons/presale.svg') }}" alt="presale">
-                            <span>{{ __('Presale') }}</span>
-                            <span class="dash-arrow"><i data-feather="chevron-right"></i></span>
-                        </a>
-                        <ul class="dash-submenu {{ Request::segment(1) == 'proposal' || Request::segment(1) == 'retainer' ? 'show' : '' }}">
-                            @can('manage proposal')
-                                <li class="dash-item {{ in_array(Request::route()->getName(), ['proposal.index', 'proposal.create', 'proposal.edit', 'proposal.show']) ? 'font-semibold active' : '' }}">
-                                    <a class="flex items-center gap-2 px-2 py-2 rounded hover:bg-[#007C380F] text-gray-700 hover:font-semibold hover:text-[#007C38] ml-[30px]"
-                                       href="{{ route('proposal.index') }}">{{ __('Proposal') }}</a>
-                                </li>
-                            @endcan
-                            @can('manage retainer')
-                                <li class="dash-item {{ in_array(Request::route()->getName(), ['retainer.index', 'retainer.create', 'retainer.edit', 'retainer.show']) ? 'font-semibold active' : '' }}">
-                                    <a class="flex items-center gap-2 px-2 py-2 rounded hover:bg-[#007C380F] text-gray-700 hover:font-semibold hover:text-[#007C38] ml-[30px]"
-                                       href="{{ route('retainer.index') }}">{{ __('Retainers') }}</a>
-                                </li>
-                            @endcan
-                        </ul>
-                    </li>
-                @endif
-
- -->
 
        {{-- ===== Financial Management ===== --}}
                 @if (!Auth::guard('customer')->check() && !Auth::guard('vender')->check())
@@ -1146,7 +1014,6 @@
                 </li>
                 @endif
 
-
                 {{-- ===== Payroll Management ===== --}}
                 @if (!Auth::guard('customer')->check() && !Auth::guard('vender')->check())
                 <div class="mt-6 my-3 px-3">
@@ -1344,7 +1211,6 @@
                 </li>
                 @endif
 
-
                 {{-- (Payroll Templates moved into Payroll section above) --}}
 
        @if (!Auth::guard('customer')->check() && !Auth::guard('vender')->check())
@@ -1363,16 +1229,6 @@
 
                 {{-- ------- Email Notification ---------- --}}
 
-<!--                 @if (\Auth::user()->type == 'company')
-                    <li class="dash-item {{ Request::segment(1) == 'Notifications' ? 'active' : '' }}">
-                        <a href="{{ route('notification-templates.index') }}"
-                           class="flex items-center gap-2 px-2 py-2 rounded hover:bg-[#007C380F] text-gray-700 hover:font-semibold hover:text-[#007C38]">
-                            <img src="{{ asset('web-assets/dashboard/icons/notification.svg') }}"
-                                 alt="notification">
-                            <span>{{ __('Notification Template') }}</span>
-                        </a>
-                    </li>
-                @endif -->
 {{-- ------- Constants (hub link; stays active in any constants subpage) ---------- --}}
 @if (Gate::check('manage constant tax') ||
      Gate::check('manage constant category') ||
@@ -1392,10 +1248,8 @@
             Request::segment(1) === 'custom-field' ||
             Request::segment(1) === 'chart-of-account-type' ||
             in_array(Request::route()->getName(), [
-                // indexes
                 'taxes.index','product-category.index','product-unit.index','payment-method.index',
                 'custom-field.index','contractType.index','chart-of-account-type.index',
-                // common creates/edits (keep if you use them)
                 'taxes.create','taxes.edit',
                 'product-category.create','product-category.edit',
                 'product-unit.create','product-unit.edit',

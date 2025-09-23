@@ -1,18 +1,11 @@
 <?php
 
-
 namespace App\PayTab;
-
 
 class paytabs_core
 {
 }
 
-
-/**
- * PayTabs v2 PHP SDK
- * Version: 2.0.8
- */
 abstract class PaytabsHelper
 {
     static function paymentType($key)
@@ -52,10 +45,6 @@ abstract class PaytabsHelper
         return false;
     }
 
-    /**
-     * @return the first non-empty var from the vars list
-     * @return null if all params are empty
-     */
     public static function getNonEmpty(...$vars)
     {
         foreach ($vars as $var) {
@@ -64,14 +53,9 @@ abstract class PaytabsHelper
         return null;
     }
 
-    /**
-     * convert non-english digits to English
-     * used for fileds that accepts only English digits like: "postal_code"
-     */
     public static function convertAr2En($string)
     {
         $nonEnglish = [
-            // Arabic
             [
                 '٠',
                 '١',
@@ -84,7 +68,6 @@ abstract class PaytabsHelper
                 '٨',
                 '٩'
             ],
-            // Persian
             [
                 '۰',
                 '۱',
@@ -109,10 +92,6 @@ abstract class PaytabsHelper
         return $englishNumbersOnly;
     }
 
-    /**
-     * check Strings that require to be a valid Word, not [. (dot) or digits ...]
-     * if the parameter is not a valid "Word", convert it to "NA"
-     */
     public static function pt_fillIfEmpty(&$string)
     {
         if (empty(preg_replace('/[\W]/', '', $string))) {
@@ -125,11 +104,6 @@ abstract class PaytabsHelper
         $string = $_SERVER['REMOTE_ADDR'];
     }
 
-    /**
-     * <b>paytabs_error_log<b> should be defined,
-     * Main functionality: use the platform logger to log the error messages
-     * If not found: create a new log file and log the messages
-     */
     public static function log($msg, $severity = 1)
     {
         try {
@@ -140,7 +114,6 @@ abstract class PaytabsHelper
                 $_msg = ($_prefix . $msg . PHP_EOL);
                 file_put_contents('debug_paytabs.log', $_msg, FILE_APPEND);
             } catch (\Throwable $th) {
-                // var_export($th);
             }
         }
     }
@@ -164,10 +137,6 @@ abstract class PaytabsHelper
     }
 }
 
-
-/**
- * @abstract class: Enum for static values of PayTabs requests
- */
 abstract class PaytabsEnum
 {
     const TRAN_TYPE_AUTH = 'auth';
@@ -177,13 +146,9 @@ abstract class PaytabsEnum
     const TRAN_TYPE_VOID = 'void';
     const TRAN_TYPE_REFUND = 'refund';
 
-    //
-
     const TRAN_CLASS_ECOM = 'ecom';
     const TRAN_CLASS_MOTO = 'moto';
     const TRAN_CLASS_RECURRING = 'recurring';
-
-    //
 
     static function TranIsAuth($tran_type)
     {
@@ -196,40 +161,14 @@ abstract class PaytabsEnum
     }
 }
 
-
-/**
- * Holder class: Holds & Generates the parameters array that pass to PayTabs' API
- */
 class PaytabsHolder
 {
-    /**
-     * tran_type
-     * tran_class
-     */
     private $transaction;
 
-    /**
-     * cart_id
-     * cart_currency
-     * cart_amount
-     * cart_descriptions
-     */
     private $cart;
 
-    /**
-     * cart_name
-     * cart_version
-     * plugin_version
-     */
     private $plugin_info;
 
-
-    //
-
-
-    /**
-     * @return array
-     */
     public function pt_build()
     {
         $all = array_merge(
@@ -249,8 +188,6 @@ class PaytabsHolder
             }
         }
     }
-
-    //
 
     public function set02Transaction($tran_type, $tran_class = PaytabsEnum::TRAN_CLASS_ECOM)
     {
@@ -287,91 +224,28 @@ class PaytabsHolder
     }
 }
 
-
-/**
- * Holder class, Inherit class PaytabsHolder
- * Holds & Generates the parameters array that pass to PayTabs' API
- */
 class PaytabsRequestHolder extends PaytabsHolder
 {
-    /**
-     * payment_type
-     */
     private $payment_code;
 
-    /**
-     * name
-     * email
-     * phone
-     * street1
-     * city
-     * state
-     * country
-     * zip
-     * ip
-     */
     private $customer_details;
 
-    /**
-     * name
-     * email
-     * phone
-     * street1
-     * city
-     * state
-     * country
-     * zip
-     * ip
-     */
     private $shipping_details;
 
-    /**
-     * hide_shipping
-     */
     private $hide_shipping;
 
-    /**
-     * pan
-     * expiry_month
-     * expiry_year
-     * cvv
-     */
     private $card_details;
 
-    /**
-     * return
-     * callback
-     */
     private $urls;
 
-    /**
-     * paypage_lang
-     */
     private $lang;
 
-    /**
-     * framed
-     */
     private $framed;
 
-    /**
-     * tokenise
-     * show_save_card
-     */
     private $tokenise;
 
-
-    /**
-     * custom values passed from the merchant
-     */
     private $user_defined;
 
-
-    //
-
-    /**
-     * @return array
-     */
     public function pt_build()
     {
         $all = parent::pt_build();
@@ -392,15 +266,8 @@ class PaytabsRequestHolder extends PaytabsHolder
         return $all;
     }
 
-
     private function setCustomerDetails($name, $email, $phone, $address, $city, $state, $country, $zip, $ip)
     {
-        // PaytabsHelper::pt_fillIfEmpty($name);
-        // $this->_fill($address, 'NA');
-
-        // PaytabsHelper::pt_fillIfEmpty($city);
-
-        // $this->_fill($state, $city, 'NA');
 
         if ($zip) {
             $zip = PaytabsHelper::convertAr2En($zip);
@@ -409,8 +276,6 @@ class PaytabsRequestHolder extends PaytabsHolder
         if (!$ip) {
             PaytabsHelper::pt_fillIP($ip);
         }
-
-        //
 
         $info = [
             'name' => $name,
@@ -427,8 +292,6 @@ class PaytabsRequestHolder extends PaytabsHolder
         return $info;
     }
 
-    //
-
     public function set01PaymentCode($code)
     {
         $this->payment_code = ['payment_methods' => [$code]];
@@ -436,12 +299,9 @@ class PaytabsRequestHolder extends PaytabsHolder
         return $this;
     }
 
-
     public function set04CustomerDetails($name, $email, $phone, $address, $city, $state, $country, $zip, $ip)
     {
         $infos = $this->setCustomerDetails($name, $email, $phone, $address, $city, $state, $country, $zip, $ip);
-
-        //
 
         $this->customer_details = [
             'customer_details' => $infos
@@ -455,8 +315,6 @@ class PaytabsRequestHolder extends PaytabsHolder
         $infos = $same_as_billing
             ? $this->customer_details['customer_details']
             : $this->setCustomerDetails($name, $email, $phone, $address, $city, $state, $country, $zip, $ip);
-
-        //
 
         $this->shipping_details = [
             'shipping_details' => $infos
@@ -493,9 +351,6 @@ class PaytabsRequestHolder extends PaytabsHolder
         return $this;
     }
 
-    /**
-     * @param string $redirect_target "parent" or "top" or "iframe"
-     */
     public function set09Framed($on = false, $redirect_target = 'iframe')
     {
         $this->framed = [
@@ -507,10 +362,6 @@ class PaytabsRequestHolder extends PaytabsHolder
         return $this;
     }
 
-    /**
-     * @param int $token_format integer between 2 and 6, Set the Token format
-     * @param bool $optional Display the save card option on the payment page
-     */
     public function set10Tokenise($on = false, $token_format = 2, $optional = false)
     {
         if ($on) {
@@ -533,19 +384,9 @@ class PaytabsRequestHolder extends PaytabsHolder
     }
 }
 
-
-/**
- * Holder class, Inherit class PaytabsHolder
- * Holds & Generates the parameters array for the Tokenised payments
- */
 class PaytabsTokenHolder extends PaytabsHolder
 {
-    /**
-     * token
-     * tran_ref
-     */
     private $token_info;
-
 
     public function set20Token($token, $tran_ref)
     {
@@ -567,27 +408,10 @@ class PaytabsTokenHolder extends PaytabsHolder
     }
 }
 
-
-/**
- * Holder class, Inherit class PaytabsHolder
- * Holder & Generates the parameters array for the Followup requests
- * Followup requests:
- * - Capture (follows Auth)
- * - Void    (follows Auth)
- * - Refund  (follows Capture or Sale)
- */
 class PaytabsFollowupHolder extends PaytabsHolder
 {
-    /**
-     * transaction_id
-     */
     private $transaction_id;
 
-    //
-
-    /**
-     * @return array
-     */
     public function pt_build()
     {
         $all = parent::pt_build();
@@ -596,8 +420,6 @@ class PaytabsFollowupHolder extends PaytabsHolder
 
         return $all;
     }
-
-    //
 
     public function set30TransactionInfo($transaction_id)
     {
@@ -609,10 +431,6 @@ class PaytabsFollowupHolder extends PaytabsHolder
     }
 }
 
-
-/**
- * API class which contacts PayTabs server's API
- */
 class PaytabsApi
 {
     const PAYMENT_TYPES = [
@@ -654,13 +472,7 @@ class PaytabsApi
             'title' => 'Global',
             'endpoint' => 'https://secure-global.paytabs.com/'
         ],
-        // 'DEMO' => [
-        //     'title' => 'Demo',
-        //     'endpoint' => 'https://secure-demo.paytabs.com/'
-        // ],
     ];
-
-    // const BASE_URL = 'https://secure.paytabs.com/';
 
     const URL_REQUEST = 'payment/request';
     const URL_QUERY = 'payment/query';
@@ -668,17 +480,11 @@ class PaytabsApi
     const URL_TOKEN_QUERY = 'payment/token';
     const URL_TOKEN_DELETE = 'payment/token/delete';
 
-    //
-
     private $base_url;
     private $profile_id;
     private $server_key;
 
-    //
-
     private static $instance = null;
-
-    //
 
     public static function getEndpoints()
     {
@@ -695,8 +501,6 @@ class PaytabsApi
             self::$instance = new PaytabsApi($region, $merchant_id, $key);
         }
 
-        // self::$instance->setAuth($merchant_email, $secret_key);
-
         return self::$instance;
     }
 
@@ -712,13 +516,8 @@ class PaytabsApi
         $this->server_key = $server_key;
     }
 
-
-    /** start: API calls */
-
     function create_pay_page($values)
     {
-        // $serverIP = getHostByName(getHostName());
-        // $values['ip_merchant'] = PaytabsHelper::getNonEmpty($serverIP, $_SERVER['SERVER_ADDR'], 'NA');
 
         $isTokenize = array_key_exists('token', $values);
 
@@ -764,27 +563,20 @@ class PaytabsApi
         return $res;
     }
 
-    //
-
     function is_valid_redirect($post_values)
     {
         $serverKey = $this->server_key;
 
-        // Request body include a signature post Form URL encoded field
-        // 'signature' (hexadecimal encoding for hmac of sorted post form fields)
         $requestSignature = $post_values["signature"];
         unset($post_values["signature"]);
         $fields = array_filter($post_values);
 
-        // Sort form fields
         ksort($fields);
 
-        // Generate URL-encoded query string of Post fields except signature field.
         $query = http_build_query($fields);
 
         return $this->is_genuine($query, $requestSignature, $serverKey);
     }
-
 
     function is_valid_ipn($data, $signature, $serverkey = false)
     {
@@ -793,28 +585,17 @@ class PaytabsApi
         return $this->is_genuine($data, $signature, $server_key);
     }
 
-
     private function is_genuine($data, $requestSignature, $serverKey)
     {
         $signature = hash_hmac('sha256', $data, $serverKey);
 
         if (hash_equals($signature, $requestSignature) === TRUE) {
-            // VALID Redirect
             return true;
         } else {
-            // INVALID Redirect
             return false;
         }
     }
 
-    /** end: API calls */
-
-
-    /** start: Local calls */
-
-    /**
-     *
-     */
     private function enhance($paypage)
     {
         $_paypage = $paypage;
@@ -906,8 +687,6 @@ class PaytabsApi
         return $_paypage;
     }
 
-    /** end: Local calls */
-
     private function sendRequest($request_url, $values)
     {
         $auth_key = $this->server_key;
@@ -931,7 +710,6 @@ class PaytabsApi
         @curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         @curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         @curl_setopt($ch, CURLOPT_VERBOSE, true);
-        // @curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 
         $result = @curl_exec($ch);
 

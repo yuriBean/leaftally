@@ -310,14 +310,13 @@
 <style>
   .select2-container { width: 100% !important; }
   .select2-container .select2-dropdown { z-index: 2005 !important; }
-  .heading-cstm-form{ background:#F6F6F6; border-bottom:1px solid #E5E7EB; padding:12px 16px; }
+  .heading-cstm-form{ background:
 </style>
 @endpush
 
 @push('script-page')
 <script>
 $(function () {
-  // Select2 init (page or modal)
   function initSelect2($scope) {
     var $modal = $scope.closest('.modal');
     $scope.find('.select2').each(function(){
@@ -331,14 +330,12 @@ $(function () {
   initSelect2($(document));
   $(document).on('shown.bs.modal', function(e){ initSelect2($(e.target)); });
 
-  // Show chosen filename (optional)
   $('input[type="file"]').on('change', function(e){
     var file = e.target.files[0] ? e.target.files[0].name : '';
     var file_name = $(this).attr('data-filename');
     if(file_name){ $('.' + file_name).text(file); }
   });
 
-  // Department → Designation
   $(document).on('change', '#branch_id', function() {
     var branch_id = $(this).val();
     getDepartment(branch_id);
@@ -375,16 +372,13 @@ $(function () {
     });
   }
 
-  // Initial hydrate
   var d_id = $('#department_id').val();
   if (d_id) { getDesignation(d_id); }
 
-  // On department change
   $(document).on('change', 'select[name=department_id]', function () {
     getDesignation($(this).val());
   });
 
-  // Basic validation styling
   $('.needs-validation').on('submit', function(e){
     if (!this.checkValidity()) {
       e.preventDefault(); e.stopPropagation();

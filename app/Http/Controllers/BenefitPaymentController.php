@@ -28,7 +28,6 @@ class BenefitPaymentController extends Controller
 {
     public function planPayWithbenefit(Request $request)
     {
-        // dd($request->all());
         $admin_payment_setting = Utility::getAdminPaymentSetting();
         $secret_key = $admin_payment_setting['benefit_secret_key'];
         $objUser = \Auth::user();
@@ -37,7 +36,6 @@ class BenefitPaymentController extends Controller
         $admin = Utility::getAdminPaymentSetting();
         if ($plan) {
             $get_amount = $plan->price;
-            // if($admin['currency'] == 'USD'){
                 try {
                     if (!empty($request->coupon)) {
                         $coupons = Coupon::where('code', strtoupper($request->coupon))->where('is_active', '1')->first();
@@ -137,9 +135,6 @@ class BenefitPaymentController extends Controller
                 } catch (Exception $e) {
                     return redirect()->back()->with('error', $e);
                 }
-            // }else{
-            //     return redirect()->back()->with('error', __('Currency not supported.'));
-            // }
             
         } else {
             return redirect()->route('plans.index')->with('error', __('Plan is deleted.'));
@@ -243,10 +238,8 @@ class BenefitPaymentController extends Controller
             $settings = Utility::settingById($invoice->created_by);
         }
 
-
         $get_amount = $request->amount;
         $request->validate(['amount' => 'required|numeric|min:0']);
-
 
         try {
             if ($get_amount > $invoice->getDue()) {
@@ -255,7 +248,6 @@ class BenefitPaymentController extends Controller
 
                 $orderID = strtoupper(str_replace('.', '', uniqid('', true)));
                 $name = Utility::invoiceNumberFormat($settings, $invoice->invoice_id);
-
 
                 $customerData =
                     [
@@ -312,7 +304,6 @@ class BenefitPaymentController extends Controller
 
         $secret_key = $admin_payment_setting['benefit_secret_key'];
 
-
         if (Auth::check()) {
             $settings = \DB::table('settings')->where('created_by', '=', \Auth::user()->creatorId())->get()->pluck('value', 'name');
             $objUser     = \Auth::user();
@@ -361,7 +352,6 @@ class BenefitPaymentController extends Controller
                     ]
                 );
 
-
                 if ($invoice->getDue() <= 0) {
                     $invoice->status = 4;
                     $invoice->save();
@@ -390,14 +380,12 @@ class BenefitPaymentController extends Controller
                 $invoicePayment->description = 'Invoice ' . Utility::invoiceNumberFormat($settings, $invoice->invoice_id);
                 $invoicePayment->account     = 0;
 
-
                 \App\Models\Transaction::addTransaction($invoicePayment);
 
                 Utility::updateUserBalance('customer', $invoice->customer_id, $request->amount, 'debit');
 
                 Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-                //Twilio Notification
                 $setting  = Utility::settingsById($objUser->creatorId());
                 $customer = Customer::find($invoice->customer_id);
                 if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -413,7 +401,6 @@ class BenefitPaymentController extends Controller
                     Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $invoice->created_by);
                 }
 
-                // webhook
                 $module = 'New Payment';
 
                 $webhook =  Utility::webhookSetting($module, $invoice->created_by);
@@ -422,19 +409,15 @@ class BenefitPaymentController extends Controller
 
                     $parameter = json_encode($invoice);
 
-                    // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-
                     $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
                 }
                 if (Auth::check()) {
-                    // return redirect()->route('invoice.show', \Crypt::encrypt($invoice->id))->with('success', __('Payment successfully added.'));
                     return redirect()->back()->with('success', __(' Payment successfully added.'));
                 } else {
                     return redirect()->back()->with('success', __(' Payment successfully added.'));
                 }
             } else {
                 if (Auth::user()) {
-                    // return redirect()->route('invoice.show', $invoice_id)->with('error', __('Transaction fail!'));
                     return redirect()->back()->with('error', __('Transaction fail!'));
                 } else {
                     return redirect()->back()->with('error', __('Transaction fail!'));
@@ -454,7 +437,6 @@ class BenefitPaymentController extends Controller
         $admin_payment_setting = Utility::getCompanyPaymentSetting($retainer->created_by);
         $secret_key = $admin_payment_setting['benefit_secret_key'];
 
-
         if (Auth::check()) {
             $settings = \DB::table('settings')->where('created_by', '=', \Auth::user()->creatorId())->get()->pluck('value', 'name');
             $user     = \Auth::user();
@@ -462,7 +444,6 @@ class BenefitPaymentController extends Controller
             $user = User::where('id', $retainer->created_by)->first();
             $settings = Utility::settingById($retainer->created_by);
         }
-
 
         $get_amount = $request->amount;
 
@@ -610,7 +591,6 @@ class BenefitPaymentController extends Controller
 
                 Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-                // Twilio Notification
                 $setting  = Utility::settingsById($objUser->creatorId());
                 $customer = Customer::find($retainer->customer_id);
                 if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -626,7 +606,6 @@ class BenefitPaymentController extends Controller
                     Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $retainer->created_by);
                 }
 
-                // webhook
                 $module = 'New Payment';
 
                 $webhook =  Utility::webhookSetting($module, $retainer->created_by);
@@ -635,19 +614,15 @@ class BenefitPaymentController extends Controller
 
                     $parameter = json_encode($retainer);
 
-                    // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-
                     $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
                 }
                 if (Auth::check()) {
-                    // return redirect()->route('invoice.show', \Crypt::encrypt($invoice->id))->with('success', __('Payment successfully added.'));
                     return redirect()->back()->with('success', __(' Payment successfully added.'));
                 } else {
                     return redirect()->back()->with('success', __(' Payment successfully added.'));
                 }
             } else {
                 if (Auth::user()) {
-                    // return redirect()->route('invoice.show', $invoice_id)->with('error', __('Transaction fail!'));
                     return redirect()->back()->with('error', __('Transaction fail!'));
                 } else {
                     return redirect()->back()->with('error', __('Transaction fail!'));

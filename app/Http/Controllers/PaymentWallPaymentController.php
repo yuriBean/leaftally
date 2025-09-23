@@ -50,19 +50,15 @@ class PaymentWallPaymentController extends Controller
 
     public function planPayWithPaymentWall(Request $request, $plan_id)
     {
-        // dd($plan_id);
         $planID    = \Illuminate\Support\Facades\Crypt::decrypt($plan_id);
         $admin = Utility::getAdminPaymentSetting();
 
         $plan      = Plan::find($planID);
         $user   = Auth::user();
         $coupon_id = '';
-        // dd($plan);
         if ($plan) {
-            /* Check for code usage */
             $plan->discounted_price = false;
             $price                  = $plan->price;
-            //  dd($price);
             if (isset($request->coupon) && !empty($request->coupon)) {
                 $request->coupon = trim($request->coupon);
                 $coupons         = Coupon::where('code', strtoupper($request->coupon))->where('is_active', '1')->first();
@@ -71,11 +67,6 @@ class PaymentWallPaymentController extends Controller
                     $usedCoupun             = $coupons->used_coupon();
                     $discount_value         = ($price / 100) * $coupons->discount;
                     $plan->discounted_price = $price - $discount_value;
-
-                    // if($usedCoupun >= $coupons->limit)
-                    // {
-                    //     return redirect()->back()->with('error', __('This coupon code has expired.'));
-                    // }
 
                     if ($coupons->limit == $usedCoupun) {
                         return redirect()->back()->with('error', __('This coupon code has expired.'));
@@ -90,7 +81,6 @@ class PaymentWallPaymentController extends Controller
             if ($price <= 0) {
                 return Utility::error_res(__('Free plans are not available.'));
             } else {
-                //  dd('222222');
                 $orderID = time();
                 \Paymentwall_Config::getInstance()->set(array(
                     'private_key' => 'sdrsefrszdef'
@@ -109,7 +99,6 @@ class PaymentWallPaymentController extends Controller
                 $charge->create($chargeInfo);
                 $responseData = json_decode($charge->getRawResponseData(), true);
                 $response = $charge->getPublicData();
-                //  dd($response);
                 if ($charge->isSuccessful() and empty($responseData['secure'])) {
                     if ($charge->isCaptured()) {
                         if ($request->has('coupon_id') && $request->coupon_id != '') {
@@ -158,12 +147,10 @@ class PaymentWallPaymentController extends Controller
                             return $res;
                         }
                     } elseif ($charge->isUnderReview()) {
-                        // decide on risk charge
                     }
                 } elseif (!empty($responseData['secure'])) {
                     $response = json_encode(array('secure' => $responseData['secure']));
                 } else {
-                    // dd('fddrfxde');
                     $errors = json_decode($response, true);
                     $res['flag'] = 2;
                     return $res;
@@ -207,7 +194,6 @@ class PaymentWallPaymentController extends Controller
         } else {
             return redirect()->route("invoice.show", encrypt($invoice_id))->with('error', __('Transaction has been failed! '));
 
-            // return redirect()->back()->with('error', __('Transaction has been failed! '));
         }
     }
 
@@ -219,7 +205,6 @@ class PaymentWallPaymentController extends Controller
         } else {
             return redirect()->route("customer.retainer.show", encrypt($retainer_id))->with('error', __('Transaction has been failed! '));
 
-            // return redirect()->back()->with('error', __('Transaction has been failed! '));
         }
     }
 
@@ -229,7 +214,6 @@ class PaymentWallPaymentController extends Controller
         $retainerID = \Crypt::decrypt($retainerID);
         $retainer   = Retainer::find($retainerID);
         $setting = Utility::settingsById($retainer->created_by);
-
 
         if (\Auth::check()) {
             $user = \Auth::user();
@@ -247,8 +231,6 @@ class PaymentWallPaymentController extends Controller
                 $res_data['currency']    = $setting['site_currency'];
                 $res_data['flag']        = 1;
                 $res_data['retainer_id']  = $retainer->id;
-
-                // return $res_data;
 
             } else {
 
@@ -299,7 +281,6 @@ class PaymentWallPaymentController extends Controller
                             return $res;
                         }
                     } elseif ($charge->isUnderReview()) {
-                        // decide on risk charge
                     }
                 } elseif (!empty($responseData['secure'])) {
                     $response = json_encode(array('secure' => $responseData['secure']));
@@ -314,15 +295,11 @@ class PaymentWallPaymentController extends Controller
         }
     }
 
-
     public function invoicePayWithPaymentwall(Request $request, $invoiceID)
     {
 
         $invoiceID = \Crypt::decrypt($invoiceID);
 
-        // $res['msg'] = __("error");
-        // $res['invoice']=$invoiceID;
-        // return $res;
         $invoice   = Invoice::find($invoiceID);
         $setting = Utility::settingsById($invoice->created_by);
         if (\Auth::check()) {
@@ -340,8 +317,6 @@ class PaymentWallPaymentController extends Controller
                 $res_data['currency']    = $setting['site_currency'];
                 $res_data['flag']        = 1;
                 $res_data['invoice_id']  = $invoice->id;
-
-                // return $res_data;
 
             } else {
                 $authuser = Auth::user();
@@ -393,7 +368,6 @@ class PaymentWallPaymentController extends Controller
                             return $res;
                         }
                     } elseif ($charge->isUnderReview()) {
-                        // decide on risk charge
                     }
                 } elseif (!empty($responseData['secure'])) {
                     $response = json_encode(array('secure' => $responseData['secure']));

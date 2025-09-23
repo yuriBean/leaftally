@@ -33,7 +33,6 @@
             {!! Form::textarea('description', null, ['class'=>'form-control','rows'=>'3']) !!}
         </div>
     </div>
-  
 
 </div>
 <div class="modal-footer pr-0">
@@ -41,7 +40,6 @@
         {{Form::submit(__('Copy'),array('class'=>'btn  btn-primary'))}}
     </div>
 {{ Form::close() }}
-
 
 <script src="{{asset('assets/js/plugins/choices.min.js')}}"></script>
 <script>

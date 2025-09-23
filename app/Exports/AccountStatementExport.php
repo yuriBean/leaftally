@@ -8,9 +8,6 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 
 class AccountStatementExport implements FromCollection, WithHeadings
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
     public function collection()
     {
         $data = [];
@@ -21,7 +18,6 @@ class AccountStatementExport implements FromCollection, WithHeadings
         else{
             $data = Revenue::get();
         } 
-        // $data = Revenue::where('created_by' , \Auth::user()->id)->get();
         
         if (!empty($data)) {
             foreach ($data as $k => $Statement) {

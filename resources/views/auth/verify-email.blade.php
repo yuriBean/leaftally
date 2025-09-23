@@ -1,11 +1,9 @@
 @extends('layouts.auth')
 @php
     use App\Models\Utility;
-    // $lang = \App\Models\Utility::getValByName('default_language');
     $logo = asset(Storage::url('uploads/logo/'));
     $company_logo = Utility::getValByName('company_logo');
     $settings = Utility::settings();
-    // dd($lang);
     $languages = App\Models\Utility::languages();
     if (empty($lang)) {
         $lang = Utility::getValByName('default_language');
@@ -45,12 +43,9 @@
                 </div>
             @endif
 
-
             <div class="mb-4 text-sm text-gray-600">
                 {{ __('Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.') }}
             </div>
-
-
 
             <div class="mt-4 flex items-center justify-between">
                 <div class="row">

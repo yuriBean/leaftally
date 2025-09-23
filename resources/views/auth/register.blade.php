@@ -242,8 +242,7 @@
     @endif
 
     <style>
-        .pw-progress .progress-bar { background-image: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #1dd1a1); }
-        #togglePw { border-top-left-radius: 0; border-bottom-left-radius: 0; }
+        .pw-progress .progress-bar { background-image: linear-gradient(90deg,
     </style>
 
     <script>

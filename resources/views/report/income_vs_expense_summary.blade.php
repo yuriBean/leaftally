@@ -38,7 +38,6 @@
                 chart: {
                     height: 300,
                     type: 'area',
-                    // type: 'line',
                     dropShadow: {
                         enabled: true,
                         color: '#000',
@@ -76,15 +75,6 @@
                 legend: {
                     show: false,
                 },
-                // markers: {
-                //     size: 4,
-                //     colors: ['#6fd944', '#6fd944'],
-                //     opacity: 0.9,
-                //     strokeWidth: 2,
-                //     hover: {
-                //         size: 7,
-                //     }
-                // },
                 yaxis: {
                     title: {
                         text: '{{ __('Profit') }}'
@@ -127,7 +117,6 @@
     </script>
 @endpush
 
-
 @section('action-btn')
     <div class="d-flex">
         {{--        <a class="btn btn-sm btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1" data-bs-toggle="tooltip" title="{{__('Filter')}}"> --}}
@@ -154,7 +143,6 @@
                             <div class="col-md-10 col-12">
                                 <div class="row">
                                     @if (isset($_GET['period']) && $_GET['period'] == 'yearly')
-                                        
 
                                         <div class="col-md-2 col-sm-12 col-12">
                                             <div class="btn-box">
@@ -198,7 +186,6 @@
                                         </div>
                                     </div>
 
-
                                 </div>
                             </div>
                             <div class="col-md-2 col-12">
@@ -226,7 +213,6 @@
             </div>
         </div>
     </div>
-
 
     <div id="printableArea">
         {{-- <div class="row mt-3">
@@ -369,7 +355,6 @@
                                 </tbody>
                             </table>
                         </div>
-
 
                         {{-- half yearly --}}
                     @elseif(isset($_GET['category']) && $_GET['period'] == 'half-yearly')

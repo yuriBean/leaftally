@@ -14,11 +14,20 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         'plan.paytm',
         'iyzipay/callback/*',
-        'invoice/iyzipay/callback/*',
-        'retainer/iyzipay/callback/*',
+        'aamarpay/payment',
+        'aamarpay/success/*',
+        'cashfree/payments/success',
+        'paytr/success',
+        'midtrans/callback',
         'paytab-success/*',
-        'retainer-paytab-success/*',
-        '/aamarpay*'
-        
+        '*/webhook',
+        '*/payment/webhook',
+        '*/callback',
+        '*/success',
+        '*/cancel',
+        '*/fail',
+        'invoice/iyzipay/callback/*',
+        'retainer/iyzipay/callback/*'
     ];
 }
+        

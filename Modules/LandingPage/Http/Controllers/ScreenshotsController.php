@@ -9,36 +9,21 @@ use Modules\LandingPage\Entities\LandingPageSetting;
 
 class ScreenshotsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
     public function index()
     {
 
         $settings = LandingPageSetting::settings();
         $screenshots = json_decode($settings['screenshots'], true) ?? [];
 
-        // dd($screenshots);
-
         return view('landingpage::landingpage.screenshots.index',compact('settings','screenshots'));
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
     public function create()
     {
         return view('landingpage::landingpage.screenshots.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
     public function store(Request $request)
     {
         $data['is_screenshots_section_on']= isset($request->is_screenshots_section_on) && $request->is_screenshots_section_on == 'on' ? 'on' : 'off' ;
@@ -52,58 +37,28 @@ class ScreenshotsController extends Controller
         return redirect()->back()->with(['success'=> 'Setting update successfully']);
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
     public function show($id)
     {
         return view('landingpage::landingpage.screenshots.show');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
     public function edit($id)
     {
         return view('landingpage::landingpage.screenshots.edit');
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
     public function update(Request $request, $id)
     {
-        //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
     public function destroy($id)
     {
-        //
     }
-
-
-
-
-
 
     public function screenshots_create(){
         $settings = LandingPageSetting::settings();
         return view('landingpage::landingpage.screenshots.create');
     }
-
-
 
     public function screenshots_store(Request $request){
 
@@ -129,16 +84,12 @@ class ScreenshotsController extends Controller
         return redirect()->back()->with(['success'=> 'screenshots add successfully']);
     }
 
-
-
     public function screenshots_edit($key){
         $settings = LandingPageSetting::settings();
         $screenshots = json_decode($settings['screenshots'], true);
         $screenshot = $screenshots[$key];
         return view('landingpage::landingpage.screenshots.edit', compact('screenshot','key'));
     }
-
-
 
     public function screenshots_update(Request $request, $key){
 
@@ -157,14 +108,11 @@ class ScreenshotsController extends Controller
 
         $data[$key]['screenshots_heading'] = $request->screenshots_heading;
 
-
         $data = json_encode($data);
         LandingPageSetting::updateOrCreate(['name' =>  'screenshots'],['value' => $data]);
 
         return redirect()->back()->with(['success'=> 'screenshots update successfully']);
     }
-
-
 
     public function screenshots_delete($key){
         $settings = LandingPageSetting::settings();
@@ -174,6 +122,5 @@ class ScreenshotsController extends Controller
 
         return redirect()->back()->with(['success'=> 'Screenshots delete successfully']);
     }
-
 
 }

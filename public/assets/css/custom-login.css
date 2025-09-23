@@ -281,7 +281,6 @@
     }
 }
 
-
 @media only screen and (max-width: 1300px) {
     .custom-login .card .custom-img img {
         max-width: 100%;
@@ -352,9 +351,6 @@
         max-width: 100%;
     }
 }
-
-
-/* google recapcha  */
 
 .grecaptcha-badge{
     z-index: 2;

@@ -8,9 +8,9 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('boms', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->index();                   // e.g., BOM-0001
+            $table->string('code')->index();
             $table->string('name');
-            $table->decimal('yield_pct', 8, 2)->default(100);  // overall yield if you want to use it
+            $table->decimal('yield_pct', 8, 2)->default(100);
             $table->boolean('is_active')->default(true);
             $table->text('notes')->nullable();
             $table->unsignedBigInteger('created_by')->index();

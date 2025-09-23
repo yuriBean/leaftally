@@ -17,7 +17,6 @@ class EmailTemplateController extends Controller
 
         if($usr->type == 'super admin' || $usr->type == 'company')
         {
-            // Exclude payroll templates from email templates
             $payrollSlugs = [
                 'payslip_generated',
                 'payslip_sent',
@@ -37,7 +36,6 @@ class EmailTemplateController extends Controller
         }
     }
 
-
     public function create()
     {
         if(\Auth::user()->type == 'super admin')
@@ -49,7 +47,6 @@ class EmailTemplateController extends Controller
             return redirect()->back()->with('error', __('Permission denied.'));
         }
     }
-
 
     public function store(Request $request)
     {
@@ -85,16 +82,12 @@ class EmailTemplateController extends Controller
         }
     }
 
-
     public function show(EmailTemplate $emailTemplate)
     {
-        //
     }
-
 
     public function edit(EmailTemplate $emailTemplate)
     {
-        //
     }
 
     public function update(Request $request,$id)
@@ -102,8 +95,6 @@ class EmailTemplateController extends Controller
         $validator = \Validator::make(
             $request->all(), [
                                'from' => 'required',
-                            //    'subject' => 'required',
-                            //    'content' => 'required',
                            ]
         );
 
@@ -120,15 +111,10 @@ class EmailTemplateController extends Controller
         return redirect()->back()->with('success', __('The email template details are updated successfully'));
     }
 
-    
-   
-
     public function destroy(EmailTemplate $emailTemplate)
     {
-        //
     }
 
-    // Used For View Email Template Language Wise
     public function manageEmailLang($id, $lang = 'en')
     {
         
@@ -136,7 +122,6 @@ class EmailTemplateController extends Controller
         {
             $languages         = Utility::languages();
             $emailTemplate     = EmailTemplate::first();
-            // $currEmailTempLang = EmailTemplateLang::where('lang', $lang)->first();
             $currEmailTempLang = EmailTemplateLang::where('parent_id', '=', $id)->where('lang', $lang)->first();
             if(!isset($currEmailTempLang) || empty($currEmailTempLang))
             {
@@ -156,7 +141,6 @@ class EmailTemplateController extends Controller
 			}
             $EmailTemplates = EmailTemplate::all();
 
-
             return view('email_templates.show', compact('emailTemplate', 'languages', 'currEmailTempLang','EmailTemplates'));
         }
         else
@@ -165,7 +149,6 @@ class EmailTemplateController extends Controller
         }
     }
 
-    // Used For Store Email Template Language Wise
     public function storeEmailLang(Request $request, $id)
     {
         if(\Auth::user()->type == 'super admin')
@@ -185,8 +168,6 @@ class EmailTemplateController extends Controller
             }
 
             $emailLangTemplate = EmailTemplateLang::where('parent_id', '=', $id)->where('lang', '=', $request->lang)->first();
-            // dd($request->lang);
-            // if record not found then create new record else update it.
             if(empty($emailLangTemplate))
             {
                 $emailLangTemplate            = new EmailTemplateLang();
@@ -200,7 +181,6 @@ class EmailTemplateController extends Controller
             {
                 $emailLangTemplate->subject = $request['subject'];
                 $emailLangTemplate->content = $request['content'];
-                // dd($emailLangTemplate); 
                 $emailLangTemplate->save();
             }
 
@@ -216,8 +196,6 @@ class EmailTemplateController extends Controller
             return redirect()->back()->with('error', 'Permission denied.');
         }
     }
-
-    // Used For Update Status Company Wise.
 
     public function updateStatus(Request $request)
     {

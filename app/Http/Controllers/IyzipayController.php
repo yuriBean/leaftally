@@ -55,20 +55,17 @@ class IyziPayController extends Controller
         }
         $res_data['total_price'] = $price;
         $res_data['coupon']      = $coupon_id;
-        // set your Iyzico API credentials
         try {
 
             $setBaseUrl = ($iyzipay_mode == 'sandbox') ? 'https://sandbox-api.iyzipay.com' : 'https://api.iyzipay.com';
             $options = new \Iyzipay\Options();
 
-
             $options->setApiKey($iyzipay_key);
 
             $options->setSecretKey($iyzipay_secret);
-            $options->setBaseUrl($setBaseUrl); // or "https://api.iyzipay.com" for production
+            $options->setBaseUrl($setBaseUrl);
             $ipAddress = Http::get('https://ipinfo.io/?callback=')->json();
             $address = ($authuser->address) ? $authuser->address : 'Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1';
-            // create a new payment request
             $request = new \Iyzipay\Request\CreateCheckoutFormInitializeRequest();
             $request->setLocale('en');
             $request->setPrice($res_data['total_price']);
@@ -164,7 +161,6 @@ class IyziPayController extends Controller
         }
         $assignPlan = $user->assignPlan($plan->id);
 
-
         if ($assignPlan['is_success']) {
             return redirect()->route('plans.index')->with('success', __('Plan activated Successfully.'));
         } else {
@@ -172,11 +168,9 @@ class IyziPayController extends Controller
         }
     }
 
-
     public function invoicePayWithIyziPay(Request $request, $invoice_id)
     {
 
-        // dd($request->all());
         $invoice = Invoice::find($invoice_id);
         $authuser  = Customer::find($invoice->customer_id);
         $setting = Utility::settingsById($invoice->created_by);
@@ -207,10 +201,9 @@ class IyziPayController extends Controller
             $options = new \Iyzipay\Options();
             $options->setApiKey($iyzipay_key);
             $options->setSecretKey($iyzipay_secret);
-            $options->setBaseUrl($setBaseUrl); // or "https://api.iyzipay.com" for production
+            $options->setBaseUrl($setBaseUrl);
             $ipAddress = Http::get('https://ipinfo.io/?callback=')->json();
             $address = ($address) ? $address : 'Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1';
-            // create a new payment request
             $request = new \Iyzipay\Request\CreateCheckoutFormInitializeRequest();
             $request->setLocale('en');
             $request->setPrice($get_amount);
@@ -274,12 +267,10 @@ class IyziPayController extends Controller
             $settings = DB::table('settings')->where('created_by', '=', \Auth::user()->creatorId())->get()->pluck('value', 'name');
             $objUser     = \Auth::user();
             $payment_setting = Utility::getAdminPaymentSetting();
-            //            $this->setApiContext();
         } else {
             $user = User::where('id', $invoice->created_by)->first();
             $settings = Utility::settingById($invoice->created_by);
             $payment_setting = Utility::getCompanyPaymentSetting($invoice->created_by);
-            //            $this->non_auth_setApiContext($invoice->created_by);
             $objUser = $user;
         }
 
@@ -303,7 +294,6 @@ class IyziPayController extends Controller
                     'description' => 'Invoice ' . Utility::invoiceNumberFormat($settings, $invoice->invoice_id),
                 ]
             );
-
 
             if ($invoice->getDue() <= 0) {
                 $invoice->status = 4;
@@ -333,14 +323,12 @@ class IyziPayController extends Controller
             $invoicePayment->description = 'Invoice ' . Utility::invoiceNumberFormat($settings, $invoice->invoice_id);
             $invoicePayment->account     = 0;
 
-
             \App\Models\Transaction::addTransaction($invoicePayment);
 
             Utility::updateUserBalance('customer', $invoice->customer_id, $request->amount, 'debit');
 
             Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-            //Twilio Notification
             $setting  = Utility::settingsById($objUser->creatorId());
             $customer = Customer::find($invoice->customer_id);
             if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -356,7 +344,6 @@ class IyziPayController extends Controller
                 Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $invoice->created_by);
             }
 
-            // webhook
             $module = 'New Payment';
 
             $webhook =  Utility::webhookSetting($module, $invoice->created_by);
@@ -365,15 +352,8 @@ class IyziPayController extends Controller
 
                 $parameter = json_encode($invoice);
 
-                // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-
                 $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
 
-                // if ($status == true) {
-                //     return redirect()->route('payment.index')->with('success', __('Payment successfully created.') . ((isset($smtp_error)) ? '<br> <span class="text-danger">' . $smtp_error . '</span>' : ''));
-                // } else {
-                //     return redirect()->back()->with('error', __('Webhook call failed.'));
-                // }
             }
 
             if (Auth::check()) {
@@ -414,7 +394,6 @@ class IyziPayController extends Controller
 
         $get_amount = $request->amount;
 
-
         $request->validate(['amount' => 'required|numeric|min:0']);
 
         try {
@@ -423,10 +402,9 @@ class IyziPayController extends Controller
             $options = new \Iyzipay\Options();
             $options->setApiKey($iyzipay_key);
             $options->setSecretKey($iyzipay_secret);
-            $options->setBaseUrl($setBaseUrl); // or "https://api.iyzipay.com" for production
+            $options->setBaseUrl($setBaseUrl);
             $ipAddress = Http::get('https://ipinfo.io/?callback=')->json();
             $address = ($address) ? $address : 'Nidakule Göztepe, Merdivenköy Mah. Bora Sok. No:1';
-            // create a new payment request
             $request = new \Iyzipay\Request\CreateCheckoutFormInitializeRequest();
             $request->setLocale('en');
             $request->setPrice($get_amount);
@@ -490,12 +468,10 @@ class IyziPayController extends Controller
             $settings = \DB::table('settings')->where('created_by', '=', \Auth::user()->creatorId())->get()->pluck('value', 'name');
             $objUser     = \Auth::user();
             $payment_setting = Utility::getAdminPaymentSetting();
-            //            $this->setApiContext();
         } else {
             $user = User::where('id', $retainer->created_by)->first();
             $settings = Utility::settingById($retainer->created_by);
             $payment_setting = Utility::getCompanyPaymentSetting($retainer->created_by);
-            //            $this->non_auth_setApiContext($invoice->created_by);
             $objUser = $user;
         }
 
@@ -519,7 +495,6 @@ class IyziPayController extends Controller
                     'description' => 'Retainer ' . Utility::retainerNumberFormat($settings, $retainer->retainer_id),
                 ]
             );
-
 
             if ($retainer->getDue() <= 0) {
                 $retainer->status = 4;
@@ -552,7 +527,6 @@ class IyziPayController extends Controller
 
             Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-            //Twilio Notification
             $setting  = Utility::settingsById($objUser->creatorId());
             $customer = Customer::find($retainer->customer_id);
             if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -565,11 +539,9 @@ class IyziPayController extends Controller
                     'user_name' => $objUser->name,
                 ];
 
-
                 Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $retainer->created_by);
             }
 
-            // webhook
             $module = 'New Payment';
 
             $webhook =  Utility::webhookSetting($module, $retainer->created_by);
@@ -578,15 +550,8 @@ class IyziPayController extends Controller
 
                 $parameter = json_encode($retainer);
 
-                // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-
                 $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
 
-                // if ($status == true) {
-                //     return redirect()->route('payment.index')->with('success', __('Payment successfully created.') . ((isset($smtp_error)) ? '<br> <span class="text-danger">' . $smtp_error . '</span>' : ''));
-                // } else {
-                //     return redirect()->back()->with('error', __('Webhook call failed.'));
-                // }
             }
 
             if (Auth::check()) {

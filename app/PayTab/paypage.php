@@ -1,11 +1,9 @@
 <?php
 
-
 namespace App\PayTab;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Log;
 use App\PayTab\paytabs_core;
-
 
 class paypage
 {
@@ -124,7 +122,6 @@ class paypage
             print_r(json_encode($response));
         }
     }
-
 
     public function refund($tran_ref,$order_id,$amount,$refund_reason)
     {

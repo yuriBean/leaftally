@@ -38,7 +38,6 @@ class Proposal extends Model
 
     public function customer()
     {
-        // keep showing deleted customers
         return $this->hasOne('App\Models\Customer', 'id', 'customer_id')->withTrashed();
     }
 

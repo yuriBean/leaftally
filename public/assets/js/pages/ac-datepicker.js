@@ -26,13 +26,6 @@
     });
 })();
 
-
-// $('#d_toggle').datepicker({
-//     keyboardNavigation: false,
-//     forceParse: false,
-//     toggleActive: true
-// });
-
 (function () {
     const d_today = new Datepicker(document.querySelector('#d_today'), {
         buttonClass: 'btn',

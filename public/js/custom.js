@@ -1,9 +1,3 @@
-/**
- *
- * You can write your JS code here, DO NOT touch the default style file
- * because it will make it harder for you to update.
- *
- */
 
 "use strict";
 
@@ -12,7 +6,6 @@ $(function () {
         $(".custom-scroll").niceScroll();
         $(".custom-scroll-horizontal").niceScroll();
     }
-
 
     loadConfirm();
     daterange();
@@ -23,7 +16,6 @@ $(document).ready(function () {
     if ($(".datatable").length > 0) {
         new simpleDatatables.DataTable(".datatable");
     }
-
 
     loadConfirm();
     select2();
@@ -68,19 +60,15 @@ $(document).ready(function () {
         validation();
     }
 
-
     common_bind();
     summernote();
 
-
-    // for Choose file
     $(document).on('change', 'input[type=file]', function () {
         var fileclass = $(this).attr('data-filename');
         var finalname = $(this).val().split('\\').pop();
         $('.' + fileclass).html(finalname);
     });
 });
-
 
 function daterange() {
     if ($("#pc-daterangepicker-1").length > 0) {
@@ -104,18 +92,6 @@ function select2() {
     }
 
 }
-
-// // minimum setup
-// (function () {
-//     const d_week = new Datepicker(document.querySelector('.pc-datepicker-1'), {
-//         buttonClass: 'btn',
-//     });
-// })();
-// (function () {
-//     const d_week = new Datepicker(document.querySelector('.pc-datepicker-1_modal'), {
-//         buttonClass: 'btn',
-//     });
-// })();
 
 function show_toastr(type, message) {
     var f = document.getElementById('liveToast');
@@ -142,7 +118,6 @@ $(document).on('click', 'a[data-ajax-popup="true"], button[data-ajax-popup="true
         success: function (data) {
             $('#commonModal .body').html(data);
             $("#commonModal").modal('show');
-            // daterange_set();
             taskCheckbox();
             validation();
             common_bind("#commonModal");
@@ -159,7 +134,6 @@ $(document).on('click', 'a[data-ajax-popup="true"], button[data-ajax-popup="true
 
 });
 
-
 function arrayToJson(form) {
     var data = $(form).serializeArray();
     var indexed_array = {};
@@ -171,11 +145,9 @@ function arrayToJson(form) {
     return indexed_array;
 }
 
-
 function common_bind() {
 
 }
-
 
 function taskCheckbox() {
     var checked = 0;
@@ -190,7 +162,6 @@ function taskCheckbox() {
     }
     $(".custom-label").text(percentage + "%");
     $('#taskProgress').css('width', percentage + '%');
-
 
     $('#taskProgress').removeClass('bg-warning');
     $('#taskProgress').removeClass('bg-primary');
@@ -208,13 +179,11 @@ function taskCheckbox() {
     }
 }
 
-
 function commonLoader() {
     $('[data-toggle="tooltip"]').tooltip();
     if ($('[data-toggle="tags"]').length > 0) {
         $('[data-toggle="tags"]').tagsinput({ tagClass: "badge badge-primary" });
     }
-
 
     var e = $(".scrollbar-inner");
     e.length && e.scrollbar().scrollLock()
@@ -242,12 +211,10 @@ function commonLoader() {
     var e2 = $('[data-toggle="autosize"]');
     e2.length && autosize(e2);
 
-
     if ($(".jscolor").length) {
         jscolor.installByClassName("jscolor");
     }
 
-    // for Choose file
     $(document).on('change', 'input[type=file]', function () {
         var fileclass = $(this).attr('data-filename');
         var finalname = $(this).val().split('\\').pop();
@@ -271,8 +238,6 @@ function summernote() {
         });
     }
 }
-
-
 
 function loadConfirm() {
 
@@ -301,7 +266,6 @@ function loadConfirm() {
     });
 
 }
-
 
 function postAjax(url, data, cb) {
     var token = $('meta[name="csrf-token"]').attr('content');
@@ -347,9 +311,7 @@ function deleteAjax(url, data, cb) {
     });
 }
 
-
 $(document).on('click', '.fc-day-grid-event', function (e) {
-    // if (!$(this).hasClass('project')) {
     e.preventDefault();
     var event = $(this);
     var title = $(this).find('.fc-content .fc-title').html();
@@ -370,7 +332,6 @@ $(document).on('click', '.fc-day-grid-event', function (e) {
             toastrs('Error', data.error, 'error')
         }
     });
-    // }
 });
 
 $(function () {

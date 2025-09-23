@@ -45,8 +45,6 @@ class LoanController extends Controller
             $loan->title       = $request->title;
             $loan->amount      = $request->amount;
             $loan->type        = $request->type;
-//            $loan->start_date  = $request->start_date;
-//            $loan->end_date    = $request->end_date;
             $loan->reason      = $request->reason;
             $loan->created_by  = \Auth::user()->creatorId();
             $loan->save();
@@ -111,8 +109,6 @@ class LoanController extends Controller
                 $loan->title       = $request->title;
                 $loan->type        = $request->type;
                 $loan->amount      = $request->amount;
-//                $loan->start_date  = $request->start_date;
-//                $loan->end_date    = $request->end_date;
                 $loan->reason      = $request->reason;
                 $loan->save();
 

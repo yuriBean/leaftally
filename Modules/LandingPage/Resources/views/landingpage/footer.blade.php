@@ -10,7 +10,6 @@
 @php
     use \App\Models\Utility;
     $lang = \App\Models\Utility::getValByName('default_language');
-   // $logo=asset(Storage::url('uploads/logo/'));
     $logo=\App\Models\Utility::get_file('uploads/logo');
     $logo_light = \App\Models\Utility::getValByName('logo_light');
     $logo_dark = \App\Models\Utility::getValByName('logo_dark');
@@ -23,8 +22,6 @@
 
 @endphp
 
-
-
 @push('script-page')
 @endpush
 
@@ -32,7 +29,6 @@
     <li class="breadcrumb-item"><a href="{{route('dashboard')}}">{{__('Dashboard')}}</a></li>
     <li class="breadcrumb-item">{{__('Landing Page')}}</li>
 @endsection
-
 
 @section('content')
     <div class="row">
@@ -44,14 +40,12 @@
 
                             @include('landingpage::layouts.tab')
 
-
                         </div>
                     </div>
                 </div>
 
                 <div class="col-xl-9">
                     {{--  Start for all settings tab --}}
-
 
                         <div class="card">
                             <div class="card-header">
@@ -72,13 +66,10 @@
 
                         </div>
 
-
                     {{--  End for all settings tab --}}
                 </div>
             </div>
         </div>
     </div>
 @endsection
-
-
 

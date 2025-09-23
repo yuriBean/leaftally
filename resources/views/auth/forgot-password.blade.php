@@ -10,7 +10,6 @@
     {{ __('Forgot Password') }}
 @endsection
 
-
 @section('auth-lang')
     @php
         $languages = App\Models\Utility::languages();
@@ -78,14 +77,12 @@
                 @endif
             @endif
 
-
             <div class="d-grid">
                 <button type="submit"
                     class="btn-login btn btn-primary btn-block mt-2">{{ __('Send Password Reset Link') }}</button>
             </div>
             <p class="my-4 text-center">{{ __('Back to') }} <a href="{{ route('login',$lang) }}"
                     class="text-primary">{{ __('Login') }}</a></p>
-
 
         </div>
         {{ Form::close() }}

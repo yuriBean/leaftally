@@ -56,7 +56,6 @@
     const compTotalEl = document.querySelector('#js-components-total');
     if(compTotalEl) compTotalEl.textContent = format(compTotal);
 
-    // allocate across outputs using components total only (no extra BOM-level costs)
     const batchCost = compTotal;
     const batchCostEl = document.querySelector('#js-batch-cost');
     if(batchCostEl) batchCostEl.textContent = format(batchCost);

@@ -22,14 +22,8 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 
-
 class AuthenticatedSessionController extends Controller
 {
-    /**
-     * Display the login view.
-     *
-     * @return \Illuminate\View\View
-     */
 
     public function __construct()
     {
@@ -46,7 +40,6 @@ class AuthenticatedSessionController extends Controller
         }
     }
 
-
     public function create($lang = '')
     {
         $langList = Utility::langList();
@@ -60,12 +53,6 @@ class AuthenticatedSessionController extends Controller
         return view('auth.login', compact('lang'));
     }
 
-    /**
-     * Handle an incoming authentication request.
-     *
-     * @param  \App\Http\Requests\Auth\LoginRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function store(LoginRequest $request)
     {
         $user = User::where('email',$request->email)->first();
@@ -79,15 +66,8 @@ class AuthenticatedSessionController extends Controller
             return redirect()->back()->with('status', __('Your Account is disable from company.'));
         }
 
-        // ReCpatcha
         $settings = Utility::settings();
 
-        // if ($settings['recaptcha_module'] == 'yes') {
-        //     $validation['g-recaptcha-response'] = 'required|captcha';
-        // } else {
-        //     $validation = [];
-        // }
-        // $this->validate($request, $validation);
         $validation = [];
 
         if(isset($settings['recaptcha_module']) && $settings['recaptcha_module'] == 'yes')
@@ -101,7 +81,7 @@ class AuthenticatedSessionController extends Controller
 
                 if (!isset($result[0]['status']) || $result[0]['status'] != true) {
                     $key = 'g-recaptcha-response';
-                    $request->merge([$key => null]); // Set the key to null
+                    $request->merge([$key => null]);
 
                     $validation['g-recaptcha-response'] = 'required';
                 }
@@ -139,9 +119,7 @@ class AuthenticatedSessionController extends Controller
             return redirect()->back()->with('status', 'Your Account is disable,please contact your Administrate.');
         }
 
-        $ip = $_SERVER['REMOTE_ADDR']; // your ip address here
-
-        // $ip = '49.36.83.154'; // This is static ip address
+        $ip = $_SERVER['REMOTE_ADDR'];
 
         $query = @unserialize(file_get_contents('http://ip-api.com/php/' . $ip));
 
@@ -152,7 +130,6 @@ class AuthenticatedSessionController extends Controller
             }
             $referrer = isset($_SERVER['HTTP_REFERER']) ? parse_url($_SERVER['HTTP_REFERER']) : null;
 
-            /* Detect extra details about the user */
             $query['browser_name'] = $whichbrowser->browser->name ?? null;
             $query['os_name'] = $whichbrowser->os->name ?? null;
             $query['browser_language'] = isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? mb_substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) : null;
@@ -206,8 +183,7 @@ class AuthenticatedSessionController extends Controller
                                 }
                             }
                         }
-    
-    
+
                         if ($plan->max_customers == -1) {
                             foreach ($customers as $customer) {
                                 $customer->is_active = 1;
@@ -250,7 +226,6 @@ class AuthenticatedSessionController extends Controller
                             if ($plan->duration != 'lifetime') {
                                 $datetime1 = new \DateTime($user->plan_expire_date);
                                 $datetime2 = new \DateTime(date('Y-m-d'));
-                                //                    $interval  = $datetime1->diff($datetime2);
                                 $interval = $datetime2->diff($datetime1);
                                 $days     = $interval->format('%r%a');
                                 if ($days <= 0) {
@@ -281,13 +256,6 @@ class AuthenticatedSessionController extends Controller
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 
-
-    /**
-     * Destroy an authenticated session.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function destroy(Request $request)
     {
         Auth::guard('web')->logout();
@@ -304,7 +272,6 @@ class AuthenticatedSessionController extends Controller
         return 'email';
     }
 
-
     public function showCustomerLoginForm($lang = '')
     {
         $langList = Utility::langList();
@@ -319,7 +286,6 @@ class AuthenticatedSessionController extends Controller
         return view('auth.customer_login', compact('lang'));
     }
 
-
     public function customerLogin(Request $request)
     {
         $customer = Customer::where('user_name',$request->user_name)->first();
@@ -328,7 +294,6 @@ class AuthenticatedSessionController extends Controller
         {
             return redirect()->back()->with('status', __('Your Account is disable from customer.'));
         }
-        // ReCpatcha
         $settings = Utility::settings();
         $validation = [];
 
@@ -343,7 +308,7 @@ class AuthenticatedSessionController extends Controller
 
                 if (!isset($result[0]['status']) || $result[0]['status'] != true) {
                     $key = 'g-recaptcha-response';
-                    $request->merge([$key => null]); // Set the key to null
+                    $request->merge([$key => null]);
 
                     $validation['g-recaptcha-response'] = 'required';
                 }
@@ -362,7 +327,6 @@ class AuthenticatedSessionController extends Controller
             ]
         );
 
-
         if (\Auth::guard('customer')->attempt(
             [
                 'user_name' => $request->email,
@@ -378,9 +342,7 @@ class AuthenticatedSessionController extends Controller
             $customer->last_login_at = date('Y-m-d H:i:s');
             $customer->save();
 
-            $ip = $_SERVER['REMOTE_ADDR']; // your ip address here
-
-            // $ip = '49.36.83.154'; // This is static ip address
+            $ip = $_SERVER['REMOTE_ADDR'];
 
             $query = @unserialize(file_get_contents('http://ip-api.com/php/' . $ip));
 
@@ -392,7 +354,6 @@ class AuthenticatedSessionController extends Controller
                 }
                 $referrer = isset($_SERVER['HTTP_REFERER']) ? parse_url($_SERVER['HTTP_REFERER']) : null;
 
-                /* Detect extra details about the user */
                 $query['browser_name'] = $whichbrowser->browser->name ?? null;
                 $query['os_name'] = $whichbrowser->os->name ?? null;
                 $query['browser_language'] = isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? mb_substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) : null;
@@ -448,7 +409,6 @@ class AuthenticatedSessionController extends Controller
             return redirect()->back()->with('status', __('Your Account is disable from vendor.'));
         }
 
-        // ReCpatcha
         $settings = Utility::settings();
         $validation = [];
         if(isset($settings['recaptcha_module']) && $settings['recaptcha_module'] == 'yes')
@@ -462,7 +422,7 @@ class AuthenticatedSessionController extends Controller
 
                 if (!isset($result[0]['status']) || $result[0]['status'] != true) {
                     $key = 'g-recaptcha-response';
-                    $request->merge([$key => null]); // Set the key to null
+                    $request->merge([$key => null]);
 
                     $validation['g-recaptcha-response'] = 'required';
                 }
@@ -496,10 +456,7 @@ class AuthenticatedSessionController extends Controller
             $vender->last_login_at = date('Y-m-d H:i:s');
             $vender->save();
 
-
-            $ip = $_SERVER['REMOTE_ADDR']; // your ip address here
-
-            // $ip = '49.36.83.154'; // This is static ip address
+            $ip = $_SERVER['REMOTE_ADDR'];
 
             $query = @unserialize(file_get_contents('http://ip-api.com/php/' . $ip));
             if (isset($query['status']) &&  $query['status'] != 'fail') {
@@ -509,7 +466,6 @@ class AuthenticatedSessionController extends Controller
                 }
                 $referrer = isset($_SERVER['HTTP_REFERER']) ? parse_url($_SERVER['HTTP_REFERER']) : null;
 
-                /* Detect extra details about the user */
                 $query['browser_name'] = $whichbrowser->browser->name ?? null;
                 $query['os_name'] = $whichbrowser->os->name ?? null;
                 $query['browser_language'] = isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? mb_substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) : null;
@@ -532,7 +488,6 @@ class AuthenticatedSessionController extends Controller
             }
             return redirect()->route('vender.dashboard');
         }
-
 
         return $this->sendFailedLoginResponse($request);
     }
@@ -587,7 +542,6 @@ class AuthenticatedSessionController extends Controller
         return view('auth.vender_login', compact('lang'));
     }
 
-    //    ---------------------------------Customer ----------------q------------------_
     public function showCustomerLinkRequestForm($lang = '')
     {
         $langList = Utility::langList();
@@ -605,7 +559,6 @@ class AuthenticatedSessionController extends Controller
     public function postCustomerEmail(Request $request)
     {
 
-
         $request->validate(
             [
                 'email' => 'required|email|exists:customers',
@@ -621,8 +574,6 @@ class AuthenticatedSessionController extends Controller
                 'created_at' => Carbon::now(),
             ]
         );
-
-        // dd(settings);
 
         Mail::send(
             'auth.customerVerify',
@@ -691,7 +642,6 @@ class AuthenticatedSessionController extends Controller
         return redirect('/login')->with('message', 'Your password has been changed.');
     }
 
-    //    ----------------------------Vendor----------------------------------------------------
     public function showVendorLinkRequestForm($lang = '')
     {
         $langList = Utility::langList();
@@ -774,14 +724,10 @@ class AuthenticatedSessionController extends Controller
         return redirect('/login')->with('message', 'Your password has been changed.');
     }
 
-
-
-
-
 public function decideLogin(Request $request)
 {
     $request->validate([
-        'email'    => ['required','string'], // identifier (email or username)
+        'email'    => ['required','string'],
         'password' => ['required','string'],
     ]);
 
@@ -811,7 +757,6 @@ public function decideLogin(Request $request)
     return $this->sendFailedLoginResponse($request);
 }
 
-
 private function forwardPost(string $routeName, Request $from)
 {
     $uri = route($routeName);
@@ -836,7 +781,6 @@ private function forwardPost(string $routeName, Request $from)
     return app()->handle($sub);
 }
 
-
 }
 
 function get_device_type($user_agent)
@@ -852,6 +796,5 @@ function get_device_type($user_agent)
             return 'desktop';
         }
     }
-
 
 }

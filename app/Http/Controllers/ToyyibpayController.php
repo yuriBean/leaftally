@@ -16,7 +16,6 @@ use App\Models\Customer;
 use App\Models\Retainer;
 use App\Models\RetainerPayment;
 
-
 class ToyyibpayController extends Controller
 {
     public $secretKey, $callBackUrl, $returnUrl, $categoryCode, $is_enabled, $invoiceData, $retainerData;
@@ -29,7 +28,6 @@ class ToyyibpayController extends Controller
         } else {
             $payment_setting = Utility::getCompanyPaymentSetting(!empty($this->invoiceData) ? $this->invoiceData->created_by : 0);
         }
-
 
         $this->secretKey = isset($payment_setting['toyyibpay_secret_key']) ? $payment_setting['toyyibpay_secret_key'] : '';
         $this->categoryCode = isset($payment_setting['category_code']) ? $payment_setting['category_code'] : '';
@@ -49,7 +47,6 @@ class ToyyibpayController extends Controller
 
             if ($plan) {
                 $get_amount = $plan->price;
-
 
                 if (!empty($request->coupon)) {
                     $coupons = Coupon::where('code', strtoupper($request->coupon))->where('is_active', '1')->first();
@@ -130,9 +127,7 @@ class ToyyibpayController extends Controller
         $admin = Utility::getAdminPaymentSetting();
         $plan = Plan::find($planId);
         $user = auth()->user();
-        // $request['status_id'] = 1;
 
-        // 1=success, 2=pending, 3=fail
         try {
             $orderID = strtoupper(str_replace('.', '', uniqid('', true)));
             if ($request->status_id == 3) {
@@ -285,7 +280,6 @@ class ToyyibpayController extends Controller
 
     public function invoicetoyyibpaystatus(Request $request, $invoice_id, $amount)
     {
-        // dd($request->all(),$invoice_id, $amount);
         $invoice = Invoice::find($invoice_id);
         $this->invoiceData = $invoice;
         $settings  = \DB::table('settings')->where('created_by', '=', $invoice->created_by)->get()->pluck('value', 'name');
@@ -306,16 +300,12 @@ class ToyyibpayController extends Controller
             return redirect()->back()->with('error', __('Payment failed'));
         }
         $orderID  = strtoupper(str_replace('.', '', uniqid('', true)));
-        // $request['status_id'] = 1;
         try {
 
-            // dd($request->status_id);
             if ($request->status_id == 3) {
                 return redirect()->back()->with('error', __('Your Transaction is fail please try again'));
-                // return redirect()->route('invoice.show', \Crypt::encrypt($invoice->id))->with('error', __('Your Transaction is fail please try again'));
             } else if ($request->status_id == 2) {
                 return redirect()->back()->with('error', __('Your Transaction on pending'));
-                // return redirect()->route('invoice.show', \Crypt::encrypt($invoice->id))->with('error', __('Your Transaction on pending'));
             } else if ($request->status_id == 1) {
 
                 $payments = InvoicePayment::create(
@@ -333,7 +323,6 @@ class ToyyibpayController extends Controller
                         'description' => 'Invoice ' . Utility::invoiceNumberFormat($settings, $invoice->invoice_id),
                     ]
                 );
-
 
                 $invoicePayment              = new \App\Models\Transaction();
                 $invoicePayment->user_id     = $invoice->customer_id;
@@ -354,7 +343,6 @@ class ToyyibpayController extends Controller
 
                 Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
                 
-                // Twilio 
                 $setting  = Utility::settingsById($objUser->creatorId());
                 $customer = Customer::find($invoice->customer_id);
 
@@ -368,11 +356,9 @@ class ToyyibpayController extends Controller
                         'user_name' => $objUser->name,
                     ];
 
-
                     Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $invoice->created_by);
                 }
 
-                // webhook
                 $module = 'New Payment';
 
                 $webhook =  Utility::webhookSetting($module, $invoice->created_by);
@@ -381,20 +367,11 @@ class ToyyibpayController extends Controller
 
                     $parameter = json_encode($invoice);
 
-                    // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-
                     $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
 
-                    // if ($status == true) {
-                    //     return redirect()->route('payment.index')->with('success', __('Payment successfully created.') . ((isset($smtp_error)) ? '<br> <span class="text-danger">' . $smtp_error . '</span>' : ''));
-                    // } else {
-                    //     return redirect()->back()->with('error', __('Webhook call failed.'));
-                    // }
                 }
 
-
                 if (\Auth::check()) {
-                    // return redirect()->route('invoice.show', \Crypt::encrypt($invoice->id))->with('error', __('Transaction has been failed.'));
                     return redirect()->back()->with('error', __('Transaction has been failed.'));
                 } else {
                     return redirect()->back()->with('success', __(' Payment successfully added.'));
@@ -402,14 +379,12 @@ class ToyyibpayController extends Controller
             }
         } catch (\Exception $e) {
             if (\Auth::check()) {
-                // return redirect()->route('invoice.show', \Crypt::encrypt($invoice->id))->with('error', __('Transaction has been failed.'));
                 return redirect()->back()->with('error', __('Transaction has been failed.'));
             } else {
                 return redirect()->back()->with('success', __('Transaction has been completed.'));
             }
         }
     }
-
 
     public function retainerpaywithtoyyibpay(Request $request, $retainer_id)
     {
@@ -479,7 +454,6 @@ class ToyyibpayController extends Controller
 
     public function retaineroyyibpaystatus(Request $request, $retainer_id, $amount)
     {
-        // dd($request->all(),$retainer_id, $amount);
         $retainer = Retainer::find($retainer_id);
         $this->retainerData = $retainer;
         $settings  = \DB::table('settings')->where('created_by', '=', $retainer->created_by)->get()->pluck('value', 'name');
@@ -500,16 +474,12 @@ class ToyyibpayController extends Controller
             return redirect()->back()->with('error', __('Payment failed'));
         }
         $orderID  = strtoupper(str_replace('.', '', uniqid('', true)));
-        // $request['status_id'] = 1;
         try {
 
-            // dd($request->status_id);
             if ($request->status_id == 3) {
                 return redirect()->back()->with('error', __('Your Transaction is fail please try again'));
-                // return redirect()->route('retainer.show', \Crypt::encrypt($retainer->id))->with('error', __('Your Transaction is fail please try again'));
             } else if ($request->status_id == 2) {
                 return redirect()->back()->with('error', __('Your Transaction on pending'));
-                // return redirect()->route('retainer.show', \Crypt::encrypt($retainer->id))->with('error', __('Your Transaction on pending'));
             } else if ($request->status_id == 1) {
 
                 $payments = RetainerPayment::create(
@@ -527,7 +497,6 @@ class ToyyibpayController extends Controller
                         'description' => 'Retainer ' . Utility::retainerNumberFormat($settings, $retainer->retainer_id),
                     ]
                 );
-
 
                 $retainerPayment              = new \App\Models\Transaction();
                 $retainerPayment->user_id     = $retainer->customer_id;
@@ -548,8 +517,6 @@ class ToyyibpayController extends Controller
 
                 Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-
-                // Twilio 
                 $setting  = Utility::settingsById($objUser->creatorId());
                 $customer = Customer::find($retainer->customer_id);
 
@@ -563,11 +530,9 @@ class ToyyibpayController extends Controller
                         'user_name' => $objUser->name,
                     ];
 
-
                     Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $retainer->created_by);
                 }
 
-                // webhook
                 $module = 'New Payment';
 
                 $webhook =  Utility::webhookSetting($module, $retainer->created_by);
@@ -576,20 +541,11 @@ class ToyyibpayController extends Controller
 
                     $parameter = json_encode($retainer);
 
-                    // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-
                     $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
 
-                    // if ($status == true) {
-                    //     return redirect()->route('payment.index')->with('success', __('Payment successfully created.') . ((isset($smtp_error)) ? '<br> <span class="text-danger">' . $smtp_error . '</span>' : ''));
-                    // } else {
-                    //     return redirect()->back()->with('error', __('Webhook call failed.'));
-                    // }
                 }
 
-
                 if (\Auth::check()) {
-                    // return redirect()->route('retainer.show', \Crypt::encrypt($retainer->id))->with('error', __('Transaction has been failed.'));
                     return redirect()->back()->with('error', __('Transaction has been failed.'));
                 } else {
                     return redirect()->back()->with('success', __(' Payment successfully added.'));
@@ -597,7 +553,6 @@ class ToyyibpayController extends Controller
             }
         } catch (\Exception $e) {
             if (\Auth::check()) {
-                // return redirect()->route('retainer.show', \Crypt::encrypt($retainer->id))->with('error', __('Transaction has been failed.'));
                 return redirect()->back()->with('error', __('Transaction has been failed.'));
             } else {
                 return redirect()->back()->with('success', __('Transaction has been completed.'));

@@ -24,25 +24,19 @@
             var stripe = Stripe('{{ $admin_payment_setting['stripe_key'] }}');
             var elements = stripe.elements();
 
-            // Custom styling can be passed to options when creating an Element.
             var style = {
                 base: {
-                    // Add your base input styles here. For example:
                     fontSize: '14px',
                     color: '#32325d',
                 },
             };
 
-            // Create an instance of the card Element.
             var card = elements.create('card', {
                 style: style,
             });
 
-            // Add an instance of the card Element into the `card-element` <div>.
             card.mount('#card-element');
 
-
-            // Create a token or display an error when the form is submitted.
             var form = document.getElementById('payment-form');
             form.addEventListener('submit', function(event) {
                 event.preventDefault();
@@ -52,14 +46,12 @@
                         $("#card-errors").html(result.error.message);
                         show_toastr('Error', result.error.message, 'error');
                     } else {
-                        // Send the token to your server.
                         stripeTokenHandler(result.token);
                     }
                 });
             });
 
             function stripeTokenHandler(token) {
-                // Insert the token ID into the form so it gets submitted to the server
                 var form = document.getElementById('payment-form');
                 var hiddenInput = document.createElement('input');
                 hiddenInput.setAttribute('type', 'hidden');
@@ -67,11 +59,9 @@
                 hiddenInput.setAttribute('value', token.id);
                 form.appendChild(hiddenInput);
 
-                // Submit the form
                 form.submit();
             }
         @endif
-
 
         $(document).ready(function() {
             $(document).on('click', '.apply-coupon', function() {
@@ -104,7 +94,6 @@
             });
         });
 
-
         @if (isset($admin_payment_setting['is_paystack_enabled']) && $admin_payment_setting['is_paystack_enabled'] == 'on')
 
             $("#pay_with_paystack").click(function() {
@@ -121,7 +110,7 @@
                             currency: res.currency,
                             ref: 'pay_ref_id' + Math.floor((Math.random() * 1000000000) +
                                 1
-                            ), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+                            ),
                             metadata: {
                                 custom_fields: [{
                                     display_name: "Email",
@@ -145,9 +134,7 @@
             });
         @endif
 
-
         @if (isset($admin_payment_setting['is_razorpay_enabled']) && $admin_payment_setting['is_razorpay_enabled'] == 'on')
-            // Razorpay Payment
             $(document).on("click", "#pay_with_razorpay", function() {
                 $('#razorpay-payment-form').ajaxForm(function(res) {
                     if (res.flag == 1) {
@@ -156,7 +143,7 @@
                         var totalAmount = res.total_price * 100;
                         var coupon_id = res.coupon;
                         var options = {
-                            "key": "{{ $admin_payment_setting['razorpay_public_key'] }}", // your Razorpay Key Id
+                            "key": "{{ $admin_payment_setting['razorpay_public_key'] }}",
                             "amount": totalAmount,
                             "name": 'Plan',
                             "currency": "{{ $admin_payment_setting['currency'] }}",
@@ -227,10 +214,9 @@
                                         '{{ \Illuminate\Support\Facades\Crypt::encrypt($plan->id) }}?coupon_id=' +
                                         coupon_id;
                                 } else {
-                                    // redirect to a failure page.
                                 }
                                 x
-                            .close(); // use this to close the modal immediately after payment.
+                            .close();
                             }
                         });
                     } else if (res.flag == 2) {
@@ -259,7 +245,7 @@
                             currency: res.currency,
                             ref: 'pay_ref_id' + Math.floor((Math.random() * 1000000000) +
                                 1
-                            ), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+                            ),
                             metadata: {
                                 custom_fields: [{
                                     display_name: "Email",
@@ -290,9 +276,6 @@
             });
         @endif
 
-
-
-
         @if (isset($admin_payment_setting['is_razorpay_enabled']) && $admin_payment_setting['is_razorpay_enabled'] == 'on')
             $("#pay_with_razorpay").click(function() {
                 $('#razorpay-payment-form').ajaxForm(function(res) {
@@ -302,7 +285,7 @@
                         var totalAmount = res.total_price * 100;
                         var coupon_id = res.coupon;
                         var options = {
-                            "key": "{{ $admin_payment_setting['razorpay_public_key'] }}", // your Razorpay Key Id
+                            "key": "{{ $admin_payment_setting['razorpay_public_key'] }}",
                             "amount": totalAmount,
                             "name": 'Plan',
                             "currency": '{{ $admin_payment_setting[
@@ -331,7 +314,6 @@
                 }).submit();
             });
         @endif
-
 
     </script> --}}
     {{-- payfast --}}
@@ -370,7 +352,6 @@
             @endif
     </script>
 
-    <!-- Khalti Payment -->
     @if (isset($admin_payment_setting['is_khalti_enabled']) && $admin_payment_setting['is_khalti_enabled'] == 'on')
         <script src="https://khalti.s3.ap-south-1.amazonaws.com/KPG/dist/2020.12.17.0.0.0/khalti-checkout.iffe.js"></script>
 
@@ -475,13 +456,12 @@
             })
         </script>
     @endif
-    <!-- Khalti Payment End -->
+    
 @endpush
 
 @push('css-page')
     <style>
-        #card-element {
-            border: 1px solid #a3afbb !important;
+            border: 1px solid
             border-radius: 10px !important;
             padding: 10px !important;
         }
@@ -502,7 +482,7 @@
 @endsection
 @section('content')
     <div class="row">
-        <!-- [ sample-page ] start -->
+        
         <div class="col-sm-12">
             <div class="row">
                 <div class="col-xl-3">
@@ -925,7 +905,6 @@
                     @endif
                     {{-- BankTransfer payment end --}}
 
-
                     {{-- stripe payment --}}
                     @if (
                         $admin_payment_setting['is_stripe_enabled'] == 'on' &&
@@ -966,7 +945,7 @@
                                             </div>
                                             <div class="col-md-12">
                                                 <div id="card-element">
-                                                    <!-- A Stripe Element will be inserted here. -->
+                                                    
                                                 </div>
                                                 <div id="card-errors" role="alert"></div>
                                             </div>
@@ -1705,7 +1684,6 @@
                                 <h5>{{ __('Payfast') }}</h5>
                             </div>
 
-
                             {{-- <div class="card-body"> --}}
                             @if (
                                 $admin_payment_setting['is_payfast_enabled'] == 'on' &&
@@ -2199,7 +2177,6 @@
                     @endif
                     {{-- PayTR end --}}
 
-
                     {{-- YooKassa --}}
                     @if (
                         $admin_payment_setting['is_yookassa_enabled'] == 'on' &&
@@ -2257,7 +2234,6 @@
                         </div>
                     @endif
                     {{-- Yookassa end --}}
-
 
                     {{-- Xendit --}}
                     @if (isset($admin_payment_setting['is_xendit_enabled']) && $admin_payment_setting['is_xendit_enabled'] == 'on')
@@ -2684,7 +2660,6 @@
                     @endif
                     {{-- PayHere end --}}
 
-                    <!-- Tap Payment -->
                     @if (isset($admin_payment_setting['is_tap_enabled']) && $admin_payment_setting['is_tap_enabled'] == 'on')
                         <div id="tap_payment" class="card">
                             <div class="card-header">
@@ -2737,9 +2712,7 @@
                             </div>
                         </div>
                     @endif
-                    <!-- Tap Payment End -->
 
-                    <!-- AuthorizeNet Payment -->
                     @if (isset($admin_payment_setting['is_authorizenet_enabled']) &&
                             $admin_payment_setting['is_authorizenet_enabled'] == 'on')
                         <div id="authorizenet_payment" class="card">
@@ -2794,9 +2767,7 @@
                             </div>
                         </div>
                     @endif
-                    <!-- AuthorizeNet Payment End -->
 
-                    <!-- Khalti Payment -->
                     @if (isset($admin_payment_setting['is_khalti_enabled']) && $admin_payment_setting['is_khalti_enabled'] == 'on')
                         <div id="khalti_payment" class="card">
                             <div class="card-header">
@@ -2850,9 +2821,7 @@
                             </div>
                         </div>
                     @endif
-                    <!-- Khalti Payment End -->
 
-                     <!-- ozow Payment -->
                      @if (isset($admin_payment_setting['is_ozow_enabled']) && $admin_payment_setting['is_ozow_enabled'] == 'on')
                         <div id="ozow_payment" class="card">
                             <div class="card-header">
@@ -2906,7 +2875,6 @@
                             </div>
                         </div>
                     @endif
-
 
                 </div>
             </div>

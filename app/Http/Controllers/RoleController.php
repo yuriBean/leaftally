@@ -46,7 +46,6 @@ class RoleController extends Controller
                 $permissions = $permissions->pluck('name', 'id')->toArray();
 
             }
-            // $permissions = Permission::all()->pluck('name', 'id')->toArray();
             
             return view('role.create', ['permissions' => $permissions]);
         }
@@ -55,29 +54,6 @@ class RoleController extends Controller
             return redirect()->back()->with('error', 'Permission denied.');
         }
     }
-
-    // public function create()
-    // {
-    //     if(\Auth::user()->can('create role')){
-    //         $user = \Auth::user();
-    //         if($user->type == 'super admin')
-    //         {
-    //             $permissions = Permission::all()->pluck('name', 'id')->toArray();
-    //         }else{
-    //             $permissions = new Collection();
-    //             foreach ($user->roles as $role) {
-    //                 $permissions = $permissions->merge($role->permissions);
-    //             }
-    //             $permissions = $permissions->pluck('name','id')->toArray();
-
-    //         }
-    //         return view('role.create', ['permissions' => $permissions]);
-    //     }else{
-    //         return redirect()->back()->with('error','Permission denied.');
-    //     }
-
-    // }
-
 
     public function store(Request $request)
     {
@@ -146,7 +122,6 @@ class RoleController extends Controller
             return redirect()->back()->with('error', 'Permission denied.');
         }
 
-
     }
 
     public function update(Request $request, Role $role)
@@ -192,7 +167,6 @@ class RoleController extends Controller
 
     }
 
-
     public function destroy(Role $role)
     {
         if(\Auth::user()->can('delete role'))
@@ -207,7 +181,6 @@ class RoleController extends Controller
         {
             return redirect()->back()->with('error', 'Permission denied.');
         }
-
 
     }
 }

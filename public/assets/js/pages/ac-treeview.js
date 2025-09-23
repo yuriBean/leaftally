@@ -1,6 +1,5 @@
 'use strict';
 
-// [ html-demo ]
 const main = document.querySelector('#tree-demo');
 const info = document.querySelector('#tree-msg');
 const tree = new VanillaTree(main, {
@@ -16,8 +15,6 @@ const tree = new VanillaTree(main, {
         }
     }]
 });
-
-
 
 tree.add({
     label: 'Label A',

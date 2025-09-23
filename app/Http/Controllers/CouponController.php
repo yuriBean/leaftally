@@ -22,7 +22,6 @@ class CouponController extends Controller
         }
     }
 
-
     public function create()
     {
         if (\Auth::user()->can('create coupon')) {
@@ -32,10 +31,8 @@ class CouponController extends Controller
         }
     }
 
-
     public function store(Request $request)
     {
-        // dd($request->all());
         if (\Auth::user()->can('create coupon')) {
             $validator = \Validator::make(
                 $request->all(),
@@ -75,14 +72,12 @@ class CouponController extends Controller
         }
     }
 
-
     public function show(Coupon $coupon)
     {
         $userCoupons = UserCoupon::where('coupon', $coupon->id)->get();
 
         return view('coupon.view', compact('userCoupons'));
     }
-
 
     public function edit(Coupon $coupon)
     {
@@ -92,7 +87,6 @@ class CouponController extends Controller
             return redirect()->back()->with('error', __('Permission denied.'));
         }
     }
-
 
     public function update(Request $request, Coupon $coupon)
     {
@@ -125,7 +119,6 @@ class CouponController extends Controller
             return redirect()->back()->with('error', __('Permission denied.'));
         }
     }
-
 
     public function destroy(Coupon $coupon)
     {

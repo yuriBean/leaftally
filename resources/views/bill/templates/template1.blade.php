@@ -16,15 +16,15 @@
     <style type="text/css">
         :root {
             --theme-color: {{ $color }};
-            --white: #ffffff;
-            --black: #000000;
+            --white:
+            --black:
         }
 
         body {
             font-family: 'Lato', sans-serif;
         }
         .text-gray-700 {
-    color: #374151; /* Tailwind's gray-700 */
+    color:
 }
 
 .px-4 {
@@ -43,7 +43,7 @@
 }
 
 .border {
-    border: 1px solid #E5E5E5;
+    border: 1px solid
 }
 
 .border-0 {
@@ -51,7 +51,7 @@
 }
 
 .bg-gray-100 {
-    background-color: #F6F6F6;
+    background-color:
 }
 
 .font-semibold {
@@ -61,7 +61,6 @@
 .text-sm {
     font-size: 0.875rem;
 }
-
 
         p,
         li,
@@ -103,8 +102,8 @@
             max-width: 700px;
             width: 100%;
             margin: 0 auto;
-            background: #ffff;
-            box-shadow: 0 0 10px #ddd;
+            background:
+            box-shadow: 0 0 10px
         }
 
         .bill-logo {
@@ -144,8 +143,6 @@
         .bill-body {
             padding: 30px 25px 0;
         }
-
-
 
         table.add-border tr {
             border-top: 1px solid var(--theme-color);

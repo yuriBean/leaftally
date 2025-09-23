@@ -30,7 +30,6 @@
                 {{ Form::select('type',$types,null, array('class' => 'form-control select cattype','required'=>'required')) }}
             </div>
 
-
             <div class="form-group col-md-12 account {{$category->type =='product & service'? 'd-none':''}}">
                 {{Form::label('chart_account_id',__('Account'),['class'=>'form-label'])}}
                 <select class="form-control select" name="chart_account" id="chart_account" >
@@ -41,7 +40,7 @@
            <div class="form-group col-md-12">
     {{ Form::label('color', __('Category Color'), ['class' => 'form-label']) }}<x-required></x-required>
     @php
-        $current = ltrim((string)($category->color ?? ''), '#'); // normalize for comparison
+        $current = ltrim((string)($category->color ?? ''), '#');
     @endphp
     <div class="row gutters-xs">
         @foreach (App\Models\Utility::templateData()['colors'] as $key => $hexNoHash)
@@ -62,7 +61,6 @@
     <small class="text-muted d-block mt-1">{{ __('For chart representation') }}</small>
 </div>
 
-
         </div>
     </div>
 </div>
@@ -73,8 +71,6 @@
 {{ Form::close() }}
 
 <script>
-
-    //hide & show chartofaccount
 
     $(document).on('click', '.cattype', function ()
     {

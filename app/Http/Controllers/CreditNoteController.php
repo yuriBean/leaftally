@@ -14,7 +14,6 @@ class CreditNoteController extends Controller
         $this->middleware('auth');
     }
 
-    /** Safely fetch an invoice including soft-deleted ones */
     protected function findInvoiceWithTrashed($id)
     {
         try {
@@ -24,7 +23,6 @@ class CreditNoteController extends Controller
         }
     }
 
-    /** True if the model is soft-deleted */
     protected function isTrashed($model): bool
     {
         return $model && method_exists($model, 'trashed') && $model->trashed();
@@ -33,7 +31,6 @@ class CreditNoteController extends Controller
     public function index()
     {
         if (\Auth::user()->can('manage credit note')) {
-            // Show active invoices list (standard behavior)
             $invoices = Invoice::where('created_by', \Auth::user()->creatorId())->get();
 
             return view('creditNote.index', compact('invoices'));
@@ -119,7 +116,6 @@ class CreditNoteController extends Controller
         }
 
         $credit = CreditNote::find($creditNote_id);
-        // rollback previous effect
         Utility::updateUserBalance('customer', $invoice->customer_id, $credit->amount, 'debit');
 
         $credit->date        = $request->date;
@@ -127,7 +123,6 @@ class CreditNoteController extends Controller
         $credit->description = $request->description;
         $credit->save();
 
-        // apply new effect
         Utility::updateUserBalance('customer', $invoice->customer_id, $request->amount, 'credit');
 
         return redirect()->back()->with('success', __('Credit Note successfully updated.'));
@@ -154,7 +149,6 @@ class CreditNoteController extends Controller
             return redirect()->back()->with('error', __('Permission denied.'));
         }
 
-        // Only active invoices in the dropdown
         $invoices = Invoice::where('created_by', \Auth::user()->creatorId())->get()->pluck('invoice_id', 'id');
         return view('creditNote.custom_create', compact('invoices'));
     }

@@ -42,14 +42,14 @@
             --theme-color: {{ $color }};
             --theme-light: {{ $color }}20;
             --theme-gradient: linear-gradient(135deg, {{ $color }} 0%, {{ $color }}DD 100%);
-            --white: #ffffff;
-            --black: #1a1a1a;
-            --gray-50: #f9fafb;
-            --gray-100: #f3f4f6;
-            --gray-200: #e5e7eb;
-            --gray-300: #d1d5db;
-            --gray-600: #4b5563;
-            --gray-800: #1f2937;
+            --white:
+            --black:
+            --gray-50:
+            --gray-100:
+            --gray-200:
+            --gray-300:
+            --gray-600:
+            --gray-800:
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
             --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
@@ -60,7 +60,7 @@
             font-size: 14px;
             line-height: 1.6;
             color: var(--gray-800);
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg,
             min-height: 100vh;
             padding: 20px 0;
         }
@@ -96,7 +96,7 @@
             padding: 0.75rem;
             text-align: left;
             font-size: 12px;
-            overflow-wrap: break-word; /* Allow word breaks for long text */
+            overflow-wrap: break-word; 
         }
 
         table th small {
@@ -258,16 +258,16 @@
 
         table.add-border tr {
             border-top: 1px solid var(--theme-color);
-            page-break-inside: auto; /* Allow natural breaks */
+            page-break-inside: auto; 
         }
 
         .itm-description {
-            border-top: none; /* Remove top border for description row */
+            border-top: none; 
         }
 
         .itm-description td {
-            padding: 0.25rem 0.75rem; /* Reduced padding for better fit */
-            font-size: 11px; /* Slightly smaller font for descriptions */
+            padding: 0.25rem 0.75rem; 
+            font-size: 11px; 
         }
 
         tfoot tr:first-of-type {
@@ -384,17 +384,17 @@
         }
 
         .badge-paid {
-            background: #10b981;
+            background:
             color: white;
         }
 
         .badge-pending {
-            background: #f59e0b;
+            background:
             color: white;
         }
 
         .badge-overdue {
-            background: #ef4444;
+            background:
             color: white;
         }
 
@@ -454,7 +454,6 @@
                                     {{ __('RETAINER') }}
                                 </h1>
                                 <div style="font-size: 18px; font-weight: 500; margin-top: 8px; opacity: 0.9;">
-                                    #{{ Utility::retainerNumberFormat($settings, $retainer->retainer_id) }}
                                 </div>
                             </div>
                         </td>

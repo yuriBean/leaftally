@@ -9,21 +9,16 @@ use Illuminate\Support\Str;
 
 class TwoFactorController extends Controller
 {
-    /**
-     * Show the setup screen with a pending (ephemeral) secret and a QR image URL.
-     */
     public function showSetup(Request $request)
     {
         $user = $request->user();
 
-        // If already enabled, send back to profile
         if (!empty($user->two_factor_secret)) {
             return redirect()
                 ->route('profile')
                 ->with('status', __('Two-factor is already enabled.'));
         }
 
-        // Keep secret only in the session until user confirms
         $secret = $request->session()->get('2fa_secret');
         if (!$secret) {
             $secret = $this->generateSecret();
@@ -34,8 +29,6 @@ class TwoFactorController extends Controller
         $label   = rawurlencode($user->email);
         $otpauth = "otpauth://totp/{$issuer}:{$label}?secret={$secret}&issuer={$issuer}&digits=6&period=30";
 
-        // Simple QR via public endpoint (keeps controller dependency-free).
-        // If you later add BaconQrCode, swap this with an inline SVG data URI.
         $qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=' . urlencode($otpauth);
 
         return view('auth.twofactor.setup', [
@@ -45,9 +38,6 @@ class TwoFactorController extends Controller
         ]);
     }
 
-    /**
-     * Confirm code and enable 2FA (persists encrypted secret + recovery codes).
-     */
     public function enable(Request $request)
     {
         $request->validate([
@@ -74,18 +64,13 @@ class TwoFactorController extends Controller
         $user->two_factor_recovery_codes  = Crypt::encryptString(json_encode($this->generateRecoveryCodes()));
         $user->save();
 
-        // Clear pending secret from session
         $request->session()->forget('2fa_secret');
 
-        // ✅ IMPORTANT: return a RedirectResponse (not a string) and let the view handle scrolling/anchor
         return redirect()
             ->route('profile')
             ->with('success', __('Two-factor authentication enabled.'));
     }
 
-    /**
-     * Disable 2FA and clear persisted data.
-     */
     public function disable(Request $request)
     {
         $user = $request->user();
@@ -95,15 +80,11 @@ class TwoFactorController extends Controller
         $user->two_factor_confirmed_at   = null;
         $user->save();
 
-        // Also clear any pending session secret just in case
         $request->session()->forget('2fa_secret');
 
         return back()->with('status', __('Two-factor disabled.'));
     }
 
-    /**
-     * Regenerate recovery codes while keeping 2FA enabled.
-     */
     public function regenerateRecoveryCodes(Request $request)
     {
         $user = $request->user();
@@ -118,11 +99,8 @@ class TwoFactorController extends Controller
         return back()->with('status', __('New recovery codes generated.'));
     }
 
-    // ---------- Helpers (no external packages) ----------
-
     private function generateSecret(int $length = 16): string
     {
-        // RFC 3548 base32 (A–Z, 2–7)
         $alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
         $secret = '';
         for ($i = 0; $i < $length; $i++) {

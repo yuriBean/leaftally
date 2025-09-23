@@ -1,159 +1,118 @@
-/* Font Standardization for LeafTally Application */
-/* This file ensures consistent typography across all pages */
 
-/* ===== GLOBAL TYPOGRAPHY HIERARCHY ===== */
 
-/* Page Titles */
 h1, .page-title {
     @apply text-2xl font-bold !important;
 }
 
-/* Section Headers */
 h2, .section-header {
     @apply text-xl font-semibold !important;
 }
 
-/* Subsection Headers */
 h3, .subsection-header {
     @apply text-lg font-semibold !important;
 }
 
-/* Card Headers */
 h4, .card-header, .modal-header h5 {
     @apply text-base font-semibold !important;
 }
 
-/* Small Headers */
 h5, h6, .small-header {
     @apply text-sm font-semibold !important;
 }
 
-/* ===== FORM ELEMENTS ===== */
-
-/* Form Labels */
 .form-label, label:not(.btn):not(.form-check-label) {
     @apply text-sm font-medium text-gray-700 !important;
 }
 
-/* Form Inputs */
 .form-control, input[type="text"], input[type="email"], 
 input[type="password"], input[type="number"], textarea, select {
     @apply text-sm !important;
 }
 
-/* Form Help Text */
 .form-text, .help-text, small:not(.text-danger) {
     @apply text-xs text-gray-500 !important;
 }
 
-/* Error Messages */
 .invalid-feedback, .text-danger, .error {
     @apply text-xs text-red-600 !important;
 }
 
-/* ===== BUTTONS ===== */
-
-/* Primary Buttons */
 .btn-primary, .btn.bg-primary, 
 .btn.bg-\[\#007C38\], input[type="submit"].btn {
     @apply text-sm font-medium !important;
 }
 
-/* Secondary Buttons */
 .btn-secondary, .btn-light, .btn-outline-primary,
 input[type="button"].btn {
     @apply text-sm font-medium !important;
 }
 
-/* Small Buttons */
 .btn-sm {
     @apply text-xs font-medium !important;
 }
 
-/* Large Buttons */
 .btn-lg {
     @apply text-base font-medium !important;
 }
 
-/* ===== TABLES ===== */
-
-/* Table Headers */
 table thead th, .table th, 
 th[class*="border-\[\#E5E5E5\]"] {
     @apply text-xs font-semibold uppercase text-gray-700 !important;
 }
 
-/* Table Body */
 table tbody td, .table td,
 td[class*="border-\[\#E5E5E5\]"] {
     @apply text-sm font-normal text-gray-700 !important;
 }
 
-/* Table Captions */
 table caption, .table-caption {
     @apply text-xs font-normal text-gray-500 !important;
 }
 
-/* ===== NAVIGATION ===== */
-
-/* Main Navigation */
 .navbar-nav .nav-link, .sidebar-menu a {
     @apply text-sm font-medium !important;
 }
 
-/* Breadcrumbs */
 .breadcrumb-item {
     @apply text-sm !important;
 }
 
-/* Dropdown Items */
 .dropdown-item {
     @apply text-sm !important;
 }
 
-/* ===== CARDS & MODALS ===== */
-
-/* Card Titles */
 .card-title {
     @apply text-lg font-semibold !important;
 }
 
-/* Card Body Text */
 .card-body p, .modal-body p {
     @apply text-sm !important;
 }
 
-/* Modal Titles */
 .modal-title {
     @apply text-lg font-semibold !important;
 }
 
-/* ===== UTILITY OVERRIDES ===== */
-
-/* Remove inline font-size styles where possible */
 [style*="font-size: 12px"] {
-    font-size: 0.75rem !important; /* text-xs */
+    font-size: 0.75rem !important; 
 }
 
 [style*="font-size: 13px"] {
-    font-size: 0.875rem !important; /* text-sm */
+    font-size: 0.875rem !important; 
 }
 
 [style*="font-size: 14px"] {
-    font-size: 0.875rem !important; /* text-sm */
+    font-size: 0.875rem !important; 
 }
 
 [style*="font-size: 16px"] {
-    font-size: 1rem !important; /* text-base */
+    font-size: 1rem !important; 
 }
 
 [style*="font-size: 18px"] {
-    font-size: 1.125rem !important; /* text-lg */
+    font-size: 1.125rem !important; 
 }
 
-/* ===== SPECIFIC COMPONENT FIXES ===== */
-
-/* Fix custom arbitrary values */
 .text-\[12px\] {
     @apply text-xs !important;
 }
@@ -174,7 +133,6 @@ table caption, .table-caption {
     @apply font-bold !important;
 }
 
-/* Dashboard specific */
 .dashboard-card h3 {
     @apply text-lg font-semibold !important;
 }
@@ -187,7 +145,6 @@ table caption, .table-caption {
     @apply text-sm text-gray-600 !important;
 }
 
-/* DataTable specific */
 .datatable th {
     @apply text-xs font-semibold uppercase !important;
 }
@@ -196,22 +153,17 @@ table caption, .table-caption {
     @apply text-sm !important;
 }
 
-/* Badge standardization */
 .badge {
     @apply text-xs font-medium !important;
 }
 
-/* Alert messages */
 .alert {
     @apply text-sm !important;
 }
 
-/* Tooltips */
 .tooltip {
     @apply text-xs !important;
 }
-
-/* ===== RESPONSIVE ADJUSTMENTS ===== */
 
 @media (max-width: 768px) {
     h1, .page-title {
@@ -226,8 +178,6 @@ table caption, .table-caption {
         @apply text-base !important;
     }
 }
-
-/* ===== PRINT STYLES ===== */
 
 @media print {
     body {

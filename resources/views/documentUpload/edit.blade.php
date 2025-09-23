@@ -55,7 +55,6 @@
 </div>
 {{Form::close()}}
 
-
 <script>
     document.getElementById('document').onchange = function () {
         var src = URL.createObjectURL(this.files[0])

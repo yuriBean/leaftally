@@ -43,7 +43,6 @@ class InvoiceController extends Controller
             return redirect()->back()->with('error', __('Permission Denied.'));
         }
 
-        // Create-blade behavior: show only active (non-deleted) options
         $customer = TrashedSelect::activeOptions(Customer::class, \Auth::user()->creatorId())->prepend('Select Customer', '');
 
         $status = Invoice::$statues;
@@ -79,7 +78,6 @@ class InvoiceController extends Controller
         $customFields   = CustomField::where('created_by', '=', \Auth::user()->creatorId())->where('module', '=', 'invoice')->get();
         $invoice_number = \Auth::user()->invoiceNumberFormat($this->invoiceNumber());
 
-        // Create forms must IGNORE deleted:
         $customers = TrashedSelect::activeOptions(Customer::class, \Auth::user()->creatorId())->prepend('Select Customer', '');
         $category  = TrashedSelect::activeOptions(ProductServiceCategory::class, \Auth::user()->creatorId(), 'name', ['type' => 'income'])->prepend('Select Category', '');
         $product_services = TrashedSelect::activeOptions(ProductService::class, \Auth::user()->creatorId())->prepend('--', '');
@@ -99,14 +97,12 @@ class InvoiceController extends Controller
 
     public function customer(Request $request)
     {
-        // Safe fetch (includes soft-deleted)
         $customer = TrashedSelect::findWithTrashed(Customer::class, $request->id);
         return view('invoice.customer_detail', compact('customer'));
     }
 
     public function product(Request $request)
     {
-        // Safe fetch (includes soft-deleted to avoid blanks on edit)
         $product = TrashedSelect::findWithTrashed(ProductService::class, $request->product_id);
 
         $data                 = [];
@@ -180,11 +176,9 @@ class InvoiceController extends Controller
             $invoiceProduct->description = $products[$i]['description'];
             $invoiceProduct->save();
 
-            // Adjust stock only if product currently exists (ignore if it was deleted)
             if (ProductService::where('id', $invoiceProduct->product_id)->exists()) {
                 Utility::total_quantity('minus', $invoiceProduct->quantity, $invoiceProduct->product_id);
 
-                // Product Stock Report
                 $type        = 'invoice';
                 $type_id     = $invoice->id;
                 $description = $invoiceProduct->quantity . '  ' . __(' quantity sold in invoice') . ' ' . \Auth::user()->invoiceNumberFormat($invoice->invoice_id);
@@ -192,7 +186,6 @@ class InvoiceController extends Controller
             }
         }
 
-        // Twilio Notification
         $setting  = Utility::settings(\Auth::user()->creatorId());
         $customer = Customer::find($request->customer_id);
         $invoiceId    = Crypt::encrypt($invoice->id);
@@ -206,7 +199,6 @@ class InvoiceController extends Controller
             Utility::send_twilio_msg($customer->contact, 'new_invoice', $uArr);
         }
 
-        // webhook
         $module  = 'New Invoice';
         $webhook = Utility::webhookSetting($module);
         if ($webhook) {
@@ -234,7 +226,6 @@ class InvoiceController extends Controller
 
         $invoice_number = \Auth::user()->invoiceNumberFormat($invoice->invoice_id);
 
-        // EDIT forms must show active + USED-deleted labeled "(deleted)"
         $customers = TrashedSelect::optionsWithUsed(
             Customer::class,
             \Auth::user()->creatorId(),
@@ -249,7 +240,6 @@ class InvoiceController extends Controller
             ['type' => 'income']
         )->prepend('Select Category', '');
 
-        // Products: include used trashed ones
         $usedIds = InvoiceProduct::where('invoice_id', $invoice->id)
             ->pluck('product_id')
             ->filter()
@@ -263,13 +253,12 @@ class InvoiceController extends Controller
             $usedIds
         );
 
-        // For UI badges (optional)
         $trashedUsed = ProductService::onlyTrashed()
             ->where('created_by', \Auth::user()->creatorId())
             ->whereIn('id', $usedIds)
             ->get(['id']);
         $deletedProductIds = $trashedUsed->pluck('id')->all();
-        $staleProductIds   = []; // (kept for compatibility)
+        $staleProductIds   = [];
 
         $invoice->customField = CustomField::getData($invoice, 'invoice');
         $customFields         = CustomField::where('created_by', '=', \Auth::user()->creatorId())->where('module', '=', 'invoice')->get();
@@ -327,7 +316,6 @@ class InvoiceController extends Controller
             $invoiceProduct = InvoiceProduct::find($products[$i]['id']);
 
             if ($invoiceProduct == null) {
-                // New line
                 $invoiceProduct             = new InvoiceProduct();
                 $invoiceProduct->invoice_id = $invoice->id;
 
@@ -338,13 +326,11 @@ class InvoiceController extends Controller
                 $updatePrice = ($products[$i]['price'] * $products[$i]['quantity']) + ($products[$i]['itemTaxPrice']) - ($products[$i]['discount']);
                 Utility::updateUserBalance('customer', $request->customer_id, $updatePrice, 'credit');
             } else {
-                // Revert previous quantity from the old product ONLY if product still exists
                 if (ProductService::where('id', $invoiceProduct->product_id)->exists()) {
                     Utility::total_quantity('minus', $invoiceProduct->quantity, $invoiceProduct->product_id);
                 }
             }
 
-            // Only set product if provided AND product still exists (prevent selecting deleted in edit)
             if (isset($products[$i]['item']) && ProductService::where('id', $products[$i]['item'])->exists()) {
                 $invoiceProduct->product_id = $products[$i]['item'];
             }
@@ -356,7 +342,6 @@ class InvoiceController extends Controller
             $invoiceProduct->description = $products[$i]['description'];
             $invoiceProduct->save();
 
-            // inventory management (Quantity)
             if (!empty($products[$i]['id']) && $products[$i]['id'] > 0) {
                 if (ProductService::where('id', $invoiceProduct->product_id)->exists()) {
                     Utility::total_quantity('plus', $products[$i]['quantity'], $invoiceProduct->product_id);
@@ -367,7 +352,6 @@ class InvoiceController extends Controller
                 }
             }
 
-            // Product Stock Report
             $type    = 'invoice';
             $type_id = $invoice->id;
             StockReport::where('type', '=', 'invoice')->where('type_id', '=', $invoice->id)->delete();
@@ -387,7 +371,6 @@ class InvoiceController extends Controller
         foreach ($invoice_products as $invoice_product) {
             $product = ProductService::find($invoice_product->product_id);
             if (!$product) {
-                // If the product no longer exists, skip creating transaction lines for it.
                 continue;
             }
             $totalTaxPrice = 0;
@@ -505,7 +488,6 @@ class InvoiceController extends Controller
 
         Utility::updateUserBalance('customer', $invoice->customer_id, $request->amount, 'debit');
 
-        // Use stored product_id directly (works even if product was deleted)
         TransactionLines::where('reference_sub_id', $invoiceProduct->product_id)->where('reference', 'Invoice')->delete();
 
         InvoiceProduct::where('id', '=', $request->id)->delete();
@@ -582,7 +564,6 @@ class InvoiceController extends Controller
         foreach ($invoice_products as $invoice_product) {
             $product = ProductService::find($invoice_product->product_id);
             if (!$product) {
-                // If the product was deleted, skip ledger entry but keep the invoice intact
                 continue;
             }
             $totalTaxPrice = 0;
@@ -838,7 +819,6 @@ class InvoiceController extends Controller
             $smtp_error = __('E-Mail has been not sent due to SMTP configuration');
         }
 
-        //Twilio Notification
         $setting  = Utility::settings(\Auth::user()->creatorId());
         $customer = Customer::find($invoice->customer_id);
         if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -1029,13 +1009,11 @@ class InvoiceController extends Controller
         $color      = '#' . $color;
         $font_color = Utility::getFontColor($color);
 
-        // Get font from request or use default
         $font = $request->get('font', 'Inter');
 
         $logo         = asset(Storage::url('uploads/logo/'));
         $company_logo = Utility::getValByName('company_logo_dark');
 
-        // Get user-specific invoice logo
         $settings_data = \App\Models\Utility::settingsById($objUser->creatorId());
         $invoice_logo = isset($settings_data['invoice_logo']) ? $settings_data['invoice_logo'] : null;
 
@@ -1124,7 +1102,6 @@ class InvoiceController extends Controller
             $customFields = CustomField::where('created_by', '=', \Auth::user()->creatorId())->where('module', '=', 'invoice')->get();
         }
 
-        //Set your logo
         $logo          = asset(Storage::url('uploads/logo/'));
         $company_logo  = Utility::getValByName('company_logo_dark');
         $settings_data = \App\Models\Utility::settingsById($invoice->created_by);
@@ -1366,7 +1343,6 @@ class InvoiceController extends Controller
         $invoice->totalDiscount = $totalDiscount;
         $invoice->taxesData     = $taxesData;
 
-        //Set your logo
         $logo          = asset(Storage::url('uploads/logo/'));
         $company_logo  = Utility::getValByName('company_logo_dark');
         $settings_data = \App\Models\Utility::settingsById($invoice->created_by);
@@ -1419,7 +1395,6 @@ class InvoiceController extends Controller
 
     public function exportSelected(Request $request)
     {
-        // ids may be "1,2,3" or ["1","2","3"]
         $raw = $request->input('ids', []);
         $ids = collect(is_array($raw) ? $raw : explode(',', (string) $raw))
             ->flatMap(fn ($v) => is_string($v) && str_contains($v, ',') ? explode(',', $v) : [$v])

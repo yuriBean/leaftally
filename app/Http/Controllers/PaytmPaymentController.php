@@ -36,7 +36,6 @@ class PaytmPaymentController extends Controller
         }
     }
 
-
     public function planPayWithPaytm(Request $request)
     {
         $payment    = $this->paymentConfig();
@@ -116,7 +115,6 @@ class PaytmPaymentController extends Controller
                             $userCoupon->order  = $orderID;
                             $userCoupon->save();
 
-
                             $usedCoupun = $coupons->used_coupon();
                             if ($coupons->limit <= $usedCoupun) {
                                 $coupons->is_active = 0;
@@ -126,7 +124,6 @@ class PaytmPaymentController extends Controller
                     }
                     Utility::referralTransaction($plan);
                     $order                 = new Order();
-
 
                     $order->order_id       = $orderID;
                     $order->name           = isset($user->name) ? $user->name : '';
@@ -189,13 +186,10 @@ class PaytmPaymentController extends Controller
             $orderID  = strtoupper(str_replace('.', '', uniqid('', true)));
 
             $price = $request->amount;
-            // $call_back = route('customer.invoice.paytm',[$request->invoice_id,$price,'&_token='.csrf_token()]);
             if ($price > 0) {
                 $call_back = route('retainer.paytm', [$request->retainer_id, $price, '&_token=' . csrf_token()]);
 
-
                 $payment   = PaytmWallet::with('receive');
-
 
                 $payment->prepare(
                     [
@@ -208,8 +202,6 @@ class PaytmPaymentController extends Controller
                         'callback_url' => $call_back,
                     ]
                 );
-
-
 
                 return $payment->receive();
             } else {
@@ -254,7 +246,6 @@ class PaytmPaymentController extends Controller
         if ($retainer) {
             try {
 
-
                 $payments = RetainerPayment::create(
                     [
                         'retainer_id' => $retainer->id,
@@ -282,8 +273,6 @@ class PaytmPaymentController extends Controller
 
                 Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-                //  Twilio Notification
-
                 $setting  = Utility::settingsById($objUser->creatorId());
                 $customer = Customer::find($retainer->customer_id);
                 if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -299,7 +288,6 @@ class PaytmPaymentController extends Controller
                     Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $retainer->created_by);
                 }
 
-                // webhook
                 $module = 'New Payment';
 
                 $webhook =  Utility::webhookSetting($module, $retainer->created_by);
@@ -308,14 +296,7 @@ class PaytmPaymentController extends Controller
 
                     $parameter = json_encode($retainer);
 
-                    // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-
                     $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
-                    // if ($status == true) {
-                    //     return redirect()->route('payment.index')->with('success', __('Payment successfully created.') . ((isset($smtp_error)) ? '<br> <span class="text-danger">' . $smtp_error . '</span>' : ''));
-                    // } else {
-                    //     return redirect()->back()->with('error', __('Webhook call failed.'));
-                    // }
                 }
                 if (Auth::check()) {
                     return redirect()->route('customer.retainer.show', \Crypt::encrypt($retainer->id))->with('success', __('Payment successfully added.'));
@@ -337,8 +318,6 @@ class PaytmPaymentController extends Controller
 
         $invoiceID = \Illuminate\Support\Facades\Crypt::decrypt($request->invoice_id);
         $invoice   = Invoice::find($invoiceID);
-
-
 
         if ($invoice) {
 
@@ -362,9 +341,7 @@ class PaytmPaymentController extends Controller
 
             $orderID  = strtoupper(str_replace('.', '', uniqid('', true)));
 
-
             $price = $request->amount;
-            // dd($price);
             if ($price > 0) {
                 $call_back = route('customer.invoice.paytm', [$request->invoice_id, $price, '&_token=' . csrf_token()]);
 
@@ -382,7 +359,6 @@ class PaytmPaymentController extends Controller
                     ]
                 );
 
-
                 return $payment->receive();
             } else {
                 $res['msg']  = __("Enter valid amount.");
@@ -397,7 +373,6 @@ class PaytmPaymentController extends Controller
 
     public function getInvoicePaymentStatus(Request $request, $invoice_id, $amount)
     {
-
 
         $invoiceID = \Illuminate\Support\Facades\Crypt::decrypt($invoice_id);
         $invoice   = Invoice::find($invoiceID);
@@ -424,12 +399,10 @@ class PaytmPaymentController extends Controller
         }
         $orderID  = strtoupper(str_replace('.', '', uniqid('', true)));
 
-
         if ($invoice) {
             try {
 
                 $transaction = PaytmWallet::with('receive');
-
 
                 $payments = InvoicePayment::create(
                     [
@@ -458,8 +431,6 @@ class PaytmPaymentController extends Controller
 
                 Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-                //  Twilio Notification
-
                 $setting  = Utility::settingsById($objUser->creatorId());
                 $customer = Customer::find($invoice->customer_id);
                 if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -475,7 +446,6 @@ class PaytmPaymentController extends Controller
                     Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $invoice->created_by);
                 }
 
-                // webhook
                 $module = 'New Payment';
 
                 $webhook =  Utility::webhookSetting($module, $invoice->created_by);
@@ -484,14 +454,7 @@ class PaytmPaymentController extends Controller
 
                     $parameter = json_encode($invoice);
 
-                    // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-
                     $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
-                    // if ($status == true) {
-                    //     return redirect()->route('payment.index')->with('success', __('Payment successfully created.') . ((isset($smtp_error)) ? '<br> <span class="text-danger">' . $smtp_error . '</span>' : ''));
-                    // } else {
-                    //     return redirect()->back()->with('error', __('Webhook call failed.'));
-                    // }
                 }
 
                 if (Auth::check()) {
@@ -500,7 +463,6 @@ class PaytmPaymentController extends Controller
                     return redirect()->back()->with('success', __(' Payment successfully added.'));
                 }
             } catch (\Exception $e) {
-                // dd($e);
                 if (Auth::check()) {
                     return redirect()->route('invoice.show', \Crypt::encrypt($invoice->id))->with('error', __('Transaction has been failed.'));
                 } else {

@@ -56,7 +56,6 @@
 </div>
 {{ Form::close() }}
 
-
 <script src="{{ asset('assets/js/plugins/choices.min.js') }}"></script>
 <script>
     if ($(".multi-select").length > 0) {

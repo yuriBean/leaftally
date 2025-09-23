@@ -46,9 +46,6 @@ class BomController extends Controller
 
         $code = $this->nextCode();
 
-        // Separate options:
-        // - Raw list contains material_type IN ('raw','both')
-        // - Finished list contains material_type IN ('finished','both')
         $creatorId = \Auth::user()->creatorId();
 
         $rawProducts = ProductService::query()
@@ -130,10 +127,8 @@ class BomController extends Controller
         $this->authorize('manage bom');
         abort_unless($bom->created_by == \Auth::user()->creatorId(), 403);
 
-        // Load raw relations first
         $bom->load(['inputs','outputs']);
 
-        // Attach product even if soft-deleted; also load unit if present
         foreach ($bom->inputs as $in) {
             $prod = TrashedSelect::findWithTrashed(ProductService::class, $in->product_id);
             if ($prod) $prod->loadMissing('unit');
@@ -157,8 +152,6 @@ class BomController extends Controller
 
         $creatorId = \Auth::user()->creatorId();
 
-        // Build separate option lists and ensure currently used products are present,
-        // even if they don't match the current filters or are trashed.
         $usedInputIds  = $bom->inputs->pluck('product_id')->filter()->unique()->values()->all();
         $usedOutputIds = $bom->outputs->pluck('product_id')->filter()->unique()->values()->all();
 
@@ -178,7 +171,6 @@ class BomController extends Controller
             ->orderBy('name')
             ->pluck('name', 'id');
 
-        // Add back any currently used inputs/outputs (even if trashed or filtered out)
         if (!empty($usedInputIds)) {
             $usedInputs = ProductService::withTrashed()
                 ->whereIn('id', $usedInputIds)
@@ -200,7 +192,6 @@ class BomController extends Controller
             }
         }
 
-        // Prepend "Select Item"
         $rawProducts = collect(['' => __('Select Item')]) + $rawProducts;
         $finishedProducts = collect(['' => __('Select Item')]) + $finishedProducts;
 
@@ -300,7 +291,6 @@ class BomController extends Controller
         return back()->with('success', __('BOM duplicated.'));
     }
 
-    // JSON for Production create preview
     public function details(Bom $bom)
     {
         abort_unless($bom->created_by == \Auth::user()->creatorId(), 403);
@@ -350,7 +340,6 @@ class BomController extends Controller
         return [true, null];
     }
 
-    // --- Export ALL BOMs ---
     public function export()
     {
         $this->authorize('manage bom');
@@ -363,7 +352,6 @@ class BomController extends Controller
         return Excel::download(new BomExport(), $filename);
     }
 
-    // --- Export SELECTED BOMs ---
     public function exportSelected(Request $request)
     {
         $this->authorize('manage bom');
@@ -388,7 +376,6 @@ class BomController extends Controller
         return Excel::download(new BomExport($ids), $filename);
     }
 
-    // --- BULK DELETE BOMs ---
     public function bulkDestroy(Request $request)
     {
         $this->authorize('delete bom');
@@ -411,7 +398,6 @@ class BomController extends Controller
 
         $deleted = 0;
         foreach ($boms as $bom) {
-            // remove children first to be safe
             $bom->inputs()->delete();
             $bom->outputs()->delete();
             $bom->delete();

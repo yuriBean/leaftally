@@ -11,8 +11,7 @@
 @endsection
 @push('css-page')
     <style>
-        #card-element {
-            border: 1px solid #a3afbb !important;
+            border: 1px solid
             border-radius: 10px !important;
             padding: 10px !important;
         }
@@ -34,24 +33,19 @@
             var stripe = Stripe('{{ $company_payment_setting['stripe_key'] }}');
             var elements = stripe.elements();
 
-            // Custom styling can be passed to options when creating an Element.
             var style = {
                 base: {
-                    // Add your base input styles here. For example:
                     fontSize: '14px',
                     color: '#32325d',
                 },
             };
 
-            // Create an instance of the card Element.
             var card = elements.create('card', {
                 style: style
             });
 
-            // Add an instance of the card Element into the `card-element` <div>.
             card.mount('#card-element');
 
-            // Create a token or display an error when the form is submitted.
             var form = document.getElementById('payment-form');
             form.addEventListener('submit', function(event) {
                 event.preventDefault();
@@ -61,14 +55,12 @@
                         $("#card-errors").html(result.error.message);
                         show_toastr('error', result.error.message, 'error');
                     } else {
-                        // Send the token to your server.
                         stripeTokenHandler(result.token);
                     }
                 });
             });
 
             function stripeTokenHandler(token) {
-                // Insert the token ID into the form so it gets submitted to the server
                 var form = document.getElementById('payment-form');
                 var hiddenInput = document.createElement('input');
                 hiddenInput.setAttribute('type', 'hidden');
@@ -76,7 +68,6 @@
                 hiddenInput.setAttribute('value', token.id);
                 form.appendChild(hiddenInput);
 
-                // Submit the form
                 form.submit();
             }
         @endif
@@ -87,7 +78,6 @@
                 $('#paystack-payment-form').ajaxForm(function(res) {
                     var amount = res.total_price;
                     if (res.flag == 1) {
-                        // var paystack_callback = "{{ url('customer/invoice/paystack') }}";
 
                         var handler = PaystackPop.setup({
                             key: '{{ $company_payment_setting['paystack_public_key'] }}',
@@ -111,8 +101,6 @@
                                     '{{ \Illuminate\Support\Facades\Crypt::encrypt($invoice->id) }}' +
                                     '/' + amount + '/' + response.reference;
 
-                                // window.location.href = paystack_callback + '/' + response.reference + '/' + '{{ encrypt($invoice->id) }}' +
-                                // '?amount=' + amount;
                             },
                             onClose: function() {
                                 alert('window closed');
@@ -131,7 +119,6 @@
 
         @if (isset($company_payment_setting['is_flutterwave_enabled']) &&
                 $company_payment_setting['is_flutterwave_enabled'] == 'on')
-            // Flaterwave Payment
             $(document).on("click", "#pay_with_flaterwave", function() {
                 $('#flaterwave-payment-form').ajaxForm(function(res) {
 
@@ -140,7 +127,6 @@
                         var amount = res.total_price;
                         var API_publicKey = '{{ $company_payment_setting['flutterwave_public_key'] }}';
                         var nowTim = "{{ date('d-m-Y-h-i-a') }}";
-                        // var flutter_callback = "{{ url('/customer/invoice/flaterwave') }}";
                         var x = getpaidSetup({
                             PBFPubKey: API_publicKey,
                             customer_email: '{{ $invoice->customer->email }}',
@@ -163,13 +149,10 @@
                                         '{{ url('customer/invoice/flaterwave') }}' + '/' +
                                         '{{ \Illuminate\Support\Facades\Crypt::encrypt($invoice->id) }}' +
                                         '/' + txref;
-                                    // window.location.href = flutter_callback + '/' + txref + '/' +
-                                    // '{{ \Illuminate\Support\Facades\Crypt::encrypt($invoice->id) }}'+ '?amount=' + amount;
                                 } else {
-                                    // redirect to a failure page.
                                 }
                                 x
-                                    .close(); // use this to close the modal immediately after payment.
+                                    .close();
                             }
                         });
                     } else if (res.flag == 2) {
@@ -183,16 +166,14 @@
         @endif
 
         @if (isset($company_payment_setting['razorpay_public_key']))
-            // Razorpay Payment
             $(document).on("click", "#pay_with_razorpay", function() {
                 $('#razorpay-payment-form').ajaxForm(function(res) {
                     if (res.flag == 1) {
                         var amount = res.total_price;
-                        // var razorPay_callback = '{{ url('/invoice/razorpay') }}';
                         var totalAmount = res.total_price * 100;
                         var coupon_id = res.coupon;
                         var options = {
-                            "key": "{{ $company_payment_setting['razorpay_public_key'] }}", // your Razorpay Key Id
+                            "key": "{{ $company_payment_setting['razorpay_public_key'] }}",
                             "amount": totalAmount,
                             "name": 'Plan',
                             "currency": '{{ App\Models\Utility::getValByName('site_currency') }}',
@@ -202,8 +183,6 @@
                                     '/' +
                                     '{{ \Illuminate\Support\Facades\Crypt::encrypt($invoice->id) }}' +
                                     '/' + amount;
-                                // window.location.href = '{{ route('customer.invoice.razorpay', ['response.razorpay_payment_id', \Illuminate\Support\Facades\Crypt::encrypt($invoice->id)], 'amount') }}' ;
-                                // window.location.href = razorPay_callback + '/' + response.razorpay_payment_id + '/' + '{{ \Illuminate\Support\Facades\Crypt::encrypt($invoice->id) }}' + '?amount=' + amount;
                             },
                             "theme": {
                                 "color": "#528FF0"
@@ -217,13 +196,10 @@
                         toastrs('Error', data.message, 'msg');
                     }
 
-
-
                     @if (
                         $company_payment_setting['is_payfast_enabled'] == 'on' &&
                             !empty($company_payment_setting['payfast_merchant_id']) &&
                             !empty($company_payment_setting['payfast_merchant_key']))
-
 
                         function get_payfast_status() {
                             var invoice_id = $('#invoice_id').val();
@@ -257,10 +233,7 @@
             });
         @endif
 
-
         @if (isset($company_payment_setting['is_payfast_enabled']) && $company_payment_setting['is_payfast_enabled'] == 'on')
-
-
 
             function get_payfast_status() {
 
@@ -290,8 +263,6 @@
             }
         @endif
 
-
-
         $('.cp_link').on('click', function() {
             var value = $(this).attr('data-link');
             var $temp = $("<input>");
@@ -313,13 +284,11 @@
                     'is_display': is_display,
                 },
                 success: function(data) {
-                    // console.log(data);
                 }
             });
         })
     </script>
 
-<!-- Khalti Payment -->
 @if (isset($company_payment_setting['is_khalti_enabled']) && $company_payment_setting['is_khalti_enabled'] == 'on')
     <script src="https://khalti.s3.ap-south-1.amazonaws.com/KPG/dist/2020.12.17.0.0.0/khalti-checkout.iffe.js"></script>
 
@@ -422,10 +391,8 @@
             });
         })
 
-
     </script>
 @endif
-<!-- Khalti Payment End -->
 
 @endpush
 
@@ -520,7 +487,6 @@
             </div>
         </div>
     @endif
-
 
     <div class="row justify-content-center">
         <div class="col-10">
@@ -635,8 +601,6 @@
                                     </small>
                                 </div>
 
-
-
                                 @if (!empty($customFields) && count($invoice->customField) > 0)
                                     @foreach ($customFields as $field)
                                         <div class="col text-end">
@@ -656,7 +620,7 @@
                                     <div class="table-responsive mt-2">
                                         <table class="table mb-0 ">
                                             <tr>
-                                                <th data-width="40" class="text-dark">#</th>
+                                                <th data-width="40" class="text-dark">
                                                 <th class="text-dark">{{ __('Product') }}</th>
                                                 <th class="text-dark">{{ __('Quantity') }}</th>
                                                 <th class="text-dark">{{ __('Rate') }}</th>
@@ -768,7 +732,6 @@
                                                         {{ Utility::priceFormat($company_setting, $invoice->getTotalDiscount()) }}
                                                     </td>
                                                 </tr>
-
 
                                                 @if (!empty($taxesData))
                                                     @php
@@ -1101,7 +1064,6 @@
                                                     aria-selected="true">{{ __('Razorpay') }}</button>
                                             </li>
                                         @endif
-
 
                                         @if (isset($company_payment_setting['is_mercado_enabled']) && $company_payment_setting['is_mercado_enabled'] == 'on')
                                             <li class="nav-item mb-2">
@@ -1753,7 +1715,6 @@
                                         </div>
                                     @endif
 
-
                                     @if (
                                         !empty($company_payment_setting) &&
                                             isset($company_payment_setting['is_skrill_enabled']) &&
@@ -1836,7 +1797,6 @@
                                         </div>
                                     @endif
 
-
                                     @if (
                                         !empty($company_payment_setting) &&
                                             isset($company_payment_setting['is_paymentwall_enabled']) &&
@@ -1914,7 +1874,6 @@
                                         </div>
                                     @endif
 
-
                                     @if (
                                         !empty($company_payment_setting) &&
                                             isset($company_payment_setting['is_payfast_enabled']) &&
@@ -1929,7 +1888,6 @@
                                             <form role="form" action={{ 'https://' . $pfHost . '/eng/process' }}
                                                 method="post" id="payfast-payment-form">
                                                 @csrf
-
 
                                                 <div class="form-group col-md-12">
                                                     <label for="amount">{{ __('Amount') }}</label>
@@ -2669,7 +2627,6 @@
                                             </form>
                                         </div>
                                     @endif
-
 
                                 </div>
                             </section>

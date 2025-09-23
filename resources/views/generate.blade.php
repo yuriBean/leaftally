@@ -38,7 +38,6 @@
             </div>
         </div>
 
-
         <div class="col-6 tone">
             <div class="form-group">
                 {{ Form::label('', __('Tone'), ['class' => 'col-form-label']) }}
@@ -144,11 +143,9 @@
 
     }
 
-
     $('body').on('shown.bs.modal', function() {
         $("#commonModalOver input:radio:first").prop("checked", true).trigger("change");
     });
-
 
     $('body').on('change', '.template_name', function() {
         var templateId = $(this).val();
@@ -176,7 +173,6 @@
                 },
             })
     })
-
 
     $('body').on('click', '#generate', function() {
         var form = $("#myForm");

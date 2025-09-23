@@ -68,7 +68,6 @@
                 <div class="col-xl-9">
                     {{--  Start for all settings tab --}}
 
-
                     <div id="guideline" class="card tab-content border-0 rounded-2xl shadow-md overflow-hidden my-3">
       <div class="h-1 w-full" style="background:#007C38;"></div>
                         <div class="card-header">
@@ -121,7 +120,7 @@
                                 <table class="table datatable">
                                     <thead>
                                         <tr>
-                                            <th class="sort px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] font-[600] text-[12px]" >#</th>
+                                            <th class="sort px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] font-[600] text-[12px]" >
                                             <th class="sort px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] font-[600] text-[12px]" >{{ __('Company name') }}</th>
                                             <th class="sort px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] font-[600] text-[12px]" >{{ __('Plan name') }}</th>
                                             <th class="sort px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] font-[600] text-[12px]" >{{ __('Plan price') }}</th>
@@ -207,7 +206,6 @@
                                         </div>
                                     </div>
 
-
                                     <div class="col-lg-6 col-md-12 dashboard-card">
                                         <div class="border border-2 p-3">
                                             <div class="row align-items-center justify-content-between">
@@ -229,11 +227,9 @@
                                         </div>
                                     </div>
 
-
                                 </div>
                             </div>
                         </div>
-
 
                         <div class="card border-0 rounded-2xl overflow-hidden my-3">
                             <div class="h-1 w-full" style="background:#007C38;"></div>
@@ -249,7 +245,7 @@
                                     <table class="table datatable">
                                         <thead>
                                             <tr>
-                                                <th class="sort px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] font-[600] text-[12px]" >#</th>
+                                                <th class="sort px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] font-[600] text-[12px]" >
                                                 <th class="sort px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] font-[600] text-[12px]" >{{ __('Company name') }}</th>
                                                 <th class="sort px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] font-[600] text-[12px]" >{{ __('Requested date') }}</th>
                                                 <th class="sort px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] font-[600] text-[12px]" >{{ __('Status') }}</th>

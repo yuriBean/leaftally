@@ -195,7 +195,6 @@ class FedapayController extends Controller
 
             \FedaPay\FedaPay::setApiKey($api_key);
 
-            // Create Fedapay transaction
             $transaction = \FedaPay\Transaction::create([
                 "description"   => "Invoice Payment",
                 "amount"        => (int)$amount,
@@ -222,10 +221,8 @@ class FedapayController extends Controller
             $setting            = Utility::settingsById($invoice->created_by);
 
             if ($request->status == 'approved') {
-                // Payment is successful
                 $order_id = strtoupper(str_replace('.', '', uniqid('', true)));
 
-                // Record the payment in the database
                 $payments = InvoicePayment::create([
                     'invoice_id'    => $invoice->id,
                     'date'          => date('Y-m-d'),
@@ -274,7 +271,6 @@ class FedapayController extends Controller
     
                 Utility::bankAccountBalance($request->account_id, $amount, 'credit');
     
-                //Twilio Notification
                 $customer = $objUser = Customer::find($invoice->customer_id);
                 $setting  = Utility::settingsById($objUser->creatorId());
                 if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -290,7 +286,6 @@ class FedapayController extends Controller
                     Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $invoice->created_by);
                 }
     
-                // webhook
                 $module = 'New Payment';
     
                 $webhook =  Utility::webhookSetting($module, $invoice->created_by);
@@ -298,9 +293,7 @@ class FedapayController extends Controller
                 if ($webhook) {
     
                     $parameter = json_encode($invoice);
-    
-                    // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-    
+
                     $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
                 }
 
@@ -341,7 +334,6 @@ class FedapayController extends Controller
 
             \FedaPay\FedaPay::setApiKey($api_key);
 
-            // Create Fedapay transaction
             $transaction = \FedaPay\Transaction::create([
                 "description"   => "Retainer Payment",
                 "amount"        => (int)$amount,
@@ -367,10 +359,8 @@ class FedapayController extends Controller
             $currency = isset($setting['currency']) ? $setting['currency'] : 'USD';
 
             if ($request->status == 'approved') {
-                // Payment is successful
                 $order_id = strtoupper(str_replace('.', '', uniqid('', true)));
 
-                // Record the payment in the database
                 $payments = RetainerPayment::create([
                     'retainer_id'   => $retainer->id,
                     'date'          => date('Y-m-d'),
@@ -416,7 +406,6 @@ class FedapayController extends Controller
     
                 Utility::bankAccountBalance($request->account_id, $amount, 'credit');
     
-                //Twilio Notification
                 $setting  = Utility::settingsById($objUser->creatorId());
                 $customer = Customer::find($retainer->customer_id);
                 if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -432,7 +421,6 @@ class FedapayController extends Controller
                     Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $retainer->created_by);
                 }
     
-                // webhook\
                 $module = 'New Payment';
     
                 $webhook =  Utility::webhookSetting($module, $retainer->created_by);
@@ -440,15 +428,12 @@ class FedapayController extends Controller
                 if ($webhook) {
     
                     $parameter = json_encode($retainer);
-    
-                    // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-    
+
                     $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
                 }
 
                 return redirect()->route('retainers.index')->with('success', __('Payment successful.'));
             } else {
-                // Payment failed
                 return redirect()->route('retainers.index')->with('error', 'Payment failed.');
             }
         } catch (\Exception $e) {

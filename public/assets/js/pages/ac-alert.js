@@ -184,7 +184,7 @@ document.querySelector('.bs-ajex-req').addEventListener("click", function () {
         confirmButtonText: 'Look up',
         showLoaderOnConfirm: true,
         preConfirm: (login) => {
-            return fetch(`//api.github.com/users/` + login)
+            return fetch(`
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(response.statusText)
@@ -437,56 +437,4 @@ document.querySelector('.bs-file-input').addEventListener("click", function () {
             title: 'Select image',
             input: 'file',
             inputAttributes: {
-                'accept': 'image/*',
-                'aria-label': 'Upload your profile picture'
-            }
-        })
-        if (file) {
-            const reader = new FileReader()
-            reader.onload = (e) => {
-                Swal.fire({
-                    title: 'Your uploaded picture',
-                    imageUrl: e.target.result,
-                    imageAlt: 'The uploaded picture'
-                })
-            }
-            reader.readAsDataURL(file)
-        }
-    })()
-});
-document.querySelector('.bs-range-input').addEventListener("click", function () {
-    (async () => {
-        Swal.fire({
-            title: 'How old are you?',
-            icon: 'question',
-            input: 'range',
-            inputAttributes: {
-                min: 8,
-                max: 120,
-                step: 1
-            },
-            inputValue: 25
-        })
-    })()
-});
-document.querySelector('.bs-multiple-input').addEventListener("click", function () {
-    (async () => {
-        const {
-            value: formValues
-        } = await Swal.fire({
-            title: 'Multiple inputs',
-            html: '<input id="swal-input1" class="swal2-input">' +
-                '<input id="swal-input2" class="swal2-input">',
-            focusConfirm: false,
-            preConfirm: () => {
-                return [
-                    document.getElementById('swal-input1').value,
-                    document.getElementById('swal-input2').value
-                ]
-            }
-        })
-        if (formValues) {
-            Swal.fire(JSON.stringify(formValues))
-        }
-    })()
-});
+                'accept': 'image

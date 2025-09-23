@@ -144,5 +144,4 @@ class PayslipTypeController extends Controller
         }
     }
 
-
 }

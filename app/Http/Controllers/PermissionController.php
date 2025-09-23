@@ -10,7 +10,6 @@ use Spatie\Permission\Models\Role;
 class PermissionController extends Controller
 {
 
-
     public function index()
     {
 
@@ -18,17 +17,14 @@ class PermissionController extends Controller
 
         return view('permission.index')->with('permissions', $permissions);
 
-
     }
 
     public function create()
     {
 
         $roles = Role::get();
-//        $roles = Role::where('created_by', '=', \Auth::user()->creatorId())->get();
 
         return view('permission.create')->with('roles', $roles);
-
 
     }
 
@@ -63,9 +59,7 @@ class PermissionController extends Controller
             'success', 'Permission ' . $permission->name . ' added!'
         );
 
-
     }
-
 
     public function edit(Permission $permission)
     {
@@ -74,9 +68,7 @@ class PermissionController extends Controller
 
         return view('permission.edit', compact('roles', 'permission'));
 
-
     }
-
 
     public function update(Request $request, Permission $permission)
     {
@@ -93,7 +85,6 @@ class PermissionController extends Controller
         return redirect()->route('permissions.index')->with(
             'success', 'Permission ' . $permission->name . ' updated!'
         );
-
 
     }
 

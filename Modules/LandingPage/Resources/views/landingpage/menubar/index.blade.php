@@ -7,7 +7,6 @@
     <li class="breadcrumb-item">{{ __('Landing Page') }}</li>
 @endsection
 
-
 @php
 
     $settings = \Modules\LandingPage\Entities\LandingPageSetting::settings();
@@ -19,7 +18,6 @@
     <link rel="stylesheet" href="{{asset('css/summernote/summernote-bs4.css')}}">
 @endpush
 
-
 @push('script-page')
     <script>
         document.getElementById('site_logo').onchange = function() {
@@ -28,18 +26,14 @@
         }
     </script>
 
-
 <script src="{{asset('css/summernote/summernote-bs4.js')}}"></script>
 
 @endpush
-
-
 
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a></li>
     <li class="breadcrumb-item">{{ __('Landing Page') }}</li>
 @endsection
-
 
 @section('content')
     <div class="row">
@@ -50,7 +44,6 @@
                         <div class="list-group list-group-flush" id="useradd-sidenav">
 
                             @include('landingpage::layouts.tab')
-
 
                         </div>
                     </div>
@@ -71,8 +64,6 @@
                         {{ Form::open(['route' => 'custom_store', 'method' => 'post', 'enctype' => 'multipart/form-data']) }}
                         <div class="card-body">
                             <div class="row">
-
-
 
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -100,7 +91,6 @@
                                     </div>
                                 </div>
 
-
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         {{ Form::label('Site Description', __('Site Description'), ['class' => 'form-label']) }}
@@ -113,7 +103,6 @@
                                     </div>
                                 </div>
 
-
                             </div>
                         </div>
                         <div class="card-footer text-end">
@@ -122,7 +111,6 @@
                         </div>
                         {{ Form::close() }}
                     </div>
-
 
                     <div class="card">
                         <div class="card-header">
@@ -209,7 +197,6 @@
                             </div>
                         </div>
                     </div>
-
 
                     {{--  End for all settings tab --}}
                 </div>

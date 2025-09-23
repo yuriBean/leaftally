@@ -1,11 +1,3 @@
-/**
- * Copyright (c) Tiny Technologies, Inc. All rights reserved.
- * Licensed under the LGPL or a commercial license.
- * For LGPL see License.txt in the project root for license information.
- * For commercial licenses see https://www.tiny.cloud/
- *
- * Version: 5.10.7 (2022-12-06)
- */
 (function () {
     'use strict';
 
@@ -1337,7 +1329,7 @@
       return has(component.element, swapConfig.omega);
     };
 
-    var SwapApis = /*#__PURE__*/Object.freeze({
+    var SwapApis = Object.freeze({
         __proto__: null,
         toAlpha: toAlpha,
         toOmega: toOmega,
@@ -2347,14 +2339,8 @@
     };
     var cleanParameters = function (parameters) {
       return map$2(parameters, function (p) {
-        return endsWith(p, '/*') ? p.substring(0, p.length - '/*'.length) : p;
-      });
-    };
-    var markAsExtraApi = function (f, extraName) {
-      var delegate = f.toString();
-      var endIndex = delegate.indexOf(')') + 1;
-      var openBracketIndex = delegate.indexOf('(');
-      var parameters = delegate.substring(openBracketIndex + 1, endIndex - 1).split(/,\s*/);
+        return endsWith(p, '
+);
       f.toFunctionAnnotation = function () {
         return {
           name: extraName,
@@ -2800,7 +2786,7 @@
         })]);
     };
 
-    var ActiveReceiving = /*#__PURE__*/Object.freeze({
+    var ActiveReceiving = Object.freeze({
         __proto__: null,
         events: events$a
     });
@@ -3059,7 +3045,7 @@
       set$6(component, toggleConfig, toggleState, toggleConfig.selected);
     };
 
-    var ToggleApis = /*#__PURE__*/Object.freeze({
+    var ToggleApis = Object.freeze({
         __proto__: null,
         onLoad: onLoad$5,
         toggle: toggle,
@@ -3081,7 +3067,7 @@
       ]));
     };
 
-    var ActiveToggle = /*#__PURE__*/Object.freeze({
+    var ActiveToggle = Object.freeze({
         __proto__: null,
         exhibit: exhibit$5,
         events: events$9
@@ -3193,7 +3179,7 @@
       return hasFocus(component.element);
     };
 
-    var FocusApis = /*#__PURE__*/Object.freeze({
+    var FocusApis = Object.freeze({
         __proto__: null,
         focus: focus$2,
         blur: blur,
@@ -3213,7 +3199,7 @@
         })] : []));
     };
 
-    var ActiveFocus = /*#__PURE__*/Object.freeze({
+    var ActiveFocus = Object.freeze({
         __proto__: null,
         exhibit: exhibit$4,
         events: events$7
@@ -3610,7 +3596,7 @@
       }));
     };
 
-    var HighlightApis = /*#__PURE__*/Object.freeze({
+    var HighlightApis = Object.freeze({
         __proto__: null,
         dehighlightAll: dehighlightAll,
         dehighlight: dehighlight,
@@ -3980,7 +3966,7 @@
       return spec.state(spec);
     };
 
-    var KeyingState = /*#__PURE__*/Object.freeze({
+    var KeyingState = Object.freeze({
         __proto__: null,
         flatgrid: flatgrid$1,
         init: init$5
@@ -4461,7 +4447,7 @@
     var menu = MenuType.schema();
     var special = SpecialType.schema();
 
-    var KeyboardBranches = /*#__PURE__*/Object.freeze({
+    var KeyboardBranches = Object.freeze({
         __proto__: null,
         acyclic: acyclic,
         cyclic: cyclic,
@@ -5014,7 +5000,7 @@
       return derive$3([abort(selectstart(), always)]);
     };
 
-    var ActiveUnselecting = /*#__PURE__*/Object.freeze({
+    var ActiveUnselecting = Object.freeze({
         __proto__: null,
         events: events$6,
         exhibit: exhibit$3
@@ -5236,7 +5222,7 @@
       return repState;
     };
 
-    var RepresentApis = /*#__PURE__*/Object.freeze({
+    var RepresentApis = Object.freeze({
         __proto__: null,
         onLoad: onLoad$4,
         onUnload: onUnload$2,
@@ -5257,7 +5243,7 @@
       return derive$3(es);
     };
 
-    var ActiveRepresenting = /*#__PURE__*/Object.freeze({
+    var ActiveRepresenting = Object.freeze({
         __proto__: null,
         events: events$5
     });
@@ -5334,7 +5320,7 @@
       return spec.store.manager.state(spec);
     };
 
-    var RepresentState = /*#__PURE__*/Object.freeze({
+    var RepresentState = Object.freeze({
         __proto__: null,
         memory: memory,
         dataset: dataset,
@@ -5850,7 +5836,7 @@
       'left': Optional.some(setToLEdge)
     };
 
-    var HorizontalModel = /*#__PURE__*/Object.freeze({
+    var HorizontalModel = Object.freeze({
         __proto__: null,
         setValueFrom: setValueFrom$2,
         setToMin: setToMin$2,
@@ -5971,7 +5957,7 @@
       'left': Optional.none()
     };
 
-    var VerticalModel = /*#__PURE__*/Object.freeze({
+    var VerticalModel = Object.freeze({
         __proto__: null,
         setValueFrom: setValueFrom$1,
         setToMin: setToMin$1,
@@ -6052,7 +6038,7 @@
       'left': Optional.some(setToLEdgeXY)
     };
 
-    var TwoDModel = /*#__PURE__*/Object.freeze({
+    var TwoDModel = Object.freeze({
         __proto__: null,
         setValueFrom: setValueFrom,
         setToMin: setToMin,
@@ -6768,167 +6754,8 @@
       var pickerDom = {
         tag: 'input',
         attributes: {
-          accept: 'image/*',
-          type: 'file',
-          title: ''
-        },
-        styles: {
-          visibility: 'hidden',
-          position: 'absolute'
-        }
-      };
-      var memPicker = record({
-        dom: pickerDom,
-        events: derive$3([
-          cutter(click()),
-          run(change(), function (picker, simulatedEvent) {
-            extractBlob(simulatedEvent).each(function (blob) {
-              addImage(editor, blob);
-            });
-          })
-        ])
-      });
-      return Button.sketch({
-        dom: getToolbarIconButton('image', editor),
-        components: [memPicker.asSpec()],
-        action: function (button) {
-          var picker = memPicker.get(button);
-          picker.element.dom.click();
-        }
-      });
-    };
-
-    var get$3 = function (element) {
-      return element.dom.textContent;
-    };
-    var set$3 = function (element, value) {
-      element.dom.textContent = value;
-    };
-
-    var isNotEmpty = function (val) {
-      return val.length > 0;
-    };
-    var defaultToEmpty = function (str) {
-      return str === undefined || str === null ? '' : str;
-    };
-    var noLink = function (editor) {
-      var text = editor.selection.getContent({ format: 'text' });
-      return {
-        url: '',
-        text: text,
-        title: '',
-        target: '',
-        link: Optional.none()
-      };
-    };
-    var fromLink = function (link) {
-      var text = get$3(link);
-      var url = get$b(link, 'href');
-      var title = get$b(link, 'title');
-      var target = get$b(link, 'target');
-      return {
-        url: defaultToEmpty(url),
-        text: text !== url ? defaultToEmpty(text) : '',
-        title: defaultToEmpty(title),
-        target: defaultToEmpty(target),
-        link: Optional.some(link)
-      };
-    };
-    var getInfo = function (editor) {
-      return query(editor).fold(function () {
-        return noLink(editor);
-      }, function (link) {
-        return fromLink(link);
-      });
-    };
-    var wasSimple = function (link) {
-      var prevHref = get$b(link, 'href');
-      var prevText = get$3(link);
-      return prevHref === prevText;
-    };
-    var getTextToApply = function (link, url, info) {
-      return info.text.toOptional().filter(isNotEmpty).fold(function () {
-        return wasSimple(link) ? Optional.some(url) : Optional.none();
-      }, Optional.some);
-    };
-    var unlinkIfRequired = function (editor, info) {
-      var activeLink = info.link.bind(identity);
-      activeLink.each(function (_link) {
-        editor.execCommand('unlink');
-      });
-    };
-    var getAttrs = function (url, info) {
-      var attrs = {};
-      attrs.href = url;
-      info.title.toOptional().filter(isNotEmpty).each(function (title) {
-        attrs.title = title;
-      });
-      info.target.toOptional().filter(isNotEmpty).each(function (target) {
-        attrs.target = target;
-      });
-      return attrs;
-    };
-    var applyInfo = function (editor, info) {
-      info.url.toOptional().filter(isNotEmpty).fold(function () {
-        unlinkIfRequired(editor, info);
-      }, function (url) {
-        var attrs = getAttrs(url, info);
-        var activeLink = info.link.bind(identity);
-        activeLink.fold(function () {
-          var text = info.text.toOptional().filter(isNotEmpty).getOr(url);
-          editor.insertContent(editor.dom.createHTML('a', attrs, editor.dom.encode(text)));
-        }, function (link) {
-          var text = getTextToApply(link, url, info);
-          setAll$1(link, attrs);
-          text.each(function (newText) {
-            set$3(link, newText);
-          });
-        });
-      });
-    };
-    var query = function (editor) {
-      var start = SugarElement.fromDom(editor.selection.getStart());
-      return closest$1(start, 'a');
-    };
-
-    var platform = detect$1();
-    var preserve$1 = function (f, editor) {
-      var rng = editor.selection.getRng();
-      f();
-      editor.selection.setRng(rng);
-    };
-    var forAndroid = function (editor, f) {
-      var wrapper = platform.os.isAndroid() ? preserve$1 : apply$1;
-      wrapper(f, editor);
-    };
-
-    var events$4 = function (name, eventHandlers) {
-      var events = derive$3(eventHandlers);
-      return create$5({
-        fields: [required$1('enabled')],
-        name: name,
-        active: { events: constant$1(events) }
-      });
-    };
-    var config = function (name, eventHandlers) {
-      var me = events$4(name, eventHandlers);
-      return {
-        key: name,
-        value: {
-          config: {},
-          me: me,
-          configAsRaw: constant$1({}),
-          initialConfig: {},
-          state: NoState
-        }
-      };
-    };
-
-    var getCurrent = function (component, composeConfig, _composeState) {
-      return composeConfig.find(component);
-    };
-
-    var ComposeApis = /*#__PURE__*/Object.freeze({
+          accept: 'image
+Object.freeze({
         __proto__: null,
         getCurrent: getCurrent
     });
@@ -7085,7 +6912,7 @@
       });
     };
 
-    var ActiveTabstopping = /*#__PURE__*/Object.freeze({
+    var ActiveTabstopping = Object.freeze({
         __proto__: null,
         exhibit: exhibit$2
     });
@@ -7216,7 +7043,7 @@
       f(component, disableConfig);
     };
 
-    var DisableApis = /*#__PURE__*/Object.freeze({
+    var DisableApis = Object.freeze({
         __proto__: null,
         enable: enable,
         disable: disable,
@@ -7237,7 +7064,7 @@
       ]);
     };
 
-    var ActiveDisable = /*#__PURE__*/Object.freeze({
+    var ActiveDisable = Object.freeze({
         __proto__: null,
         exhibit: exhibit$1,
         events: events$3
@@ -7601,7 +7428,7 @@
         }
       })]);
 
-    var DefaultEvents = /*#__PURE__*/Object.freeze({
+    var DefaultEvents = Object.freeze({
         __proto__: null,
         events: events$2
     });
@@ -8485,7 +8312,7 @@
       });
     };
 
-    var ReplaceApis = /*#__PURE__*/Object.freeze({
+    var ReplaceApis = Object.freeze({
         __proto__: null,
         append: append,
         prepend: prepend,
@@ -9122,7 +8949,7 @@
       return getOpt(comp.element, transConfig.stateAttr);
     };
 
-    var TransitionApis = /*#__PURE__*/Object.freeze({
+    var TransitionApis = Object.freeze({
         __proto__: null,
         findRoute: findRoute,
         disableTransition: disableTransition,
@@ -9153,7 +8980,7 @@
       ]);
     };
 
-    var ActiveTransitioning = /*#__PURE__*/Object.freeze({
+    var ActiveTransitioning = Object.freeze({
         __proto__: null,
         events: events$1
     });
@@ -11108,7 +10935,7 @@
       f(component, slideConfig, slideState);
     };
 
-    var SlidingApis = /*#__PURE__*/Object.freeze({
+    var SlidingApis = Object.freeze({
         __proto__: null,
         refresh: refresh$1,
         grow: grow,
@@ -11147,7 +10974,7 @@
         })]);
     };
 
-    var ActiveSliding = /*#__PURE__*/Object.freeze({
+    var ActiveSliding = Object.freeze({
         __proto__: null,
         exhibit: exhibit,
         events: events
@@ -11198,7 +11025,7 @@
       });
     };
 
-    var SlidingState = /*#__PURE__*/Object.freeze({
+    var SlidingState = Object.freeze({
         __proto__: null,
         init: init$1
     });

@@ -164,8 +164,6 @@ class PaytrController extends Controller
                     'test_mode' => $test_mode
                 );
 
-
-
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, "https://www.paytr.com/odeme/api/get-token");
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -294,7 +292,6 @@ class PaytrController extends Controller
             $user_address = !empty($store->address) ? $store->address : 'no address';
             $user_phone = !empty($store->whatsapp_number) ? $store->whatsapp : '0000000000';
 
-
             $user_basket = base64_encode(json_encode(array(
                 array("Invoice", $payment_amount, 1),
             )));
@@ -348,7 +345,6 @@ class PaytrController extends Controller
                 'test_mode' => $test_mode
             );
 
-
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, "https://www.paytr.com/odeme/api/get-token");
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -357,9 +353,7 @@ class PaytrController extends Controller
             curl_setopt($ch, CURLOPT_FRESH_CONNECT, true);
             curl_setopt($ch, CURLOPT_TIMEOUT, 20);
 
-
             $result = @curl_exec($ch);
-
 
             if (curl_errno($ch)) {
                 die("PAYTR IFRAME connection error. err:" . curl_error($ch));
@@ -376,8 +370,6 @@ class PaytrController extends Controller
             }
             return view('paytr_payment.index', compact('token'));
         } catch (\Throwable $th) {
-            // dd($th);
-            // return redirect()->route('invoice.show')->with('error', $th->getMessage());
             return redirect()->back()->with('success', __('Payment successfully added.'));
         }
     }
@@ -392,12 +384,10 @@ class PaytrController extends Controller
                 $settings = \DB::table('settings')->where('created_by', '=', \Auth::user()->creatorId())->get()->pluck('value', 'name');
                 $objUser     = Auth::user();
                 $payment_setting = Utility::getCompanyPaymentSetting($invoice->created_by);
-                //            $this->setApiContext();
             } else {
                 $user = User::where('id', $invoice->created_by)->first();
                 $settings = Utility::settingById($invoice->created_by);
                 $payment_setting = Utility::getCompanyPaymentSetting($invoice->created_by);
-                //            $this->non_auth_setApiContext($invoice->created_by);
                 $objUser = $user;
             }
             $amount = $request->amount;
@@ -456,7 +446,6 @@ class PaytrController extends Controller
 
                 Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-                //Twilio Notification
                 $setting  = Utility::settingsById($objUser->creatorId());
                 $customer = Customer::find($invoice->customer_id);
                 if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -472,7 +461,6 @@ class PaytrController extends Controller
                     Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $invoice->created_by);
                 }
 
-                // webhook
                 $module = 'New Payment';
 
                 $webhook =  Utility::webhookSetting($module, $invoice->created_by);
@@ -481,26 +469,17 @@ class PaytrController extends Controller
 
                     $parameter = json_encode($invoice);
 
-                    // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-
                     $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
 
-                    // if ($status == true) {
-                    //     return redirect()->route('payment.index')->with('success', __('Payment successfully created.') . ((isset($smtp_error)) ? '<br> <span class="text-danger">' . $smtp_error . '</span>' : ''));
-                    // } else {
-                    //     return redirect()->back()->with('error', __('Webhook call failed.'));
-                    // }
                 }
 
                 if (Auth::check()) {
-                    // return redirect()->route('invoice.show', \Crypt::encrypt($invoice->id))->with('success', __('Payment successfully added.'));
                     return redirect()->back()->with('success', __(' Payment successfully added.'));
                 } else {
                     return redirect()->back()->with('success', __(' Payment successfully added.'));
                 }
             } catch (\Exception $e) {
                 if (Auth::check()) {
-                    // return redirect()->route('invoice.show', \Crypt::encrypt($invoice->id))->with('error', __('Transaction has been failed.'));
                     return redirect()->back()->with('success', __('Transaction has been failed.'));
                 } else {
                     return redirect()->back()->with('success', __('Transaction has been complted.'));
@@ -540,7 +519,6 @@ class PaytrController extends Controller
             $user_name = $customer->name;
             $user_address = !empty($store->address) ? $store->address : 'no address';
             $user_phone = !empty($store->whatsapp_number) ? $store->whatsapp : '0000000000';
-
 
             $user_basket = base64_encode(json_encode(array(
                 array("Invoice", $payment_amount, 1),
@@ -594,7 +572,6 @@ class PaytrController extends Controller
                 'test_mode' => $test_mode
             );
 
-
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, "https://www.paytr.com/odeme/api/get-token");
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -603,9 +580,7 @@ class PaytrController extends Controller
             curl_setopt($ch, CURLOPT_FRESH_CONNECT, true);
             curl_setopt($ch, CURLOPT_TIMEOUT, 20);
 
-
             $result = @curl_exec($ch);
-
 
             if (curl_errno($ch)) {
                 die("PAYTR IFRAME connection error. err:" . curl_error($ch));
@@ -693,7 +668,6 @@ class PaytrController extends Controller
 
                 Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-                //Twilio Notification
                 $setting  = Utility::settingsById($objUser->creatorId());
                 $customer = Customer::find($retainer->customer_id);
                 if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -709,7 +683,6 @@ class PaytrController extends Controller
                     Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $retainer->created_by);
                 }
 
-                // webhook
                 $module = 'New Payment';
 
                 $webhook =  Utility::webhookSetting($module, $retainer->created_by);
@@ -718,26 +691,17 @@ class PaytrController extends Controller
 
                     $parameter = json_encode($retainer);
 
-                    // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-
                     $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
 
-                    // if ($status == true) {
-                    //     return redirect()->route('payment.index')->with('success', __('Payment successfully created.') . ((isset($smtp_error)) ? '<br> <span class="text-danger">' . $smtp_error . '</span>' : ''));
-                    // } else {
-                    //     return redirect()->back()->with('error', __('Webhook call failed.'));
-                    // }
                 }
 
                 if (Auth::check()) {
-                    // return redirect()->route('invoice.show', \Crypt::encrypt($invoice->id))->with('success', __('Payment successfully added.'));
                     return redirect()->back()->with('success', __(' Payment successfully added.'));
                 } else {
                     return redirect()->back()->with('success', __(' Payment successfully added.'));
                 }
             } catch (\Exception $e) {
                 if (Auth::check()) {
-                    // return redirect()->route('invoice.show', \Crypt::encrypt($invoice->id))->with('error', __('Transaction has been failed.'));
                     return redirect()->back()->with('success', __('Transaction has been failed.'));
                 } else {
                     return redirect()->back()->with('success', __('Transaction has been complted.'));

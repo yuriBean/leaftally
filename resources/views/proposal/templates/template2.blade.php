@@ -14,12 +14,11 @@
         rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-
     <style type="text/css">
         :root {
             --theme-color: {{ $color }};
-            --white: #ffffff;
-            --black: #000000;
+            --white:
+            --black:
         }
 
         body {
@@ -66,8 +65,8 @@
             max-width: 700px;
             width: 100%;
             margin: 0 auto;
-            background: #ffff;
-            box-shadow: 0 0 10px #ddd;
+            background:
+            box-shadow: 0 0 10px
         }
 
         .proposal-logo {
@@ -220,7 +219,6 @@
                                 @endif
                                 <br>
 
-
                                 @if (App\Models\Utility::getValByName('tax_number') == 'on')
                                     @if (!empty($settings['tax_type']) && !empty($settings['vat_number']))
                                         {{ $settings['tax_type'] . ' ' . __('Number') }} : {{ $settings['vat_number'] }}
@@ -261,7 +259,6 @@
                                             </tr>
                                         @endforeach
                                     @endif
-
 
                                 </tbody>
                             </table>
@@ -393,7 +390,6 @@
                                     <td>{{ \App\Models\Utility::priceFormat($settings, $proposal->getSubTotal() - $proposal->getTotalDiscount() + $proposal->getTotalTax()) }}
                                     </td>
                                 </tr>
-
 
                             </table>
                         </td>

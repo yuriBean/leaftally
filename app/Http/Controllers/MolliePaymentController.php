@@ -26,7 +26,6 @@ class MolliePaymentController extends Controller
     public $is_enabled;
     public $invoiceData;
 
-
     public function paymentConfig()
     {
         if (\Auth::user()->type == 'company') {
@@ -43,7 +42,6 @@ class MolliePaymentController extends Controller
         return $this;
     }
 
-
     public function planPayWithMollie(Request $request)
     {
         $payment    = $this->paymentConfig();
@@ -52,7 +50,6 @@ class MolliePaymentController extends Controller
         $authuser   = Auth::user();
         $coupons_id = '';
         $admin = Utility::getAdminPaymentSetting();
-
 
         if ($plan) {
             $price = $plan->price;
@@ -98,7 +95,6 @@ class MolliePaymentController extends Controller
                         ),
                     ]
                 );
-
 
                 session()->put('mollie_payment_id', $payment->id);
             } catch (\Exception $e) {
@@ -266,7 +262,6 @@ class MolliePaymentController extends Controller
             $objUser = $user;
         }
 
-
         $orderID  = strtoupper(str_replace('.', '', uniqid('', true)));
 
         $result    = array();
@@ -282,9 +277,7 @@ class MolliePaymentController extends Controller
                 if (session()->has('mollie_payment_id')) {
                     $payment = $mollie->payments->get(session()->get('mollie_payment_id'));
 
-
                     if ($payment->isPaid()) {
-
 
                         $payments = RetainerPayment::create(
                             [
@@ -299,9 +292,7 @@ class MolliePaymentController extends Controller
                             ]
                         );
 
-
                         $retainer = Retainer::find($retainer->id);
-
 
                         if ($retainer->getDue() <= 0.0) {
                             Retainer::change_status($retainer->id, 4);
@@ -315,7 +306,6 @@ class MolliePaymentController extends Controller
 
                         Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-                        //Twilio Notification
                         $setting  = Utility::settingsById($objUser->creatorId());
                         $customer = Customer::find($retainer->customer_id);
                         if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -331,7 +321,6 @@ class MolliePaymentController extends Controller
                             Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $retainer->created_by);
                         }
 
-                        // webhook
                         $module = 'New Payment';
 
                         $webhook =  Utility::webhookSetting($module, $retainer->created_by);
@@ -340,17 +329,9 @@ class MolliePaymentController extends Controller
 
                             $parameter = json_encode($retainer);
 
-                            // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-
                             $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
 
-                            // if ($status == true) {
-                            //     return redirect()->route('payment.index')->with('success', __('Payment successfully created.') . ((isset($smtp_error)) ? '<br> <span class="text-danger">' . $smtp_error . '</span>' : ''));
-                            // } else {
-                            //     return redirect()->back()->with('error', __('Webhook call failed.'));
-                            // }
                         }
-
 
                         if (Auth::check()) {
                             return redirect()->route('retainer.show', \Crypt::encrypt($retainer->id))->with('success', __('Payment successfully added.'));
@@ -400,7 +381,6 @@ class MolliePaymentController extends Controller
                 $mollie = new \Mollie\Api\MollieApiClient();
                 $mollie->setApiKey($this->api_key);
                 $setting = Utility::settingsById($invoice->created_by);
-
 
                 $payment = $mollie->payments->create(
                     [
@@ -452,7 +432,6 @@ class MolliePaymentController extends Controller
             $objUser = $user;
         }
 
-
         $orderID  = strtoupper(str_replace('.', '', uniqid('', true)));
 
         $result    = array();
@@ -465,7 +444,6 @@ class MolliePaymentController extends Controller
                     $payment = $mollie->payments->get(session()->get('mollie_payment_id'));
 
                     if ($payment->isPaid()) {
-
 
                         $payments = InvoicePayment::create(
                             [
@@ -494,8 +472,6 @@ class MolliePaymentController extends Controller
 
                         Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-
-                        //Twilio Notification
                         $setting  = Utility::settingsById($objUser->creatorId());
                         $customer = Customer::find($invoice->customer_id);
                         if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -511,7 +487,6 @@ class MolliePaymentController extends Controller
                             Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $invoice->created_by);
                         }
 
-                        // webhook
                         $module = 'New Payment';
 
                         $webhook =  Utility::webhookSetting($module, $invoice->created_by);
@@ -520,17 +495,9 @@ class MolliePaymentController extends Controller
 
                             $parameter = json_encode($invoice);
 
-                            // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
-
                             $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
 
-                            // if ($status == true) {
-                            //     return redirect()->route('payment.index')->with('success', __('Payment successfully created.') . ((isset($smtp_error)) ? '<br> <span class="text-danger">' . $smtp_error . '</span>' : ''));
-                            // } else {
-                            //     return redirect()->back()->with('error', __('Webhook call failed.'));
-                            // }
                         }
-
 
                         if (Auth::check()) {
                             return redirect()->route('invoice.show', \Crypt::encrypt($invoice->id))->with('success', __('Payment successfully added.'));

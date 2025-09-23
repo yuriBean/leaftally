@@ -92,7 +92,6 @@
                                     
                                     <p class="text-[12px] leading-[24px] font-[400] text-[#323232]">{{ $data['from_date'] . '  ' . 'to' . '  ' . $data['until_date'] }}</p>
                                 </div>
-                                
 
                                 <div class="row border border-[#E5E5E5] p-6 rounded-[8px] mb-4 +       ">
                                     <div class="col-md-8">

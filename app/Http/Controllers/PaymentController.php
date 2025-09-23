@@ -25,7 +25,6 @@ class PaymentController extends Controller
             return redirect()->back()->with('error', __('Permission denied.'));
         }
 
-        // Filters: only active (non-trashed) options
         $vender   = TrashedSelect::activeOptions(Vender::class, \Auth::user()->creatorId())->prepend('Select Vender', '');
         $account  = TrashedSelect::activeOptions(BankAccount::class, \Auth::user()->creatorId(), 'holder_name')->prepend('Select Account', '');
         $category = ProductServiceCategory::where('created_by', \Auth::user()->creatorId())
@@ -65,7 +64,6 @@ class PaymentController extends Controller
         $categories = ProductServiceCategory::where('created_by', \Auth::user()->creatorId())
             ->whereNotIn('type', ['product & service', 'income'])->get()->pluck('name', 'id');
 
-        // No closure: use holder_name as the label
         $accounts = TrashedSelect::activeOptions(BankAccount::class, \Auth::user()->creatorId(), 'holder_name');
 
         return view('payment.create', compact('venders', 'categories', 'accounts'));
@@ -120,7 +118,6 @@ class PaymentController extends Controller
         $payment->created_by = \Auth::user()->creatorId();
         $payment->save();
 
-        // Transaction line (works even if bank account later gets soft-deleted)
         $bank = TrashedSelect::findWithTrashed(BankAccount::class, $payment->account_id);
         if ($bank) {
             $data = [
@@ -134,7 +131,6 @@ class PaymentController extends Controller
             ];
             Utility::addTransactionLines($data);
 
-            // BillAccount row
             $ba                    = new BillAccount();
             $ba->chart_account_id  = $bank->chart_account_id;
             $ba->price             = $request->amount;
@@ -181,7 +177,6 @@ class PaymentController extends Controller
             $smtp_error = __('E-Mail has been not sent due to SMTP configuration');
         }
 
-        // Twilio
         $setting = Utility::settings(\Auth::user()->creatorId());
         if ($vender && ($setting['payment_notification'] ?? 0) == 1) {
             Utility::send_twilio_msg($vender->contact, 'new_payment', [
@@ -192,7 +187,6 @@ class PaymentController extends Controller
             ]);
         }
 
-        // webhook
         $webhook = Utility::webhookSetting('New Payment');
         if ($webhook) {
             $parameter = json_encode($payment);
@@ -214,7 +208,6 @@ class PaymentController extends Controller
             return response()->json(['error' => __('Permission denied.')], 401);
         }
 
-        // Include selected (even if soft-deleted)
         $venders = TrashedSelect::optionsWithUsed(
             Vender::class,
             \Auth::user()->creatorId(),
@@ -224,7 +217,6 @@ class PaymentController extends Controller
         $categories = ProductServiceCategory::where('created_by', \Auth::user()->creatorId())
             ->whereNotIn('type', ['product & service', 'income'])->get()->pluck('name', 'id');
 
-        // No closure: use holder_name as label
         $accounts = TrashedSelect::optionsWithUsed(
             BankAccount::class,
             \Auth::user()->creatorId(),
@@ -388,7 +380,6 @@ class PaymentController extends Controller
     return Excel::download(new PaymentSelectedExport($selected), $filename);
 }
 
-// NEW: bulk delete selected rows
 public function bulkDestroy(Request $request)
 {
     $this->authorize('delete payment');
@@ -406,7 +397,6 @@ public function bulkDestroy(Request $request)
             ->get();
 
         foreach ($payments as $payment) {
-            // mirror single destroy() logic
             if (!empty($payment->add_receipt)) {
                 $file_path = 'uploads/payment/' . $payment->add_receipt;
                 Utility::changeStorageLimit($creatorId, $file_path);
@@ -415,7 +405,6 @@ public function bulkDestroy(Request $request)
                 }
             }
 
-            // Remove accounting traces
             TransactionLines::where('reference_id', $payment->id)
                 ->where('reference', 'Payment')
                 ->delete();

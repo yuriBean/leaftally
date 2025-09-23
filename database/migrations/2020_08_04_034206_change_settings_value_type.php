@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class ChangeSettingsValueType extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::table(
@@ -20,11 +15,6 @@ class ChangeSettingsValueType extends Migration
         );
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::table(

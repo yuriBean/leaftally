@@ -8,10 +8,6 @@ use Illuminate\Http\Request;
 
 class EnsureFeatureEnabled
 {
-    /**
-     * Only enforce for the "web" guard (users table).
-     * Customers/vendors (other guards) pass through untouched.
-     */
     public function handle(Request $request, Closure $next, string $featureKey)
     {
         if (! auth('web')->check()) {

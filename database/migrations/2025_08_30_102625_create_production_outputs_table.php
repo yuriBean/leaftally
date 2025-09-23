@@ -9,7 +9,7 @@ return new class extends Migration {
         Schema::create('production_outputs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('production_order_id')->index();
-            $table->unsignedBigInteger('product_id')->index();      // finished product produced
+            $table->unsignedBigInteger('product_id')->index();
             $table->decimal('qty_planned', 15, 4)->default(0);
             $table->decimal('qty_good',   15, 4)->default(0);
             $table->decimal('qty_scrap',  15, 4)->default(0);

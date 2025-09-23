@@ -16,12 +16,8 @@ use Spatie\Permission\Models\Role;
 
 class RegistrationFlowController extends Controller
 {
-    /**
-     * Step 1: Handle initial register form → create pending, send OTP
-     */
     public function store(Request $request)
     {
-        // Keep your existing reCAPTCHA logic if enabled
         $settings = Utility::settings();
         $validation = [];
         if (($settings['recaptcha_module'] ?? 'no') === 'yes') {
@@ -49,12 +45,10 @@ class RegistrationFlowController extends Controller
             'referral_other'    => ['nullable','string','max:191'],
         ]);
 
-        // Prepare OTP
         $otp    = (string) random_int(100000, 999999);
         $otpTtl = now()->addMinutes(10);
         $industry       = $request->input('industry');
         $referralSource = $request->input('referral_source');
-        // Create pending record
         $pending = PendingUser::create([
             'name'               => $request->name,
             'email'              => $request->email,
@@ -74,10 +68,8 @@ class RegistrationFlowController extends Controller
             'user_agent'         => substr((string) $request->userAgent(), 0, 1000),
         ]);
 
-        // Keep ID in session to drive subsequent steps
         $request->session()->put('pending_user_id', $pending->id);
 
-        // Send OTP (or log if mail isn't configured)
         try {
             if (Utility::isValidSMTPSettings(1)) {
                 \Mail::to($pending->email)->send(new OtpMail($pending->name, $otp));
@@ -92,15 +84,11 @@ class RegistrationFlowController extends Controller
             ->with('status', __('We sent a 6-digit code to your email.'));
     }
 
-    /**
-     * Step 2: Show OTP screen
-     */
     public function showVerifyForm(Request $request)
     {
         $pending = $this->pendingOrAbort($request);
         return view('auth.verify-otp', compact('pending'));
     }
-
 
    public function verifyOtp(Request $request)
 {
@@ -130,18 +118,12 @@ class RegistrationFlowController extends Controller
         return back()->withErrors(['code' => __('Too many attempts. Please resend a new code.')]);
     }
 
-    // if (!Hash::check($request->code, $pending->otp_hash)) {
-    //     $pending->increment('otp_attempts');
-    //     return back()->withErrors(['code' => __('Invalid code. Try again.')]);
-    // }
-
     $pending->update([
         'otp_verified_at' => now(),
         'status'          => 'verified',
     ]);
 
     $user = User::where('email', $pending->email)->first();
-
 
     if (!$user) {
         $user = User::create([
@@ -197,9 +179,6 @@ class RegistrationFlowController extends Controller
     return redirect()->route('register.2fa.offer');
 }
 
-    /**
-     * Step 2c: Resend OTP
-     */
     public function resendOtp(Request $request)
     {
         $pending = $this->pendingOrAbort($request);
@@ -234,13 +213,8 @@ class RegistrationFlowController extends Controller
         return back()->with('status', __('A new code has been sent.'));
     }
 
-    /**
-     * Step 3 (deprecated): Plan selection (now skipped)
-     * Kept for route compatibility — redirects to 2FA offer.
-     */
     public function showPlans(Request $request)
     {
-        // If someone hits this, just move them along after verification.
         $pending = $this->pendingOrAbort($request, false);
         if ($pending && $pending->status !== 'finalized') {
             return redirect()->route('register.verify.form')
@@ -249,10 +223,6 @@ class RegistrationFlowController extends Controller
         return redirect()->route('register.2fa.offer');
     }
 
-    /**
-     * Step 4–5 (deprecated): Checkout/success/cancel (now skipped)
-     * All redirect forward to the 2FA offer.
-     */
     public function startCheckout(Request $request)
     {
         return redirect()->route('register.2fa.offer')
@@ -270,19 +240,11 @@ class RegistrationFlowController extends Controller
         return redirect()->route('register.2fa.offer');
     }
 
-    /**
-     * Step 6: 2FA offer screen (optional)
-     */
     public function twoFactorOffer()
     {
-        // Expect a view like: resources/views/auth/twofactor/offer.blade.php
-        // where users can enable TOTP/SMS/etc or skip to dashboard.
         return view('auth.twofactor.offer');
     }
 
-    /**
-     * Helper: get current PendingUser from session or abort.
-     */
     private function pendingOrAbort(Request $request, bool $requireSession = true): PendingUser
     {
         $id = $request->session()->get('pending_user_id');
@@ -293,6 +255,6 @@ class RegistrationFlowController extends Controller
         if (!$pending && $requireSession) {
             abort(403, 'Registration session expired, please start again.');
         }
-        return $pending ?? new PendingUser(); // allow null-ish when not required
+        return $pending ?? new PendingUser();
     }
 }

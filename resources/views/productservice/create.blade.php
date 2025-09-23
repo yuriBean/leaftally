@@ -10,223 +10,289 @@
 @endsection
 @php
     $plan = \App\Models\Utility::getChatGPTSettings();
-    $selectedType = request('type', 'product'); // Get type from URL parameter, default to product
+    $selectedType = request('type', 'product');
 @endphp
 @section('content')
-<div class="bg-white border border-[#E5E5E5] rounded-[8px] p-6 mt-4">
+
+<div class="modal-body" style="background: var(--zameen-background-section); padding: 1.5rem;">
+  
+  <div style="background: linear-gradient(135deg, #00b98d 0%, #00d4a3 100%); padding: 1.75rem 2rem 1.25rem; border-radius: 12px 12px 0 0; margin: 0 1.5rem;">
+    <div style="color: white; margin-bottom: 0.5rem;">
+      <h4 style="margin: 0; font-weight: 600; font-size: 1.5rem; color: white;">{{ __('Create Product & Service') }}</h4>
+      <p style="margin: 0; opacity: 0.9; font-size: 0.875rem;">{{ __('Add a new product or service to your inventory') }}</p>
+    </div>
+  </div>
+
+  <div style="padding: 2rem; background: white; margin: 0 1.5rem; border-radius: 0 0 12px 12px;">
+    <div style="display: flex; flex-direction: column; gap: 1.5rem; max-width: 720px; margin: 0 auto; padding: 1.5rem;">
+
     {{ Form::open(['url' => 'productservice', 'class'=>'needs-validation','novalidate']) }}
-    <div class="row">
+
         @if (isset($plan->enable_chatgpt)  && $plan->enable_chatgpt == 'on')
-            <div>
+            <div style="text-align: right; margin-bottom: 1rem;">
                 <a href="#" data-size="md" data-ajax-popup-over="true"
                     data-url="{{ route('generate', ['product & service']) }}" data-bs-toggle="tooltip"
                     data-bs-placement="top" title="{{ __('Generate') }}" data-title="{{ __('Generate content with AI') }}"
-                    class="ml-auto bg-[#007C38] text-white text-sm font-medium px-4 py-2 rounded-md hover:bg-[#005f2a] transition">
+                    class="zameen-btn zameen-btn-primary">
                     <i class="fas fa-robot"></i>
                     {{ __('Generate with AI') }}
                 </a>
             </div>
         @endif
-        
-        <!-- Type Selection at the top -->
-        <div class="col-md-12 mb-3">
-            <div class="form-group">
-                <div class="btn-box">
-                    <label class="d-block form-label">{{ __('Type') }}</label>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input type" id="customRadio5" name="type"
-                                       value="Product" {{ $selectedType == 'product' ? 'checked' : '' }}>
-                                <label class="custom-control-label form-label" for="customRadio5">{{ __('Product') }}</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input type" id="customRadio6" name="type"
-                                       value="Service" {{ $selectedType == 'service' ? 'checked' : '' }}>
-                                <label class="custom-control-label form-label" for="customRadio6">{{ __('Service') }}</label>
-                            </div>
-                        </div>
-                    </div>
+
+        <div class="zameen-form-section">
+            <h6 class="zameen-section-title">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display: inline; margin-right: 8px;">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                </svg>
+                {{ __('Product/Service Information') }}
+            </h6>
+
+            <div class="zameen-form-group">
+                <label class="zameen-form-label">{{ __('Type') }}</label>
+                <div style="display: flex; gap: 2rem; margin-top: 0.5rem;">
+                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                        <input type="radio" class="type" name="type" value="Product" {{ $selectedType == 'product' ? 'checked' : '' }} style="margin: 0;">
+                        <span>{{ __('Product') }}</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                        <input type="radio" class="type" name="type" value="Service" {{ $selectedType == 'service' ? 'checked' : '' }} style="margin: 0;">
+                        <span>{{ __('Service') }}</span>
+                    </label>
                 </div>
+            </div>
+
+            <div class="zameen-form-group material-type-wrap">
+                <label class="zameen-form-label">{{ __('Material Classification') }}</label>
+                <div style="display: flex; gap: 1.5rem; margin-top: 0.5rem; flex-wrap: wrap;">
+                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                        <input type="radio" name="material_type" value="raw" style="margin: 0;">
+                        <span>{{ __('Raw Material') }}</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                        <input type="radio" name="material_type" value="finished" style="margin: 0;">
+                        <span>{{ __('Finished Product') }}</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                        <input type="radio" name="material_type" value="both" style="margin: 0;">
+                        <span>{{ __('Both') }}</span>
+                    </label>
+                </div>
+                <small style="color: #6b7280; font-size: 0.875rem;">{{ __('Select material classification (required for Products)') }}</small>
+            </div>
+
+            <div class="zameen-form-group">
+                <label class="zameen-form-label">
+                    {{ __('Product/Service Name') }}
+                    <span style="color: #ef4444; margin-left: 4px;">*</span>
+                </label>
+                {{ Form::text('name', '', [
+                    'class' => 'zameen-form-input',
+                    'placeholder' => __('Enter product or service name'),
+                    'required' => 'required'
+                ]) }}
+            </div>
+
+            <div class="zameen-form-group">
+                <label class="zameen-form-label">
+                    {{ __('SKU (Stock Keeping Unit)') }}
+                    <span style="color: #ef4444; margin-left: 4px;">*</span>
+                </label>
+                {{ Form::text('sku', '', [
+                    'class' => 'zameen-form-input',
+                    'placeholder' => __('Enter unique SKU code'),
+                    'required' => 'required'
+                ]) }}
             </div>
         </div>
 
-        <!-- NEW: Material Type radios (only for Product) -->
-        <div class="col-md-12 mb-3 material-type-wrap">
-            <div class="form-group">
-                <label class="d-block form-label">{{ __('Material') }}</label>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-check form-check-inline">
-                            <input type="radio" class="form-check-input" id="mt_raw" name="material_type" value="raw">
-                            <label class="custom-control-label form-label" for="mt_raw">{{ __('Raw material') }}</label>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-check form-check-inline">
-                            <input type="radio" class="form-check-input" id="mt_finished" name="material_type" value="finished">
-                            <label class="custom-control-label form-label" for="mt_finished">{{ __('Finished product') }}</label>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-check form-check-inline">
-                            <input type="radio" class="form-check-input" id="mt_both" name="material_type" value="both">
-                            <label class="custom-control-label form-label" for="mt_both">{{ __('Both') }}</label>
-                        </div>
-                    </div>
-                </div>
-                <small class="text-muted">{{ __('Select material classification (required for Products).') }}</small>
-            </div>
-        </div>
-        <!-- /NEW -->
+        <div class="zameen-form-section">
+            <h6 class="zameen-section-title">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display: inline; margin-right: 8px;">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                </svg>
+                {{ __('Pricing & Accounts') }}
+            </h6>
 
-        <div class="col-md-6">
-            <div class="form-group">
-                {{ Form::label('name', __('Name'), ['class' => 'form-label']) }}<x-required></x-required>
-                <div class="form-icon-user">
-                    {{ Form::text('name', '', ['class' => 'form-control', 'required' => 'required']) }}
-                </div>
+            <div class="zameen-form-group">
+                <label class="zameen-form-label">
+                    {{ __('Sale Price') }}
+                    <span style="color: #ef4444; margin-left: 4px;">*</span>
+                </label>
+                {{ Form::number('sale_price', '', [
+                    'class' => 'zameen-form-input',
+                    'placeholder' => __('Enter sale price'),
+                    'required' => 'required',
+                    'step' => '0.01'
+                ]) }}
             </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                {{ Form::label('sku', __('SKU'), ['class' => 'form-label']) }}<x-required></x-required>
-                <div class="form-icon-user">
-                    {{ Form::text('sku', '', ['class' => 'form-control', 'required' => 'required']) }}
-                </div>
-            </div>
-        </div>
 
-        <div class="col-md-6">
-            <div class="form-group">
-                {{ Form::label('sale_price', __('Sale Price'), ['class' => 'form-label']) }}<x-required></x-required>
-                <div class="form-icon-user">
-                    {{ Form::number('sale_price', '', ['class' => 'form-control', 'required' => 'required', 'step' => '0.01']) }}
-                </div>
-            </div>
-        </div>
-        <div class="form-group col-md-6">
-            {{ Form::label('sale_chartaccount_id', __('Income Account'),['class'=>'form-label']) }}<x-required></x-required>
-            <select name="sale_chartaccount_id" class="form-control"  required="required">
-                @foreach ($incomeChartAccounts as $key => $chartAccount)
-                    <option value="{{ $key }}" class="subAccount">{{ $chartAccount }}</option>
-                    @foreach ($incomeSubAccounts as $subAccount)
-                        @if ($key == $subAccount['account'])
-                            <option value="{{ $subAccount['id'] }}" class="ms-5"> &nbsp; &nbsp;&nbsp; {{ $subAccount['name'] }}</option>
-                        @endif
+            <div class="zameen-form-group">
+                <label class="zameen-form-label">
+                    {{ __('Income Account') }}
+                    <span style="color: #ef4444; margin-left: 4px;">*</span>
+                </label>
+                <select name="sale_chartaccount_id" class="zameen-form-input" required="required">
+                    @foreach ($incomeChartAccounts as $key => $chartAccount)
+                        <option value="{{ $key }}" class="subAccount">{{ $chartAccount }}</option>
+                        @foreach ($incomeSubAccounts as $subAccount)
+                            @if ($key == $subAccount['account'])
+                                <option value="{{ $subAccount['id'] }}" class="ms-5"> &nbsp; &nbsp;&nbsp; {{ $subAccount['name'] }}</option>
+                            @endif
+                        @endforeach
                     @endforeach
-                @endforeach
-            </select>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                {{ Form::label('purchase_price', __('Purchase Price'), ['class' => 'form-label']) }}<x-required></x-required>
-                <div class="form-icon-user">
-                    {{ Form::number('purchase_price', '', ['class' => 'form-control', 'required' => 'required', 'step' => '0.01']) }}
-                </div>
+                </select>
             </div>
-        </div>
-        <div class="form-group col-md-6">
-            {{ Form::label('expense_chartaccount_id', __('Expense Account'),['class'=>'form-label']) }}<x-required></x-required>
-            <select name="expense_chartaccount_id" class="form-control" required="required">
-                @foreach ($expenseChartAccounts as $key => $chartAccount)
-                    <option value="{{ $key }}" class="subAccount">{{ $chartAccount }}</option>
-                    @foreach ($expenseSubAccounts as $subAccount)
-                        @if ($key == $subAccount['account'])
-                            <option value="{{ $subAccount['id'] }}" class="ms-5"> &nbsp; &nbsp;&nbsp; {{ $subAccount['name'] }}</option>
-                        @endif
+
+            <div class="zameen-form-group">
+                <label class="zameen-form-label">
+                    {{ __('Purchase Price') }}
+                    <span style="color: #ef4444; margin-left: 4px;">*</span>
+                </label>
+                {{ Form::number('purchase_price', '', [
+                    'class' => 'zameen-form-input',
+                    'placeholder' => __('Enter purchase price'),
+                    'required' => 'required',
+                    'step' => '0.01'
+                ]) }}
+            </div>
+
+            <div class="zameen-form-group">
+                <label class="zameen-form-label">
+                    {{ __('Expense Account') }}
+                    <span style="color: #ef4444; margin-left: 4px;">*</span>
+                </label>
+                <select name="expense_chartaccount_id" class="zameen-form-input" required="required">
+                    @foreach ($expenseChartAccounts as $key => $chartAccount)
+                        <option value="{{ $key }}" class="subAccount">{{ $chartAccount }}</option>
+                        @foreach ($expenseSubAccounts as $subAccount)
+                            @if ($key == $subAccount['account'])
+                                <option value="{{ $subAccount['id'] }}" class="ms-5"> &nbsp; &nbsp;&nbsp; {{ $subAccount['name'] }}</option>
+                            @endif
+                        @endforeach
                     @endforeach
-                @endforeach
-            </select>
-        </div>
-        @if($TAX_ENABLED)
-        <div class="form-group col-md-6">
-            {{ Form::label('tax_id', __('Tax (Optional)'), ['class' => 'form-label']) }}
-            {{ Form::select('tax_id[]', $tax, null, ['class' => 'form-control select2', 'id' => 'choices-multiple1', 'multiple']) }}
-            
-            <div class="text-xs mt-2">
-                {{ __('Need to add a new tax rate? ') }}<a href="#" onclick="openAddTaxModal()" class="text-[#007C38] font-semibold">{{ __('Add Tax') }}</a>
-            </div>
-        </div>
-        @endif
-        <div class="form-group col-md-6">
-            {{ Form::label('category_id', __('Category'), ['class' => 'form-label']) }}<x-required></x-required>
-            {{ Form::select('category_id', $category, null, ['class' => 'form-control select', 'required' => 'required']) }}
-
-            <div class="text-xs mt-2">
-                {{ __('Need to add a new category? ') }}<a href="#" id="add_category"  class="text-[#007C38] font-semibold">🔴 {{ __('Add Category') }}</a>
-            </div>
-        </div>
-        <div class="form-group col-md-6 unit-field">
-            {{ Form::label('unit_id', __('Unit'), ['class' => 'form-label']) }}<x-required></x-required>
-            {{ Form::select('unit_id', $unit, null, ['class' => 'form-control select', 'required' => 'required']) }}
-            
-            <div class="text-xs mt-2">
-                {{ __('Need to add a new unit? ') }}<a href="#" id="add_unit" class="text-[#007C38] font-semibold">🔴 {{ __('Add Unit') }}</a>
+                </select>
             </div>
         </div>
 
-        <!-- <div class="form-group col-md-6">
-            {{ Form::label('quantity', __('Quantity'), ['class' => 'form-label']) }}<x-required></x-required>
-            {{ Form::text('quantity', null, ['class' => 'form-control', 'required' => 'required']) }}
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <div class="btn-box">
-                    <label class="d-block form-label">{{ __('Type') }}</label>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" id="customRadio5" name="type"
-                                    value="Product" checked="checked" onclick="hide_show(this)">
-                                <label class="custom-control-label form-label"
-                                    for="customRadio5">{{ __('Product') }}</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-check form-check-inline">
-                                <input type="radio" class="form-check-input" id="customRadio6" name="type"
-                                    value="Service" onclick="hide_show(this)">
-                                <label class="custom-control-label form-label"
-                                    for="customRadio6">{{ __('Service') }}</label>
-                            </div>
-                        </div>
-                    </div>
+        <div class="zameen-form-section">
+            <h6 class="zameen-section-title">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display: inline; margin-right: 8px;">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                </svg>
+                {{ __('Classification & Tax') }}
+            </h6>
+
+            <div class="zameen-form-group">
+                <label class="zameen-form-label">
+                    {{ __('Category') }}
+                    <span style="color: #ef4444; margin-left: 4px;">*</span>
+                </label>
+                {{ Form::select('category_id', $category, null, ['class' => 'zameen-form-input', 'required' => 'required']) }}
+                <div style="margin-top: 0.5rem;">
+                    <small style="color: #6b7280;">{{ __('Need to add a new category? ') }}</small>
+                    <a href="#" id="add_category" style="color: #00b98d; font-weight: 600; text-decoration: none;">{{ __('Add Category') }}</a>
                 </div>
             </div>
-        </div> -->
-        <div class="form-group col-md-3 quantity-field">
-            {{ Form::label('quantity', __('Quantity'), ['class' => 'form-label']) }}<x-required></x-required>
-            {{ Form::text('quantity', null, ['class' => 'form-control', 'required' => 'required']) }}
+
+            @if($TAX_ENABLED)
+            
+            <div class="zameen-form-group">
+                <label class="zameen-form-label">{{ __('Tax (Optional)') }}</label>
+                {{ Form::select('tax_id[]', $tax, null, ['class' => 'zameen-form-input', 'id' => 'choices-multiple1', 'multiple']) }}
+                <div style="margin-top: 0.5rem;">
+                    <small style="color: #6b7280;">{{ __('Need to add a new tax rate? ') }}</small>
+                    <a href="#" onclick="openAddTaxModal()" style="color: #00b98d; font-weight: 600; text-decoration: none;">{{ __('Add Tax') }}</a>
+                </div>
+            </div>
+            @endif
+
+            <div class="zameen-form-group unit-field">
+                <label class="zameen-form-label">
+                    {{ __('Unit') }}
+                    <span style="color: #ef4444; margin-left: 4px;">*</span>
+                </label>
+                {{ Form::select('unit_id', $unit, null, ['class' => 'zameen-form-input', 'required' => 'required']) }}
+                <div style="margin-top: 0.5rem;">
+                    <small style="color: #6b7280;">{{ __('Need to add a new unit? ') }}</small>
+                    <a href="#" id="add_unit" style="color: #00b98d; font-weight: 600; text-decoration: none;">{{ __('Add Unit') }}</a>
+                </div>
+            </div>
         </div>
-        <div class="form-group col-md-3 reorder-field">
-            {{ Form::label('reorder_level', __('Reorder Level'), ['class' => 'form-label']) }}<x-required></x-required>
-            {{ Form::number('reorder_level', null, ['class' => 'form-control', 'required' => 'required']) }}
+
+        <div class="zameen-form-section">
+            <h6 class="zameen-section-title">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display: inline; margin-right: 8px;">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                </svg>
+                {{ __('Inventory Details') }}
+            </h6>
+
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                
+                <div class="zameen-form-group quantity-field" style="flex: 1; min-width: 200px;">
+                    <label class="zameen-form-label">
+                        {{ __('Quantity') }}
+                        <span style="color: #ef4444; margin-left: 4px;">*</span>
+                    </label>
+                    {{ Form::text('quantity', null, [
+                        'class' => 'zameen-form-input',
+                        'placeholder' => __('Enter quantity'),
+                        'required' => 'required'
+                    ]) }}
+                </div>
+
+                <div class="zameen-form-group reorder-field" style="flex: 1; min-width: 200px;">
+                    <label class="zameen-form-label">
+                        {{ __('Reorder Level') }}
+                        <span style="color: #ef4444; margin-left: 4px;">*</span>
+                    </label>
+                    {{ Form::number('reorder_level', null, [
+                        'class' => 'zameen-form-input',
+                        'placeholder' => __('Enter reorder level'),
+                        'required' => 'required'
+                    ]) }}
+                </div>
+            </div>
         </div>
-        <div class="form-group col-md-12">
-            {{ Form::label('description', __('Description'), ['class' => 'form-label']) }}
-            {!! Form::textarea('description', null, ['class' => 'form-control', 'rows' => '2']) !!}
-        </div>
-        @if (!$customFields->isEmpty())
-            <div class="col-lg-6 col-md-6 col-sm-6">
-                <div class="tab-pane fade show" id="tab-2" role="tabpanel">
+
+        <div class="zameen-form-section">
+            <h6 class="zameen-section-title">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display: inline; margin-right: 8px;">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7"></path>
+                </svg>
+                {{ __('Additional Information') }}
+            </h6>
+
+            <div class="zameen-form-group">
+                <label class="zameen-form-label">{{ __('Description') }}</label>
+                {!! Form::textarea('description', null, [
+                    'class' => 'zameen-form-input',
+                    'rows' => '4',
+                    'placeholder' => __('Enter product or service description...')
+                ]) !!}
+            </div>
+
+            @if (!$customFields->isEmpty())
+                <div class="zameen-custom-fields">
                     @include('customFields.formBuilder')
                 </div>
-            </div>
-        @endif
+            @endif
+        </div>
     </div>
-    
-    <div class="flex justify-end gap-3 mt-6 pt-4 border-t border-[#E5E5E5]">
-        <a href="{{ route('productservice.index') }}" class="btn py-[6px] px-[10px] btn text-[#007C38] border-[#007C38] hover:bg-[#007C38] hover:text-white">
-            {{ __('Cancel') }}
-        </a>
-        <input type="submit" value="{{ __('Create') }}" class="btn py-[6px] px-[10px] btn bg-[#007C38] text-white hover:bg-[#005f2a]">
-    </div>
-    
-    {{ Form::close() }}
+  </div>
 </div>
+
+<div class="modal-footer" style="background: var(--zameen-background-light); border-top: 1px solid var(--zameen-border-light); padding: 1.5rem 2rem; display: flex; justify-content: flex-end; gap: 1rem;">
+  <a href="{{ route('productservice.index') }}" class="zameen-btn zameen-btn-outline">
+    {{ __('Cancel') }}
+  </a>
+  <button type="submit" class="zameen-btn zameen-btn-primary">
+    {{ __('Create Product/Service') }}
+  </button>
+</div>
+
+{{ Form::close() }}
 
 @php
     $plan = \App\Models\Utility::getChatGPTSettings();
@@ -266,7 +332,7 @@
     <div class="row gutters-xs">
         @foreach (App\Models\Utility::templateData()['colors'] as $key => $hexNoHash)
             @php
-                $hex = '#'.$hexNoHash; // store with leading '#', same as the old color input
+                $hex = '#'.$hexNoHash;
             @endphp
             <div class="col-auto">
                 <label class="colorinput" title="{{ $hex }}">
@@ -291,7 +357,7 @@
         </div>
     </div>
 </div>
-<!-- unit modal -->
+
 <div class="modal fade" id="productUnitModal" tabindex="-1" aria-labelledby="productUnitModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -325,10 +391,9 @@
 
 @push('script-page')
 <script>
-// Handle type selection changes
 $(document).on('click', 'input[name="type"]', function () {
     var type = $(this).val();
-    
+
     if (type === 'Product') {
         $('.quantity-field').show();
         $('.reorder-field').show();
@@ -337,13 +402,11 @@ $(document).on('click', 'input[name="type"]', function () {
         $('input[name="reorder_level"]').prop('required', true);
         $('select[name="unit_id"]').prop('required', true);
 
-        // Show material radios and default to 'finished' if nothing selected
         $('.material-type-wrap').show();
         if (!$('input[name="material_type"]:checked').length) {
             $('#mt_finished').prop('checked', true);
         }
     } else if (type === 'Service') {
-        // Hide quantity and unit fields for services
         $('.quantity-field').hide();
         $('.reorder-field').hide();
         $('.unit-field').hide();
@@ -351,13 +414,11 @@ $(document).on('click', 'input[name="type"]', function () {
         $('input[name="reorder_level"]').val('').prop('required', false);
         $('select[name="unit_id"]').val('').prop('required', false);
 
-        // Hide and clear material radios for services
         $('.material-type-wrap').hide();
         $('input[name="material_type"]').prop('checked', false);
     }
 });
 
-// Initialize form based on selected type
 $(document).ready(function() {
     var selectedType = $('input[name="type"]:checked').val();
     if (selectedType === 'Service') {
@@ -367,18 +428,15 @@ $(document).ready(function() {
         $('input[name="reorder_level"]').prop('required', false);
         $('select[name="unit_id"]').prop('required', false);
 
-        // Hide material for service
         $('.material-type-wrap').hide();
         $('input[name="material_type"]').prop('checked', false);
     } else {
-        // For Product: ensure material default if not chosen
         $('.material-type-wrap').show();
         if (!$('input[name="material_type"]:checked').length) {
             $('#mt_finished').prop('checked', true);
         }
     }
 });
-
 
 $("#add_category").click(function (e) {
     $("#productCategoryModal").modal("show");
@@ -401,7 +459,7 @@ $("#add_category_form").submit(function (e) {
         success: function (response) {
             if (response.status == "1") {
                 $("#productCategoryModal").modal("hide");
-                $("#add_category_form")[0].reset(); 
+                $("#add_category_form")[0].reset();
                 $("#category_id").html(response.options);
                 show_toastr("success",response.message);
             }else{
@@ -449,10 +507,8 @@ $("#add_unit_form").submit(function (e) {
     });
 });
 function openAddTaxModal() {
-    // Open tax creation modal in new tab
     window.open("{{ route('taxes.index') }}", '_blank');
-    
-    // Show instruction message
+
     Swal.fire({
         title: 'Add Tax',
         text: 'A new tab has opened where you can add tax rates. After adding, please refresh this page to see the new taxes.',

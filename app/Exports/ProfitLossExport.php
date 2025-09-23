@@ -17,9 +17,6 @@ use PhpOffice\PhpSpreadsheet\Style\Alignment;
 
 class ProfitLossExport implements FromArray, WithEvents, WithHeadings, WithStyles, WithColumnWidths, WithCustomStartCell
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
 
     public function __construct($data , $startDate, $endDate, $companyName)
     {
@@ -95,7 +92,6 @@ class ProfitLossExport implements FromArray, WithEvents, WithHeadings, WithStyle
             }
         }
 
-
         $grossProfit = $totalIncome - $totalCosts;
         
         $formattedData[] = [
@@ -133,7 +129,6 @@ class ProfitLossExport implements FromArray, WithEvents, WithHeadings, WithStyle
                 {
                     $netAmount = -$account['netAmount'];
                 }
-
 
                 if ($account['account'] == 'parent' || $account['account'] == 'parentTotal')
                 {
@@ -204,7 +199,6 @@ class ProfitLossExport implements FromArray, WithEvents, WithHeadings, WithStyle
         return $this->data ;
     }
 
-
     public function registerEvents(): array
     {
         return [
@@ -233,7 +227,7 @@ class ProfitLossExport implements FromArray, WithEvents, WithHeadings, WithStyle
 
                     if (isset($row['Account Name']) && ($row['Account Name'] == 'Total Costs of Goods Sold' || $row['Account Name'] == 'Total Income' || $row['Account Name'] == 'Income'
                        || $row['Account Name'] == 'Costs of Goods Sold' || $row['Account Name'] == 'Expenses' || $row['Account Name'] == 'Total Expenses')) {
-                        $rowIndex = $index + 6; // Adjust for 1-based indexing and header row
+                        $rowIndex = $index + 6;
                         $event->sheet->getStyle('A' . $rowIndex . ':C' . $rowIndex)
                             ->applyFromArray([
                                 'font' => [
@@ -244,7 +238,7 @@ class ProfitLossExport implements FromArray, WithEvents, WithHeadings, WithStyle
                     }
                     elseif(isset($row['Account Name']) && ($row['Account Name'] == 'Gross Profit' || $row['Account Name'] == 'Net Profit/Loss'))
                     {
-                        $rowIndex = $index + 6; // Adjust for 1-based indexing and header row
+                        $rowIndex = $index + 6;
                         $event->sheet->getStyle('A' . $rowIndex . ':C' . $rowIndex)
                             ->applyFromArray([
                                 'font' => [

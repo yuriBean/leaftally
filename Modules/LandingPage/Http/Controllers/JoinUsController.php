@@ -9,33 +9,19 @@ use Modules\LandingPage\Entities\LandingPageSetting;
 use Modules\LandingPage\Entities\JoinUs;
 use Illuminate\Support\Facades\Validator;
 
-
 class JoinUsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
     public function index()
     {
         $join_us = JoinUs::get();
         return view('landingpage::landingpage.joinus', compact('join_us'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
     public function create()
     {
         return view('landingpage::create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
     public function store(Request $request)
     {
 
@@ -43,52 +29,28 @@ class JoinUsController extends Controller
         $data['joinus_heading']= $request->joinus_heading;
         $data['joinus_description']= $request->joinus_description;
 
-
         foreach($data as $key => $value){
             LandingPageSetting::updateOrCreate(['name' =>  $key],['value' => $value]);
         }
 
         return redirect()->back()->with(['success'=> 'Setting update successfully']);
 
-
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
     public function show($id)
     {
         return view('landingpage::landingpage.joinus');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
     public function edit($id)
     {
         return view('landingpage::landingpage.joinus');
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
     public function update(Request $request, $id)
     {
-        //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
     public function destroy($id)
     {
         $join = JoinUs::find($id);
@@ -96,7 +58,6 @@ class JoinUsController extends Controller
 
         return redirect()->back()->with(['success'=> 'You are joined with our community']);
     }
-
 
     public function joinUsUserStore(Request $request){
 

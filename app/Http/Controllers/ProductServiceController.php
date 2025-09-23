@@ -29,7 +29,6 @@ class ProductServiceController extends Controller
             ->pluck('name', 'id')
             ->prepend(__('Select Category'), '');
 
-        // NEW: material type filter options for the select in blade
         $materialTypes = [
             ''         => __('All Materials'),
             'raw'      => __('Raw material'),
@@ -45,7 +44,6 @@ class ProductServiceController extends Controller
             $query->where('category_id', $request->category);
         }
 
-        // NEW: apply material_type filter
         if ($request->filled('material_type')) {
             $query->where('material_type', $request->material_type);
         }
@@ -63,7 +61,6 @@ class ProductServiceController extends Controller
             $unit         = ProductServiceUnit::where('created_by', '=', \Auth::user()->creatorId())->get()->pluck('name', 'id');
             $tax          = Tax::where('created_by', '=', \Auth::user()->creatorId())->get()->pluck('name', 'id');
 
-            // Income parents
             $incomeChartAccounts = ChartOfAccount::select(\DB::raw('CONCAT(chart_of_accounts.code, " - ", chart_of_accounts.name) AS code_name'), 'chart_of_accounts.id')
                 ->leftJoin('chart_of_account_types', 'chart_of_account_types.id', '=', 'chart_of_accounts.type')
                 ->where('chart_of_account_types.name', 'income')
@@ -73,7 +70,6 @@ class ProductServiceController extends Controller
                 ->pluck('code_name', 'id')
                 ->prepend('Select Account', null);
 
-            // Income subs
             $incomeSubAccounts = ChartOfAccount::select('chart_of_accounts.id', 'chart_of_accounts.code', 'chart_of_accounts.name', 'chart_of_account_parents.account')
                 ->leftJoin('chart_of_account_parents', 'chart_of_accounts.parent', '=', 'chart_of_account_parents.id')
                 ->leftJoin('chart_of_account_types', 'chart_of_account_types.id', '=', 'chart_of_accounts.type')
@@ -83,7 +79,6 @@ class ProductServiceController extends Controller
                 ->get()
                 ->toArray();
 
-            // Expense parents
             $expenseChartAccounts = ChartOfAccount::select(\DB::raw('CONCAT(chart_of_accounts.code, " - ", chart_of_accounts.name) AS code_name'), 'chart_of_accounts.id')
                 ->leftJoin('chart_of_account_types', 'chart_of_account_types.id', '=', 'chart_of_accounts.type')
                 ->whereIn('chart_of_account_types.name', ['Expenses', 'Costs of Goods Sold'])
@@ -92,7 +87,6 @@ class ProductServiceController extends Controller
                 ->pluck('code_name', 'id')
                 ->prepend('Select Account', null);
 
-            // Expense subs
             $expenseSubAccounts = ChartOfAccount::select('chart_of_accounts.id', 'chart_of_accounts.code', 'chart_of_accounts.name', 'chart_of_account_parents.account')
                 ->leftJoin('chart_of_account_parents', 'chart_of_accounts.parent', '=', 'chart_of_account_parents.id')
                 ->leftJoin('chart_of_account_types', 'chart_of_account_types.id', '=', 'chart_of_accounts.type')
@@ -123,7 +117,6 @@ class ProductServiceController extends Controller
         ->where('created_by', \Auth::user()->creatorId())
         ->findOrFail($id);
 
-    // Return modal fragment view (AJAX popup)
     return view('productservice.show', [
         'productService' => $productService,
     ]);
@@ -216,7 +209,6 @@ class ProductServiceController extends Controller
             $rules['material_type'] = 'required|in:raw,finished,both';
         }
 
-
         $validator = \Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             $messages = $validator->getMessageBag();
@@ -241,7 +233,7 @@ class ProductServiceController extends Controller
         $productService->unit_id                 = $request->unit_id ?? 0;
         $productService->quantity                = $request->quantity ?? 0;
         $productService->type                    = $request->type;
-        $productService->material_type           = (strtolower($request->type) === 'service') ? null : $request->material_type; // NEW
+        $productService->material_type           = (strtolower($request->type) === 'service') ? null : $request->material_type;
         $productService->sale_chartaccount_id    = $request->sale_chartaccount_id;
         $productService->expense_chartaccount_id = $request->expense_chartaccount_id;
         $productService->category_id             = $request->category_id;
@@ -282,7 +274,6 @@ class ProductServiceController extends Controller
                     ->orderBy('name')
                     ->pluck('name', 'id');
 
-                // revive selected deleted category
                 if (!empty($productService->category_id)) {
                     $trashedCat = ProductServiceCategory::onlyTrashed()
                         ->where('created_by', \Auth::user()->creatorId())
@@ -292,7 +283,6 @@ class ProductServiceController extends Controller
                     }
                 }
 
-                // revive selected deleted unit
                 if (!empty($productService->unit_id)) {
                     $trashedUnit = ProductServiceUnit::onlyTrashed()
                         ->where('created_by', \Auth::user()->creatorId())
@@ -302,7 +292,6 @@ class ProductServiceController extends Controller
                     }
                 }
 
-                // revive selected deleted taxes
                 $selectedTaxIds = collect(explode(',', (string) $productService->tax_id))
                     ->filter(fn($v) => is_numeric($v))
                     ->map(fn($v) => (int)$v)
@@ -395,7 +384,7 @@ class ProductServiceController extends Controller
             'category_id'    => 'required',
             'type'           => 'required|in:Product,Service',
             'material_type'  => 'nullable|in:raw,finished,both',
-            'reorder_level'  => 'nullable|integer|min:0', // NEW
+            'reorder_level'  => 'nullable|integer|min:0',
         ];
         if (strtolower($request->type) === 'product') {
             $rules['material_type'] = 'required|in:raw,finished,both';
@@ -416,7 +405,7 @@ class ProductServiceController extends Controller
         $productService->unit_id                  = $request->unit_id ?? 0;
         $productService->quantity                 = $request->quantity;
         $productService->type                     = $request->type;
-        $productService->material_type            = (strtolower($request->type) === 'service') ? null : $request->material_type; // NEW
+        $productService->material_type            = (strtolower($request->type) === 'service') ? null : $request->material_type;
         $productService->sale_chartaccount_id     = $request->sale_chartaccount_id;
         $productService->expense_chartaccount_id  = $request->expense_chartaccount_id;
         $productService->category_id              = $request->category_id;
@@ -477,7 +466,6 @@ class ProductServiceController extends Controller
             $productService->category_id    = $items[6] ?? "";
             $productService->unit_id        = $items[7] ?? "";
             $productService->type           = $items[8] ?? "";
-            // Optional: if you later add material_type to import, map $items[10] etc.
             $productService->description    = $items[9] ?? "";
             $productService->created_by     = \Auth::user()->creatorId();
 

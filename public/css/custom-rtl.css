@@ -1,5 +1,4 @@
 
-/* custom dark-mode && rtl css */
 
 [dir="rtl"] .dash-sidebar {
     left: auto !important;
@@ -25,7 +24,6 @@
     margin-left: 10px !important;
 }
 
-
 [dir="rtl"] .header-wrapper .ms-auto {
     margin-left: 0 !important;
 }
@@ -43,5 +41,3 @@
     float: left !important;
 }
 
-
-/*  custom End dark-mode && rtl css  */

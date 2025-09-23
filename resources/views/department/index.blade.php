@@ -99,7 +99,6 @@
 
 @push('script-page')
 <script>
-  // Prevent dropdown/menu clicks from interfering with table interactions (keeps parity with Bills)
   $(document).on('click', '.dropdown-menu, [data-bs-toggle="dropdown"]', function(e){
     e.stopPropagation();
   });

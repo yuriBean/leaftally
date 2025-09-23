@@ -9,14 +9,11 @@ use App\Http\Controllers\{
 
 Route::group(['middleware' => ['auth','2fa']], function () {
 
-    // ===== Customer invoice show (inside verified) =====
     Route::get('invoice/{id}/show', [InvoiceController::class, 'customerInvoiceShow'])->name('customer.invoice.show')->middleware(['auth:customer','XSS','revalidate']);
 
-    // ===== Company-switch helpers =====
     Route::get('users/{id}/login-with-company', [UserController::class, 'LoginWithCompany'])->name('login.with.company');
     Route::get('login-with-company/exit', [UserController::class, 'ExitCompany'])->name('exit.company');
 
-    // ===== Contract Types =====
     Route::group(['middleware' => ['auth','XSS','revalidate']], function () {
         Route::post('contract/bulk-destroy', [ContractController::class, 'bulkDestroy'])
     ->name('contract.bulk-destroy');
@@ -29,7 +26,6 @@ Route::group(['middleware' => ['auth','2fa']], function () {
         Route::post('contractType/bulk-destroy', [ContractTypeController::class, 'bulkDestroy'])
         ->name('contractType.bulk-destroy');
 
-    // Exports
     Route::get('contractType/export', [ContractTypeController::class, 'export'])
         ->name('contractType.export');
 
@@ -38,7 +34,6 @@ Route::group(['middleware' => ['auth','2fa']], function () {
         Route::resource('contractType', ContractTypeController::class)->middleware(['auth','XSS']);
     });
 
-    // ===== Contracts (company-side) =====
     Route::group(['middleware' => ['auth','XSS','revalidate']], function () {
         Route::resource('contract', ContractController::class)->middleware(['auth','XSS']);
         Route::get('contract/duplicate/{id}', [ContractController::class, 'duplicate'])->name('contract.duplicate')->middleware(['auth','XSS']);
@@ -58,13 +53,11 @@ Route::group(['middleware' => ['auth','2fa']], function () {
         Route::get('/contract/{id}/mail', [ContractController::class, 'sendmailContract'])->name('send.mail.contract')->middleware(['auth','XSS']);
     });
 
-    // ===== Email Templates =====
     Route::get('email_template_lang/{id}/{lang?}', [EmailTemplateController::class, 'manageEmailLang'])->name('manage.email.language')->middleware(['auth','XSS']);
     Route::put('email_template_store/{pid}', [EmailTemplateController::class, 'storeEmailLang'])->name('store.email.language')->middleware(['auth']);
     Route::post('email_template_status', [EmailTemplateController::class, 'updateStatus'])->name('status.email.language')->middleware(['auth']);
     Route::resource('email_template', EmailTemplateController::class)->middleware(['auth']);
 
-    // ===== Dashboard + User/Role/Permission =====
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware(['auth','XSS','revalidate']);
     Route::get('user/{id}/plan', [UserController::class, 'upgradePlan'])->name('plan.upgrade')->middleware(['XSS','revalidate']);
     Route::get('user/{id}/plan/{pid}', [UserController::class, 'activePlan'])->name('plan.active')->middleware(['XSS','revalidate']);
@@ -80,7 +73,6 @@ Route::group(['middleware' => ['auth','2fa']], function () {
     Route::resource('roles', RoleController::class)->middleware(['auth','XSS','revalidate','feature:user_access_management']);
     Route::resource('permissions', PermissionController::class)->middleware(['auth','XSS','revalidate','feature:user_access_management']);
 
-    // ===== Language management =====
     Route::group(['middleware' => ['auth','XSS','revalidate']], function () {
         Route::get('change-language/{lang}', [LanguageController::class, 'changeLanquage'])->name('change.language');
         Route::get('manage-language/{lang}', [LanguageController::class, 'manageLanguage'])->name('manage.language');
@@ -91,7 +83,6 @@ Route::group(['middleware' => ['auth','2fa']], function () {
         Route::post('disable-language', [LanguageController::class, 'disableLang'])->name('disablelanguage')->middleware(['auth','XSS']);
     });
 
-    // ===== Settings & Webhooks =====
     Route::group(['middleware' => ['auth','XSS','revalidate']], function () {
         Route::resource('settings', SystemController::class);
         Route::post('email-settings', [SystemController::class, 'saveEmailSettings'])->name('email.settings');

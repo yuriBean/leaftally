@@ -20,9 +20,6 @@ use Maatwebsite\Excel\Events\AfterSheet;
 
 class TrialBalancExport implements FromArray , WithHeadings , WithStyles, WithCustomStartCell, WithColumnWidths, WithEvents
 {
-    /**
-    * @return \Illuminate\Support\Collection
-    */
 
     public function __construct($data , $startDate, $endDate, $companyName)
     {
@@ -121,7 +118,6 @@ class TrialBalancExport implements FromArray , WithHeadings , WithStyles, WithCu
     {
         return $this->data;
     }
-    
 
     public function headings(): array
     {
@@ -151,14 +147,11 @@ class TrialBalancExport implements FromArray , WithHeadings , WithStyles, WithCu
 
                 $event->sheet->getStyle('A' . $lastRow . ':Z' . $lastRow)->getFont()->setBold(true);
 
-                // $event->sheet->getStyle('A' . $startRow . ':Z' . $lastRow)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-
-
                 $data = $this->data;
                 foreach ($data as $index => $row) {
                     if (isset($row['Account Name']) && ($row['Account Name'] == 'Assets' || $row['Account Name'] == 'Income' || $row['Account Name'] == 'Costs of Goods Sold' || $row['Account Name'] == 'Expenses' ||
                      $row['Account Name'] ==  'Liabilities' || $row['Account Name'] ==  'Equity')) {
-                        $rowIndex = $index + 7; // Adjust for 1-based indexing and header row
+                        $rowIndex = $index + 7;
                         $event->sheet->getStyle('A' . $rowIndex . ':D' . $rowIndex)
                             ->applyFromArray([
                                 'font' => [

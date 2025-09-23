@@ -1,10 +1,5 @@
 @charset "UTF-8";
-/*!
- *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
- *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
- */
-/* FONT PATH
- * -------------------------- */
+
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,300,500,700,900");
 @font-face {
   font-family: 'FontAwesome';
@@ -20,7 +15,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
-/* makes the font 33% larger relative to the icon container */
 .fa-lg {
   font-size: 1.3333333333em;
   line-height: 0.75em;
@@ -74,7 +68,6 @@
 .fa.fa-pull-right {
   margin-left: .3em; }
 
-/* Deprecated as of 4.4.0 */
 .pull-right {
   float: right; }
 
@@ -164,8 +157,6 @@
 .fa-inverse {
   color: #fff; }
 
-/* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
-   readers do not read off random characters that represent icons */
 .fa-glass:before {
   content: ""; }
 
@@ -3535,7 +3526,4 @@ svg:not(:root) {
   border-radius: 3px 3px 0 0; }
 #tab3content .block:last-child {
   border-radius: 0 0 3px 3px; }
-
-/*# sourceMappingURL=style.css.map */
-
 

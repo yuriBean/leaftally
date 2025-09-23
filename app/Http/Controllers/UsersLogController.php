@@ -8,16 +8,12 @@ use App\Models\LoginDetail;
 use App\Models\User;
 use App\Models\Vender;
 
-
-
-
 class UsersLogController extends Controller
 {
 
     public function  index(Request $request)    
     {
         $logindetails = LoginDetail::where('created_by', '=', \Auth::user()->creatorId());
-        
 
         $usersList1 = User::where('created_by', '=', \Auth::user()->creatorId())->whereNotIn('type', ['super admin', 'company'])->pluck('name', 'name');
         $usersList2 = Customer::where('created_by', \Auth::user()->creatorId())->pluck('name', 'name');
@@ -25,7 +21,6 @@ class UsersLogController extends Controller
 
         $merged = $usersList1->merge($usersList2);
         $usersList = $merged->merge($usersList3);
-        
 
         $usersList->prepend('All','');  
         if (isset($request->month) && !empty($request->month)) {
@@ -50,11 +45,8 @@ class UsersLogController extends Controller
         }
         $logindetails = $logindetails->get();
 
-
         return view('userlogs.index', compact('logindetails', 'usersList'));
     }
-
-
 
     public function show($id)
     {

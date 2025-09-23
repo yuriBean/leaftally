@@ -118,7 +118,6 @@ class ProductServiceCategoryController extends Controller
             return redirect()->back()->with('error', __('Permission denied.'));
         }
 
-        // prevent delete if in use
         if ($category->type == 0) {
             $inUse = ProductService::where('category_id', $category->id)->first();
         } elseif ($category->type == 1) {
@@ -136,9 +135,6 @@ class ProductServiceCategoryController extends Controller
         return redirect()->route('product-category.index')->with('success', __('Category successfully deleted.'));
     }
 
-    /**
-     * BULK DELETE
-     */
     public function bulkDestroy(Request $request)
     {
         if (!\Auth::user()->can('delete constant category')) {
@@ -167,7 +163,6 @@ class ProductServiceCategoryController extends Controller
             ->get();
 
         foreach ($categories as $category) {
-            // dependency check identical to single delete
             if ($category->type == 0) {
                 $inUse = ProductService::where('category_id', $category->id)->exists();
             } elseif ($category->type == 1) {
@@ -205,9 +200,6 @@ class ProductServiceCategoryController extends Controller
         return redirect()->back()->with($deleted ? 'success' : 'error', $message);
     }
 
-    /**
-     * EXPORT ALL
-     */
     public function export()
     {
         if (!\Auth::user()->can('manage constant category')) {
@@ -222,9 +214,6 @@ class ProductServiceCategoryController extends Controller
         return Excel::download(new ProductCategoryExport(), $filename);
     }
 
-    /**
-     * EXPORT SELECTED
-     */
     public function exportSelected(Request $request)
     {
         if (!\Auth::user()->can('manage constant category')) {
@@ -248,8 +237,6 @@ class ProductServiceCategoryController extends Controller
 
         return Excel::download(new ProductCategoryExport($ids), $filename);
     }
-
-    // ---- existing helper endpoints below ----
 
     public function getProductCategories()
     {

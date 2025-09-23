@@ -6,11 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateOtherPaymentsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('other_payments', function (Blueprint $table) {
@@ -24,11 +19,6 @@ class CreateOtherPaymentsTable extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('other_payments');

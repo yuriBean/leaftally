@@ -13,8 +13,6 @@
     $logo = \App\Models\Utility::get_file('uploads/landing_page_image');
 @endphp
 
-
-
 @push('script-page')
     <script>
         document.getElementById('home_banner').onchange = function() {
@@ -33,7 +31,6 @@
     <li class="breadcrumb-item">{{ __('Landing Page') }}</li>
 @endsection
 
-
 @section('content')
     <div class="row">
         <div class="col-sm-12">
@@ -43,7 +40,6 @@
                         <div class="list-group list-group-flush" id="useradd-sidenav">
 
                             @include('landingpage::layouts.tab')
-
 
                         </div>
                     </div>
@@ -106,8 +102,6 @@
                         </div>
                     </div>
                     {{ Form::close() }}
-
-
 
                     <div class="card">
                         <div class="card-header">

@@ -13,14 +13,14 @@
 
   {{-- Material checkbox styles (same design used elsewhere) --}}
   <style>
-    .low-stock { background-color: #fff1f2 !important; }
+    .low-stock { background-color:
     .mcheck{display:inline-flex;align-items:center;cursor:pointer;user-select:none}
     .mcheck input{position:absolute;opacity:0;width:0;height:0}
-    .mcheck .box{width:20px;height:20px;border:2px solid #D1D5DB;border-radius:6px;background:#fff;display:inline-block;position:relative;transition:all .15s}
+    .mcheck .box{width:20px;height:20px;border:2px solid
     .mcheck .box:hover{box-shadow:0 1px 3px rgba(0,0,0,.08)}
     .mcheck input:focus + .box{box-shadow:0 0 0 3px rgba(0,124,56,.2)}
-    .mcheck input:checked + .box{background:#007C38;border-color:#007C38}
-    .mcheck input:checked + .box::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:2px solid #fff;border-top:none;border-left:none;transform:rotate(45deg)}
+    .mcheck input:checked + .box{background:
+    .mcheck input:checked + .box::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:2px solid
   </style>
 
   {{-- Hidden form for non-AJAX export (so file downloads cleanly) --}}
@@ -198,13 +198,11 @@
 
   function refresh(){
     const selected = new Set(getSel());
-    // sync row checkboxes with storage
     $table.find('tbody input.jsb-item[data-scope="'+scope+'"]').each(function(){
       const id = String($(this).data('id') || $(this).val());
       $(this).prop('checked', selected.has(id));
     });
 
-    // master checkbox state (checked / indeterminate)
     const $rows   = $table.find('tbody input.jsb-item[data-scope="'+scope+'"]');
     const $master = $table.find('thead input.jsb-master[data-scope="'+scope+'"]');
     const total   = $rows.length;
@@ -216,40 +214,32 @@
     updateBar();
   }
 
-  // prevent checkbox/label clicks from interfering with row actions
   $(document).on('click', 'input[type=checkbox], label.mcheck', function(e){ e.stopPropagation(); });
 
-  // row checkbox -> toggle in storage
   $(document).on('change', 'input.jsb-item[data-scope="'+scope+'"]', function(){
     const id = String($(this).data('id') || $(this).val());
     if ($(this).is(':checked')) addSel([id]); else delSel([id]);
     refresh();
   });
 
-  // master checkbox
   $(document).on('change', 'input.jsb-master[data-scope="'+scope+'"]', function(){
     const $rows = $table.find('tbody input.jsb-item[data-scope="'+scope+'"]');
-    // FIXED: removed extra ')'
     const ids = $rows.map(function(){ return String($(this).data('id') || $(this).val()); }).get();
     if ($(this).is(':checked')) { addSel(ids); $rows.prop('checked', true); }
     else { delSel(ids); $rows.prop('checked', false); }
     refresh();
   });
 
-  // Select All (all rows in current table DOM)
   $('#select-all-btn').on('click', function(){
     const $rows = $table.find('tbody input.jsb-item[data-scope="'+scope+'"]');
-    // FIXED: removed extra ')'
     const ids = $rows.map(function(){ return String($(this).data('id') || $(this).val()); }).get();
     addSel(ids); refresh();
   });
 
-  // Deselect All
   $('#deselect-all-btn').on('click', function(){
     clrSel(); refresh();
   });
 
-  // Export Selected
   $('#bulk-export-btn').on('click', function(){
     const ids = getSel();
     if (!ids.length) {
@@ -265,17 +255,14 @@
     ids.forEach(function(id){
       $holder.append($('<input>', { type:'hidden', name:'ids[]', value: id }));
     });
-    // clear selection before leaving page
     clrSel();
     $('#stock-export-form').trigger('submit');
   });
 
-  // Re-sync on simple-datatables actions (safe if not present)
   try {
     $table.on('datatable.page datatable.search datatable.sort', function(){ refresh(); });
   } catch(e) {}
 
-  // initial sync
   refresh();
 })();
 </script>

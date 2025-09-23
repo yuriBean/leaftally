@@ -138,17 +138,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const employeeSelect = document.getElementById('employee_id_select');
     const monthSelect = document.getElementById('payroll_month_select');
     
-    // Available months data from the controller
     const monthesData = @json($monthes);
     
-    // Handle employee selection change
     employeeSelect.addEventListener('change', function() {
         const selectedPayrollId = this.value;
         
-        // Clear current month options
         monthSelect.innerHTML = '<option value="">{{ __("Select Month") }}</option>';
         
-        // Add available months for selected employee
         if (monthesData[selectedPayrollId]) {
             Object.entries(monthesData[selectedPayrollId]).forEach(([value, label]) => {
                 const option = document.createElement('option');
@@ -159,7 +155,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Trigger initial load if there's a selected employee
     if (employeeSelect.value) {
         employeeSelect.dispatchEvent(new Event('change'));
     }

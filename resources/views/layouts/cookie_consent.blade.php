@@ -1,56 +1,50 @@
 <link rel='stylesheet' href='{{ asset('css/cookieconsent.css') }}' media="screen" />
 <style id="cc-theme-overrides">
   :root{
-    /* Primary (Accept) */
-    --cc-btn-primary-bg: #007C38;
-    --cc-btn-primary-color: #ffffff;
-    --cc-btn-primary-border-color: #007C38;
-    --cc-btn-primary-hover-bg: #016a31;
-    --cc-btn-primary-hover-color: #ffffff;
-    --cc-btn-primary-hover-border-color: #016a31;
+    --cc-btn-primary-bg:
+    --cc-btn-primary-color:
+    --cc-btn-primary-border-color:
+    --cc-btn-primary-hover-bg:
+    --cc-btn-primary-hover-color:
+    --cc-btn-primary-hover-border-color:
 
-    /* Secondary (Reject/Settings) */
     --cc-btn-secondary-bg: transparent;
-    --cc-btn-secondary-color: #007C38;
-    --cc-btn-secondary-border-color: #007C38;
+    --cc-btn-secondary-color:
+    --cc-btn-secondary-border-color:
     --cc-btn-secondary-hover-bg: rgba(0,124,56,.08);
-    --cc-btn-secondary-hover-color: #007C38;
-    --cc-btn-secondary-hover-border-color: #007C38;
+    --cc-btn-secondary-hover-color:
+    --cc-btn-secondary-hover-border-color:
 
-    /* Links (e.g. “Let me choose”) */
-    --cc-link-color: #007C38;
-    --cc-link-hover-color: #016a31;
+    --cc-link-color:
+    --cc-link-hover-color:
 
-    /* Toggles in settings modal */
-    --cc-toggle-bg-off: #e5e7eb;
-    --cc-toggle-bg-on: #007C38;
-    --cc-toggle-knob-bg: #ffffff;
+    --cc-toggle-bg-off:
+    --cc-toggle-bg-on:
+    --cc-toggle-knob-bg:
 
-    /* Optional */
     --cc-btn-border-radius: 8px;
-    --cc-separator-border-color: #e5e7eb;
+    --cc-separator-border-color:
   }
 
-  /* Fallbacks if your cookieconsent build doesn't use CSS vars */
   .cc-btn.cc-btn-primary{
-    background: #007C38 !important;
-    border-color: #007C38 !important;
-    color: #fff !important;
+    background:
+    border-color:
+    color:
     border-radius: 8px;
   }
-  .cc-btn.cc-btn-primary:hover{ background:#016a31 !important; border-color:#016a31 !important; }
+  .cc-btn.cc-btn-primary:hover{ background:
 
   .cc-btn.cc-btn-secondary{
     background: transparent !important;
-    color: #007C38 !important;
-    border-color: #007C38 !important;
+    color:
+    border-color:
     border-radius: 8px;
-    box-shadow: inset 0 0 0 1px #007C38;
+    box-shadow: inset 0 0 0 1px
   }
   .cc-btn.cc-btn-secondary:hover{ background: rgba(0,124,56,.08) !important; }
 
-  .cc-link{ color:#007C38 !important; }
-  .cc-link:hover{ color:#016a31 !important; }
+  .cc-link{ color:
+  .cc-link:hover{ color:
 </style>
 <script src="{{ asset('js/cookieconsent.js') }}"></script>
 
@@ -108,10 +102,8 @@ function getCookie(cname){
   return "";
 }
 
-// obtain plugin
 var cc = initCookieConsent();
 
-// run plugin with your configuration
 cc.run({
   current_lang: 'en',
   autoclear_cookies: true,

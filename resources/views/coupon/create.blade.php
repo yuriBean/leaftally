@@ -30,7 +30,6 @@
             {{ Form::number('limit', null, ['class' => 'form-control', 'required' => 'required']) }}
         </div>
 
-
         <div class="form-group col-md-12">
             {{ Form::label('code', __('Code'), ['class' => 'form-label']) }}
             <div class="d-flex radio-check">

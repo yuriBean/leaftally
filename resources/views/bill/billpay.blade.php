@@ -18,7 +18,6 @@
                     'is_display': is_display,
                 },
                 success: function (data) {
-                    // console.log(data);
                 }
             });
         })
@@ -171,7 +170,6 @@
                                     </small>
                                 </div>
 
-
                                 @if(!empty($customFields) && count($bill->customField)>0)
                                     @foreach($customFields as $field)
                                         <div class="col text-end">
@@ -192,7 +190,7 @@
                                     <div class="table-responsive">
                                         <table class="table ">
                                             <tr>
-                                                <th class="text-dark" data-width="40">#</th>
+                                                <th class="text-dark" data-width="40">
                                                 <th class="text-dark">{{__('Product')}}</th>
                                                 <th class="text-dark">{{__('Quantity')}}</th>
                                                 <th class="text-dark">{{__('Rate')}}</th>

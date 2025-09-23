@@ -12,11 +12,6 @@ use Illuminate\Support\Facades\Auth;
 
 class PlanRequestController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         if(Auth::user()->type == 'super admin')
@@ -31,9 +26,6 @@ class PlanRequestController extends Controller
         }
     }
 
-    /*
-     *@plan_id = Plan ID encoded
-    */
     public function requestView($plan_id)
     {
         if(Auth::user()->type != 'super admin')
@@ -56,11 +48,6 @@ class PlanRequestController extends Controller
         }
     }
 
-
-    /*
-     * @plan_id = Plan ID encoded
-     * @duration = what duration is selected by user while request
-    */
     public function userRequest($plan_id)
     {
         $objUser = Auth::user();
@@ -78,7 +65,6 @@ class PlanRequestController extends Controller
                     ]
                 );
 
-                // Update User Table
                 $data                 = User::find($objUser->id);
                 $data->requested_plan = $planID;
                 $data->update();
@@ -96,10 +82,6 @@ class PlanRequestController extends Controller
         }
     }
 
-    /*
-     * @id = Project ID
-     * @response = 1(accept) or 0(reject)
-    */
     public function acceptRequest($id, $response)
     {
         if(Auth::user()->type == 'super admin')
@@ -169,7 +151,6 @@ class PlanRequestController extends Controller
                 {   
                     $user->requested_plan = 0;
                     $user->save();
-                    // $user->update(['requested_plan' => '0']);
 
                     $plan_request->delete();
 
@@ -187,9 +168,6 @@ class PlanRequestController extends Controller
         }
     }
 
-    /*
-     * @id = User ID
-    */
     public function cancelRequest($id)
     {
 

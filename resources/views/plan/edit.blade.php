@@ -38,7 +38,7 @@
   </div>
 
   <div class="px-4 py-4">
-    <!-- BASICS -->
+    
     <div class="card border-0 shadow-sm mb-4">
       <div class="card-header bg-white border-0">
         <div class="fw-semibold">{{ __('Basics') }}</div>
@@ -93,7 +93,6 @@
       </div>
     </div>
 
-    <!-- GLOBAL LIMITS (only storage) -->
     <div class="card border-0 shadow-sm mb-4">
       <div class="card-header bg-white border-0">
         <div class="fw-semibold">{{ __('Global Limits') }}</div>
@@ -112,7 +111,6 @@
       </div>
     </div>
 
-    <!-- FEATURES MATRIX -->
     <div class="card border-0 shadow-sm">
       <div class="card-header bg-white border-0">
         <div class="fw-semibold">{{ __('Feature Matrix') }}</div>

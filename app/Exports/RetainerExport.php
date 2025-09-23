@@ -9,10 +9,8 @@ use Illuminate\Support\Collection;
 
 class RetainerExport implements FromCollection , WithHeadings
 {
-    /** @var array<int>|null */
     protected $ids;
 
-    // NEW: allow optional selected IDs
     public function __construct(?array $ids = null)
     {
         $this->ids = $ids ? array_filter($ids) : null;
@@ -23,15 +21,12 @@ class RetainerExport implements FromCollection , WithHeadings
         $data = collect();
 
         if (!\Auth::guard('customer')->check()) {
-            // BUGFIX: use creatorId() (multi-tenant), not user->id
             $q = Retainer::where('created_by', \Auth::user()->creatorId());
         } else {
-            // BUGFIX: check() returns bool; get the customer id
             $customerId = \Auth::guard('customer')->user()->id;
             $q = Retainer::where('customer_id', $customerId)->where('status', '!=', '0');
         }
 
-        // NEW: if selected IDs provided, filter to them
         if (!empty($this->ids)) {
             $q->whereIn('id', $this->ids);
         }
@@ -46,12 +41,11 @@ class RetainerExport implements FromCollection , WithHeadings
                 0 => 'Draft',
                 1 => 'Sent',
                 2 => 'Unpaid',
-                3 => 'Partially Paid', // minor spelling polish
+                3 => 'Partially Paid',
                 4 => 'Paid',
                 default => (string) $retainer->status,
             };
 
-            // Keep your original number formatting behavior
             if (!\Auth::guard('customer')->check()) {
                 $rid = \Auth::user()->retainerNumberFormat($retainer->retainer_id);
             } else {

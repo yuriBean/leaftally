@@ -39,7 +39,6 @@
             {{ Form::label('supported_date', __('Supported Date'), ['class' => 'form-label']) }}<x-required></x-required>
             {{ Form::date('supported_date', null, ['class' => 'form-control', 'required' => 'required']) }}
 
-
         </div>
         <div class="form-group col-md-12">
             {{ Form::label('description', __('Description'), ['class' => 'form-label']) }}

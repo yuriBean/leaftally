@@ -19,7 +19,6 @@ use App\Models\RetainerPayment;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
-
 class PaiementProController extends Controller
 {
 
@@ -125,7 +124,6 @@ class PaiementProController extends Controller
 
             $response = json_decode($response);
             if (isset($response->success) && $response->success == true) {
-                // redirect to approve href
                 return redirect($response->url);
             } else {
                 return redirect()->back()->with('error', __('Something went wrong'));
@@ -237,7 +235,6 @@ class PaiementProController extends Controller
                 curl_close($ch);
                 $response = json_decode($response);
                 if (isset($response->success) && $response->success == true) {
-                    // redirect to approve href
                     return redirect($response->url);
                 } else {
                     return redirect()->back()->with('error', __('Something went wrong'));
@@ -280,7 +277,6 @@ class PaiementProController extends Controller
                     ]
                 );
 
-
                 if ($invoice->getDue() <= 0) {
                     $invoice->status = 4;
                     $invoice->save();
@@ -315,7 +311,6 @@ class PaiementProController extends Controller
 
                 Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-                //Twilio Notification
                 $setting  = Utility::settingsById($objUser->creatorId());
                 $customer = Customer::find($invoice->customer_id);
                 if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -331,7 +326,6 @@ class PaiementProController extends Controller
                     Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $invoice->created_by);
                 }
 
-                // webhook
                 $module = 'New Payment';
 
                 $webhook =  Utility::webhookSetting($module, $invoice->created_by);
@@ -339,8 +333,6 @@ class PaiementProController extends Controller
                 if ($webhook) {
 
                     $parameter = json_encode($invoice);
-
-                    // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
 
                     $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
                 }
@@ -401,7 +393,6 @@ class PaiementProController extends Controller
                 curl_close($ch);
                 $response = json_decode($response);
                 if (isset($response->success) && $response->success == true) {
-                    // redirect to approve href
                     return redirect($response->url);
                 } else {
                     return redirect()->back()->with('error', __('Something went wrong'));
@@ -476,7 +467,6 @@ class PaiementProController extends Controller
 
                 Utility::bankAccountBalance($request->account_id, $request->amount, 'credit');
 
-                //Twilio Notification
                 $setting  = Utility::settingsById($objUser->creatorId());
                 $customer = Customer::find($retainer->customer_id);
                 if (isset($setting['payment_notification']) && $setting['payment_notification'] == 1) {
@@ -492,7 +482,6 @@ class PaiementProController extends Controller
                     Utility::send_twilio_msg($customer->contact, 'new_payment', $uArr, $retainer->created_by);
                 }
 
-                // webhook\
                 $module = 'New Payment';
 
                 $webhook =  Utility::webhookSetting($module, $retainer->created_by);
@@ -500,7 +489,6 @@ class PaiementProController extends Controller
                 if ($webhook) {
 
                     $parameter = json_encode($retainer);
-                    // 1 parameter is  URL , 2 parameter is data , 3 parameter is method
                     $status = Utility::WebhookCall($webhook['url'], $parameter, $webhook['method']);
                 }
 

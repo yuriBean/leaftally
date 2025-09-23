@@ -12,14 +12,12 @@
 
 @push('script-page')
 <script>
-/** Formatting helpers */
 const fmt2 = (n)=> (isFinite(n) ? (new Intl.NumberFormat()).format((+n).toFixed(2)) : '0.00');
 const fmt4 = (n)=> (isFinite(n) ? (+n).toFixed(4).replace(/\.?0+$/,'') : '0');
 const num  = (v, d=0)=> (v==null || v==='' || isNaN(v)) ? d : +v;
 
 let BOM = null;
 
-/** Reset preview tables + KPIs */
 function resetPreview(){
   document.getElementById('comp-body').innerHTML = '';
   document.getElementById('out-body').innerHTML = '';
@@ -27,14 +25,13 @@ function resetPreview(){
     .forEach(id => document.getElementById(id).textContent = '0.00');
 }
 
-/** Load a BOM JSON via /boms/{id}/details */
 async function loadBom(bomId, opts = {}){
   BOM = null; resetPreview();
   const outSel = document.getElementById('target_output_id');
   outSel.innerHTML = `<option value="">${'{{ __('Select') }}'}</option>`;
   if(!bomId) return;
 
-  const base = document.getElementById('bom-details-base').value; // e.g. /boms
+  const base = document.getElementById('bom-details-base').value;
   const res  = await fetch(`${base}/${bomId}/details`, { headers: {'X-Requested-With':'XMLHttpRequest'} });
   if(!res.ok) return;
   const data = await res.json();
@@ -42,7 +39,6 @@ async function loadBom(bomId, opts = {}){
   (data.outputs||[]).forEach(o => o.product = o.product || {});
   BOM = data;
 
-  // Fill target outputs
   outSel.innerHTML = '';
   (data.outputs||[]).forEach(o=>{
     const opt = document.createElement('option');
@@ -67,7 +63,6 @@ async function loadBom(bomId, opts = {}){
   recalc();
 }
 
-/** Recalculate tables + KPIs + hidden multiplier */
 function recalc(){
   if(!BOM) { resetPreview(); return; }
 
@@ -87,7 +82,6 @@ function recalc(){
   const multiplier = desired > 0 ? (desired / baseAnchor) : num(document.getElementById('batch_multiplier').value || 1, 1);
   document.getElementById('batch_multiplier').value = multiplier > 0 ? multiplier : '';
 
-  // Components table
   let compTotal = 0;
   const compBody = document.getElementById('comp-body');
   compBody.innerHTML = '';
@@ -111,7 +105,6 @@ function recalc(){
   const batchCost = compTotal + addl;
   document.getElementById('batch-cost').textContent = fmt2(batchCost);
 
-  // Outputs table + profitability
   let totalPlanned = 0;
   (BOM.outputs||[]).forEach(o => totalPlanned += num(o.qty_per_batch,0) * multiplier);
 
@@ -176,27 +169,15 @@ document.addEventListener('DOMContentLoaded', function(){
 @endpush
 
 @section('content')
-<div class="row gy-4">
-
-  {{-- Flash + validation errors --}}
-  @if (session('error'))
-    <div id="flash-error" class="col-12">
-      <div class="bg-red-50 text-red-700 border border-red-200 px-4 py-3 rounded-[8px]">
-        {{ session('error') }}
-      </div>
+<div class="row">
+  @if(isset($bomCount) && $bomCount === 0)
+  <div class="col-12">
+    <div class="alert alert-warning">
+      <i class="ti ti-alert-triangle"></i>
+      <strong>{{ __('No BOMs available') }}</strong>: {{ __('You need at least one active BOM before creating production orders.') }}
+      <a href="{{ route('bom.create') }}" class="btn btn-sm btn-outline-dark ms-2">{{ __('Create BOM First') }}</a>
     </div>
-  @endif
-
-  @if ($errors->any())
-    <div class="col-12">
-      <div class="bg-yellow-50 text-yellow-800 border border-yellow-200 px-4 py-3 rounded-[8px]">
-        <ul class="mb-0 ps-4">
-          @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-          @endforeach
-        </ul>
-      </div>
-    </div>
+  </div>
   @endif
 
   {{ Form::open(['route' => 'production.store', 'id'=>'prod-form', 'class'=>'w-100 needs-validation','novalidate']) }}

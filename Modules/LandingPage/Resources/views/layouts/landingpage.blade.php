@@ -1,6 +1,5 @@
 @php
     use App\Models\Utility;
-    // $setting = \App\Models\Utility::colorset();
     $SITE_RTL = Utility::getValByName('SITE_RTL');
     $settings = \Modules\LandingPage\Entities\LandingPageSetting::settings();
     $logo = Utility::get_file('uploads/landing_page_image');
@@ -24,48 +23,40 @@
         $themeColor = $color;
     }
 
-
-
 @endphp
 <!DOCTYPE html>
 <html lang="en" dir="{{ $setting['SITE_RTL'] == 'on' ? 'rtl' : '' }}">
 
 <head>
     <title>{{ env('APP_NAME') }}</title>
-    <!-- Meta -->
+    
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" />
 
     <meta name="title" content="{{ $metatitle }}">
     <meta name="description" content="{{ $metsdesc }}">
-    <!-- Open Graph / Facebook -->
+    
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ env('APP_URL') }}">
     <meta property="og:title" content="{{ $metatitle }}">
     <meta property="og:description" content="{{ $metsdesc }}">
     <meta property="og:image" content="{{ $meta_image . $meta_logo }}">
 
-    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="{{ env('APP_URL') }}">
     <meta property="twitter:title" content="{{ $metatitle }}">
     <meta property="twitter:description" content="{{ $metsdesc }}">
     <meta property="twitter:image" content="{{ $meta_image . $meta_logo }}">
 
-    <!-- Favicon icon -->
     {{-- <link rel="icon" href="{{ $sup_logo.'/'. $adminSettings['company_favicon'] }}" type="image/x-icon" /> --}}
 
     <link rel="icon" href="{{ asset('assets/images/favicon.png') }}" type="image/x-icon" />
 
-    <!-- font css -->
     <link rel="stylesheet" href=" {{ asset('assets/fonts/tabler-icons.min.css') }}" />
     <link rel="stylesheet" href=" {{ asset('assets/fonts/feather.css') }}" />
     <link rel="stylesheet" href=" {{ asset('assets/fonts/fontawesome.css') }}" />
     <link rel="stylesheet" href=" {{ asset('assets/fonts/material.css') }}" />
 
-
-
-    <!-- vendor css -->
     <link rel="stylesheet" href=" {{ asset('assets/css/style.css') }}" />
     <link rel="stylesheet" href=" {{ asset('assets/css/customizer.css') }}" />
     <link rel="stylesheet" href=" {{ asset('assets/landing-page/custom.css') }}" />
@@ -100,7 +91,7 @@
 
         <body class="{{ $themeColor }}">
 @endif
-<!-- [ Header ] start -->
+
 <header class="main-header">
     @if ($settings['topbar_status'] == 'on')
         <div class="announcement bg-dark text-center p-2">
@@ -167,8 +158,7 @@
         </div>
     @endif
 </header>
-<!-- [ Header ] End -->
-<!-- [ Banner ] start -->
+
 @if ($settings['home_status'] == 'on')
     <section class="main-banner bg-primary" id="home">
         <div class="container-offset">
@@ -219,8 +209,7 @@
         </div>
     </section>
 @endif
-<!-- [ Banner ] start -->
-<!-- [ features ] start -->
+
 @if (isset($settings['is_feature_cards_on']) &&  $settings['is_feature_cards_on'] == 'on')
     <section class="features-section section-gap bg-dark" id="features">
         <div class="container">
@@ -274,8 +263,7 @@
         </div>
     </section>
 @endif
-<!-- [ features ] start -->
-<!-- [ element ] start -->
+
 @if (isset($settings['is_feature_section_on']) &&  $settings['is_feature_section_on'] == 'on')
     <section class="element-section  section-gap ">
         <div class="container">
@@ -331,8 +319,7 @@
         </div>
     </section>
 @endif
-<!-- [ element ] end -->
-<!-- [ element ] start -->
+
 @if (isset($settings['is_discover_section_on']) &&  $settings['is_discover_section_on'] == 'on')
     <section class="bg-dark section-gap">
         <div class="container">
@@ -382,8 +369,7 @@
         </div>
     </section>
 @endif
-<!-- [ element ] end -->
-<!-- [ Screenshots ] start -->
+
 @if (isset($settings['is_screenshots_section_on']) &&  $settings['is_screenshots_section_on'] == 'on')
     <section class="screenshots section-gap">
         <div class="container">
@@ -415,8 +401,6 @@
         </div>
     </section>
 @endif
-<!-- [ Screenshots ] start -->
-<!-- [ subscription ] start -->
 
 @if (isset($settings['is_pricing_plan_section_on']) &&  $settings['is_pricing_plan_section_on'] == 'on')
 
@@ -499,8 +483,6 @@
         </div>
     </section>
 @endif
-<!-- [ subscription ] end -->
-<!-- [ FAqs ] start -->
 
 @if (isset($settings['is_faq_section_on']) && $settings['is_faq_section_on'] == 'on')
     <section class="faqs section-gap bg-gray-100" id="faq">
@@ -566,7 +548,6 @@
                             @endforeach
                         @endif
 
-
                     </div>
                 </div>
 
@@ -574,8 +555,7 @@
         </div>
     </section>
 @endif
-<!-- [ FAqs ] end -->
-<!-- [ testimonial ] start -->
+
 @if (isset($settings['is_testimonials_section_on']) && $settings['is_testimonials_section_on'] == 'on')
     <section class="testimonial section-gap">
         <div class="container">
@@ -589,7 +569,6 @@
                 </div>
                 <div class="col-lg-8">
                     <div class="row justify-content-center gy-3">
-
 
                         @if (is_array(json_decode($settings['testimonials'])) || is_object(json_decode($settings['testimonials'])))
                             @foreach (json_decode($settings['testimonials']) as $key => $value)
@@ -644,8 +623,7 @@
         </div>
     </section>
 @endif
-<!-- [ testimonial ] end -->
-<!-- [ Footer ] start -->
+
 <footer class="site-footer bg-gray-100">
     <div class="container">
         <div class="footer-row">
@@ -678,8 +656,6 @@
                             @endif
                         @endforeach
                     @endif
-
-
 
                 </ul>
             </div>
@@ -717,26 +693,19 @@
                 Copyright © 2022 | Design By ERPGo
             </p> --}}
 
-
-
         <p class="mb-0">
             {{ __('©') }} {{ date('Y') }}
             {{ Utility::getValByName('footer_text') ? Utility::getValByName('footer_text') : config('app.name', 'WorkGo') }}
         </p>
 
-
     </div>
 </footer>
-<!-- [ Footer ] end -->
-<!-- Required Js -->
-
 
 <script src="{{ asset('assets/js/plugins/popper.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/js/plugins/feather.min.js') }}"></script>
 
 <script>
-    // Start [ Menu hide/show on scroll ]
     let ost = 0;
     document.addEventListener("scroll", function() {
         let cOst = document.documentElement.scrollTop;
@@ -753,7 +722,6 @@
         }
         ost = cOst;
     });
-    // End [ Menu hide/show on scroll ]
 
     var scrollSpy = new bootstrap.ScrollSpy(document.body, {
         target: "#navbar-example",

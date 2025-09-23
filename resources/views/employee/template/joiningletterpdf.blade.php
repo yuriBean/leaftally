@@ -4,8 +4,6 @@
     {{ __('Joining Letter') }}
 @endsection
 
-
-   
 @section('content')
 <div class="row" >
 
@@ -28,7 +26,6 @@
                                     {{-- <br>
                                     <div>{!!$contract->contract_description!!}</div> --}}
                                 </p>
-                        
 
                         </div>
                  </div>
@@ -36,7 +33,6 @@
         </div>
     </div>
 
-    
 </div>
 
 @endsection
@@ -61,7 +57,6 @@
             html2pdf().set(opt).from(element).save().then(closeScript);
         });
 
-        
     </script>
     
 @endpush

@@ -49,14 +49,11 @@
             @enderror
         </div>
 
-
         <div class="form-group mb-4">
 
             {{ Form::submit(__('Reset Password'), ['class' => 'btn btn-primary', 'id' => 'resetBtn']) }}
 
         </div>
-
-
 
     </div>
     {{ Form::close() }}

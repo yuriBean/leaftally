@@ -12,17 +12,17 @@
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap');
 
     :root {
-        --theme-color: #007C38;
-        --theme-light: #007C3820;
-        --theme-gradient: linear-gradient(135deg, #007C38 0%, #007C38DD 100%);
-        --white: #ffffff;
-        --black: #1a1a1a;
-        --gray-50: #f9fafb;
-        --gray-100: #f3f4f6;
-        --gray-200: #e5e7eb;
-        --gray-300: #d1d5db;
-        --gray-600: #4b5563;
-        --gray-800: #1f2937;
+        --theme-color:
+        --theme-light:
+        --theme-gradient: linear-gradient(135deg,
+        --white:
+        --black:
+        --gray-50:
+        --gray-100:
+        --gray-200:
+        --gray-300:
+        --gray-600:
+        --gray-800:
         --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
         --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
@@ -30,7 +30,7 @@
 
     .balance-sheet-container {
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        background: linear-gradient(135deg,
         min-height: 100vh;
         padding: 20px 0;
     }
@@ -151,11 +151,10 @@
         margin-bottom: 24px;
     }
 
-    /* ------- FIX: align header & rows on same 3-column grid ------- */
     .account-header,
     .account-row {
         display: grid;
-        grid-template-columns: 1fr 140px 160px; /* name | code | amount */
+        grid-template-columns: 1fr 140px 160px; 
         gap: 12px;
         align-items: center;
     }
@@ -168,7 +167,6 @@
         font-size: 14px;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        /* removed flex spacing so columns align under headers */
     }
 
     .account-type-title {
@@ -192,7 +190,6 @@
     .account-name {
         font-size: 14px;
         color: var(--gray-800);
-        /* removed flex:1 — grid handles sizing */
     }
 
     .account-name a {
@@ -207,7 +204,6 @@
         font-size: 13px;
         color: var(--gray-600);
         font-family: 'Courier New', monospace;
-        /* removed fixed width — grid column provides width */
     }
 
     .account-amount {
@@ -215,10 +211,8 @@
         font-size: 14px;
         font-weight: 600;
         color: var(--gray-800);
-        /* removed fixed width — grid column provides width */
     }
 
-    /* Indent child rows without breaking grid */
     .sub-account .account-name { padding-left: 24px; }
     .parent-account { font-weight: 600; }
 
@@ -258,25 +252,21 @@
         box-shadow: var(--shadow-sm);
     }
 
-    /* Print styles (existing) */
     @media print {
         .balance-sheet-container { background: white; padding: 0; }
         .balance-sheet-main { box-shadow: none; max-width: none; }
         .balance-sheet-main::before { display: none; }
     }
 
-    /* ---------------- Added: Print like Trial Balance ---------------- */
     @media print {
         :root { color-scheme: light; }
         * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 
         body * { visibility: hidden !important; }
-        #printableArea, #printableArea * { visibility: visible !important; }
-        #printableArea { position: absolute; inset: 0; width: 100%; }
 
-        .balance-sheet-container { background: #fff !important; padding: 20px 0 !important; }
+        .balance-sheet-container { background:
         .balance-sheet-main { box-shadow: none !important; border-radius: 0 !important; max-width: none !important; margin: 0 !important; }
-        .balance-sheet-main::before { display: block !important; } /* keep right color stripe */
+        .balance-sheet-main::before { display: block !important; } 
         .balance-sheet-header { padding: 40px !important; }
         .balance-sheet-title { font-size: 42px !important; letter-spacing: 2px; }
         .balance-sheet-body { padding: 30px !important; }
@@ -287,7 +277,6 @@
         margin: 12mm;
     }
 
-    /* Optional: stack columns on small screens */
     @media (max-width: 640px) {
         .account-header, .account-row {
             grid-template-columns: 1fr;
@@ -661,7 +650,6 @@
             </div>
         </div>
 @endsection
-
 
 @push('script-page')
     <script>

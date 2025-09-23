@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 class Payment extends Reference implements Tap{
   protected $CARD_SET = false;
 
-
-
   public function __construct($config = []){
     foreach ($this->REQUIRED_CONFIG_VARS as $parm => $req_status) {
       if (key_exists($parm,$config)) {
@@ -20,10 +18,6 @@ class Payment extends Reference implements Tap{
     }
 
   }
-
-
-
-
 
   public function card(Request $request,$data){
     $this->cardValidator($data);
@@ -43,8 +37,6 @@ class Payment extends Reference implements Tap{
         "content-type: application/json"
       ),
     ));
-
-
 
     $response = curl_exec($curl);
     $err = curl_error($curl);
@@ -66,9 +58,6 @@ class Payment extends Reference implements Tap{
 
     }
   }
-
-
-
 
   public function charge($data = [],$redirect = true){
     $this->chargeValidator($data);

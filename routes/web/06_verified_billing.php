@@ -8,7 +8,6 @@ use App\Http\Controllers\{
 
 Route::group(['middleware' => ['auth','2fa']], function () {
 
-    // ========== INVOICES ==========
     Route::group(['middleware' => ['auth','XSS','revalidate']], function () {
         Route::get('invoice/{id}/duplicate', [InvoiceController::class, 'duplicate'])->name('invoice.duplicate');
         Route::get('invoice/{id}/shipping/print', [InvoiceController::class, 'shippingDisplay'])->name('invoice.shipping.print');
@@ -38,7 +37,6 @@ Route::group(['middleware' => ['auth','2fa']], function () {
     Route::get('/invoices/preview/{template}/{color}', [InvoiceController::class, 'previewInvoice'])->name('invoice.preview');
     Route::post('/invoices/template/setting', [InvoiceController::class, 'saveTemplateSettings'])->name('invoice.template.setting');
 
-    // ========== CREDIT NOTES ==========
     Route::group(['middleware' => ['auth','XSS','revalidate','2fa']], function () {
         Route::get('credit-note', [CreditNoteController::class, 'index'])->name('credit.note');
         Route::get('custom-credit-note', [CreditNoteController::class, 'customCreate'])->name('invoice.custom.credit.note');
@@ -51,7 +49,6 @@ Route::group(['middleware' => ['auth','2fa']], function () {
         Route::delete('invoice/{id}/credit-note/delete/{cn_id}', [CreditNoteController::class, 'destroy'])->name('invoice.delete.credit.note');
     });
 
-    // ========== DEBIT NOTES ==========
     Route::group(['middleware' => ['auth','XSS','revalidate','2fa']], function () {
         Route::get('debit-note', [DebitNoteController::class, 'index'])->name('debit.note');
         Route::get('custom-debit-note', [DebitNoteController::class, 'customCreate'])->name('bill.custom.debit.note');
@@ -64,15 +61,12 @@ Route::group(['middleware' => ['auth','2fa']], function () {
         Route::delete('bill/{id}/debit-note/delete/{cn_id}', [DebitNoteController::class, 'destroy'])->name('bill.delete.debit.note');
     });
 
-    // Bill preview/template
     Route::get('/bill/preview/{template}/{color}', [BillController::class, 'previewBill'])->name('bill.preview');
     Route::post('/bill/template/setting', [BillController::class, 'saveBillTemplateSettings'])->name('bill.template.setting');
 
-    // Duplicate taxes resource as in source (kept)
     Route::post('taxes/bulk-destroy', [TaxController::class, 'bulkDestroy'])
         ->name('taxes.bulk-destroy');
 
-    // Exports
     Route::get('taxes/export', [TaxController::class, 'export'])
         ->name('taxes.export');
 
@@ -80,7 +74,6 @@ Route::group(['middleware' => ['auth','2fa']], function () {
         ->name('taxes.export-selected');
     Route::resource('taxes', TaxController::class)->middleware(['auth','XSS','revalidate','feature:tax_management_enabled']);
 
-    // ========== Revenues & Payments index/resources ==========
     Route::get('revenue/index', [RevenueController::class, 'index'])->name('revenue.index')->middleware(['auth','XSS','revalidate']);
         Route::delete('revenue/bulk-destroy', [RevenueController::class, 'bulkDestroy'])
         ->name('revenue.bulk-destroy');
@@ -90,8 +83,6 @@ Route::group(['middleware' => ['auth','2fa']], function () {
 
     Route::post('export/revenue/selected', [RevenueController::class, 'exportSelected'])
         ->name('revenue.export-selected');
-
-
 
     Route::group(['middleware' => ['auth','XSS','revalidate','2fa']], function () {
         Route::post('bills/export-selected', [BillController::class, 'exportSelected'])
@@ -126,7 +117,6 @@ Route::delete('bills/bulk-destroy', [BillController::class, 'bulkDestroy'])
     ->name('payment.bulk-destroy');
     Route::resource('payment', PaymentController::class)->except('index')->middleware(['auth','XSS','revalidate']);
 
-    // ========== Retainers (verified) ==========
     Route::post('retainer/product', [RetainerController::class, 'product'])->name('retainer.product')->middleware(['auth','XSS']);
     Route::get('retainer/{id}/sent', [RetainerController::class, 'sent'])->name('retainer.sent')->middleware(['auth']);
     Route::get('retainer/{id}/status/change', [RetainerController::class, 'statusChange'])->name('retainer.status.change')->middleware(['auth']);
@@ -149,7 +139,6 @@ Route::post('retainers/export-selected', [\App\Http\Controllers\RetainerControll
     Route::post('/retainer/template/setting', [RetainerController::class, 'saveRetainerTemplateSettings'])->name('retainer.template.setting')->middleware(['auth','XSS']);
     Route::get('/retainer/preview/{template}/{color}', [RetainerController::class, 'previewRetainer'])->name('retainer.preview')->middleware(['auth','XSS']);
 
-    // ========== Proposals ==========
     Route::group(['middleware' => ['auth','XSS','revalidate','2fa']], function () {
         Route::get('proposal/{id}/status/change', [ProposalController::class, 'statusChange'])->name('proposal.status.change');
         Route::get('proposal/{id}/convert', [ProposalController::class, 'convert'])->name('proposal.convert');
@@ -170,9 +159,6 @@ Route::post('retainers/export-selected', [\App\Http\Controllers\RetainerControll
     Route::get('/proposal/preview/{template}/{color}', [ProposalController::class, 'previewProposal'])->name('proposal.preview');
     Route::post('/proposal/template/setting', [ProposalController::class, 'saveProposalTemplateSettings'])->name('proposal.template.setting');
 
-
-
-    // ========== Coupons ==========
     Route::get('/apply-coupon', [CouponController::class, 'applyCoupon'])->name('apply.coupon')->middleware(['auth','XSS']);
     Route::resource('coupons', CouponController::class)->middleware(['auth','XSS','revalidate']);
 });

@@ -1,7 +1,6 @@
 'use strict';
 setTimeout(function () {
 
-    // [ slider ]
     var slider = tns({
         container: '.slider1',
         items: 1,
@@ -9,7 +8,6 @@ setTimeout(function () {
         autoplay: true
     });
 
-    // [ Only-Nav slider ]
     var slider = tns({
         container: '.slider2',
         items: 1,
@@ -18,7 +16,6 @@ setTimeout(function () {
         autoplay: true
     });
 
-    // [ Only-Dots slider ]
     var slider = tns({
         container: '#customize',
         items: 3,

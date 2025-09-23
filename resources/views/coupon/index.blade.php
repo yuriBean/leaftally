@@ -37,7 +37,6 @@
     <li class="breadcrumb-item">{{__('Coupon')}}</li>
 @endsection
 
-
 @section('action-btn')
     @can('create coupon')
         <div class="float-end">
@@ -83,10 +82,7 @@
                                                 aria-expanded="false">
                                                 <i class="ti ti-dots-vertical"></i>
                                             </button>
-                                    
-                                    
-                                    
-                                    
+
                                      <div class="dropdown-menu dropdown-menu-end mt-0 w-[190px] bg-white border rounded-md shadow-lg text-sm p-0">
                                         <a href="{{ route('coupons.show',$coupon->id) }}" data-bs-toggle="tooltip" title="{{__('View')}}" class="dropdown-item flex text-[#323232] gap-2 w-full px-4 py-2 text-left hover:bg-[#007C3812]">
                                            <img src="{{ asset('web-assets/dashboard/icons/preview.svg') }}"

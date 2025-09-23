@@ -11,12 +11,10 @@
 
 @push('script-page')
 <script>
-/** Formatting helpers */
 const fmt2 = (n)=> (isFinite(n) ? (new Intl.NumberFormat()).format((+n).toFixed(2)) : '0.00');
 const fmt4 = (n)=> (isFinite(n) ? (+n).toFixed(4).replace(/\.?0+$/,'') : '0');
 const num  = (v, d=0)=> (v==null || v==='' || isNaN(v)) ? d : +v;
 
-// Use the current multiplier when filling desired qty from the anchor
 const EDIT_MULTIPLIER = Number("{{ $job->multiplier ?? 1 }}");
 
 let BOM = null;
@@ -34,7 +32,7 @@ async function loadBom(bomId, opts = {}){
   outSel.innerHTML = `<option value="">${'{{ __('Select') }}'}</option>`;
   if(!bomId) return;
 
-  const base = document.getElementById('bom-details-base').value; // e.g. /boms
+  const base = document.getElementById('bom-details-base').value;
   const res  = await fetch(`${base}/${bomId}/details`, { headers: {'X-Requested-With':'XMLHttpRequest'} });
   if(!res.ok) return;
   const data = await res.json();
@@ -42,7 +40,6 @@ async function loadBom(bomId, opts = {}){
   (data.outputs||[]).forEach(o => o.product = o.product || {});
   BOM = data;
 
-  // Fill target outputs
   outSel.innerHTML = '';
   (data.outputs||[]).forEach(o=>{
     const opt = document.createElement('option');
@@ -59,14 +56,12 @@ async function loadBom(bomId, opts = {}){
   }
 
   const qtyInput = document.getElementById('target_good_qty');
-  // If user hasn't typed anything, derive from anchor × current multiplier
   if (!qtyInput.value && (data.outputs||[]).length){
     const anchor = data.outputs.find(o => +o.product_id === +outSel.value) || data.outputs[0];
     const baseAnchor = num(anchor.qty_per_batch, 1);
     qtyInput.value = fmt4(baseAnchor * Math.max(EDIT_MULTIPLIER, 0.0001));
   }
 
-  // Set hidden multiplier to current value (so form remains stable)
   document.getElementById('batch_multiplier').value = EDIT_MULTIPLIER;
 
   recalc();
@@ -91,7 +86,6 @@ function recalc(){
   const multiplier = desired > 0 ? (desired / baseAnchor) : num(document.getElementById('batch_multiplier').value || 1, 1);
   document.getElementById('batch_multiplier').value = multiplier > 0 ? multiplier : '';
 
-  // Components
   let compTotal = 0;
   const compBody = document.getElementById('comp-body');
   compBody.innerHTML = '';
@@ -115,7 +109,6 @@ function recalc(){
   const batchCost = compTotal + addl;
   document.getElementById('batch-cost').textContent = fmt2(batchCost);
 
-  // Outputs & profitability
   let totalPlanned = 0;
   (BOM.outputs||[]).forEach(o => totalPlanned += num(o.qty_per_batch,0) * multiplier);
 

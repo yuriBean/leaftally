@@ -114,7 +114,6 @@
 
 @push('script-page')
 <script>
-  // Keep dropdown/menu clicks from bubbling into datatable interactions (parity with Bills)
   $(document).on('click', '.dropdown-menu, [data-bs-toggle="dropdown"]', function(e){
     e.stopPropagation();
   });

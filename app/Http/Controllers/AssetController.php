@@ -113,9 +113,6 @@ class AssetController extends Controller
         return redirect()->route('account-assets.index')->with('success', __('Assets successfully deleted.'));
     }
 
-    /**
-     * BULK DELETE
-     */
     public function bulkDestroy(Request $request)
     {
         if (!\Auth::user()->can('delete assets')) {
@@ -139,9 +136,6 @@ class AssetController extends Controller
         return redirect()->back()->with('success', __(':count asset(s) deleted.', ['count' => count($toDelete)]));
     }
 
-    /**
-     * EXPORT (All)
-     */
     public function export()
     {
         if (!\Auth::user()->can('manage assets')) {

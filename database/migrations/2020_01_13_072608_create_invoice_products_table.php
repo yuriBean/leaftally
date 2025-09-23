@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateInvoiceProductsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create(
@@ -28,11 +23,6 @@ class CreateInvoiceProductsTable extends Migration
         );
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('invoice_products');

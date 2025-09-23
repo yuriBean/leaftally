@@ -116,7 +116,6 @@
             @endcan
         @endif
 
-
         <a href="#" class="btn btn-sm btn-primary align-items-center ms-1 cp_link"
             data-link="{{ route('pay.proposalpay', \Illuminate\Support\Facades\Crypt::encrypt($proposal->id)) }}"
             data-bs-toggle="tooltip" title="{{ __('Copy proposal') }}"
@@ -339,7 +338,6 @@
                                     </div>
                                 @endif
 
-
                                 @if (App\Models\Utility::getValByName('shipping_display') == 'on')
                                     <div class="col">
                                         <small>
@@ -352,7 +350,6 @@
                                             {{ !empty($customer->shipping_zip) ? $customer->shipping_zip : '' }}<br>
                                             {{ !empty($customer->shipping_country) ? $customer->shipping_country : '' }}<br>
                                             {{ !empty($customer->shipping_phone) ? $customer->shipping_phone : '' }}<br>
-
 
                                         </small>
                                     </div>
@@ -394,7 +391,6 @@
                                     </small>
                                 </div>
 
-
                             </div>
 
                             @if (!empty($customFields) && count($proposal->customField) > 0)
@@ -416,7 +412,7 @@
                                     <div class="table-responsive mt-2">
                                         <table class="table mb-0 ">
                                             <tr>
-                                                <th class="text-dark" data-width="40">#</th>
+                                                <th class="text-dark" data-width="40">
                                                 <th class="text-dark">{{ __('Product') }}</th>
                                                 <th class="text-dark">{{ __('Quantity') }}</th>
                                                 <th class="text-dark">{{ __('Rate') }}</th>
@@ -510,7 +506,6 @@
                                                     <td><b>{{ \Auth::user()->priceFormat($totalDiscount) }}</b>
                                                     <td><b>{{ \Auth::user()->priceFormat($totalTaxPrice) }}</b></td>
 
-
                                                     {{-- <td></td>
                                                 <td><b>{{__('Total')}}</b></td>
                                                 <td><b>{{$totalQuantity}}</b></td>
@@ -538,7 +533,6 @@
                                                         {{ \Auth::user()->priceFormat($proposal->getTotalDiscount()) }}
                                                     </td>
                                                 </tr>
-
 
                                                 {{-- @if (!empty($taxesData))
                                                     @foreach ($taxesData as $taxName => $taxPrice)

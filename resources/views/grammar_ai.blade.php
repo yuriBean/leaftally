@@ -19,24 +19,7 @@
     </div>
 </div>
 
-
 <script>
-    // $('body').ready(function() {
-
-    //     if ($('.grammer_textarea').length > 0) {
-
-    //         var summernoteValue = $('.grammer_textarea').val();
-    //     } else if ($('.pc-tinymce-2').length > 0) {
-    //         var summernoteValue = tinymce.get('requirement').getContent({
-    //             format: "text"
-    //         });
-    //     } else {    
-    //         $('.summernote-simple').summernote();
-    //         var summernoteValue = $('.summernote-simple').summernote('code');
-    //         summernoteValue = summernoteValue.replace(/<(.|\n)*?>/g, '');
-    //     }
-    //     $('#description').text(summernoteValue);
-    // })
 
     $('body').ready(function() {
 
@@ -48,14 +31,9 @@
             var summernoteValue = $('.summernote-simple').summernote('code');
             summernoteValue = summernoteValue.replace(/<(.|\n)*?>/g, '');
 
-
         }
         $('#description').text(summernoteValue);
     })
-
-
-
-
 
     $('body').on('click', '#regenerate', function() {
         var form = $("#myGrammarForm");
@@ -89,24 +67,6 @@
             },
         });
     });
-
-    // function copyText() {
-    //     var selected = $('input[name="template_name"]:checked').attr('data-name');
-    //     var copied = $("#ai-description").val();
-
-    //     var input = $('input[name=' + selected + ']').length;
-
-    //     if ($('.grammer_textarea').length > 0) {
-    //         $('.grammer_textarea').val(copied);
-    //     } else if ($('.pc-tinymce-2').length > 0) {
-    //         tinymce.get('requirement').setContent(copied);
-    //     } else {
-    //         $('.summernote-simple').summernote("code", copied);
-    //     }
-
-    //     show_toastr('success', 'Result text has been copied successfully', 'success');
-    //     $('#commonModalOver').modal('hide');
-    // }
 
     function copyText() {
         var selected = $('input[name="template_name"]:checked').attr('data-name');

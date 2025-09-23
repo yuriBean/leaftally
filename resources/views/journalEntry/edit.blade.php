@@ -16,9 +16,6 @@
     <script>
         var selector = "body";
         if ($(selector + " .repeater").length) {
-            // var $dragAndDrop = $("body .repeater tbody").sortable({
-            //     handle: '.sort-handler'
-            // });
             var $repeater = $(selector + ' .repeater').repeater({
                 initEmpty: false,
                 defaultValues: {
@@ -35,7 +32,6 @@
                         });
                     }
 
-                    // for item SearchBox ( this function is  custom Js )
                     JsSearchBox();
 
                     if ($('.select2').length) {
@@ -47,14 +43,12 @@
                         $(this).slideUp(deleteElement);
                         $(this).remove();
 
-
                         var inputs = $(".debit");
                         var totalDebit = 0;
                         for (var i = 0; i < inputs.length; i++) {
                             totalDebit = parseFloat(totalDebit) + parseFloat($(inputs[i]).val());
                         }
                         $('.totalDebit').html(totalDebit.toFixed(2));
-
 
                         var inputs = $(".credit");
                         var totalCredit = 0;
@@ -80,12 +74,8 @@
                             },
                         });
 
-
                     }
                 },
-                // ready: function (setIndexes) {
-                //     $dragAndDrop.on('drop', setIndexes);
-                // },
                 isFirstItemUndeletable: true
             });
             var value = $(selector + " .repeater").attr('data-value');
@@ -100,7 +90,6 @@
                     if (credit > 0) {
                         $('.credit').trigger('keyup');
                     } else {
-                        // $('.debit').trigger('keyup');
                     }
                 }
             }
@@ -147,7 +136,6 @@
                 el.find('.debit').attr("disabled", false);
             }
         })
-
 
         var value = $(selector + " .repeater").attr('data-value');
         var inputs = $(".credit");

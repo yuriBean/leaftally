@@ -20,7 +20,7 @@
                 width: 100vw;
                 height: 100vh;
                 min-height: 675px;
-                background-color: #F4F5FF;
+                background-color:
             }
             p {
                 width: 100%;
@@ -32,12 +32,12 @@
                 text-align: center;
                 vertical-align: top;
                 max-width: 550px;
-                color: #727586;
+                color:
                 margin: 0px;
             }
             a:hover {
                 cursor: pointer;
-                color: #673DE6;
+                color:
                 text-decoration: underline;
             }
             h1 {
@@ -74,7 +74,7 @@
                 font-style: normal;
                 font-weight: 700;
                 font-size: 14px;
-                color: #673DE6;
+                color:
                 margin-top: 8px;
                 text-decoration: none;
             }
@@ -93,7 +93,7 @@
                 flex-direction: row;
                 align-items: center;
                 justify-content: center;
-                background-color: #36344D;
+                background-color:
             }
             @media screen and (max-width: 580px) and (min-width: 0px) {
                 h1, p, .link-container {

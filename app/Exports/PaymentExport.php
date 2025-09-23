@@ -15,9 +15,6 @@ class PaymentExport implements FromCollection, WithHeadings
             $this->date = $date;
     }
 
-    /**
-    * @return \Illuminate\Support\Collection
-    */
     public function collection()
     {
         $data = [];
@@ -28,7 +25,6 @@ class PaymentExport implements FromCollection, WithHeadings
         else{
             $data = Payment::get();
         } 
-        // $data = Payment::where('created_by' , \Auth::user()->id);
 
         if($this->date!=null && $this->date!=0)
         {
@@ -41,10 +37,8 @@ class PaymentExport implements FromCollection, WithHeadings
             }
 
         }
-        // $data = $data->get();
         if (!empty($data)) {
             foreach ($data as $k => $Payment) {
-            // dd($Payment);
             $account   = Payment::accounts($Payment->account_id);
             $vendor    = Payment::vendors($Payment->vender_id);
             $category  = Payment::categories($Payment->category_id);
@@ -56,7 +50,6 @@ class PaymentExport implements FromCollection, WithHeadings
 
             }
         }
-
 
         return $data;
     }

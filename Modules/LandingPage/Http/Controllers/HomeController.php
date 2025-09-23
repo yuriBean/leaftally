@@ -9,30 +9,16 @@ use Modules\LandingPage\Entities\LandingPageSetting;
 
 class HomeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Renderable
-     */
     public function index()
     {
         $settings = LandingPageSetting::settings();
         return view('landingpage::landingpage.homesection', compact('settings'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Renderable
-     */
     public function create()
     {
         return view('landingpage::create');
     }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Renderable
-     */
 
     public function store(Request $request)
     {
@@ -52,23 +38,18 @@ class HomeController extends Controller
         $stored_home_logo = LandingPageSetting::settings()['home_logo'];
         $home_logo = array_intersect($temp_logo, explode(",", $stored_home_logo));
 
-
         if ($request->home_logo) {
 
             $files = $request->home_logo;
-
 
             foreach ($files as $key => $file) {
 
                 $file_data = $file['home_logo'];
 
-
                 $file_name = md5(time()) . "_" . $file_data->getClientOriginalName();
                 $dir        = 'uploads/landing_page_image/';
 
                 $path = LandingPageSetting::keyWiseUpload_file($request, 'home_logo', $file_name, $dir, $key, []);
-
-
 
                 if ($path['flag'] == 1) {
                     $url = $path['url'];
@@ -96,46 +77,22 @@ class HomeController extends Controller
         }
         return redirect()->back()->with(['success' => 'Setting update successfully']);
     }
-   
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
     public function show($id)
     {
         return view('landingpage::show');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
     public function edit($id)
     {
         return view('landingpage::edit');
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Renderable
-     */
     public function update(Request $request, $id)
     {
-        //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
     public function destroy($id)
     {
-        //
     }
 }

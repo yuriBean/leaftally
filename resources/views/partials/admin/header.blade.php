@@ -8,14 +8,14 @@
 @endphp
 
 <header class="sticky top-0 z-40 border-b border-gray-200/70
-  bg-gradient-to-b from-white/90 to-[#F7FBF9]/90 backdrop-blur
+  bg-gradient-to-b from-white/90 to-[
   {{ isset($mode_setting['cust_theme_bg']) && $mode_setting['cust_theme_bg'] == 'on' ? 'bg-white/90' : '' }}">
   <div class="header-wrapper">
     <div class="flex justify-end items-center gap-3 px-4 py-3">
 
       <div class="group flex items-center gap-2 border border-[#007C38] text-[#007C38]
                   bg-white rounded-lg pr-2 pl-3 py-1.5 shadow-sm min-w-[14rem]
-                  hover:bg-[#007C3808] transition-all duration-200 focus-within:ring-2 focus-within:ring-[#007C38]/30">
+                  hover:bg-[
         <i data-lucide="search" class="w-4 h-4"></i>
         <input id="global-kbar" type="text" placeholder="Search…" autocomplete="off"
                class="bg-transparent focus:outline-none text-sm w-full placeholder:text-[#007C38]/60" />
@@ -34,8 +34,6 @@
             </a>
           </li>
         @endImpersonating
-
-
 
         <li class="dropdown drp-company">
           <a class="relative w-9 h-9 rounded-full ring-1 ring-gray-200 hover:ring-[#007C38]/30 transition
@@ -104,7 +102,6 @@
 </header>
 
 <script>
-  // ⌘/Ctrl + K focuses the search
   document.addEventListener('keydown', (e) => {
     const isMac = /Mac|iPod|iPhone|iPad/.test(navigator.platform);
     if ((isMac && e.metaKey && e.key.toLowerCase() === 'k') || (!isMac && e.ctrlKey && e.key.toLowerCase() === 'k')) {

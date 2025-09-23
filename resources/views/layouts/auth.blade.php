@@ -24,7 +24,6 @@
         $themeColor = $color;
     }
 
-
     $SITE_RTL = 'theme-3';
     if (!empty($setting['SITE_RTL'])) {
         $SITE_RTL = $setting['SITE_RTL'];
@@ -49,18 +48,15 @@
     <meta name="keywords" content="Dashboard Template" />
     <meta name="author" content="Workdo" />
 
-    <!-- Primary Meta Tags -->
     <meta name="title" content={{ $seo_setting['meta_keywords'] }}>
     <meta name="description" content={{ $seo_setting['meta_description'] }}>
 
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content={{ env('APP_URL') }}>
     <meta property="og:title" content={{ $seo_setting['meta_keywords'] }}>
     <meta property="og:description" content={{ $seo_setting['meta_description'] }}>
     <meta property="og:image" content={{ asset('/' . $seo_setting['meta_image']) }}>
 
-    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content={{ env('APP_URL') }}>
     <meta property="twitter:title" content={{ $seo_setting['meta_keywords'] }}>
@@ -70,10 +66,112 @@
     <style>
         :root {
             --color-customColor: <?=$color ?>;
+
+            --zameen-primary:
+            --zameen-primary-light:
+            --zameen-primary-dark:
+            --zameen-primary-lighter:
+            --zameen-secondary:
+            --zameen-secondary-light:
+            --zameen-text-dark:
+            --zameen-text-medium:
+            --zameen-text-light:
+            --zameen-background:
+            --zameen-background-alt:
+            --zameen-background-section:
+            --zameen-border:
+            --zameen-border-medium:
+            --zameen-success:
+            --zameen-warning:
+            --zameen-danger:
+            --zameen-info:
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--zameen-text-dark);
+            background: linear-gradient(135deg, var(--zameen-primary-lighter) 0%, var(--zameen-background) 100%);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: inherit;
+            font-weight: 600;
+            color: var(--zameen-text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        h1 { font-size: 2.5rem; font-weight: 700; }
+        h2 { font-size: 2rem; font-weight: 600; }
+        h3 { font-size: 1.75rem; font-weight: 600; }
+        h4 { font-size: 1.5rem; font-weight: 600; }
+        h5 { font-size: 1.25rem; font-weight: 600; }
+        h6 { font-size: 1rem; font-weight: 600; }
+
+        .bg-primary, .btn-primary {
+            background-color: var(--zameen-primary) !important;
+            border-color: var(--zameen-primary) !important;
+        }
+
+        .bg-primary:hover, .btn-primary:hover {
+            background-color: var(--zameen-primary-dark) !important;
+            border-color: var(--zameen-primary-dark) !important;
+        }
+
+        .text-primary {
+            color: var(--zameen-primary) !important;
+        }
+
+        .border-primary {
+            border-color: var(--zameen-primary) !important;
+        }
+        }
+
+        .text-primary {
+            color: var(--zameen-primary) !important;
+        }
+
+        .border-primary {
+            border-color: var(--zameen-primary) !important;
+        }
+
+        .custom-login .card {
+            background: var(--zameen-background);
+            border: 1px solid var(--zameen-border);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 185, 141, 0.15);
+        }
+
+        .custom-login-inner {
+            background: linear-gradient(135deg, var(--zameen-background) 0%, var(--zameen-background-alt) 100%);
+        }
+
+        .form-control {
+            border-color: var(--zameen-border);
+            border-radius: 8px;
+        }
+
+        .form-control:focus {
+            border-color: var(--zameen-primary);
+            box-shadow: 0 0 0 0.2rem rgba(0, 185, 141, 0.25);
+        }
+
+        a {
+            color: var(--zameen-primary);
+        }
+
+        a:hover {
+            color: var(--zameen-primary-dark);
+        }
+
+        .auth-footer {
+            background: var(--zameen-background-alt);
+            border-top: 1px solid var(--zameen-border);
         }
     </style>
     <link rel="stylesheet" href="{{ asset('css/custom-color.css') }}">
-    <!-- Favicon icon -->
+    
     <link rel="icon"
         href="{{ $logo . (isset($company_favicon) && !empty($company_favicon) ? $company_favicon : 'favicon.png') }}"
         type="image" sizes="16x16">
@@ -108,7 +206,7 @@
 </head>
 
 <body class="{{ $themeColor }}">
-    <!-- [custom-login] start -->
+    
     <div class="custom-login">
         <div class="login-bg-img">
         </div>
@@ -126,7 +224,7 @@
                             @yield('content')
                         </div>
                     </div>
-                    
+
                 </div>
             </main>
             <footer>
@@ -161,15 +259,10 @@
         </div>
     </div>
 
-    <!-- [custom-login] end -->
-
-
     @if ($set_cookie['enable_cookie'] == 'on')
         @include('layouts.cookie_consent')
     @endif
 
-
-    <!-- Required Js -->
     <script src="{{ asset('assets/js/vendor-all.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
     <script src="{{ asset('assets/js/plugins/bootstrap.min.js') }}"></script>
@@ -207,8 +300,6 @@
                 document.querySelector("body").classList.add(temp);
             });
         }
-
-
 
         var custthemebg = document.querySelector("#cust-theme-bg");
         custthemebg.addEventListener("click", function() {

@@ -20,7 +20,6 @@
                 chart: {
                     height: 300,
                     type: 'area',
-                    // type: 'line',
                     dropShadow: {
                         enabled: true,
                         color: '#000',
@@ -98,7 +97,6 @@
               </div>
             </div>
           </div>
-          
 
           <div class="bg-gradient-to-br from-white to-[#F9FCFA] rounded-xl shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 border border-[#E5E5E5]/70 p-5">
             <div class="flex items-center justify-between mb-4">

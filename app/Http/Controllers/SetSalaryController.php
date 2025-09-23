@@ -135,7 +135,6 @@ class SetSalaryController extends Controller
 
             return view('setsalary.employee_salary', compact('employee', 'payslip_type', 'allowance_options', 'commissions', 'loan_options', 'overtimes', 'otherpayments', 'saturationdeductions', 'loans', 'deduction_options', 'allowances'));
 
-
         }
         else
         {
@@ -198,7 +197,6 @@ class SetSalaryController extends Controller
 
     }
 
-
     public function employeeUpdateSalary(Request $request, $id)
     {
         $validator = \Validator::make(
@@ -236,6 +234,5 @@ class SetSalaryController extends Controller
         $employee     = Employee::find($id);
         return view('setsalary.basic_salary', compact('employee', 'payslip_type' , 'account'));
     }
-
 
 }

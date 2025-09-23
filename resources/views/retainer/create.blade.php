@@ -37,12 +37,7 @@
                             max_size: 2048
                         });
                     }
-                    // for item SearchBox ( this function is  custom Js )
                     JsSearchBox();
-
-                    // if($('.select2').length) {
-                    //     $('.select2').select2();
-                    // }
 
                 },
                 hide: function(deleteElement) {
@@ -129,7 +124,6 @@
                 cache: false,
                 success: function(data) {
                     var item = JSON.parse(data);
-                    // console.log(item)
                     $(el.parent().parent().find('.quantity')).val(1);
                     $(el.parent().parent().find('.price')).val(item.product.sale_price);
                     $(el.parent().parent().parent().find('.pro_description')).val(item.product
@@ -158,15 +152,11 @@
                     $(el.parent().parent().find('.unit')).html(item.unit);
                     $(el.parent().parent().find('.discount')).val(0);
 
-
-
                     var inputs = $(".amount");
                     var subTotal = 0;
                     for (var i = 0; i < inputs.length; i++) {
                         subTotal = parseFloat(subTotal) + parseFloat($(inputs[i]).html());
                     }
-
-
 
                     var totalItemPrice = 0;
                     var priceInput = $('.price');
@@ -195,7 +185,6 @@
                     $('.totalAmount').html((parseFloat(totalItemPrice) - parseFloat(
                         totalItemDiscountPrice) + parseFloat(totalItemTaxPrice)).toFixed(2));
 
-
                 },
             });
         });
@@ -216,7 +205,6 @@
 
             var amount = (totalItemPrice);
 
-
             var totalItemTaxRate = $(el.find('.itemTaxRate')).val();
             var itemTaxPrice = parseFloat((totalItemTaxRate / 100) * (totalItemPrice));
             $(el.find('.itemTaxPrice')).val(itemTaxPrice.toFixed(2));
@@ -228,7 +216,6 @@
             for (var j = 0; j < itemTaxPriceInput.length; j++) {
                 totalItemTaxPrice += parseFloat(itemTaxPriceInput[j].value);
             }
-
 
             var totalItemPrice = 0;
             var inputs_quantity = $(".quantity");
@@ -265,7 +252,6 @@
 
             var amount = (totalItemPrice);
 
-
             var totalItemTaxRate = $(el.find('.itemTaxRate')).val();
             var itemTaxPrice = parseFloat((totalItemTaxRate / 100) * (totalItemPrice));
             $(el.find('.itemTaxPrice')).val(itemTaxPrice.toFixed(2));
@@ -277,7 +263,6 @@
             for (var j = 0; j < itemTaxPriceInput.length; j++) {
                 totalItemTaxPrice += parseFloat(itemTaxPriceInput[j].value);
             }
-
 
             var totalItemPrice = 0;
             var inputs_quantity = $(".quantity");
@@ -298,7 +283,6 @@
             $('.totalTax').html(totalItemTaxPrice.toFixed(2));
 
             $('.totalAmount').html((parseFloat(subTotal)).toFixed(2));
-
 
         })
 
@@ -313,9 +297,7 @@
             var quantity = $(el.find('.quantity')).val();
             var totalItemPrice = (quantity * price) - discount;
 
-
             var amount = (totalItemPrice);
-
 
             var totalItemTaxRate = $(el.find('.itemTaxRate')).val();
             var itemTaxPrice = parseFloat((totalItemTaxRate / 100) * (totalItemPrice));
@@ -328,7 +310,6 @@
             for (var j = 0; j < itemTaxPriceInput.length; j++) {
                 totalItemTaxPrice += parseFloat(itemTaxPriceInput[j].value);
             }
-
 
             var totalItemPrice = 0;
             var inputs_quantity = $(".quantity");
@@ -345,7 +326,6 @@
                 subTotal = parseFloat(subTotal) + parseFloat($(inputs[i]).html());
             }
 
-
             var totalItemDiscountPrice = 0;
             var itemDiscountPriceInput = $('.discount');
 
@@ -354,15 +334,11 @@
                 totalItemDiscountPrice += parseFloat(itemDiscountPriceInput[k].value);
             }
 
-
             $('.subTotal').html(totalItemPrice.toFixed(2));
             $('.totalTax').html(totalItemTaxPrice.toFixed(2));
 
             $('.totalAmount').html((parseFloat(subTotal)).toFixed(2));
             $('.totalDiscount').html(totalItemDiscountPrice.toFixed(2));
-
-
-
 
         })
 
@@ -399,7 +375,6 @@
             });
         });
 
-        // for item SearchBox ( this function is  custom Js )
         JsSearchBox();
     </script>
 @endpush
@@ -727,7 +702,6 @@ $(document).on('submit',"#add_product_form",function(e){
                 $("body .repeater").find(".item").each(function() {
     $(this).append(new Option(response.name, response.id));
     });
-
 
             } else {
                 $("input[type='submit']").attr("disabled",false);

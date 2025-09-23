@@ -22,21 +22,10 @@ use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
-        //
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index(Request $request)
     {
        
@@ -68,7 +57,6 @@ class DashboardController extends Controller
                         $inCategory[] = $incomeCategory[$i]->name;
                         $inAmount[]   = $incomeCategory[$i]->incomeCategoryRevenueAmount();
                     }
-
 
                     $data['incomeCategoryColor'] = $inColor;
                     $data['incomeCategory']      = $inCategory;
@@ -137,7 +125,6 @@ class DashboardController extends Controller
                     'account_balance' => 'Account Balance',
                     'recent_invoices' => 'Recent Invoices',
                     'latest_expense' => 'Latest Expense',
-                    // ...add all you want
                 ];
                 return view('dashboard.index', $data, compact('users', 'plan', 'storage_limit', 'yearList', 'selectedYear', 'customization', 'allCards'));
             }

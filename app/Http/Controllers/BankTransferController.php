@@ -23,7 +23,6 @@ class BankTransferController extends Controller
 
     public function index()
     {
-        //
     }
 
     public function planPayWithbank(Request $request)
@@ -44,7 +43,6 @@ class BankTransferController extends Controller
             ]
         );
 
-
         $dir = storage_path() . '/uploads/bank_receipt/';
         if (!is_dir($dir)) {
             \File::makeDirectory($dir, $mode = 0777, true, true);
@@ -52,7 +50,6 @@ class BankTransferController extends Controller
         $file_path = $request->receipt->getClientOriginalName();
         $file = $request->file('receipt');
         $file->move($dir, $file_path);
-
 
         $coupon_id = 0;
         if (!empty($request->coupon)) {
@@ -127,7 +124,6 @@ class BankTransferController extends Controller
         }
     }
 
-
     public function show($id)
     {
         $details = Order::find($id);
@@ -135,7 +131,6 @@ class BankTransferController extends Controller
         $bank_detail = $settings['bank_detail'];
         return view('banktarnsfer.view', compact('details', 'bank_detail'));
     }
-
 
     public function destroy($id)
     {
@@ -146,7 +141,6 @@ class BankTransferController extends Controller
             'Order successfully deleted.'
         );
     }
-
 
     public function  ChangeStatus($id, $response)
     {
@@ -186,12 +180,10 @@ class BankTransferController extends Controller
             $settings = DB::table('settings')->where('created_by', '=', \Auth::user()->creatorId())->get()->pluck('value', 'name');
             $objUser     = \Auth::user();
             $payment_setting = Utility::getCompanyPaymentSetting($invoice->created_by);
-            //            $this->setApiContext();
         } else {
             $user = User::where('id', $invoice->created_by)->first();
             $settings = Utility::settingById($invoice->created_by);
             $payment_setting = Utility::getCompanyPaymentSetting($invoice->created_by);
-            //            $this->non_auth_setApiContext($invoice->created_by);
             $objUser = $user;
         }
 
@@ -201,11 +193,6 @@ class BankTransferController extends Controller
             ]
         );
 
-        // $image_size = $request->file('receipt')->getSize();
-        // $result = Utility::updateStorageLimit($objUser->creatorId(), $image_size);
-        // $total_storage = $user->storage_limit + $image_size;
-
-        // if ($result == 1) {
         $dir = storage_path() . '/uploads/bank_receipt/';
         if (!is_dir($dir)) {
             \File::makeDirectory($dir, $mode = 0777, true, true);
@@ -213,16 +200,6 @@ class BankTransferController extends Controller
         $file_path = $request->receipt->getClientOriginalName();
         $file = $request->file('receipt');
         $file->move($dir, $file_path);
-        // }
-
-        // dd($user->storage_limit <= $total_storage && $user->storage_limit != -1);
-
-        // if ($user->storage_limit <= $total_storage && $user->storage_limit != -1) {
-        //     $user->storage_limit = $total_storage;
-        // } else {
-        //     $error = __('Your plan storage limit is over , so you can not see customer uploaded payment receipt.');
-        //     return $error;
-        // }
 
         try {
             $order_id = strtoupper(str_replace('.', '', uniqid('', true)));
@@ -316,7 +293,6 @@ class BankTransferController extends Controller
         return redirect()->back()->with('success', __('Invoice payment request send successfully.'));
     }
 
-
     public function invoicedestroy($id)
     {
         $invoice = BankTransfer::where('id', $id)->delete();
@@ -331,21 +307,16 @@ class BankTransferController extends Controller
     {
         $retainer = Retainer::find($retainer_id);
 
-        // $this->invoiceData       = $invoice;
-
         $get_amount = $request->amount;
-
 
         if (\Auth::check()) {
             $settings = DB::table('settings')->where('created_by', '=', \Auth::user()->creatorId())->get()->pluck('value', 'name');
             $objUser     = \Auth::user();
             $payment_setting = Utility::getCompanyPaymentSetting($retainer->created_by);
-            //            $this->setApiContext();
         } else {
             $user = User::where('id', $retainer->created_by)->first();
             $settings = Utility::settingById($retainer->created_by);
             $payment_setting = Utility::getCompanyPaymentSetting($retainer->created_by);
-            //            $this->non_auth_setApiContext($invoice->created_by);
             $objUser = $user;
         }
 
@@ -355,11 +326,6 @@ class BankTransferController extends Controller
             ]
         );
 
-        // $image_size = $request->file('receipt')->getSize();
-
-        // $result = Utility::updateStorageLimit($objUser->creatorId(), $image_size);
-
-        // if ($result == 1) {
         $dir = storage_path() . '/uploads/bank_receipt/';
         if (!is_dir($dir)) {
             \File::makeDirectory($dir, $mode = 0777, true, true);
@@ -367,9 +333,6 @@ class BankTransferController extends Controller
         $file_path = $request->receipt->getClientOriginalName();
         $file = $request->file('receipt');
         $file->move($dir, $file_path);
-        // }
-
-
 
         try {
             $order_id = strtoupper(str_replace('.', '', uniqid('', true)));
@@ -386,7 +349,6 @@ class BankTransferController extends Controller
                 ]
             );
 
-
             if (\Auth::check()) {
                 return redirect()->route('retainer.show', \Crypt::encrypt($retainer->id))->with('success', __('Payment successfully added.'));
             } else {
@@ -400,7 +362,6 @@ class BankTransferController extends Controller
             }
         }
     }
-
 
     public function retainerpaymenteshow($id)
     {

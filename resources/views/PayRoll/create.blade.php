@@ -4,7 +4,7 @@
 {{ Form::open(['url' => 'payroll', 'method' => 'post', 'class' => 'needs-validation', 'novalidate']) }}
 <div class="modal-body p-6 bg-[#FAFBFC]">
   <div class="row">
-    <div class="col-md-6"><!-- Basic info -->
+    <div class="col-md-6">
       <div class="bg-white rounded-[8px] border border-[#E5E7EB] mb-6 shadow-sm overflow-hidden">
         <div class="heading-cstm-form">
           <h6 class="mb-0 flex items-center gap-2">
@@ -30,7 +30,7 @@
       </div>
     </div>
 
-    <div class="col-md-6"><!-- Salary details -->
+    <div class="col-md-6">
       <div class="bg-white rounded-[8px] border border-[#E5E7EB] mb-6 shadow-sm overflow-hidden">
         <div class="heading-cstm-form">
           <h6 class="mb-0 flex items-center gap-2">
@@ -190,7 +190,6 @@
 {{ Form::close() }}
 
 <script>
-  // Maps from controller
   const ALLOWANCE_TYPES = @json($allowanceTypes ?? (object) []);
   const DEDUCTION_TYPES = @json($deductionTypes ?? (object) []);
   const BONUS_TYPES     = @json($bonusTypes ?? (object) []);

@@ -1,7 +1,4 @@
 <?php
-// System : AccountGo Saas
-// System Version : 7.2
-
 
 function getPhpVersionInfo()
 {
@@ -39,23 +36,19 @@ foreach($arrPermissions as $key => $value)
     }
 }
 
-// Check PHP Version
 $allowed_version = version_compare(getPhpVersionInfo()['version'], $minPhpVersion, ">=");
-
 
 if(!$allowed_version)
 {
     $err = 1;
 }
 
-// If all directory has and .env file has permission then redirect to main File
 if($err != 1)
 {
 
     require_once __DIR__ . '/public/index.php';
     die;
 }
-// end
 ?>
 
 <html>
