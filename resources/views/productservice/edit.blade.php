@@ -6,28 +6,37 @@
 @endphp
 
 <style>
-/* Green theme styling for edit product/service form */
-.modal-body .form-control:focus,
-.modal-body .form-select:focus {
+/* Zameen.com theme custom form controls */
+.zameen-form-input,
+.zameen-form-select,
+.zameen-form-textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid #dee2e6;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    color: #2d3748;
+    background: white;
+    transition: all 0.2s ease;
+}
+
+.zameen-form-input:focus,
+.zameen-form-select:focus,
+.zameen-form-textarea:focus {
+    outline: none;
     border-color: #007C38 !important;
     box-shadow: 0 0 0 0.2rem rgba(0, 124, 56, 0.25) !important;
 }
 
-.modal-body .form-control:focus-visible,
-.modal-body .form-select:focus-visible {
-    border-color: #007C38 !important;
-    box-shadow: 0 0 0 0.2rem rgba(0, 124, 56, 0.25) !important;
-}
-
-.modal-body .form-control,
-.modal-body .form-select {
-    border-color: #dee2e6;
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-
-.modal-body .form-control:hover,
-.modal-body .form-select:hover {
+.zameen-form-input:hover,
+.zameen-form-select:hover,
+.zameen-form-textarea:hover {
     border-color: #007C38;
+}
+
+.zameen-form-textarea {
+    resize: vertical;
+    min-height: 100px;
 }
 
 .modal-body .btn-primary {
@@ -60,7 +69,7 @@
             <div class="form-group">
                 {{ Form::label('name', __('Name'), ['class' => 'form-label']) }}<x-required></x-required>
                 <div class="form-icon-user">
-                    {{ Form::text('name', null, ['class' => 'form-control', 'required' => 'required']) }}
+                    {{ Form::text('name', null, ['class' => 'zameen-form-input', 'required' => 'required']) }}
                 </div>
             </div>
         </div>
@@ -69,7 +78,7 @@
             <div class="form-group">
                 {{ Form::label('sku', __('SKU'), ['class' => 'form-label']) }}<x-required></x-required>
                 <div class="form-icon-user">
-                    {{ Form::text('sku', null, ['class' => 'form-control', 'required' => 'required']) }}
+                    {{ Form::text('sku', null, ['class' => 'zameen-form-input', 'required' => 'required']) }}
                 </div>
             </div>
         </div>
@@ -78,30 +87,21 @@
             <div class="form-group">
                 {{ Form::label('sale_price', __('Sale Price'), ['class' => 'form-label']) }}<x-required></x-required>
                 <div class="form-icon-user">
-                    {{ Form::number('sale_price', null, ['class' => 'form-control', 'required' => 'required', 'step' => '0.01']) }}
+                    {{ Form::number('sale_price', null, ['class' => 'zameen-form-input', 'required' => 'required', 'step' => '0.01']) }}
                 </div>
             </div>
         </div>
 
-        <div class="form-group col-md-6">
-            {{ Form::label('sale_chartaccount_id', __('Income Account'),['class'=>'form-label']) }}<x-required></x-required>
-            <select name="sale_chartaccount_id" class="form-control" required="required">
-                @foreach ($incomeChartAccounts as $key => $chartAccount)
-                    <option value="{{ $key }}" class="subAccount" {{ ($productService->sale_chartaccount_id == $key) ? 'selected' : ''}}>
-                        {{ $chartAccount }}
+        <div class="form-group col-md-6 account">
+            <select name="sale_chartaccount_id" class="zameen-form-select" required="required">
+                <option value="">{{ __('Select Account') }}</option>
+                @foreach ($accounts as $account)
+                    <option value="{{ $account['id'] }}" {{ $productService->sale_chartaccount_id == $account['id'] ? 'selected' : '' }}>
+                        {{ $account['code'] }} - {{ $account['name'] }}
                     </option>
-                    @foreach ($incomeSubAccounts as $subAccount)
-                        @if ($key == $subAccount['account'])
-                            <option value="{{ $subAccount['id'] }}" class="ms-5" {{ ($productService->sale_chartaccount_id == $subAccount['id']) ? 'selected' : ''}}>
-                                &nbsp;&nbsp;&nbsp;{{ $subAccount['name'] }}
-                            </option>
-                        @endif
-                    @endforeach
                 @endforeach
             </select>
-        </div>
-
-        <div class="col-md-6">
+        </div>        <div class="col-md-6">
             <div class="form-group">
                 {{ Form::label('purchase_price', __('Purchase Price'), ['class' => 'form-label']) }}<x-required></x-required>
                 <div class="form-icon-user">
@@ -112,7 +112,7 @@
 
         <div class="form-group col-md-6">
             {{ Form::label('expense_chartaccount_id', __('Expense Account'),['class'=>'form-label']) }}<x-required></x-required>
-            <select name="expense_chartaccount_id" class="form-control" required="required">
+            <select name="expense_chartaccount_id" class="zameen-form-select" required="required">
                 @foreach ($expenseChartAccounts as $key => $chartAccount)
                     <option value="{{ $key }}" class="subAccount" {{ ($productService->expense_chartaccount_id == $key) ? 'selected' : ''}}>
                         {{ $chartAccount }}
@@ -131,27 +131,27 @@
         @if($TAX_ENABLED)
             <div class="form-group col-md-6">
                 {{ Form::label('tax_id', __('Tax'), ['class' => 'form-label']) }}<x-required></x-required>
-                {{ Form::select('tax_id[]', $tax, $productService->tax_id ?? null, ['class' => 'form-control select2', 'id' => 'choices-multiple1', 'multiple' => '']) }}
+                {{ Form::select('tax_id[]', $tax, $productService->tax_id ?? null, ['class' => 'zameen-form-select', 'id' => 'choices-multiple1', 'multiple' => '']) }}
             </div>
         @endif
 
         <div class="form-group col-md-6">
             {{ Form::label('category_id', __('Category'), ['class' => 'form-label']) }}<x-required></x-required>
-            {{ Form::select('category_id', $category, null, ['class' => 'form-control select', 'required' => 'required']) }}
+            {{ Form::select('category_id', $category, null, ['class' => 'zameen-form-select', 'required' => 'required']) }}
         </div>
 
         <div class="form-group col-md-6">
             {{ Form::label('unit_id', __('Unit'), ['class' => 'form-label']) }}<x-required></x-required>
-            {{ Form::select('unit_id', $unit, null, ['class' => 'form-control select', 'required' => 'required']) }}
+            {{ Form::select('unit_id', $unit, null, ['class' => 'zameen-form-select', 'required' => 'required']) }}
         </div>
 
         <div class="form-group col-md-3 quantity {{ $productService->type=='Service' ? 'd-none' : 'd-block' }}">
             {{ Form::label('quantity', __('Quantity'), ['class' => 'form-label']) }}<x-required></x-required>
-            {{ Form::text('quantity', null, ['class' => 'form-control', 'required' => $productService->type=='Service' ? false : true]) }}
+            {{ Form::text('quantity', null, ['class' => 'zameen-form-input', 'required' => $productService->type=='Service' ? false : true]) }}
         </div>
         <div class="form-group col-md-3 reorder {{ $productService->type=='Service' ? 'd-none' : 'd-block' }}">
             {{ Form::label('reorder_level', __('Reorder Level'), ['class' => 'form-label']) }}<x-required></x-required>
-            {{ Form::text('reorder_level', null, ['class' => 'form-control', 'required' => $productService->type=='Service' ? false : true]) }}
+            {{ Form::text('reorder_level', null, ['class' => 'zameen-form-input', 'required' => $productService->type=='Service' ? false : true]) }}
         </div>
 
         <div class="col-md-6">
@@ -207,7 +207,7 @@
 
         <div class="form-group col-md-12">
             {{ Form::label('description', __('Description'), ['class' => 'form-label']) }}
-            {!! Form::textarea('description', null, ['class' => 'form-control', 'rows' => '2']) !!}
+            {!! Form::textarea('description', null, ['class' => 'zameen-form-textarea', 'rows' => '2']) !!}
         </div>
 
         @if (!empty($customFields) && $customFields->isNotEmpty())

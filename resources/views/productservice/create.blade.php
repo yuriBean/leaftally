@@ -228,22 +228,6 @@
     gap: 1rem;
   }
 
-  /* Override Bootstrap form-control styles with green theme */
-  .form-control:focus {
-    border-color: #007C38 !important;
-    box-shadow: 0 0 0 0.2rem rgba(0, 124, 56, 0.25) !important;
-  }
-
-  .form-control:focus-visible {
-    border-color: #007C38 !important;
-    box-shadow: 0 0 0 0.2rem rgba(0, 124, 56, 0.25) !important;
-  }
-
-  .form-select:focus {
-    border-color: #007C38 !important;
-    box-shadow: 0 0 0 0.2rem rgba(0, 124, 56, 0.25) !important;
-  }
-
   /* Force button visibility */
   button[type="submit"].zameen-btn-primary,
   .zameen-btn-primary[type="submit"] {
@@ -463,7 +447,7 @@
                     {{ __('Income Account') }}
                     <span style="color: #ef4444; margin-left: 4px;">*</span>
                 </label>
-                <select name="sale_chartaccount_id" class="zameen-form-input" required="required">
+                <select name="sale_chartaccount_id" class="zameen-form-select" required="required">
                     @foreach ($incomeChartAccounts as $key => $chartAccount)
                         <option value="{{ $key }}" class="subAccount">{{ $chartAccount }}</option>
                         @foreach ($incomeSubAccounts as $subAccount)
@@ -493,7 +477,7 @@
                     {{ __('Expense Account') }}
                     <span style="color: #ef4444; margin-left: 4px;">*</span>
                 </label>
-                <select name="expense_chartaccount_id" class="zameen-form-input" required="required">
+                <select name="expense_chartaccount_id" class="zameen-form-select" required="required">
                     @foreach ($expenseChartAccounts as $key => $chartAccount)
                         <option value="{{ $key }}" class="subAccount">{{ $chartAccount }}</option>
                         @foreach ($expenseSubAccounts as $subAccount)
@@ -519,7 +503,7 @@
                     {{ __('Category') }}
                     <span style="color: #ef4444; margin-left: 4px;">*</span>
                 </label>
-                {{ Form::select('category_id', $category, null, ['class' => 'zameen-form-input', 'required' => 'required']) }}
+                {{ Form::select('category_id', $category, null, ['class' => 'zameen-form-select', 'required' => 'required']) }}
                 <div style="margin-top: 0.5rem;">
                     <small style="color: #6b7280;">{{ __('Need to add a new category? ') }}</small>
                     <a href="#" id="add_category" style="color: #00b98d; font-weight: 600; text-decoration: none;">{{ __('Add Category') }}</a>
@@ -530,7 +514,7 @@
 
             <div class="zameen-form-group">
                 <label class="zameen-form-label">{{ __('Tax (Optional)') }}</label>
-                {{ Form::select('tax_id[]', $tax, null, ['class' => 'zameen-form-input', 'id' => 'choices-multiple1', 'multiple']) }}
+                {{ Form::select('tax_id[]', $tax, null, ['class' => 'zameen-form-select', 'id' => 'choices-multiple1', 'multiple']) }}
                 <div style="margin-top: 0.5rem;">
                     <small style="color: #6b7280;">{{ __('Need to add a new tax rate? ') }}</small>
                     <a href="#" onclick="openAddTaxModal()" style="color: #00b98d; font-weight: 600; text-decoration: none;">{{ __('Add Tax') }}</a>
@@ -543,7 +527,7 @@
                     {{ __('Unit') }}
                     <span style="color: #ef4444; margin-left: 4px;">*</span>
                 </label>
-                {{ Form::select('unit_id', $unit, null, ['class' => 'zameen-form-input', 'required' => 'required']) }}
+                {{ Form::select('unit_id', $unit, null, ['class' => 'zameen-form-select', 'required' => 'required']) }}
                 <div style="margin-top: 0.5rem;">
                     <small style="color: #6b7280;">{{ __('Need to add a new unit? ') }}</small>
                     <a href="#" id="add_unit" style="color: #00b98d; font-weight: 600; text-decoration: none;">{{ __('Add Unit') }}</a>
@@ -651,11 +635,11 @@
         @endif
         <div class="form-group col-md-12">
             {{ Form::label('name', __('Category Name'), ['class' => 'form-label']) }}<x-required></x-required>
-            {{ Form::text('name', '', ['class' => 'form-control', 'required' => 'required']) }}
+            {{ Form::text('name', '', ['class' => 'zameen-form-input', 'required' => 'required']) }}
         </div>
         <div class="form-group col-md-12 account d-none">
             {{Form::label('chart_account_id',__('Account'),['class'=>'form-label'])}}
-            <select class="form-control select" name="chart_account" id="chart_account"></select>
+            <select class="zameen-form-select" name="chart_account" id="chart_account"></select>
             <input type="hidden" name="type" value="product & service">
         </div>
         <div class="form-group col-md-12">
@@ -701,7 +685,7 @@
                 <div class="row">
                     <div class="form-group col-md-12">
                         {{ Form::label('name', __('Unit Name'),['class'=>'form-label']) }}<x-required></x-required>
-                        {{ Form::text('name', '', array('class' => 'form-control','required'=>'required')) }}
+                        {{ Form::text('name', '', array('class' => 'zameen-form-input','required'=>'required')) }}
                         @error('name')
                             <small class="invalid-name" role="alert">
                                 <strong class="text-danger">{{ $message }}</strong>
