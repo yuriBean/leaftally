@@ -22,7 +22,7 @@
       <div class="col-md-6 col-12 d-flex">
         <div class="card border-0 rounded-2xl shadow-md overflow-hidden my-3">
           <div class="h-1 w-full" style="background:#007C38;"></div>
-  
+
         <div class="bg-white  mb-6  h-100 w-100">
           <div class="heading-cstm-form">
             <h6 class="mb-0 flex items-center gap-2">
@@ -81,7 +81,7 @@
       <div class="col-md-6 col-12 d-flex">
         <div class="card border-0 rounded-2xl shadow-md overflow-hidden my-3">
           <div class="h-1 w-full" style="background:#007C38;"></div>
-  
+
         <div class="bg-white  mb-6  h-100 w-100">
           <div class="heading-cstm-form">
             <h6 class="mb-0 flex items-center gap-2">

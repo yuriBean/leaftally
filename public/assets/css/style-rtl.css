@@ -2232,7 +2232,7 @@ progress {
     color: #6c757d;
 }
 
-.form-control, .custom-select,
+.zameen-form-input, .custom-select,
 .dataTable-selector,
 .dataTable-input {
     display: block;
@@ -2253,26 +2253,26 @@ progress {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .form-control, .custom-select,
+    .zameen-form-input, .custom-select,
     .dataTable-selector,
     .dataTable-input {
         transition: none;
     }
 }
 
-.form-control[type="file"], .custom-select[type="file"],
+.zameen-form-input[type="file"], .custom-select[type="file"],
   .dataTable-selector[type="file"],
   .dataTable-input[type="file"] {
     overflow: hidden;
 }
 
-.form-control[type="file"]:not(:disabled):not([readonly]), .custom-select[type="file"]:not(:disabled):not([readonly]),
+.zameen-form-input[type="file"]:not(:disabled):not([readonly]), .custom-select[type="file"]:not(:disabled):not([readonly]),
     .dataTable-selector[type="file"]:not(:disabled):not([readonly]),
     .dataTable-input[type="file"]:not(:disabled):not([readonly]) {
     cursor: pointer;
 }
 
-.form-control:focus, .custom-select:focus,
+.zameen-form-input:focus, .custom-select:focus,
   .dataTable-selector:focus,
   .dataTable-input:focus {
     color: #293240;
@@ -2282,32 +2282,32 @@ progress {
     box-shadow: 0 0 0 0.2rem rgba(81, 69, 157, 0.25);
 }
 
-.form-control::-webkit-date-and-time-value, .custom-select::-webkit-date-and-time-value,
+.zameen-form-input::-webkit-date-and-time-value, .custom-select::-webkit-date-and-time-value,
   .dataTable-selector::-webkit-date-and-time-value,
   .dataTable-input::-webkit-date-and-time-value {
     height: 1.5em;
 }
 
-.form-control::-moz-placeholder, .custom-select::-moz-placeholder, .dataTable-selector::-moz-placeholder, .dataTable-input::-moz-placeholder {
+.zameen-form-input::-moz-placeholder, .custom-select::-moz-placeholder, .dataTable-selector::-moz-placeholder, .dataTable-input::-moz-placeholder {
     color: #6c757d;
     opacity: 1;
 }
 
-.form-control::placeholder, .custom-select::placeholder,
+.zameen-form-input::placeholder, .custom-select::placeholder,
   .dataTable-selector::placeholder,
   .dataTable-input::placeholder {
     color: #6c757d;
     opacity: 1;
 }
 
-.form-control:disabled, .custom-select:disabled,
+.zameen-form-input:disabled, .custom-select:disabled,
   .dataTable-selector:disabled,
   .dataTable-input:disabled {
     background-color: #e9ecef;
     opacity: 1;
 }
 
-.form-control::file-selector-button, .custom-select::file-selector-button,
+.zameen-form-input::file-selector-button, .custom-select::file-selector-button,
   .dataTable-selector::file-selector-button,
   .dataTable-input::file-selector-button {
     padding: 0.575rem 1rem;
@@ -2326,20 +2326,20 @@ progress {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .form-control::file-selector-button, .custom-select::file-selector-button,
+    .zameen-form-input::file-selector-button, .custom-select::file-selector-button,
       .dataTable-selector::file-selector-button,
       .dataTable-input::file-selector-button {
         transition: none;
     }
 }
 
-.form-control:hover:not(:disabled):not([readonly])::file-selector-button, .custom-select:hover:not(:disabled):not([readonly])::file-selector-button,
+.zameen-form-input:hover:not(:disabled):not([readonly])::file-selector-button, .custom-select:hover:not(:disabled):not([readonly])::file-selector-button,
   .dataTable-selector:hover:not(:disabled):not([readonly])::file-selector-button,
   .dataTable-input:hover:not(:disabled):not([readonly])::file-selector-button {
     background-color: #ecedf0;
 }
 
-.form-control-plaintext {
+.zameen-form-input-plaintext {
     display: block;
     width: 100%;
     padding: 0.575rem 0;
@@ -2351,85 +2351,85 @@ progress {
     border-width: 1px 0;
 }
 
-.form-control-plaintext:focus {
+.zameen-form-input-plaintext:focus {
     outline: 0;
 }
 
-.form-control-plaintext.form-control-sm, .form-control-plaintext.form-control-lg {
+.zameen-form-input-plaintext.zameen-form-input-sm, .zameen-form-input-plaintext.zameen-form-input-lg {
     padding-right: 0;
     padding-left: 0;
 }
 
-.form-control-sm {
+.zameen-form-input-sm {
     min-height: calc(1.5em + 0.5rem + 2px);
     padding: 0.25rem 0.5rem;
     font-size: 0.76563rem;
     border-radius: 4px;
 }
 
-.form-control-sm::file-selector-button {
+.zameen-form-input-sm::file-selector-button {
     padding: 0.25rem 0.5rem;
     margin: -0.25rem -0.5rem;
     -webkit-margin-end: 0.5rem;
     margin-inline-end: 0.5rem;
 }
 
-.form-control-lg {
+.zameen-form-input-lg {
     min-height: calc(1.5em + 1rem + 2px);
     padding: 0.5rem 1rem;
     font-size: 1.09375rem;
     border-radius: 8px;
 }
 
-.form-control-lg::file-selector-button {
+.zameen-form-input-lg::file-selector-button {
     padding: 0.5rem 1rem;
     margin: -0.5rem -1rem;
     -webkit-margin-end: 1rem;
     margin-inline-end: 1rem;
 }
 
-textarea.form-control, textarea.custom-select,
+textarea.zameen-form-input, textarea.custom-select,
 textarea.dataTable-selector,
 textarea.dataTable-input {
     min-height: calc(1.5em + 1.15rem + 2px);
 }
 
-textarea.form-control-sm {
+textarea.zameen-form-input-sm {
     min-height: calc(1.5em + 0.5rem + 2px);
 }
 
-textarea.form-control-lg {
+textarea.zameen-form-input-lg {
     min-height: calc(1.5em + 1rem + 2px);
 }
 
-.form-control-color {
+.zameen-form-input-color {
     width: 3rem;
     height: calc(1.5em + 1.15rem + 2px);
     padding: 0.575rem;
 }
 
-.form-control-color:not(:disabled):not([readonly]) {
+.zameen-form-input-color:not(:disabled):not([readonly]) {
     cursor: pointer;
 }
 
-.form-control-color::-moz-color-swatch {
+.zameen-form-input-color::-moz-color-swatch {
     border: 0 !important;
     border-radius: 6px;
 }
 
-.form-control-color::-webkit-color-swatch {
+.zameen-form-input-color::-webkit-color-swatch {
     border-radius: 6px;
 }
 
-.form-control-color.form-control-sm {
+.zameen-form-input-color.zameen-form-input-sm {
     height: calc(1.5em + 0.5rem + 2px);
 }
 
-.form-control-color.form-control-lg {
+.zameen-form-input-color.zameen-form-input-lg {
     height: calc(1.5em + 1rem + 2px);
 }
 
-.form-select {
+.zameen-zameen-form-select {
     display: block;
     width: 100%;
     padding: 0.575rem 1rem 0.575rem 1rem;
@@ -2452,33 +2452,33 @@ textarea.form-control-lg {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .form-select {
+    .zameen-zameen-form-select {
         transition: none;
     }
 }
 
-.form-select:focus {
+.zameen-zameen-form-select:focus {
     border-color: #51459d;
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(81, 69, 157, 0.25);
 }
 
-.form-select[multiple], .form-select[size]:not([size="1"]) {
+.zameen-zameen-form-select[multiple], .zameen-zameen-form-select[size]:not([size="1"]) {
     padding-right: 1rem;
     background-image: none;
 }
 
-.form-select:disabled {
+.zameen-zameen-form-select:disabled {
     color: #6c757d;
     background-color: #e9ecef;
 }
 
-.form-select:-moz-focusring {
+.zameen-zameen-form-select:-moz-focusring {
     color: transparent;
     text-shadow: 0 0 0 #293240;
 }
 
-.form-select-sm {
+.zameen-zameen-form-select-sm {
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
     padding-left: 0.5rem;
@@ -2486,7 +2486,7 @@ textarea.form-control-lg {
     border-radius: 4px;
 }
 
-.form-select-lg {
+.zameen-zameen-form-select-lg {
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     padding-left: 1rem;
@@ -2753,11 +2753,11 @@ textarea.form-control-lg {
     position: relative;
 }
 
-.form-floating > .form-control, .form-floating > .custom-select,
+.form-floating > .zameen-form-input, .form-floating > .custom-select,
   .form-floating > .dataTable-selector,
   .form-floating > .dataTable-input,
-  .form-floating > .form-control-plaintext,
-  .form-floating > .form-select {
+  .form-floating > .zameen-form-input-plaintext,
+  .form-floating > .zameen-zameen-form-select {
     height: calc(3.6rem + 2px);
     line-height: 1.25;
 }
@@ -2785,75 +2785,75 @@ textarea.form-control-lg {
     }
 }
 
-.form-floating > .form-control, .form-floating > .custom-select,
+.form-floating > .zameen-form-input, .form-floating > .custom-select,
   .form-floating > .dataTable-selector,
   .form-floating > .dataTable-input,
-  .form-floating > .form-control-plaintext {
+  .form-floating > .zameen-form-input-plaintext {
     padding: 1rem 1rem;
 }
 
-.form-floating > .form-control::-moz-placeholder, .form-floating > .custom-select::-moz-placeholder, .form-floating > .dataTable-selector::-moz-placeholder, .form-floating > .dataTable-input::-moz-placeholder, .form-floating > .form-control-plaintext::-moz-placeholder {
+.form-floating > .zameen-form-input::-moz-placeholder, .form-floating > .custom-select::-moz-placeholder, .form-floating > .dataTable-selector::-moz-placeholder, .form-floating > .dataTable-input::-moz-placeholder, .form-floating > .zameen-form-input-plaintext::-moz-placeholder {
     color: transparent;
 }
 
-.form-floating > .form-control::placeholder, .form-floating > .custom-select::placeholder,
+.form-floating > .zameen-form-input::placeholder, .form-floating > .custom-select::placeholder,
     .form-floating > .dataTable-selector::placeholder,
     .form-floating > .dataTable-input::placeholder,
-    .form-floating > .form-control-plaintext::placeholder {
+    .form-floating > .zameen-form-input-plaintext::placeholder {
     color: transparent;
 }
 
-.form-floating > .form-control:not(:-moz-placeholder-shown), .form-floating > .custom-select:not(:-moz-placeholder-shown), .form-floating > .dataTable-selector:not(:-moz-placeholder-shown), .form-floating > .dataTable-input:not(:-moz-placeholder-shown), .form-floating > .form-control-plaintext:not(:-moz-placeholder-shown) {
+.form-floating > .zameen-form-input:not(:-moz-placeholder-shown), .form-floating > .custom-select:not(:-moz-placeholder-shown), .form-floating > .dataTable-selector:not(:-moz-placeholder-shown), .form-floating > .dataTable-input:not(:-moz-placeholder-shown), .form-floating > .zameen-form-input-plaintext:not(:-moz-placeholder-shown) {
     padding-top: 1.625rem;
     padding-bottom: 0.625rem;
 }
 
-.form-floating > .form-control:focus, .form-floating > .custom-select:focus,
+.form-floating > .zameen-form-input:focus, .form-floating > .custom-select:focus,
     .form-floating > .dataTable-selector:focus,
-    .form-floating > .dataTable-input:focus, .form-floating > .form-control:not(:placeholder-shown), .form-floating > .custom-select:not(:placeholder-shown),
+    .form-floating > .dataTable-input:focus, .form-floating > .zameen-form-input:not(:placeholder-shown), .form-floating > .custom-select:not(:placeholder-shown),
     .form-floating > .dataTable-selector:not(:placeholder-shown),
     .form-floating > .dataTable-input:not(:placeholder-shown),
-    .form-floating > .form-control-plaintext:focus,
-    .form-floating > .form-control-plaintext:not(:placeholder-shown) {
+    .form-floating > .zameen-form-input-plaintext:focus,
+    .form-floating > .zameen-form-input-plaintext:not(:placeholder-shown) {
     padding-top: 1.625rem;
     padding-bottom: 0.625rem;
 }
 
-.form-floating > .form-control:-webkit-autofill, .form-floating > .custom-select:-webkit-autofill,
+.form-floating > .zameen-form-input:-webkit-autofill, .form-floating > .custom-select:-webkit-autofill,
     .form-floating > .dataTable-selector:-webkit-autofill,
     .form-floating > .dataTable-input:-webkit-autofill,
-    .form-floating > .form-control-plaintext:-webkit-autofill {
+    .form-floating > .zameen-form-input-plaintext:-webkit-autofill {
     padding-top: 1.625rem;
     padding-bottom: 0.625rem;
 }
 
-.form-floating > .form-select {
+.form-floating > .zameen-zameen-form-select {
     padding-top: 1.625rem;
     padding-bottom: 0.625rem;
 }
 
-.form-floating > .form-control:not(:-moz-placeholder-shown) ~ label, .form-floating > .custom-select:not(:-moz-placeholder-shown) ~ label, .form-floating > .dataTable-selector:not(:-moz-placeholder-shown) ~ label, .form-floating > .dataTable-input:not(:-moz-placeholder-shown) ~ label {
+.form-floating > .zameen-form-input:not(:-moz-placeholder-shown) ~ label, .form-floating > .custom-select:not(:-moz-placeholder-shown) ~ label, .form-floating > .dataTable-selector:not(:-moz-placeholder-shown) ~ label, .form-floating > .dataTable-input:not(:-moz-placeholder-shown) ~ label {
     opacity: 0.65;
     transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
 }
 
-.form-floating > .form-control:focus ~ label, .form-floating > .custom-select:focus ~ label, .form-floating > .dataTable-selector:focus ~ label, .form-floating > .dataTable-input:focus ~ label,
-  .form-floating > .form-control:not(:placeholder-shown) ~ label,
+.form-floating > .zameen-form-input:focus ~ label, .form-floating > .custom-select:focus ~ label, .form-floating > .dataTable-selector:focus ~ label, .form-floating > .dataTable-input:focus ~ label,
+  .form-floating > .zameen-form-input:not(:placeholder-shown) ~ label,
   .form-floating > .custom-select:not(:placeholder-shown) ~ label,
   .form-floating > .dataTable-selector:not(:placeholder-shown) ~ label,
   .form-floating > .dataTable-input:not(:placeholder-shown) ~ label,
-  .form-floating > .form-control-plaintext ~ label,
-  .form-floating > .form-select ~ label {
+  .form-floating > .zameen-form-input-plaintext ~ label,
+  .form-floating > .zameen-zameen-form-select ~ label {
     opacity: 0.65;
     transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
 }
 
-.form-floating > .form-control:-webkit-autofill ~ label, .form-floating > .custom-select:-webkit-autofill ~ label, .form-floating > .dataTable-selector:-webkit-autofill ~ label, .form-floating > .dataTable-input:-webkit-autofill ~ label {
+.form-floating > .zameen-form-input:-webkit-autofill ~ label, .form-floating > .custom-select:-webkit-autofill ~ label, .form-floating > .dataTable-selector:-webkit-autofill ~ label, .form-floating > .dataTable-input:-webkit-autofill ~ label {
     opacity: 0.65;
     transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
 }
 
-.form-floating > .form-control-plaintext ~ label {
+.form-floating > .zameen-form-input-plaintext ~ label {
     border-width: 1px 0;
 }
 
@@ -2865,10 +2865,10 @@ textarea.form-control-lg {
     width: 100%;
 }
 
-.input-group > .form-control, .input-group > .custom-select,
+.input-group > .zameen-form-input, .input-group > .custom-select,
   .input-group > .dataTable-selector,
   .input-group > .dataTable-input,
-  .input-group > .form-select,
+  .input-group > .zameen-zameen-form-select,
   .input-group > .form-floating {
     position: relative;
     flex: 1 1 auto;
@@ -2876,10 +2876,10 @@ textarea.form-control-lg {
     min-width: 0;
 }
 
-.input-group > .form-control:focus, .input-group > .custom-select:focus,
+.input-group > .zameen-form-input:focus, .input-group > .custom-select:focus,
   .input-group > .dataTable-selector:focus,
   .input-group > .dataTable-input:focus,
-  .input-group > .form-select:focus,
+  .input-group > .zameen-zameen-form-select:focus,
   .input-group > .form-floating:focus-within {
     z-index: 5;
 }
@@ -2908,10 +2908,10 @@ textarea.form-control-lg {
     border-radius: 6px;
 }
 
-.input-group-lg > .form-control, .input-group-lg > .custom-select,
+.input-group-lg > .zameen-form-input, .input-group-lg > .custom-select,
 .input-group-lg > .dataTable-selector,
 .input-group-lg > .dataTable-input,
-.input-group-lg > .form-select,
+.input-group-lg > .zameen-zameen-form-select,
 .input-group-lg > .input-group-text,
 .input-group-lg > .btn {
     padding: 0.5rem 1rem;
@@ -2919,10 +2919,10 @@ textarea.form-control-lg {
     border-radius: 8px;
 }
 
-.input-group-sm > .form-control, .input-group-sm > .custom-select,
+.input-group-sm > .zameen-form-input, .input-group-sm > .custom-select,
 .input-group-sm > .dataTable-selector,
 .input-group-sm > .dataTable-input,
-.input-group-sm > .form-select,
+.input-group-sm > .zameen-zameen-form-select,
 .input-group-sm > .input-group-text,
 .input-group-sm > .btn {
     padding: 0.25rem 0.5rem;
@@ -2930,29 +2930,29 @@ textarea.form-control-lg {
     border-radius: 4px;
 }
 
-.input-group-lg > .form-select,
-.input-group-sm > .form-select {
+.input-group-lg > .zameen-zameen-form-select,
+.input-group-sm > .zameen-zameen-form-select {
     padding-right: 2rem;
 }
 
 .input-group:not(.has-validation) > :not(:last-child):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating),
 .input-group:not(.has-validation) > .dropdown-toggle:nth-last-child(n + 3),
-.input-group:not(.has-validation) > .form-floating:not(:last-child) > .form-control,
+.input-group:not(.has-validation) > .form-floating:not(:last-child) > .zameen-form-input,
 .input-group:not(.has-validation) > .form-floating:not(:last-child) > .custom-select,
 .input-group:not(.has-validation) > .form-floating:not(:last-child) > .dataTable-selector,
 .input-group:not(.has-validation) > .form-floating:not(:last-child) > .dataTable-input,
-.input-group:not(.has-validation) > .form-floating:not(:last-child) > .form-select {
+.input-group:not(.has-validation) > .form-floating:not(:last-child) > .zameen-zameen-form-select {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
 
 .input-group.has-validation > :nth-last-child(n + 3):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating),
 .input-group.has-validation > .dropdown-toggle:nth-last-child(n + 4),
-.input-group.has-validation > .form-floating:nth-last-child(n + 3) > .form-control,
+.input-group.has-validation > .form-floating:nth-last-child(n + 3) > .zameen-form-input,
 .input-group.has-validation > .form-floating:nth-last-child(n + 3) > .custom-select,
 .input-group.has-validation > .form-floating:nth-last-child(n + 3) > .dataTable-selector,
 .input-group.has-validation > .form-floating:nth-last-child(n + 3) > .dataTable-input,
-.input-group.has-validation > .form-floating:nth-last-child(n + 3) > .form-select {
+.input-group.has-validation > .form-floating:nth-last-child(n + 3) > .zameen-zameen-form-select {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
@@ -2963,10 +2963,10 @@ textarea.form-control-lg {
     border-bottom-left-radius: 0;
 }
 
-.input-group > .form-floating:not(:first-child) > .form-control, .input-group > .form-floating:not(:first-child) > .custom-select,
+.input-group > .form-floating:not(:first-child) > .zameen-form-input, .input-group > .form-floating:not(:first-child) > .custom-select,
 .input-group > .form-floating:not(:first-child) > .dataTable-selector,
 .input-group > .form-floating:not(:first-child) > .dataTable-input,
-.input-group > .form-floating:not(:first-child) > .form-select {
+.input-group > .form-floating:not(:first-child) > .zameen-zameen-form-select {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
@@ -3001,9 +3001,9 @@ textarea.form-control-lg {
     display: block;
 }
 
-.was-validated .form-control:valid, .was-validated .custom-select:valid,
+.was-validated .zameen-form-input:valid, .was-validated .custom-select:valid,
 .was-validated .dataTable-selector:valid,
-.was-validated .dataTable-input:valid, .form-control.is-valid, .is-valid.custom-select,
+.was-validated .dataTable-input:valid, .zameen-form-input.is-valid, .is-valid.custom-select,
 .is-valid.dataTable-selector,
 .is-valid.dataTable-input {
     border-color: #6fd943;
@@ -3014,41 +3014,41 @@ textarea.form-control-lg {
     background-size: calc(0.75em + 0.575rem) calc(0.75em + 0.575rem);
 }
 
-.was-validated .form-control:valid:focus, .was-validated .custom-select:valid:focus,
+.was-validated .zameen-form-input:valid:focus, .was-validated .custom-select:valid:focus,
   .was-validated .dataTable-selector:valid:focus,
-  .was-validated .dataTable-input:valid:focus, .form-control.is-valid:focus, .is-valid.custom-select:focus,
+  .was-validated .dataTable-input:valid:focus, .zameen-form-input.is-valid:focus, .is-valid.custom-select:focus,
   .is-valid.dataTable-selector:focus,
   .is-valid.dataTable-input:focus {
     border-color: #6fd943;
     box-shadow: 0 0 0 0.2rem rgba(111, 217, 67, 0.25);
 }
 
-.was-validated textarea.form-control:valid, .was-validated textarea.custom-select:valid,
+.was-validated textarea.zameen-form-input:valid, .was-validated textarea.custom-select:valid,
 .was-validated textarea.dataTable-selector:valid,
-.was-validated textarea.dataTable-input:valid, textarea.form-control.is-valid, textarea.is-valid.custom-select,
+.was-validated textarea.dataTable-input:valid, textarea.zameen-form-input.is-valid, textarea.is-valid.custom-select,
 textarea.is-valid.dataTable-selector,
 textarea.is-valid.dataTable-input {
     padding-right: calc(1.5em + 1.15rem);
     background-position: top calc(0.375em + 0.2875rem) right calc(0.375em + 0.2875rem);
 }
 
-.was-validated .form-select:valid, .form-select.is-valid {
+.was-validated .zameen-zameen-form-select:valid, .zameen-zameen-form-select.is-valid {
     border-color: #6fd943;
 }
 
-.was-validated .form-select:valid:not([multiple]):not([size]), .was-validated .form-select:valid:not([multiple])[size="1"], .form-select.is-valid:not([multiple]):not([size]), .form-select.is-valid:not([multiple])[size="1"] {
+.was-validated .zameen-zameen-form-select:valid:not([multiple]):not([size]), .was-validated .zameen-zameen-form-select:valid:not([multiple])[size="1"], .zameen-zameen-form-select.is-valid:not([multiple]):not([size]), .zameen-zameen-form-select.is-valid:not([multiple])[size="1"] {
     padding-right: calc(0.75em + 2.8625rem);
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e"), url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%236fd943' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
     background-position: right 1rem center, center right 2rem;
     background-size: 16px 12px, calc(0.75em + 0.575rem) calc(0.75em + 0.575rem);
 }
 
-.was-validated .form-select:valid:focus, .form-select.is-valid:focus {
+.was-validated .zameen-zameen-form-select:valid:focus, .zameen-zameen-form-select.is-valid:focus {
     border-color: #6fd943;
     box-shadow: 0 0 0 0.2rem rgba(111, 217, 67, 0.25);
 }
 
-.was-validated .form-control-color:valid, .form-control-color.is-valid {
+.was-validated .zameen-form-input-color:valid, .zameen-form-input-color.is-valid {
     width: calc(3rem + calc(1.5em + 1.15rem));
 }
 
@@ -3072,13 +3072,13 @@ textarea.is-valid.dataTable-input {
     margin-left: .5em;
 }
 
-.was-validated .input-group > .form-control:not(:focus):valid, .was-validated .input-group > .custom-select:not(:focus):valid,
+.was-validated .input-group > .zameen-form-input:not(:focus):valid, .was-validated .input-group > .custom-select:not(:focus):valid,
 .was-validated .input-group > .dataTable-selector:not(:focus):valid,
-.was-validated .input-group > .dataTable-input:not(:focus):valid, .input-group > .form-control:not(:focus).is-valid, .input-group > .custom-select:not(:focus).is-valid,
+.was-validated .input-group > .dataTable-input:not(:focus):valid, .input-group > .zameen-form-input:not(:focus).is-valid, .input-group > .custom-select:not(:focus).is-valid,
 .input-group > .dataTable-selector:not(:focus).is-valid,
 .input-group > .dataTable-input:not(:focus).is-valid, .was-validated
-.input-group > .form-select:not(:focus):valid,
-.input-group > .form-select:not(:focus).is-valid, .was-validated
+.input-group > .zameen-zameen-form-select:not(:focus):valid,
+.input-group > .zameen-zameen-form-select:not(:focus).is-valid, .was-validated
 .input-group > .form-floating:not(:focus-within):valid,
 .input-group > .form-floating:not(:focus-within).is-valid {
     z-index: 3;
@@ -3114,9 +3114,9 @@ textarea.is-valid.dataTable-input {
     display: block;
 }
 
-.was-validated .form-control:invalid, .was-validated .custom-select:invalid,
+.was-validated .zameen-form-input:invalid, .was-validated .custom-select:invalid,
 .was-validated .dataTable-selector:invalid,
-.was-validated .dataTable-input:invalid, .form-control.is-invalid, .is-invalid.custom-select,
+.was-validated .dataTable-input:invalid, .zameen-form-input.is-invalid, .is-invalid.custom-select,
 .is-invalid.dataTable-selector,
 .is-invalid.dataTable-input {
     border-color: #ff3a6e;
@@ -3127,41 +3127,41 @@ textarea.is-valid.dataTable-input {
     background-size: calc(0.75em + 0.575rem) calc(0.75em + 0.575rem);
 }
 
-.was-validated .form-control:invalid:focus, .was-validated .custom-select:invalid:focus,
+.was-validated .zameen-form-input:invalid:focus, .was-validated .custom-select:invalid:focus,
   .was-validated .dataTable-selector:invalid:focus,
-  .was-validated .dataTable-input:invalid:focus, .form-control.is-invalid:focus, .is-invalid.custom-select:focus,
+  .was-validated .dataTable-input:invalid:focus, .zameen-form-input.is-invalid:focus, .is-invalid.custom-select:focus,
   .is-invalid.dataTable-selector:focus,
   .is-invalid.dataTable-input:focus {
     border-color: #ff3a6e;
     box-shadow: 0 0 0 0.2rem rgba(255, 58, 110, 0.25);
 }
 
-.was-validated textarea.form-control:invalid, .was-validated textarea.custom-select:invalid,
+.was-validated textarea.zameen-form-input:invalid, .was-validated textarea.custom-select:invalid,
 .was-validated textarea.dataTable-selector:invalid,
-.was-validated textarea.dataTable-input:invalid, textarea.form-control.is-invalid, textarea.is-invalid.custom-select,
+.was-validated textarea.dataTable-input:invalid, textarea.zameen-form-input.is-invalid, textarea.is-invalid.custom-select,
 textarea.is-invalid.dataTable-selector,
 textarea.is-invalid.dataTable-input {
     padding-right: calc(1.5em + 1.15rem);
     background-position: top calc(0.375em + 0.2875rem) right calc(0.375em + 0.2875rem);
 }
 
-.was-validated .form-select:invalid, .form-select.is-invalid {
+.was-validated .zameen-zameen-form-select:invalid, .zameen-zameen-form-select.is-invalid {
     border-color: #ff3a6e;
 }
 
-.was-validated .form-select:invalid:not([multiple]):not([size]), .was-validated .form-select:invalid:not([multiple])[size="1"], .form-select.is-invalid:not([multiple]):not([size]), .form-select.is-invalid:not([multiple])[size="1"] {
+.was-validated .zameen-zameen-form-select:invalid:not([multiple]):not([size]), .was-validated .zameen-zameen-form-select:invalid:not([multiple])[size="1"], .zameen-zameen-form-select.is-invalid:not([multiple]):not([size]), .zameen-zameen-form-select.is-invalid:not([multiple])[size="1"] {
     padding-right: calc(0.75em + 2.8625rem);
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e"), url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23ff3a6e' viewBox='-2 -2 7 7'%3e%3cpath stroke='%23ff3a6e' d='M0 0l3 3m0-3L0 3'/%3e%3ccircle r='.5'/%3e%3ccircle cx='3' r='.5'/%3e%3ccircle cy='3' r='.5'/%3e%3ccircle cx='3' cy='3' r='.5'/%3e%3c/svg%3E");
     background-position: right 1rem center, center right 2rem;
     background-size: 16px 12px, calc(0.75em + 0.575rem) calc(0.75em + 0.575rem);
 }
 
-.was-validated .form-select:invalid:focus, .form-select.is-invalid:focus {
+.was-validated .zameen-zameen-form-select:invalid:focus, .zameen-zameen-form-select.is-invalid:focus {
     border-color: #ff3a6e;
     box-shadow: 0 0 0 0.2rem rgba(255, 58, 110, 0.25);
 }
 
-.was-validated .form-control-color:invalid, .form-control-color.is-invalid {
+.was-validated .zameen-form-input-color:invalid, .zameen-form-input-color.is-invalid {
     width: calc(3rem + calc(1.5em + 1.15rem));
 }
 
@@ -3185,13 +3185,13 @@ textarea.is-invalid.dataTable-input {
     margin-left: .5em;
 }
 
-.was-validated .input-group > .form-control:not(:focus):invalid, .was-validated .input-group > .custom-select:not(:focus):invalid,
+.was-validated .input-group > .zameen-form-input:not(:focus):invalid, .was-validated .input-group > .custom-select:not(:focus):invalid,
 .was-validated .input-group > .dataTable-selector:not(:focus):invalid,
-.was-validated .input-group > .dataTable-input:not(:focus):invalid, .input-group > .form-control:not(:focus).is-invalid, .input-group > .custom-select:not(:focus).is-invalid,
+.was-validated .input-group > .dataTable-input:not(:focus):invalid, .input-group > .zameen-form-input:not(:focus).is-invalid, .input-group > .custom-select:not(:focus).is-invalid,
 .input-group > .dataTable-selector:not(:focus).is-invalid,
 .input-group > .dataTable-input:not(:focus).is-invalid, .was-validated
-.input-group > .form-select:not(:focus):invalid,
-.input-group > .form-select:not(:focus).is-invalid, .was-validated
+.input-group > .zameen-zameen-form-select:not(:focus):invalid,
+.input-group > .zameen-zameen-form-select:not(:focus).is-invalid, .was-validated
 .input-group > .form-floating:not(:focus-within):invalid,
 .input-group > .form-floating:not(:focus-within).is-invalid {
     z-index: 4;
@@ -4742,7 +4742,7 @@ textarea.is-invalid.dataTable-input {
     --bs-card-cap-padding-x: 25px;
     --bs-card-cap-bg: transparent;
     --bs-card-cap-color: ;
-  --bs-card-height:;
+  --bs-card-height: ;
     --bs-card-color: ;
   --bs-card-bg: #ffffff;
     --bs-card-img-overlay-padding: 1.25rem;
@@ -15776,8 +15776,8 @@ body.theme-1 .nav-pills .nav-link:focus,
 }
 
 body.theme-1 .form-check-input:focus,
-  body.theme-1 .form-select:focus,
-  body.theme-1 .form-control:focus,
+  body.theme-1 .zameen-zameen-form-select:focus,
+  body.theme-1 .zameen-form-input:focus,
   body.theme-1 .custom-select:focus,
   body.theme-1 .dataTable-selector:focus,
   body.theme-1 .dataTable-input:focus {
@@ -16008,8 +16008,8 @@ body.theme-3 .nav-pills .nav-link:focus,
 }
 
 body.theme-3 .form-check-input:focus,
-  body.theme-3 .form-select:focus,
-  body.theme-3 .form-control:focus,
+  body.theme-3 .zameen-zameen-form-select:focus,
+  body.theme-3 .zameen-form-input:focus,
   body.theme-3 .custom-select:focus,
   body.theme-3 .dataTable-selector:focus,
   body.theme-3 .dataTable-input:focus {
@@ -16240,8 +16240,8 @@ body.theme-2 .nav-pills .nav-link:focus,
 }
 
 body.theme-2 .form-check-input:focus,
-  body.theme-2 .form-select:focus,
-  body.theme-2 .form-control:focus,
+  body.theme-2 .zameen-zameen-form-select:focus,
+  body.theme-2 .zameen-form-input:focus,
   body.theme-2 .custom-select:focus,
   body.theme-2 .dataTable-selector:focus,
   body.theme-2 .dataTable-input:focus {
@@ -16472,8 +16472,8 @@ body.theme-4 .nav-pills .nav-link:focus,
 }
 
 body.theme-4 .form-check-input:focus,
-  body.theme-4 .form-select:focus,
-  body.theme-4 .form-control:focus,
+  body.theme-4 .zameen-zameen-form-select:focus,
+  body.theme-4 .zameen-form-input:focus,
   body.theme-4 .custom-select:focus,
   body.theme-4 .dataTable-selector:focus,
   body.theme-4 .dataTable-input:focus {
@@ -16704,8 +16704,8 @@ body.theme-5 .nav-pills .nav-link:focus,
 }
 
 body.theme-5 .form-check-input:focus,
-  body.theme-5 .form-select:focus,
-  body.theme-5 .form-control:focus,
+  body.theme-5 .zameen-zameen-form-select:focus,
+  body.theme-5 .zameen-form-input:focus,
   body.theme-5 .custom-select:focus,
   body.theme-5 .dataTable-selector:focus,
   body.theme-5 .dataTable-input:focus {
@@ -16936,8 +16936,8 @@ body.theme-6 .nav-pills .nav-link:focus,
 }
 
 body.theme-6 .form-check-input:focus,
-  body.theme-6 .form-select:focus,
-  body.theme-6 .form-control:focus,
+  body.theme-6 .zameen-zameen-form-select:focus,
+  body.theme-6 .zameen-form-input:focus,
   body.theme-6 .custom-select:focus,
   body.theme-6 .dataTable-selector:focus,
   body.theme-6 .dataTable-input:focus {
@@ -17168,8 +17168,8 @@ body.theme-7 .nav-pills .nav-link:focus,
 }
 
 body.theme-7 .form-check-input:focus,
-  body.theme-7 .form-select:focus,
-  body.theme-7 .form-control:focus,
+  body.theme-7 .zameen-zameen-form-select:focus,
+  body.theme-7 .zameen-form-input:focus,
   body.theme-7 .custom-select:focus,
   body.theme-7 .dataTable-selector:focus,
   body.theme-7 .dataTable-input:focus {
@@ -17400,8 +17400,8 @@ body.theme-8 .nav-pills .nav-link:focus,
 }
 
 body.theme-8 .form-check-input:focus,
-  body.theme-8 .form-select:focus,
-  body.theme-8 .form-control:focus,
+  body.theme-8 .zameen-zameen-form-select:focus,
+  body.theme-8 .zameen-form-input:focus,
   body.theme-8 .custom-select:focus,
   body.theme-8 .dataTable-selector:focus,
   body.theme-8 .dataTable-input:focus {
@@ -17632,8 +17632,8 @@ body.theme-9 .nav-pills .nav-link:focus,
 }
 
 body.theme-9 .form-check-input:focus,
-  body.theme-9 .form-select:focus,
-  body.theme-9 .form-control:focus,
+  body.theme-9 .zameen-zameen-form-select:focus,
+  body.theme-9 .zameen-form-input:focus,
   body.theme-9 .custom-select:focus,
   body.theme-9 .dataTable-selector:focus,
   body.theme-9 .dataTable-input:focus {
@@ -17864,8 +17864,8 @@ body.theme-10 .nav-pills .nav-link:focus,
 }
 
 body.theme-10 .form-check-input:focus,
-  body.theme-10 .form-select:focus,
-  body.theme-10 .form-control:focus,
+  body.theme-10 .zameen-zameen-form-select:focus,
+  body.theme-10 .zameen-form-input:focus,
   body.theme-10 .custom-select:focus,
   body.theme-10 .dataTable-selector:focus,
   body.theme-10 .dataTable-input:focus {
@@ -19111,12 +19111,12 @@ body:not(.minimenu) .dash-sidebar .dash-submenu .dash-submenu .dash-submenu > .d
     position: relative;
     display: block;
     height: 100%;
-  
+
     width: auto;
     max-width: 100%;
-  
+
     max-height: 100%;
-  
+
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
@@ -19213,7 +19213,7 @@ body:not(.minimenu) .dash-sidebar .dash-submenu .dash-submenu .dash-submenu > .d
 }
 
 .simplebar-scrollbar.simplebar-visible:before {
-  
+
     opacity: 0.5;
     transition: opacity 0s linear;
 }
@@ -22045,7 +22045,7 @@ body .table thead th {
     font-weight: 600;
 }
 
-.form-control.flatpickr-input[readonly], .flatpickr-input.custom-select[readonly],
+.zameen-form-input.flatpickr-input[readonly], .flatpickr-input.custom-select[readonly],
 .flatpickr-input.dataTable-selector[readonly],
 .flatpickr-input.dataTable-input[readonly] {
     background: #ffffff;
@@ -22056,7 +22056,7 @@ body .table thead th {
     height: 18px;
 }
 
-select.form-control, select.custom-select,
+select.zameen-form-input, select.custom-select,
 select.dataTable-selector,
 select.dataTable-input {
     -webkit-appearance: none;
@@ -22065,9 +22065,9 @@ select.dataTable-input {
     background: #ffffff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round' class='css-i6dzq1'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") no-repeat right 0.75rem center/18px 25px;
 }
 
-select.form-control[data-multiselectsplitter-firstselect-selector], select.custom-select[data-multiselectsplitter-firstselect-selector],
+select.zameen-form-input[data-multiselectsplitter-firstselect-selector], select.custom-select[data-multiselectsplitter-firstselect-selector],
   select.dataTable-selector[data-multiselectsplitter-firstselect-selector],
-  select.dataTable-input[data-multiselectsplitter-firstselect-selector], select.form-control[data-multiselectsplitter-secondselect-selector], select.custom-select[data-multiselectsplitter-secondselect-selector],
+  select.dataTable-input[data-multiselectsplitter-firstselect-selector], select.zameen-form-input[data-multiselectsplitter-secondselect-selector], select.custom-select[data-multiselectsplitter-secondselect-selector],
   select.dataTable-selector[data-multiselectsplitter-secondselect-selector],
   select.dataTable-input[data-multiselectsplitter-secondselect-selector] {
     background: none;
@@ -24252,7 +24252,7 @@ select.form-control[data-multiselectsplitter-firstselect-selector], select.custo
     position: relative;
 }
 
-.form-send .form-control, .form-send .custom-select,
+.form-send .zameen-form-input, .form-send .custom-select,
   .form-send .dataTable-selector,
   .form-send .dataTable-input {
     position: relative;
@@ -27563,8 +27563,8 @@ body.anim-slip-from-top.modal-open .dash-header {
     color: rgba(255, 255, 255, 0.95);
 }
 
-.sw.sw-dark .form-select,
-  .sw.sw-dark .form-control,
+.sw.sw-dark .zameen-zameen-form-select,
+  .sw.sw-dark .zameen-form-input,
   .sw.sw-dark .custom-select,
   .sw.sw-dark .dataTable-selector,
   .sw.sw-dark .dataTable-input {
@@ -29649,7 +29649,7 @@ table.dataTable tbody > tr.selected th.select-checkbox:after {
     border-bottom-left-radius: 0;
 }
 
-[dir="rtl"] select.form-control, [dir="rtl"] select.custom-select,
+[dir="rtl"] select.zameen-form-input, [dir="rtl"] select.custom-select,
   [dir="rtl"] select.dataTable-selector,
   [dir="rtl"] select.dataTable-input,
   [dir="rtl"] select.custom-select,
@@ -29704,7 +29704,7 @@ table.dataTable tbody > tr.selected th.select-checkbox:after {
     border-right: 1px solid rgba(255, 255, 255, 0.35);
 }
 
-[dir="rtl"] .form-send .form-control, [dir="rtl"] .form-send .custom-select,
+[dir="rtl"] .form-send .zameen-form-input, [dir="rtl"] .form-send .custom-select,
   [dir="rtl"] .form-send .dataTable-selector,
   [dir="rtl"] .form-send .dataTable-input {
     padding-left: 60px;

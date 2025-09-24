@@ -59,7 +59,7 @@
             {!! Form::textarea('description', null, ['class' => 'form-control', 'rows' => '2']) !!}
         </div>
 
-    </div> 
+    </div>
     </div>
 </div>
 <div class="modal-footer border-t border-[#E5E5E5] bg-[#FAFAFA] px-6 py-4 flex justify-end gap-3">

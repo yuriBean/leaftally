@@ -154,7 +154,7 @@ $("#add_category_form").submit(function (e) {
         success: function (response) {
             if (response.status == "1") {
                 $("#productCategoryModal").modal("hide");
-                $("#add_category_form")[0].reset(); 
+                $("#add_category_form")[0].reset();
                 $("#category_id").html(response.options);
                 show_toastr("success",response.message);
             }else{
