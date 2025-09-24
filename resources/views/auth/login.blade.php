@@ -8,6 +8,99 @@
     {{ __('Login') }}
 @endsection
 
+@push('css')
+<style>
+/* Custom Zameen.com theme button with forced visibility */
+.btn-zameen,
+button.btn-zameen,
+#login_button.btn-zameen,
+button#login_button.btn-zameen {
+    background: #007C38 !important;
+    background-color: #007C38 !important;
+    background-image: none !important;
+    border: 2px solid #007C38 !important;
+    border-color: #007C38 !important;
+    color: #ffffff !important;
+    padding: 12px 24px !important;
+    border-radius: 6px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    text-align: center !important;
+    text-decoration: none !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    display: block !important;
+    width: 100% !important;
+    min-height: 48px !important;
+    line-height: 1.5 !important;
+    box-shadow: 0 2px 4px rgba(0, 124, 56, 0.2) !important;
+    text-transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+.btn-zameen:hover,
+button.btn-zameen:hover,
+#login_button.btn-zameen:hover,
+button#login_button.btn-zameen:hover {
+    background: #006b30 !important;
+    background-color: #006b30 !important;
+    border-color: #006b30 !important;
+    color: #ffffff !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 8px rgba(0, 124, 56, 0.3) !important;
+}
+
+.btn-zameen:focus,
+button.btn-zameen:focus,
+#login_button.btn-zameen:focus,
+button#login_button.btn-zameen:focus {
+    background: #006b30 !important;
+    background-color: #006b30 !important;
+    border-color: #006b30 !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 124, 56, 0.25) !important;
+}
+
+.btn-zameen:active,
+button.btn-zameen:active,
+#login_button.btn-zameen:active,
+button#login_button.btn-zameen:active {
+    background: #005a28 !important;
+    background-color: #005a28 !important;
+    border-color: #005a28 !important;
+    color: #ffffff !important;
+    transform: translateY(0) !important;
+}
+
+.btn-zameen:disabled,
+button.btn-zameen:disabled,
+#login_button.btn-zameen:disabled,
+button#login_button.btn-zameen:disabled {
+    background: #6c757d !important;
+    background-color: #6c757d !important;
+    border-color: #6c757d !important;
+    opacity: 0.65 !important;
+    transform: none !important;
+}
+
+.form-control:focus {
+    border-color: #007C38 !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 124, 56, 0.25) !important;
+}
+
+.text-primary {
+    color: #007C38 !important;
+}
+
+.text-primary:hover {
+    color: #006b30 !important;
+}
+</style>
+@endpush
+
 @section('auth-lang')
     @php
         $languages = App\Models\Utility::languages();
@@ -90,7 +183,7 @@
             @endif
         </div>
         <div class="d-grid">
-            <button type="submit" class="btn btn-primary btn-block mt-2" id="login_button">{{ __('Login') }}</button>
+            <button type="submit" class="btn btn-zameen btn-block mt-2" id="login_button">{{ __('Login') }}</button>
 
         </div>
         @if ($settings['enable_signup'] == 'on')
