@@ -171,7 +171,7 @@ class InvoiceController extends Controller
             $invoiceProduct->product_id  = $products[$i]['item'];
             $invoiceProduct->quantity    = $products[$i]['quantity'];
             $invoiceProduct->tax         = $products[$i]['tax'] ?? 0;
-            $invoiceProduct->discount    = $products[$i]['discount'];
+            $invoiceProduct->discount    = $products[$i]['discount'] ?? 0;
             $invoiceProduct->price       = $products[$i]['price'];
             $invoiceProduct->description = $products[$i]['description'];
             $invoiceProduct->save();
@@ -337,7 +337,7 @@ class InvoiceController extends Controller
 
             $invoiceProduct->quantity    = $products[$i]['quantity'];
             $invoiceProduct->tax         = $products[$i]['tax'] ?? 0;
-            $invoiceProduct->discount    = $products[$i]['discount'];
+            $invoiceProduct->discount    = $products[$i]['discount'] ?? 0;
             $invoiceProduct->price       = $products[$i]['price'];
             $invoiceProduct->description = $products[$i]['description'];
             $invoiceProduct->save();

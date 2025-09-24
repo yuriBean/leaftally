@@ -1,7 +1,12 @@
 @extends('layouts.admin')
 
-@section('page-title')
-    {{ __('Manage Proposals') }}
+@section('page-title')    .mcheck{display:inline-flex;align-items:center;cursor:pointer;user-select:none}
+    .mcheck input{position:absolute;opacity:0;width:0;height:0}
+    .mcheck .box{width:20px;height:20px;border:2px solid #dee2e6;border-radius:4px;position:relative;}
+    .mcheck .box:hover{box-shadow:0 1px 3px rgba(0,0,0,.08)}
+    .mcheck input:focus + .box{box-shadow:0 0 0 3px rgba(0,124,56,.2)}
+    .mcheck input:checked + .box{background:#007C38;border-color:#007C38;}
+    .mcheck input:checked + .box::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:2px solid white;border-top:0;border-left:0;transform:rotate(45deg);} __('Manage Proposals') }}
 @endsection
 
 @section('breadcrumb')
@@ -52,11 +57,11 @@
 <style>
   .mcheck{display:inline-flex;align-items:center;cursor:pointer;user-select:none}
   .mcheck input{position:absolute;opacity:0;width:0;height:0}
-  .mcheck .box{width:20px;height:20px;border:2px solid
+  .mcheck .box{width:20px;height:20px;border:2px solid #dee2e6;border-radius:4px;position:relative;}
   .mcheck .box:hover{box-shadow:0 1px 3px rgba(0,0,0,.08)}
   .mcheck input:focus + .box{box-shadow:0 0 0 3px rgba(0,124,56,.2)}
-  .mcheck input:checked + .box{background:
-  .mcheck input:checked + .box::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:2px solid
+  .mcheck input:checked + .box{background:#007C38;border-color:#007C38;}
+  .mcheck input:checked + .box::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:2px solid white;border-top:0;border-left:0;transform:rotate(45deg);}
 </style>
 @endpush
 

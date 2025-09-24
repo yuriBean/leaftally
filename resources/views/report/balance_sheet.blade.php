@@ -12,8 +12,8 @@
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap');
 
     :root {
-        --theme-color:
-        --theme-light:
+        --theme-color: #007C38;
+        --theme-light: rgba(0, 124, 56, 0.1);
         --theme-gradient: linear-gradient(135deg,
         --white:
         --black:
@@ -264,7 +264,7 @@
 
         body * { visibility: hidden !important; }
 
-        .balance-sheet-container { background:
+        .balance-sheet-container { background:white !important; }
         .balance-sheet-main { box-shadow: none !important; border-radius: 0 !important; max-width: none !important; margin: 0 !important; }
         .balance-sheet-main::before { display: block !important; } 
         .balance-sheet-header { padding: 40px !important; }

@@ -1,10 +1,157 @@
+<style>
+  :root {
+    --zameen-primary: #27a776;
+    --zameen-primary-light: #33c182;
+    --zameen-primary-dark: #1e8863;
+    --zameen-background-section: #f8f9fa;
+    --zameen-background-light: #ffffff;
+    --zameen-border: #e0e0e0;
+    --zameen-border-light: #f0f0f0;
+    --zameen-text: #2d3748;
+    --zameen-text-light: #718096;
+    --zameen-radius: 8px;
+    --zameen-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .zameen-form-section {
+    margin-bottom: 2rem;
+  }
+
+  .zameen-section-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--zameen-text);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--zameen-border-light);
+    display: flex;
+    align-items: center;
+  }
+
+  .zameen-form-group {
+    margin-bottom: 1.25rem;
+  }
+
+  .zameen-form-label {
+    display: block;
+    font-weight: 500;
+    color: var(--zameen-text);
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  .zameen-form-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--zameen-border);
+    border-radius: var(--zameen-radius);
+    font-size: 0.875rem;
+    color: var(--zameen-text);
+    background: white;
+    transition: all 0.2s ease;
+  }
+
+  .zameen-form-input:focus {
+    outline: none;
+    border-color: var(--zameen-primary);
+    box-shadow: 0 0 0 3px rgba(0, 185, 141, 0.1);
+  }
+
+  .zameen-form-input::placeholder {
+    color: var(--zameen-text-light);
+  }
+
+  .zameen-form-error {
+    color: #ef4444;
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+  }
+
+  .zameen-checkbox {
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--zameen-border);
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    margin-right: 0.5rem;
+  }
+
+  .zameen-checkbox:checked {
+    background: var(--zameen-primary);
+    border-color: var(--zameen-primary);
+  }
+
+  .zameen-checkbox:checked::after {
+    content: '✓';
+    position: absolute;
+    top: -1px;
+    left: 2px;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  .zameen-btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-radius: var(--zameen-radius);
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 120px;
+  }
+
+  .zameen-btn-primary {
+    background: var(--zameen-primary);
+    color: white;
+    border-color: var(--zameen-primary);
+  }
+
+  .zameen-btn-primary:hover {
+    background: var(--zameen-primary-dark);
+    border-color: var(--zameen-primary-dark);
+    color: white;
+  }
+
+  .zameen-btn-outline {
+    background: white;
+    color: var(--zameen-text);
+    border-color: var(--zameen-border);
+  }
+
+  .zameen-btn-outline:hover {
+    background: #f8f9fa;
+    border-color: #adb5bd;
+  }
+
+  .zameen-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .zameen-form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
 <script src="{{ asset('js/unsaved.js') }}"></script>
 
 {{ Form::open(['url' => 'vender', 'method' => 'post', 'class'=>'needs-validation','novalidate']) }}
 
 <div class="modal-body" style="background: var(--zameen-background-section); padding: 1.5rem;">
   
-  <div style="background: linear-gradient(135deg, #00b98d 0%, #00d4a3 100%); padding: 1.75rem 2rem 1.25rem; border-radius: 12px 12px 0 0; margin: 0 1.5rem;">
+  <div style="background: linear-gradient(135deg, #27a776 0%, #33c182 100%); padding: 1.75rem 2rem 1.25rem; border-radius: 12px 12px 0 0; margin: 0 1.5rem;">
     <div style="color: white; margin-bottom: 0.5rem;">
       <h4 style="margin: 0; font-weight: 600; font-size: 1.5rem; color: white;">{{ __('Create New Vendor') }}</h4>
       <p style="margin: 0; opacity: 0.9; font-size: 0.875rem;">{{ __('Add a new vendor to your business') }}</p>

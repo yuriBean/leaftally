@@ -30,157 +30,155 @@
 @endpush
 
 @section('content')
-<div class="row">
-  {{ Form::open(['route' => 'bom.store', 'class'=>'w-100 needs-validation','novalidate']) }}
-  <div class="col-12">
-    <div class="card shadow-sm border-0 rounded-3">
-      <div class="card-header bg-white border-0 pb-0">
-        <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
-          <div class="d-flex align-items-center gap-2">
-            <span class="rounded-full bg-[#007c38] w-4 h-4"></span>
-            <h5 class="mb-0 fw-bold">{{ __('Bill of Materials') }}</h5>
+<div class="modal-dialog modal-xl" role="document">
+  <div class="modal-content">
+    <div class="modal-header bg-white border-bottom-0 pb-2 position-relative">
+      <h5 class="modal-title fw-semibold">{{ __('Create Bill of Materials') }}</h5>
+    </div>
+
+    <div class="modal-body px-4 pt-1">
+      {{ Form::open(['route' => 'bom.store', 'class'=>'w-100 needs-validation','novalidate']) }}
+      
+      <div class="row gx-4">
+        <div class="col-md-6">
+          {{ Form::label('name', __('BOM Name'), ['class' => 'form-label fw-semibold']) }}<x-required></x-required>
+          {{ Form::text('name', null, ['class'=>'form-control','required']) }}
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+            {{ Form::label('code', __('BOM Code'), ['class' => 'form-label fw-semibold']) }} <x-required/>
+            <div class="input-group">
+              {{ Form::text('code', old('code', $code ?? ''), ['class'=>'form-control','id'=>'bom_code','required'=>true]) }}
+              <span class="input-group-text bg-light text-muted">{{ __('Auto') }}</span>
+            </div>
+            <small class="text-muted">{{ __('You can edit the suggested code if needed') }}</small>
           </div>
-          <small class="text-muted">{{ __('Create a batch recipe using inputs and outputs') }}</small>
+        </div>
+
+        <div class="col-md-3">
+          {{ Form::label('is_active', __('Active'), ['class'=>'form-label fw-semibold']) }}
+          {{-- switched to form-select for nicer native style --}}
+          {{ Form::select('is_active', [1=>__('Yes'),0=>__('No')], 1, ['class'=>'form-select']) }}
+        </div>
+
+        <div class="col-12">
+          {{ Form::label('notes', __('Notes'), ['class'=>'form-label fw-semibold']) }}
+          {{ Form::textarea('notes', null, ['class'=>'form-control','rows'=>2,'placeholder'=>__('Optional: recipe notes, cautions, etc.')]) }}
         </div>
       </div>
 
-      <div class="card-body">
-        <div class="row gx-4">
-          <div class="col-md-6">
-            {{ Form::label('name', __('BOM Name'), ['class' => 'form-label fw-semibold']) }}<x-required></x-required>
-            {{ Form::text('name', null, ['class'=>'form-control','required']) }}
-          </div>
-
-          <div class="col-md-3">
-            <div class="form-group">
-              {{ Form::label('code', __('BOM Code'), ['class' => 'form-label fw-semibold']) }} <x-required/>
-              <div class="input-group">
-                {{ Form::text('code', old('code', $code ?? ''), ['class'=>'form-control','id'=>'bom_code','required'=>true]) }}
-                <span class="input-group-text bg-light text-muted">{{ __('Auto') }}</span>
-              </div>
-              <small class="text-muted">{{ __('You can edit the suggested code if needed') }}</small>
+      {{-- Raw Materials --}}
+      <div class="row">
+        <div class="col-12 mt-4">
+          <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white d-flex align-items-center justify-content-between">
+              <h5 class="h6 mb-0 fw-bold">{{ __('Raw Materials (Inputs)') }}</h5>
+              <a href="javascript:void(0)" data-repeater-create class="btn btn-sm btn-primary d-inline-flex align-items-center gap-2">
+                <i class="ti ti-plus"></i> <span>{{ __('Add raw material') }}</span>
+              </a>
             </div>
-          </div>
+            <div class="card-body pt-0">
+              <div class="table-responsive">
+                <table class="table table-hover table-sm align-middle mb-2 repeater-inputs" data-repeater-list="inputs">
+                  <thead class="table-light">
+                    <tr>
+                      <th class="text-uppercase small text-muted">{{ __('Item') }}</th>
+                      <th class="text-start text-uppercase small text-muted" style="width:30%">{{ __('Qty / Batch') }}</th>
+                      <th style="width:10%"></th>
+                    </tr>
+                  </thead>
 
-          <div class="col-md-3">
-            {{ Form::label('is_active', __('Active'), ['class'=>'form-label fw-semibold']) }}
-            {{-- switched to form-select for nicer native style --}}
-            {{ Form::select('is_active', [1=>__('Yes'),0=>__('No')], 1, ['class'=>'form-select']) }}
-          </div>
+                  <tbody data-repeater-item>
+                    <tr>
+                      <td>
+                        {{ Form::select('product_id', $rawProducts, null, ['class'=>'form-control item select js-searchBox','required'=>true]) }}
+                      </td>
+                      <td>
+                        {{ Form::number('qty_per_batch', null, ['class'=>'form-control text-start','step'=>'0.0001','min'=>'0.0001','required'=>true,'placeholder'=>'0.0000']) }}
+                      </td>
+                      <td>
+                        <div class="d-flex justify-content-end" data-repeater-delete>
+                          <a href="#" class="btn btn-outline-danger btn-sm d-inline-flex align-items-center">
+                            <i class="ti ti-trash me-1"></i> {{ __('Remove') }}
+                          </a>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
 
-          <div class="col-12">
-            {{ Form::label('notes', __('Notes'), ['class'=>'form-label fw-semibold']) }}
-            {{ Form::textarea('notes', null, ['class'=>'form-control','rows'=>2,'placeholder'=>__('Optional: recipe notes, cautions, etc.')]) }}
-          </div>
-        </div>
-
-        {{-- Raw Materials --}}
-        <div class="mt-4 card border-0 shadow-sm">
-          <div class="card-header bg-white d-flex align-items-center justify-content-between">
-            <h5 class="h6 mb-0 fw-bold">{{ __('Raw Materials') }}</h5>
-            <a href="javascript:void(0)" data-repeater-create class="btn btn-sm btn-primary d-inline-flex align-items-center gap-2">
-              <i class="ti ti-plus"></i> <span>{{ __('Add raw material') }}</span>
-            </a>
-          </div>
-          <div class="card-body pt-0">
-            <div class="table-responsive">
-              <table class="table table-hover table-sm align-middle mb-2 repeater-inputs" data-repeater-list="inputs">
-                <thead class="table-light">
-                  <tr>
-                    <th class="text-uppercase small text-muted">{{ __('Item') }}</th>
-                    <th class="text-start text-uppercase small text-muted" style="width:30%">{{ __('Qty / Batch') }}</th>
-                    <th style="width:10%"></th>
-                  </tr>
-                </thead>
-
-                <tbody data-repeater-item>
-                  <tr>
-                    <td>
-                      {{ Form::select('product_id', $rawProducts, null, ['class'=>'form-control item select js-searchBox','required'=>true]) }}
-                    </td>
-                    <td>
-                      {{ Form::number('qty_per_batch', null, ['class'=>'form-control text-start','step'=>'0.0001','min'=>'0.0001','required'=>true,'placeholder'=>'0.0000']) }}
-                    </td>
-                    <td>
-                      <div class="d-flex justify-content-end" data-repeater-delete>
-                        <a href="#" class="btn btn-outline-danger btn-sm d-inline-flex align-items-center">
-                          <i class="ti ti-trash me-1"></i> {{ __('Remove') }}
-                        </a>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-
-                <tfoot>
-                  <tr>
-                    <td colspan="3" class="small text-muted">
-                      {{ __('Add all components needed to make one batch.') }}
-                    </td>
-                  </tr>
-                </tfoot>
-              </table>
+                  <tfoot>
+                    <tr>
+                      <td colspan="3" class="small text-muted">
+                        {{ __('Add all components needed to make one batch.') }}
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
             </div>
           </div>
         </div>
 
         {{-- Finished Products --}}
-        <div class="mt-4 card border-0 shadow-sm">
-          <div class="card-header bg-white d-flex align-items-center justify-content-between">
-            <h5 class="h6 mb-0 fw-bold">{{ __('Finished Products (Outputs)') }}</h5>
-            <a href="javascript:void(0)" data-repeater-create class="btn btn-sm btn-primary d-inline-flex align-items-center gap-2">
-              <i class="ti ti-plus"></i> <span>{{ __('Add finished product') }}</span>
-            </a>
-          </div>
-          <div class="card-body pt-0">
-            <div class="table-responsive">
-              <table class="table table-hover table-sm align-middle mb-2 repeater-outputs" data-repeater-list="outputs">
-                <thead class="table-light">
-                  <tr>
-                    <th class="text-uppercase small text-muted">{{ __('Product') }}</th>
-                    <th class="text-start text-uppercase small text-muted" style="width:30%">{{ __('Qty / Batch') }}</th>
-                    <th style="width:10%"></th>
-                  </tr>
-                </thead>
+        <div class="col-12 mt-4">
+          <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white d-flex align-items-center justify-content-between">
+              <h5 class="h6 mb-0 fw-bold">{{ __('Finished Products (Outputs)') }}</h5>
+              <a href="javascript:void(0)" data-repeater-create class="btn btn-sm btn-primary d-inline-flex align-items-center gap-2">
+                <i class="ti ti-plus"></i> <span>{{ __('Add finished product') }}</span>
+              </a>
+            </div>
+            <div class="card-body pt-0">
+              <div class="table-responsive">
+                <table class="table table-hover table-sm align-middle mb-2 repeater-outputs" data-repeater-list="outputs">
+                  <thead class="table-light">
+                    <tr>
+                      <th class="text-uppercase small text-muted">{{ __('Product') }}</th>
+                      <th class="text-start text-uppercase small text-muted" style="width:30%">{{ __('Qty / Batch') }}</th>
+                      <th style="width:10%"></th>
+                    </tr>
+                  </thead>
 
-                <tbody data-repeater-item>
-                  <tr>
-                    <td>
-                      {{ Form::select('product_id', $finishedProducts, null, ['class'=>'form-control item select js-searchBox','required'=>true]) }}
-                    </td>
-                    <td>
-                      {{ Form::number('qty_per_batch', null, ['class'=>'form-control text-start','step'=>'0.0001','min'=>'0.0001','required'=>true,'placeholder'=>'0.0000']) }}
-                    </td>
-                    <td>
-                      <div class="d-flex justify-content-end" data-repeater-delete>
-                        <a href="#" class="btn btn-outline-danger btn-sm d-inline-flex align-items-center">
-                          <i class="ti ti-trash me-1"></i> {{ __('Remove') }}
-                        </a>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
+                  <tbody data-repeater-item>
+                    <tr>
+                      <td>
+                        {{ Form::select('product_id', $finishedProducts, null, ['class'=>'form-control item select js-searchBox','required'=>true]) }}
+                      </td>
+                      <td>
+                        {{ Form::number('qty_per_batch', null, ['class'=>'form-control text-start','step'=>'0.0001','min'=>'0.0001','required'=>true,'placeholder'=>'0.0000']) }}
+                      </td>
+                      <td>
+                        <div class="d-flex justify-content-end" data-repeater-delete>
+                          <a href="#" class="btn btn-outline-danger btn-sm d-inline-flex align-items-center">
+                            <i class="ti ti-trash me-1"></i> {{ __('Remove') }}
+                          </a>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
 
-                <tfoot>
-                  <tr>
-                    <td colspan="3" class="small text-muted">
-                      {{ __('Add one or more finished items per batch.') }}
-                    </td>
-                  </tr>
-                </tfoot>
-              </table>
+                  <tfoot>
+                    <tr>
+                      <td colspan="3" class="small text-muted">
+                        {{ __('Add one or more finished items per batch.') }}
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
-  </div>
 
-  <div class="modal-footer position-sticky bottom-0 border-top  d-flex justify-content-end">
-    <a href="{{ route('bom.index') }}" class="btn btn-light me-2">{{ __('Cancel') }}</a>
-    <button type="submit" class="btn btn-primary">{{ __('Create') }}</button>
+    <div class="modal-footer position-sticky bottom-0 border-top d-flex justify-content-end">
+      <a href="{{ route('bom.index') }}" class="btn btn-light me-2">{{ __('Cancel') }}</a>
+      <button type="submit" class="btn btn-primary">{{ __('Create') }}</button>
+    </div>
+    {{ Form::close() }}
   </div>
-  {{ Form::close() }}
 </div>
 
 @endsection

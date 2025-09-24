@@ -45,21 +45,21 @@
             .btn-outline-success:active,
             .btn-outline-success.active,
             .btn-outline-success.dropdown-toggle.show {
-                color:
-                background-color:
-                border-color:
+                color: #fff;
+                background-color: #007C38;
+                border-color: #007C38;
 
             }
 
             .btn-outline-success:hover {
-                color:
-                background-color:
-                border-color:
+                color: #fff;
+                background-color: #007C38;
+                border-color: #007C38;
             }
 
             .btn.btn-outline-success {
-                color:
-                border-color:
+                color: #007C38;
+                border-color: #007C38;
             }
         </style>
     @endif
@@ -70,21 +70,21 @@
             .btn-outline-success:active,
             .btn-outline-success.active,
             .btn-outline-success.dropdown-toggle.show {
-                color:
-                background: linear-gradient(141.55deg, rgbisset($setting['cookie_consent']) && $setting['cookie_consent']=='on' ? '' : 'disabled' a(240, 244, 243, 0) 3.46%,
-                border-color:
+                color: #fff;
+                background: linear-gradient(141.55deg, rgba(240, 244, 243, 0) 3.46%, #007C38 96.84%);
+                border-color: #007C38;
 
             }
 
             .btn-outline-success:hover {
-                color:
-                background: linear-gradient(141.55deg, rgba(240, 244, 243, 0) 3.46%,
-                border-color:
+                color: #fff;
+                background: linear-gradient(141.55deg, rgba(240, 244, 243, 0) 3.46%, #007C38 96.84%);
+                border-color: #007C38;
             }
 
             .btn.btn-outline-success {
-                color:
-                border-color:
+                color: #007C38;
+                border-color: #007C38;
             }
         </style>
     @endif
@@ -95,21 +95,21 @@
             .btn-outline-success:active,
             .btn-outline-success.active,
             .btn-outline-success.dropdown-toggle.show {
-                color:
-                background-color:
-                border-color:
+                color: #fff;
+                background-color: #007C38;
+                border-color: #007C38;
 
             }
 
             .btn-outline-success:hover {
-                color:
-                background-color:
-                border-color:
+                color: #fff;
+                background-color: #007C38;
+                border-color: #007C38;
             }
 
             .btn.btn-outline-success {
-                color:
-                border-color:
+                color: #007C38;
+                border-color: #007C38;
             }
         </style>
     @endif

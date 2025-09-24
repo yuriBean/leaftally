@@ -186,10 +186,10 @@ document.addEventListener('DOMContentLoaded', function(){
 
   {{-- Toolbar / Title --}}
   <div class="col-12 mb-4">
-    <div class="bg-white rounded-[12px] border border-[#E5E7EB] shadow-sm p-3 p-md-4 d-flex flex-wrap align-items-center justify-content-between gap-2">
+    <div class="bg-white rounded border shadow-sm p-3 p-md-4 d-flex flex-wrap align-items-center justify-content-between gap-2">
       <div class="d-flex align-items-center gap-2">
-        <span class="rounded-circle bg-[#007C38]" style="width:10px;height:10px;"></span>
-        <h5 class="mb-0 fw-bold text-2xl">{{ __('Create Production Order') }}</h5>
+        <span class="rounded-circle bg-success" style="width:10px;height:10px;"></span>
+        <h5 class="mb-0 fw-bold fs-4">{{ __('Create Production Order') }}</h5>
       </div>
       <div class="d-flex gap-2">
         <a href="{{ route('production.index') }}" class="btn btn-light">{{ __('Back to List') }}</a>
@@ -212,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function(){
       {{-- LEFT: setup + preview --}}
       <div class="col-12 col-lg-8">
         {{-- Production Setup --}}
-        <div class="bg-white rounded-[12px] border border-[#E5E7EB] shadow-sm overflow-hidden">
+        <div class="bg-white rounded border shadow-sm overflow-hidden">
           <div class="p-3 p-md-4 border-bottom">
             <h6 class="mb-0 d-flex align-items-center gap-2">
               <i class="ti ti-workflow"></i> <span>{{ __('Production Setup') }}</span>
@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', function(){
               <div class="col-md-6">
                 {{ Form::label('bom_id', __('Select BOM'), ['class'=>'form-label fw-semibold']) }} <x-required />
                 {{ Form::select('bom_id', $bomOptions, old('bom_id', $preselected_bom_id ?? null), ['id'=>'bom_id','class'=>'form-control select','required'=>true]) }}
-                <small class="text-[#6B7280]">{{ __('Only active BOMs are listed.') }}</small>
+                <small class="text-muted">{{ __('Only active BOMs are listed.') }}</small>
               </div>
 
               <div class="col-md-6">
@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', function(){
                   <div class="col-12">
                     {{ Form::label('target_output_id', __('Target Output'), ['class'=>'form-label fw-semibold']) }}
                     <select id="target_output_id" class="form-control"></select>
-                    <small class="text-[#6B7280]">{{ __('Scaling is based on this finished item.') }}</small>
+                    <small class="text-muted">{{ __('Scaling is based on this finished item.') }}</small>
                   </div>
                   <div class="col-12">
                     {{ Form::label('target_good_qty', __('Desired Finished Qty'), ['class'=>'form-label fw-semibold']) }}
@@ -268,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function(){
                     </div>
                   </div>
                   <div class="col-12">
-                    <small class="text-[#6B7280]">{{ __('These add to raw component total as Manufacturing Cost.') }}</small>
+                    <small class="text-muted">{{ __('These add to raw component total as Manufacturing Cost.') }}</small>
                   </div>
                 </div>
               </div>
@@ -282,7 +282,7 @@ document.addEventListener('DOMContentLoaded', function(){
         </div>
 
         {{-- Raw Materials Table --}}
-        <div class="bg-white rounded-[12px] border border-[#E5E5EEB] shadow-sm overflow-hidden mt-4">
+        <div class="bg-white rounded border shadow-sm overflow-hidden mt-4">
           <div class="p-3 p-md-4 border-bottom">
             <h6 class="mb-0 d-flex align-items-center gap-2">
               <i class="ti ti-box"></i> <span>{{ __('Raw Materials Required') }}</span>
@@ -322,7 +322,7 @@ document.addEventListener('DOMContentLoaded', function(){
         </div>
 
         {{-- Finished Products Table --}}
-        <div class="bg-white rounded-[12px] border border-[#E5E5E5] shadow-sm overflow-hidden mt-4">
+        <div class="bg-white rounded border shadow-sm overflow-hidden mt-4">
           <div class="p-3 p-md-4 border-bottom">
             <h6 class="mb-0 d-flex align-items-center gap-2">
               <i class="ti ti-currency-dollar"></i> <span>{{ __('Finished Products & Profitability') }}</span>
@@ -355,7 +355,7 @@ document.addEventListener('DOMContentLoaded', function(){
       <div class="col-12 col-lg-4">
         <div class="position-sticky" style="top: 80px;">
           {{-- KPI Cards --}}
-          <div class="bg-white rounded-[12px] border border-[#E5E7EB] shadow-sm overflow-hidden">
+          <div class="bg-white rounded border shadow-sm overflow-hidden">
             <div class="p-3 p-md-4 border-bottom">
               <h6 class="mb-0 d-flex align-items-center gap-2">
                 <i class="ti ti-gauge"></i> <span>{{ __('Summary') }}</span>
@@ -414,7 +414,7 @@ document.addEventListener('DOMContentLoaded', function(){
           </div>
 
           {{-- Helper / Tips (optional copy) --}}
-          <div class="bg-white rounded-[12px] border border-[#E5E7EB] shadow-sm overflow-hidden mt-4">
+          <div class="bg-white rounded border shadow-sm overflow-hidden mt-4">
             <div class="p-3 p-md-4">
               <div class="small text-muted">
                 {{ __('Tip: Pick a BOM, set target item + quantity. Costs update instantly based on multiplier and additional manufacturing costs.') }}
@@ -429,7 +429,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
   {{-- Footer (kept minimal, sticky actions live in the sidebar) --}}
   <div class="col-12 d-lg-none">
-    <div class="modal-footer border-t border-[#E5E5E5] bg-[#FAFAFA] px-3 px-md-4 py-3 d-flex justify-content-end gap-2">
+    <div class="modal-footer border-top bg-light px-3 px-md-4 py-3 d-flex justify-content-end gap-2">
       <a href="{{ route('production.index') }}" class="btn btn-light">{{ __('Cancel') }}</a>
       <button type="submit" name="action" value="save_draft" class="btn btn-secondary">
         <i class="ti ti-device-floppy"></i> {{ __('Save Draft') }}

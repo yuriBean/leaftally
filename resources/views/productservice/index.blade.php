@@ -18,16 +18,14 @@
 
 @section('action-btn')
     <style>
-        .low-stock { background-color:
-        .mcheck{display:inline-flex;align-items:center;cursor:pointer;user-select:none}
-        .mcheck input{position:absolute;opacity:0;width:0;height:0}
-        .mcheck .box{width:20px;height:20px;border:2px solid
-        .mcheck .box:hover{box-shadow:0 1px 3px rgba(0,0,0,.08)}
-        .mcheck input:focus + .box{box-shadow:0 0 0 3px rgba(0,124,56,.2)}
-        .mcheck input:checked + .box{background:
-        .mcheck input:checked + .box::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:2px solid
-
-            table-layout: fixed !important;
+        .low-stock { background-color: #ffebee; }
+    .mcheck{display:inline-flex;align-items:center;cursor:pointer;user-select:none}
+    .mcheck input{position:absolute;opacity:0;width:0;height:0}
+    .mcheck .box{width:20px;height:20px;border:2px solid #dee2e6;border-radius:4px;position:relative;}
+    .mcheck .box:hover{box-shadow:0 1px 3px rgba(0,0,0,.08)}
+    .mcheck input:focus + .box{box-shadow:0 0 0 3px rgba(0,124,56,.2)}
+    .mcheck input:checked + .box{background:#007C38;border-color:#007C38;}
+    .mcheck input:checked + .box::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:2px solid white;border-top:0;border-left:0;transform:rotate(45deg);}            table-layout: fixed !important;
             width: 100% !important;
         }
 
@@ -52,7 +50,7 @@
         .dataTables_length label,
             margin: 0 !important;
             font-weight: 500 !important;
-            color:
+            color: #495057;
         }
 
         .dataTables_length select,
@@ -97,14 +95,14 @@
                     {{ Form::open(['route' => ['productservice.index'], 'method' => 'GET', 'id' => 'product_service']) }}
                     <div class="row d-flex align-items-center justify-content-end text-md">
                         <div class="flex justify-end">
-                            
+
                             <div class="">
                                 {{ Form::select('category', $categories, request('category'), [
                                     'class' => 'form-control select  px-2 py-1 outline-none w-[160px] rounded-none rounded-tl-[6px] rounded-bl-[6px]',
                                     'id' => 'choices-category'
                                 ]) }}
                             </div>
-                            
+
                             <div class="">
                                 {{ Form::select('material_type', $materialTypes ?? ['' => __('All Materials')], request('material_type'), [
                                     'class' => 'form-control select px-2 py-1 outline-none w-[180px] rounded-none',
@@ -142,33 +140,12 @@
                             <thead>
                                 <tr>
                                     <th data-sortable="false" data-type="html"
-<<<<<<< HEAD
-                                        class="border-0 border-b border-r border-[#E5E5E5] px-2 py-3 bg-[#F6F6F6] text-xs font-semibold text-center">
-=======
                                         class="border border-[#E5E5E5] px-4 py-1 bg-[#F6F6F6] text-sm font-semibold w-12">
->>>>>>> e913e7eefde6f89ab8509dd6cf5133d7e3e7ed85
                                         <label class="mcheck">
                                             <input type="checkbox" class="jsb-master" data-scope="products">
                                             <span class="box"></span>
                                         </label>
                                     </th>
-<<<<<<< HEAD
-                                    <th class="border-0 border-b border-r border-[#E5E5E5] px-4 py-3 bg-[#F6F6F6] text-xs font-semibold">{{ __('Name') }}</th>
-                                    <th class="border-0 border-b border-r border-[#E5E5E5] px-4 py-3 bg-[#F6F6F6] text-xs font-semibold">{{ __('Sku') }}</th>
-                                    <th class="border-0 border-b border-r border-[#E5E5E5] px-4 py-3 bg-[#F6F6F6] text-xs font-semibold">{{ __('Sale price') }}</th>
-                                    <th class="border-0 border-b border-r border-[#E5E5E5] px-4 py-3 bg-[#F6F6F6] text-xs font-semibold">{{ __('Purchase price') }}</th>
-                                    @if($TAX_ENABLED)
-                                        <th class="border-0 border-b border-r border-[#E5E5E5] px-4 py-3 bg-[#F6F6F6] text-xs font-semibold">{{ __('Tax') }}</th>
-                                    @endif
-                                    <th class="border-0 border-b border-r border-[#E5E5E5] px-4 py-3 bg-[#F6F6F6] text-xs font-semibold">{{ __('Category') }}</th>
-                                    <th class="border-0 border-b border-r border-[#E5E5E5] px-4 py-3 bg-[#F6F6F6] text-xs font-semibold">{{ __('Unit') }}</th>
-                                    <th class="border-0 border-b border-r border-[#E5E5E5] px-4 py-3 bg-[#F6F6F6] text-xs font-semibold">{{ __('Quantity') }}</th>
-                                    <th class="border-0 border-b border-r border-[#E5E5E5] px-4 py-3 bg-[#F6F6F6] text-xs font-semibold">{{ __('Reorder Level') }}</th>
-                                    <th class="border-0 border-b border-r border-[#E5E5E5] px-4 py-3 bg-[#F6F6F6] text-xs font-semibold">{{ __('Type') }}</th>
-                                    
-                                    <th class="border-0 border-b border-r border-[#E5E5E5] px-4 py-3 bg-[#F6F6F6] text-xs font-semibold">{{ __('Material') }}</th>
-                                    <th class="border-0 border-b border-[#E5E5E5] px-4 py-3 bg-[#F6F6F6] text-xs font-semibold">{{ __('Action') }}</th>
-=======
                                     <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] text-sm font-semibold">{{ __('Name') }}</th>
                                     <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] text-sm font-semibold">{{ __('Sku') }}</th>
                                     <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] text-sm font-semibold">{{ __('Sale price') }}</th>
@@ -179,12 +156,10 @@
                                     <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] text-sm font-semibold">{{ __('Category') }}</th>
                                     <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] text-sm font-semibold">{{ __('Unit') }}</th>
                                     <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] text-sm font-semibold">{{ __('Quantity') }}</th>
-                                    <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] text-sm font-semibold">{{ __('Reorder Level') }}</th> 
+                                    <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] text-sm font-semibold">{{ __('Reorder Level') }}</th>
                                     <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] text-sm font-semibold">{{ __('Type') }}</th>
-                                    
                                     <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] text-sm font-semibold">{{ __('Material') }}</th>
                                     <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] text-sm font-semibold">{{ __('Action') }}</th>
->>>>>>> e913e7eefde6f89ab8509dd6cf5133d7e3e7ed85
                                 </tr>
                             </thead>
                             <tbody>
@@ -258,6 +233,7 @@
                                             </td>
                                         @else
                                             <td class="border-0 border-b border-r border-[#E5E5E5] px-4 py-3 text-sm text-[#323232]">-</td>
+                                            <td class="border-0 border-b border-r border-[#E5E5E5] px-4 py-3 text-sm text-[#323232]">-</td>
                                         @endif
 
                                         <td class="border-0 border-b border-r border-[#E5E5E5] px-4 py-3 text-sm text-[#323232]">
@@ -323,9 +299,9 @@
 <style>
 .swal2-popup .swal2-actions .swal2-cancel.swal2-cancel-custom,
 .swal2-cancel.swal2-cancel-custom {
-    background-color:
-    border: 1px solid
-    color:
+    background-color: #ffffff;
+    border: 2px solid #007C38;
+    color: #007C38;
     font-weight: 500 !important;
     box-shadow: none !important;
     margin: 8px !important;
@@ -334,16 +310,16 @@
 }
 .swal2-popup .swal2-actions .swal2-cancel.swal2-cancel-custom:hover,
 .swal2-cancel.swal2-cancel-custom:hover {
-    background-color:
-    border-color:
-    color:
+    background-color: #f8f9fa;
+    border-color: #007C38;
+    color: #007C38;
 }
 
 .swal2-popup .swal2-actions .swal2-confirm.swal2-confirm-custom,
 .swal2-confirm.swal2-confirm-custom {
-    background-color:
-    border: 1px solid
-    color:
+    background-color: #007C38;
+    border: 1px solid #007C38;
+    color: #fff;
     font-weight: 500 !important;
     box-shadow: none !important;
     margin: 8px !important;
@@ -352,9 +328,9 @@
 }
 .swal2-popup .swal2-actions .swal2-confirm.swal2-confirm-custom:hover,
 .swal2-confirm.swal2-confirm-custom:hover {
-    background-color:
-    border-color:
-    color:
+    background-color: #006b30;
+    border-color: #006b30;
+    color: #fff;
 }
 </style>
 <script>

@@ -16,7 +16,7 @@
         }
 
         .gray-text {
-            color:
+            color: #6c757d;
         }
 
         .report-text {
@@ -27,21 +27,20 @@
             padding: 8px 12px;
         }
 
-        .icon-container bg-[
+        .icon-container {
             display: flex;
             align-items: center;
             justify-content: center;
             width: 40px;
             height: 40px;
-            background-color:
+            background-color: #f8f9fa;
             border-radius: 50%;
             margin-right: 1rem;
         }
 
-        .icon-container bg-[
+        .icon-container i {
             font-size: 1.25rem;
-            color:
-
+            color: #007C38;
         }
     </style>
 @endpush

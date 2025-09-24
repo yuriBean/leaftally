@@ -1,64 +1,62 @@
 <script src="{{ asset('js/unsaved.js') }}"></script>
 
 {{ Form::open(array('url' => 'revenue','enctype' => 'multipart/form-data','class'=>'needs-validation','novalidate')) }}
-<div class="modal-body bg-[#FAFBFC]">
-    <div class="bg-white p-6 rounded-[8px] border border-[#E5E7EB] shadow-sm overflow-hidden">
+<div class="modal-body">
+    <div class="container-fluid">
         <div class="row">
         <div class="form-group col-md-6">
-            {{ Form::label('date', __('Date'),['class'=>'form-label']) }}<x-required></x-required>
-            <div class="form-icon-user">
-                {{Form::date('date',date('Y-m-d'),array('class'=>'form-control','required'=>'required'))}}
-            </div>
+            {{ Form::label('date', __('Date'),['class'=>'form-label fw-semibold']) }}<x-required></x-required>
+            {{Form::date('date',date('Y-m-d'),array('class'=>'form-control','required'=>'required'))}}
         </div>
         <div class="form-group col-md-6">
-            {{ Form::label('amount', __('Amount'),['class'=>'form-label']) }}<x-required></x-required>
-            <div class="form-icon-user">
-                {{ Form::number('amount', '', array('class' => 'form-control','required'=>'required','step'=>'0.01')) }}
-            </div>
+            {{ Form::label('amount', __('Amount'),['class'=>'form-label fw-semibold']) }}<x-required></x-required>
+            {{ Form::number('amount', '', array('class' => 'form-control','required'=>'required','step'=>'0.01','placeholder'=>__('Enter amount'))) }}
         </div>
         <div class="form-group col-md-6">
-            {{ Form::label('account_id', __('Account'),['class'=>'form-label']) }}<x-required></x-required>
+            {{ Form::label('account_id', __('Account'),['class'=>'form-label fw-semibold']) }}<x-required></x-required>
             {{ Form::select('account_id',$accounts,null, array('class' => 'form-control select','required'=>'required')) }}
         </div>
         <div class="form-group col-md-6">
-            {{ Form::label('customer_id', __('Customer'),['class'=>'form-label']) }}<x-required></x-required>
+            {{ Form::label('customer_id', __('Customer'),['class'=>'form-label fw-semibold']) }}<x-required></x-required>
             {{ Form::select('customer_id', $customers,null, array('class' => 'form-control select','required'=>'required')) }}
         </div>
-        <div class="form-group  col-md-12">
-            {{ Form::label('description', __('Description'),['class'=>'form-label']) }}
-            {{ Form::textarea('description', '', array('class' => 'form-control','rows'=>3)) }}
+        <div class="form-group col-md-12">
+            {{ Form::label('description', __('Description'),['class'=>'form-label fw-semibold']) }}
+            {{ Form::textarea('description', '', array('class' => 'form-control','rows'=>3,'placeholder'=>__('Enter description (optional)'))) }}
         </div>
         <div class="form-group col-md-6">
-            {{ Form::label('category_id', __('Category'),['class'=>'form-label']) }}<x-required></x-required>
+            {{ Form::label('category_id', __('Category'),['class'=>'form-label fw-semibold']) }}<x-required></x-required>
             {{ Form::select('category_id', $categories,null, array('class' => 'form-control select','required'=>'required')) }}
-            <div class="text-xs">
-                {{ __('Need to add a new category? ') }}<a href="#" id="add_category"  class="text-[#007C38] font-semibold">🔴 {{ __('Add Category') }}</a>
+            <div class="text-muted small mt-1">
+                {{ __('Need to add a new category? ') }}<a href="#" id="add_category" class="text-primary fw-semibold text-decoration-none"><i class="fas fa-plus-circle me-1"></i>{{ __('Add Category') }}</a>
             </div>
         </div>
         <div class="form-group col-md-6">
-            {{ Form::label('reference', __('Reference'),['class'=>'form-label']) }}
-            <div class="form-icon-user">
-                {{ Form::text('reference', '', array('class' => 'form-control')) }}
-            </div>
+            {{ Form::label('reference', __('Reference'),['class'=>'form-label fw-semibold']) }}
+            {{ Form::text('reference', '', array('class' => 'form-control','placeholder'=>__('Enter reference number (optional)'))) }}
         </div>
 
         <div class="form-group col-md-6">
-            {{ Form::label('add_receipt', __('Payment Receipt'), ['class' => 'form-label']) }}
+            {{ Form::label('add_receipt', __('Payment Receipt'), ['class' => 'form-label fw-semibold']) }}
             <div class="choose-file form-group">
-                <label for="file" class="form-label">
-                    <input type="file" name="add_receipt" id="files" class="form-control file-validate" data-filename="upload_file">
-                    <span id="" class="file-error text-danger"></span>
+                <label for="file" class="form-label d-flex flex-column align-items-center justify-content-center border border-dashed border-2 p-4 rounded cursor-pointer">
+                    <input type="file" name="add_receipt" id="files" class="form-control file-validate d-none" data-filename="upload_file" accept="image/*,.pdf">
+                    <i class="fas fa-cloud-upload-alt fa-2x text-muted mb-2"></i>
+                    <span class="text-muted">{{ __('Click to upload receipt') }}</span>
+                    <span class="file-error text-danger"></span>
                 </label>
-                <p class="upload_file"></p>
-                <img id="image" class="mt-2 border border-primary" src="{{asset(Storage::url('uploads/defualt/defualt.png'))}}" width="120px" height="120px"/>
+                <p class="upload_file text-center mt-2"></p>
+                <div class="text-center">
+                    <img id="image" class="mt-2 border border-2 rounded img-thumbnail" src="{{asset(Storage::url('uploads/defualt/defualt.png'))}}" style="max-width: 120px; max-height: 120px; object-fit: cover;"/>
+                </div>
             </div>
         </div>
-    </div>
+        </div>
     </div>
 </div>
-<div class="modal-footer border-t border-[#E5E5E5] bg-[#FAFAFA] px-6 py-4 flex justify-end gap-3">
-    <input type="button" value="{{__('Cancel')}}" class="btn  btn-light" data-bs-dismiss="modal">
-    <input type="submit" value="{{__('Create')}}" class="btn  btn-primary">
+<div class="modal-footer border-top bg-light d-flex justify-content-end gap-2 p-3">
+    <input type="button" value="{{__('Cancel')}}" class="btn btn-light" data-bs-dismiss="modal">
+    <input type="submit" value="{{__('Create')}}" class="btn btn-primary">
 </div>
 {{ Form::close() }}
 
@@ -66,7 +64,7 @@
     $plan = \App\Models\Utility::getChatGPTSettings();
 @endphp
 <div class="modal fade" id="productCategoryModal" tabindex="-1" aria-labelledby="productCategoryModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
        <form id="add_category_form">
             <div class="modal-header">

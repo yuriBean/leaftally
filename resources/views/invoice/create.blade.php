@@ -13,6 +13,318 @@
     .raw_material{
         display: none;
     }
+
+    /* Modal styling improvements */
+    .modal-xl {
+        max-width: 90%;
+    }
+
+    .modal-lg {
+        max-width: 80%;
+    }
+
+    .modal-content {
+        border-radius: 12px;
+        border: none;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        max-height: 80vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .modal-header {
+        background: linear-gradient(135deg, #007C38 0%, #28a745 100%);
+        color: white;
+        border-radius: 12px 12px 0 0;
+        padding: 1rem 2.5rem;
+        border-bottom: none;
+        flex-shrink: 0;
+    }
+
+    .modal-header .btn-close {
+        color: white;
+        opacity: 0.8;
+    }
+
+    .modal-header .btn-close:hover {
+        opacity: 1;
+    }
+
+    .modal-body, .modal .body {
+        padding: 1.5rem 2.5rem 3rem;
+        overflow-y: auto !important;
+        flex: 1 1 auto;
+        min-height: 300px;
+        scroll-behavior: smooth;
+    }
+
+    .modal-footer {
+        padding: 1rem 2.5rem;
+        border-top: 1px solid #e9ecef;
+        background: #f8f9fa;
+        border-radius: 0 0 12px 12px;
+        flex-shrink: 0;
+    }
+
+    /* Ensure modal dialog is properly positioned */
+    .modal-dialog {
+        margin: 3rem auto;
+        max-height: 80vh;
+    }
+
+    .modal-dialog.modal-lg,
+    .modal-dialog.modal-xl {
+        margin: 3rem auto;
+        max-height: 80vh;
+    }
+
+    .modal-dialog-scrollable .modal-content {
+        max-height: none;
+    }
+
+    .modal-dialog-scrollable .modal-body, .modal-dialog-scrollable .body {
+        overflow-y: auto;
+    }
+
+    /* Form improvements inside modal - Support all input types */
+    .modal .form-control, .modal .form-select,
+    .modal .zameen-form-input, .modal .zameen-form-select {
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 0.75rem 1rem;
+        transition: all 0.2s;
+        font-size: 0.95rem;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .modal .form-control:focus, .modal .form-select:focus,
+    .modal .zameen-form-input:focus, .modal .zameen-form-select:focus {
+        border-color: #007C38;
+        box-shadow: 0 0 0 3px rgba(0, 124, 56, 0.1);
+    }
+
+    .modal .form-label, .modal .zameen-form-label {
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+    .modal .form-group, .modal .zameen-form-group {
+        margin-bottom: 1rem;
+    }
+
+    .modal .row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .modal .col-md-12 {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    /* Quick Add section styling */
+    .modal .alert-info {
+        background: linear-gradient(135deg, #17a2b8 0%, #20c997 100%);
+        border: none;
+        color: white;
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Colorinput improvements for mobile */
+    .modal .colorinput {
+        margin-bottom: 0.5rem;
+    }
+
+    .modal .colorinput-color {
+        width: 2rem;
+        height: 2rem;
+    }
+
+    /* Better spacing for form elements */
+    .modal .btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+
+    /* Ensure all modal content is accessible */
+    .modal-body::-webkit-scrollbar, .modal .body::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .modal-body::-webkit-scrollbar-track, .modal .body::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+    }
+
+    .modal-body::-webkit-scrollbar-thumb, .modal .body::-webkit-scrollbar-thumb {
+        background: #007C38;
+        border-radius: 4px;
+    }
+
+    .modal-body::-webkit-scrollbar-thumb:hover, .modal .body::-webkit-scrollbar-thumb:hover {
+        background: #005a28;
+    }
+
+    /* Force proper content spacing - Support all form types */
+    .modal-body .form-group:last-child,
+    .modal-body .row:last-child,
+    .modal .body .form-group:last-child,
+    .modal .body .row:last-child,
+    .modal-body .zameen-form-group:last-child,
+    .modal .body .zameen-form-group:last-child,
+    .modal-body .zameen-form-section:last-child,
+    .modal .body .zameen-form-section:last-child {
+        margin-bottom: 4rem !important;
+        padding-bottom: 2rem !important;
+    }
+
+    /* Ensure form fields don't get cut off */
+    .modal .form-group:last-child {
+        margin-bottom: 2rem;
+    }
+
+    /* Better visibility for footer */
+    .modal-footer {
+        box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    }
+
+    /* Fix field width issues - Support all input types */
+    .modal .form-control,
+    .modal .form-select,
+    .modal .zameen-form-input,
+    .modal .zameen-form-select {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Ensure proper container width */
+    .modal .container-fluid,
+    .modal .row,
+    .modal .col-md-12 {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* Fix for gutters-xs class */
+    .modal .row.gutters-xs {
+        margin-left: -2px;
+        margin-right: -2px;
+    }
+
+    .modal .row.gutters-xs > .col-auto {
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+
+    /* Enhanced scrolling behavior */
+    .modal.show .modal-dialog {
+        transform: none;
+    }
+
+    .modal-body, .modal .body {
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+    }
+
+    /* Basic form spacing - Support for all form types */
+    .modal .form-group, .modal .body .form-group,
+    .modal .zameen-form-group, .modal .body .zameen-form-group {
+        margin-bottom: 1.5rem !important;
+    }
+
+    .modal .form-group:last-child, .modal .body .form-group:last-child,
+    .modal .zameen-form-group:last-child, .modal .body .zameen-form-group:last-child {
+        margin-bottom: 3rem !important;
+        padding-bottom: 2rem;
+    }
+
+    /* Enhanced modal dialog configuration */
+    .modal-dialog-scrollable {
+        height: 90vh !important;
+        max-height: 90vh !important;
+    }
+
+    .modal-dialog-scrollable.modal-xl {
+        height: 95vh !important;
+        max-height: 95vh !important;
+        max-width: 95% !important;
+    }
+
+    .modal-dialog-scrollable .modal-content {
+        height: 100% !important;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        border-radius: 12px;
+    }
+
+    .modal-dialog-scrollable .modal-body, .modal-dialog-scrollable .body {
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        flex: 1 1 auto;
+        padding: 1.5rem 2.5rem 4rem !important;
+        min-height: 0;
+    }
+
+    /* Basic field accessibility - Support for all form group types */
+    .modal-body .form-group, .modal .body .form-group,
+    .modal-body .zameen-form-group, .modal .body .zameen-form-group {
+        margin-bottom: 1.5rem !important;
+    }
+
+    .modal .row .col-md-6,
+    .modal .row .col-md-3,
+    .modal .row .col-md-12,
+    .modal .zameen-form-group,
+    .modal .zameen-form-section {
+        margin-bottom: 1rem !important;
+    }
+
+    /* Modal positioning */
+    .modal[style*="display: block"] .modal-dialog {
+        height: 90vh !important;
+        max-height: 90vh !important;
+    }
+
+    .modal[style*="display: block"] .modal-dialog.modal-xl {
+        max-width: 90% !important;
+    }
+
+    /* Responsive modal adjustments */
+    @media (max-width: 768px) {
+        .modal-dialog {
+            margin: 1rem auto !important;
+            max-height: 85vh !important;
+            max-width: calc(100% - 2rem) !important;
+        }
+
+        .modal-content {
+            max-height: 85vh !important;
+        }
+
+        .modal-body, .modal .body {
+            padding: 1rem 1.5rem 3rem !important;
+            max-height: calc(85vh - 120px) !important;
+            min-height: 300px !important;
+        }
+
+        .modal-header,
+        .modal-footer {
+            padding-left: 1.5rem !important;
+            padding-right: 1.5rem !important;
+        }
+    }
+
+
 </style>
 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a></li>
 <li class="breadcrumb-item"><a href="{{ route('invoice.index') }}">{{ __('Invoice') }}</a></li>
@@ -49,7 +361,7 @@
                if (confirm('Are you sure you want to delete this element?')) {
                    $(this).slideUp(deleteElement);
                    $(this).remove();
-   
+
                    var inputs = $(".amount");
                    var subTotal = 0;
                    for (var i = 0; i < inputs.length; i++) {
@@ -60,7 +372,7 @@
                }
            },
            ready: function(setIndexes) {
-   
+
                $dragAndDrop.on('drop', setIndexes);
            },
            isFirstItemUndeletable: true
@@ -70,9 +382,9 @@
            value = JSON.parse(value);
            $repeater.setList(value);
        }
-   
+
    }
-   
+
    $(document).on('change', '#customer', function() {
        $('#customer_detail').removeClass('d-none');
        $('#customer_detail').addClass('d-block');
@@ -99,25 +411,25 @@
                    $('#customer_detail').removeClass('d-block');
                    $('#customer_detail').addClass('d-none');
                }
-   
+
            },
-   
+
        });
    });
-   
+
    $(document).on('click', '#remove', function() {
        $('#customer-box').removeClass('d-none');
        $('#customer-box').addClass('d-block');
        $('#customer_detail').removeClass('d-block');
        $('#customer_detail').addClass('d-none');
    })
-   
+
    $(document).on('change', '.item', function() {
-   
+
        var iteams_id = $(this).val();
        var url = $(this).data('url');
        var el = $(this);
-   
+
        $.ajax({
            url: url,
            type: 'POST',
@@ -134,12 +446,12 @@
                $(el.parent().parent().find('.price')).val(item.product.sale_price);
                $(el.parent().parent().parent().find('.pro_description')).val(item.product
                    .description);
-   
+
                var taxes = '';
                var tax = [];
-   
+
                var totalItemTaxRate = 0;
-   
+
                if (item.taxes == 0) {
                    taxes += '-';
                } else {
@@ -170,7 +482,7 @@
                for (var j = 0; j < priceInput.length; j++) {
                    totalItemPrice += parseFloat(priceInput[j].value);
                }
-   
+
                var totalItemTaxPrice = 0;
                var itemTaxPriceInput = $('.itemTaxPrice');
                for (var j = 0; j < itemTaxPriceInput.length; j++) {
@@ -178,46 +490,46 @@
                    $(el.parent().parent().find('.amount')).html(parseFloat(item.totalAmount) +
                        parseFloat(itemTaxPriceInput[j].value));
                }
-   
+
                var totalItemDiscountPrice = 0;
                var itemDiscountPriceInput = $('.discount');
-   
+
                for (var k = 0; k < itemDiscountPriceInput.length; k++) {
-   
+
                    totalItemDiscountPrice += parseFloat(itemDiscountPriceInput[k].value);
                }
-   
+
                $('.subTotal').html(totalItemPrice.toFixed(2));
                $('.totalTax').html(totalItemTaxPrice.toFixed(2));
                $('.totalAmount').html((parseFloat(totalItemPrice) - parseFloat(
                    totalItemDiscountPrice) + parseFloat(totalItemTaxPrice)).toFixed(2));
-   
+
            },
        });
    });
-   
+
    $(document).on('keyup', '.quantity', function() {
        var quntityTotalTaxPrice = 0;
-   
+
        var el = $(this).parent().parent().parent().parent();
-   
+
        var quantity = $(this).val();
        var price = $(el.find('.price')).val();
        var discount = $(el.find('.discount')).val();
        if (discount.length <= 0) {
            discount = 0;
        }
-   
+
        var totalItemPrice = (quantity * price) - discount;
-   
+
        var amount = (totalItemPrice);
 
        var totalItemTaxRate = $(el.find('.itemTaxRate')).val();
        var itemTaxPrice = parseFloat((totalItemTaxRate / 100) * (totalItemPrice));
        $(el.find('.itemTaxPrice')).val(itemTaxPrice.toFixed(2));
-   
+
        $(el.find('.amount')).html(parseFloat(itemTaxPrice) + parseFloat(amount));
-   
+
        var totalItemTaxPrice = 0;
        var itemTaxPriceInput = $('.itemTaxPrice');
        for (var j = 0; j < itemTaxPriceInput.length; j++) {
@@ -226,45 +538,45 @@
 
        var totalItemPrice = 0;
        var inputs_quantity = $(".quantity");
-   
+
        var priceInput = $('.price');
        for (var j = 0; j < priceInput.length; j++) {
            totalItemPrice += (parseFloat(priceInput[j].value) * parseFloat(inputs_quantity[j].value));
        }
-   
+
        var inputs = $(".amount");
-   
+
        var subTotal = 0;
        for (var i = 0; i < inputs.length; i++) {
            subTotal = parseFloat(subTotal) + parseFloat($(inputs[i]).html());
        }
-   
+
        $('.subTotal').html(totalItemPrice.toFixed(2));
        $('.totalTax').html(totalItemTaxPrice.toFixed(2));
-   
+
        $('.totalAmount').html((parseFloat(subTotal)).toFixed(2));
-   
+
    })
-   
+
    $(document).on('keyup change', '.price', function() {
        var el = $(this).parent().parent().parent().parent();
        var price = $(this).val();
        var quantity = $(el.find('.quantity')).val();
-   
+
        var discount = $(el.find('.discount')).val();
        if (discount.length <= 0) {
            discount = 0;
        }
        var totalItemPrice = (quantity * price) - discount;
-   
+
        var amount = (totalItemPrice);
 
        var totalItemTaxRate = $(el.find('.itemTaxRate')).val();
        var itemTaxPrice = parseFloat((totalItemTaxRate / 100) * (totalItemPrice));
        $(el.find('.itemTaxPrice')).val(itemTaxPrice.toFixed(2));
-   
+
        $(el.find('.amount')).html(parseFloat(itemTaxPrice) + parseFloat(amount));
-   
+
        var totalItemTaxPrice = 0;
        var itemTaxPriceInput = $('.itemTaxPrice');
        for (var j = 0; j < itemTaxPriceInput.length; j++) {
@@ -273,33 +585,33 @@
 
        var totalItemPrice = 0;
        var inputs_quantity = $(".quantity");
-   
+
        var priceInput = $('.price');
        for (var j = 0; j < priceInput.length; j++) {
            totalItemPrice += (parseFloat(priceInput[j].value) * parseFloat(inputs_quantity[j].value));
        }
-   
+
        var inputs = $(".amount");
-   
+
        var subTotal = 0;
        for (var i = 0; i < inputs.length; i++) {
            subTotal = parseFloat(subTotal) + parseFloat($(inputs[i]).html());
        }
-   
+
        $('.subTotal').html(totalItemPrice.toFixed(2));
        $('.totalTax').html(totalItemTaxPrice.toFixed(2));
-   
+
        $('.totalAmount').html((parseFloat(subTotal)).toFixed(2));
 
    })
-   
+
    $(document).on('keyup change', '.discount', function() {
        var el = $(this).parent().parent().parent();
        var discount = $(this).val();
        if (discount.length <= 0) {
            discount = 0;
        }
-   
+
        var price = $(el.find('.price')).val();
        var quantity = $(el.find('.quantity')).val();
        var totalItemPrice = (quantity * price) - discount;
@@ -309,9 +621,9 @@
        var totalItemTaxRate = $(el.find('.itemTaxRate')).val();
        var itemTaxPrice = parseFloat((totalItemTaxRate / 100) * (totalItemPrice));
        $(el.find('.itemTaxPrice')).val(itemTaxPrice.toFixed(2));
-   
+
        $(el.find('.amount')).html(parseFloat(itemTaxPrice) + parseFloat(amount));
-   
+
        var totalItemTaxPrice = 0;
        var itemTaxPriceInput = $('.itemTaxPrice');
        for (var j = 0; j < itemTaxPriceInput.length; j++) {
@@ -320,14 +632,14 @@
 
        var totalItemPrice = 0;
        var inputs_quantity = $(".quantity");
-   
+
        var priceInput = $('.price');
        for (var j = 0; j < priceInput.length; j++) {
            totalItemPrice += (parseFloat(priceInput[j].value) * parseFloat(inputs_quantity[j].value));
        }
-   
+
        var inputs = $(".amount");
-   
+
        var subTotal = 0;
        for (var i = 0; i < inputs.length; i++) {
            subTotal = parseFloat(subTotal) + parseFloat($(inputs[i]).html());
@@ -335,20 +647,20 @@
 
        var totalItemDiscountPrice = 0;
        var itemDiscountPriceInput = $('.discount');
-   
+
        for (var k = 0; k < itemDiscountPriceInput.length; k++) {
-   
+
            totalItemDiscountPrice += parseFloat(itemDiscountPriceInput[k].value);
        }
 
        $('.subTotal').html(totalItemPrice.toFixed(2));
        $('.totalTax').html(totalItemTaxPrice.toFixed(2));
-   
+
        $('.totalAmount').html((parseFloat(subTotal)).toFixed(2));
        $('.totalDiscount').html(totalItemDiscountPrice.toFixed(2));
 
    })
-   
+
    $(document).on('change', '.item', function () {
        $('.item option').prop('hidden', false);
        $('.item :selected').each(function () {
@@ -356,7 +668,7 @@
            $(".item option[value=" + id + "]").prop("hidden", true);
        });
    });
-   
+
    $(document).on('click', '[data-repeater-create]', function () {
        $('.item option').prop('hidden', false);
        $('.item :selected').each(function () {
@@ -364,7 +676,7 @@
            $(".item option[value=" + id + "]").prop("hidden", true);
        });
    })
-   
+
    var customerId = '{{ $customerId }}';
    if (customerId > 0) {
        $('#customer').val(customerId).change();
@@ -374,7 +686,7 @@
    $(document).on('click', '[data-repeater-delete]', function() {
        $(".price").change();
        $(".discount").change();
-   
+
        $('.item option').prop('hidden', false);
        $('.item :selected').each(function () {
            var id = $(this).val();
@@ -382,6 +694,75 @@
        });
    });
    JsSearchBox();
+
+   // Basic modal improvements for field visibility
+   $(document).on('show.bs.modal', '.modal', function (e) {
+       var modal = $(this);
+       var trigger = $(e.relatedTarget);
+
+       // Setup scrollable modal
+       var modalDialog = modal.find('.modal-dialog');
+       modalDialog.addClass('modal-dialog-scrollable');
+
+       // Set appropriate size for product modals
+       if (trigger && (trigger.data('scrollable') === true || trigger.attr('data-scrollable') === 'true')) {
+           modalDialog.addClass('modal-xl');
+       }
+
+       // Handle data-size attribute
+       if (trigger && trigger.data('size')) {
+           var size = trigger.data('size');
+           if (size === 'xl') {
+               modalDialog.addClass('modal-xl');
+           } else if (size === 'lg') {
+               modalDialog.addClass('modal-lg');
+           }
+       }
+   });
+
+   // Ajax popup with loading state
+   $(document).on('click', '[data-ajax-popup="true"]', function() {
+       var trigger = $(this);
+
+       // Store original text
+       if (!trigger.data('original-text')) {
+           trigger.data('original-text', trigger.html());
+       }
+
+       // Add loading state
+       trigger.html('<i class="fas fa-spinner fa-spin me-1"></i>Loading...');
+       var originalText = trigger.data('original-text');
+
+       // Restore text after modal loads
+       setTimeout(function() {
+           trigger.html(originalText);
+       }, 2000);
+   });
+
+   // Modal positioning and scrolling
+   $(document).on('shown.bs.modal', '.modal', function (e) {
+       var modal = $(this);
+       var modalBody = modal.find('.modal-body, .body');
+       modalBody.scrollTop(0);
+
+       // Ensure bottom fields are accessible by adding extra padding
+       setTimeout(function() {
+           var lastFormGroup = modal.find('.modal-body .form-group:last-child, .modal-body .row:last-child, .body .form-group:last-child, .body .row:last-child, .modal-body .zameen-form-group:last-child, .body .zameen-form-group:last-child');
+           if (lastFormGroup.length) {
+               lastFormGroup.css({
+                   'margin-bottom': '8rem',
+                   'padding-bottom': '4rem'
+               });
+           }
+
+           // Debug: Count total form fields
+           var totalFields = modal.find('.form-group, .zameen-form-group').length;
+           console.log('Total form fields found: ' + totalFields);
+           if (totalFields >= 10) {
+               console.log('Modal has many fields - scroll enhancement active');
+           }
+       }, 100);
+   });
 </script>
 @endpush
 @section('content')
@@ -389,7 +770,7 @@
     {{ Form::open(['url' => 'invoice','class'=>'w-100 needs-validation','novalidate']) }}
     <div class="col-12">
       <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
-  
+
       {{-- HEADER / SHELL --}}
       <div class="card border-0 shadow-sm rounded-3 overflow-hidden mb-4">
         <div class="w-100" style="height:4px;background:#007C38;"></div>
@@ -397,16 +778,16 @@
           <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
             <div class="d-flex align-items-center gap-2">
               <span class="rounded-circle" style="width:10px;height:10px;background:#007C38;"></span>
-              <h5 class="mb-0 fw-bold text-2xl">{{ __('Create Invoice') }}</h5>
+              <h5 class="mb-0 fw-bold fs-4">{{ __('Create Invoice') }}</h5>
             </div>
             <div class="text-muted small">{{ __('Select a customer, set details, then add items below.') }}</div>
           </div>
         </div>
       </div>
-  
+
       {{-- MAIN LAYOUT --}}
       <div class="row g-4">
-  
+
         {{-- LEFT: CUSTOMER --}}
         <div class="col-12 col-lg-5">
           <div class="card border-0 shadow-sm rounded-3 h-100 overflow-hidden">
@@ -422,21 +803,21 @@
                     'required' => 'required'
                 ]) }}
               </div>
-  
+
               <div id="customer_detail" class="d-none"></div>
-  
+
               <div class="d-flex justify-content-end">
                 <a href="javascript:void(0)"
                    id="add_customer"
-                   class="small fw-semibold text-decoration-none"
+                   class="small fw-semibold text-decoration-none text-primary"
                    data-bs-toggle="modal" data-bs-target="#customerModal">
-                  + {{ __('Add Customer') }}
+                  <i class="fas fa-plus-circle me-1"></i>{{ __('Add Customer') }}
                 </a>
               </div>
             </div>
           </div>
         </div>
-  
+
         {{-- RIGHT: INVOICE META --}}
         <div class="col-12 col-lg-7">
             <div class="card border-0 shadow-sm rounded-3 h-100 overflow-hidden">
@@ -452,23 +833,23 @@
                   {{ Form::label('due_date', __('Due Date'), ['class' => 'form-label fw-semibold']) }} <x-required/>
                   {{ Form::date('due_date', date('Y-m-d'), ['class' => 'form-control','required'=>'required']) }}
                 </div>
-  
+
                 <div class="col-12 col-sm-6">
                   {{ Form::label('invoice_number', __('Invoice Number'), ['class' => 'form-label fw-semibold']) }}
                   <input type="text" class="form-control bg-light" value="{{ $invoice_number }}" readonly>
                 </div>
-  
+
                 <div class="col-12 col-sm-6">
                   {{ Form::label('category_id', __('Category'), ['class' => 'form-label fw-semibold']) }} <x-required/>
                   {{ Form::select('category_id', $category, null, ['class'=>'form-control select','required'=>'required']) }}
                   <div class="small mt-1">
                     {{ __('Need to add a new category?') }}
-                    <a href="#" id="add_category" class="text-decoration-none fw-semibold" style="color:#007C38">
-                      {{ __('Add Category') }}
+                    <a href="#" id="add_category" class="text-decoration-none fw-semibold text-primary">
+                      <i class="fas fa-plus-circle me-1"></i>{{ __('Add Category') }}
                     </a>
                   </div>
                 </div>
-  
+
                 <div class="col-12 col-sm-6">
                   {{ Form::label('ref_number', __('Ref Number'), ['class' => 'form-label fw-semibold']) }}
                   <div class="input-group">
@@ -476,7 +857,7 @@
                     {{ Form::text('ref_number', '', ['class' => 'form-control']) }}
                   </div>
                 </div>
-  
+
                 @if (!$customFields->isEmpty())
                   <div class="col-12 col-sm-6">
                     <div class="tab-pane fade show" id="tab-2" role="tabpanel">
@@ -488,7 +869,7 @@
             </div>
           </div>
         </div>
-  
+
         {{-- ITEMS / REPEATER --}}
         <div class="col-12">
           <div class="card repeater border-0 shadow-sm rounded-3 overflow-hidden">
@@ -497,7 +878,7 @@
             {{-- Section Header --}}
             <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 p-3 p-md-4 border-bottom">
               <h6 class="mb-0 fw-bold d-flex align-items-center gap-2">
-                <i class="ti ti-box text-lg "></i> {{ __('Products & Services') }}
+                <i class="ti ti-box fs-5"></i> {{ __('Products & Services') }}
               </h6>
               <div class="d-flex align-items-center gap-3">
                 <a href="#"
@@ -506,25 +887,28 @@
                    data-ajax-popup="true"
                    data-bs-toggle="tooltip"
                    title="{{__('Create Product')}}"
-                   data-title="{{__('Create Product & Service')}}">
-                  {{ __('Add New Product') }}
+                   data-title="{{__('Create Product & Service')}}"
+                   data-scrollable="true"
+                   id="add-new-product-btn"
+                   class="text-decoration-none fw-semibold text-primary">
+                  <i class="fas fa-plus-circle me-1"></i>{{ __('Add New Product') }}
                 </a>
                 <a href="javascript:void(0)" data-repeater-create class="btn btn-primary">
                   <i class="ti ti-plus"></i> {{ __('Add Item') }}
                 </a>
               </div>
             </div>
-  
+
             {{-- Table --}}
             <div class="p-3 p-md-4">
               <div class="table-responsive">
                 <table class="table table-hover align-middle mb-0" data-repeater-list="items" id="sortable-table">
-  
+
                   <tbody class="ui-sortable" data-repeater-item>
                     <tr>
                       <td colspan="{{ $TAX_ENABLED ? 7 : 6 }}">
-                        <div class="border rounded p-3 mb-3 bg-light-subtle">
-                          
+                        <div class="border rounded p-3 mb-3 bg-light">
+
                           {{-- Item --}}
                           <div class="mb-3">
                             {{ Form::label('item', __('Item'), ['class' => 'form-label fw-semibold']) }}
@@ -534,7 +918,7 @@
                                 'required' => 'required'
                             ]) }}
                           </div>
-                  
+
                           {{-- Quantity --}}
                           <div class="mb-3">
                             {{ Form::label('quantity', __('Quantity'), ['class' => 'form-label fw-semibold']) }}
@@ -543,7 +927,7 @@
                               <span class="unit input-group-text bg-white"></span>
                             </div>
                           </div>
-                  
+
                           {{-- Price --}}
                           <div class="mb-3">
                             {{ Form::label('price', __('Price'), ['class' => 'form-label fw-semibold']) }}
@@ -552,16 +936,16 @@
                               <span class="input-group-text bg-white">{{ \Auth::user()->currencySymbol() }}</span>
                             </div>
                           </div>
-                  
+
                           {{-- Discount --}}
                           <div class="mb-3">
-                            {{ Form::label('discount', __('Discount'), ['class' => 'form-label fw-semibold']) }}
+                            {{ Form::label('discount', __('Discount (Optional)'), ['class' => 'form-label fw-semibold']) }}
                             <div class="input-group">
-                              {{ Form::text('discount', '', ['class'=>'form-control discount','placeholder'=>__('Discount')]) }}
+                              {{ Form::text('discount', '', ['class'=>'form-control discount','placeholder'=>__('Enter discount amount (optional)')]) }}
                               <span class="input-group-text bg-white">{{ \Auth::user()->currencySymbol() }}</span>
                             </div>
                           </div>
-                  
+
                           {{-- Tax (optional) --}}
                           @if($TAX_ENABLED)
                           <div class="mb-3">
@@ -574,13 +958,13 @@
                             </div>
                           </div>
                           @endif
-                  
+
                           {{-- Description --}}
                           <div class="mb-3">
                             {{ Form::label('description', __('Description'), ['class' => 'form-label fw-semibold']) }}
                             {{ Form::textarea('description', null, ['class'=>'form-control pro_description','rows'=>2]) }}
                           </div>
-                  
+
                           {{-- Amount + Delete --}}
                           <div class="d-flex justify-content-between align-items-center">
                             <div>
@@ -593,7 +977,7 @@
                               </a>
                             </div>
                           </div>
-                  
+
                         </div>
                       </td>
                     </tr>
@@ -631,27 +1015,27 @@
                       <td class="text-end totalAmount text-primary fw-bold">0.00</td>
                     </tr>
                   </tfoot>
-  
+
                 </table>
               </div>
             </div>
           </div>
         </div>
-  
+
       </div> {{-- /MAIN LAYOUT --}}
     </div>
-  
+
     {{-- STICKY ACTIONS --}}
-    <div class="modal-footer  position-sticky bottom-0 border-top mt-4 d-flex justify-content-end gap-2">
+    <div class="bg-white position-sticky bottom-0 border-top mt-4 p-3 d-flex justify-content-end gap-2" style="z-index: 1000;"">
       <input type="button" value="{{ __('Cancel') }}"
              onclick="location.href = '{{ route('invoice.index') }}';"
              class="btn btn-light">
       <input type="submit" value="{{ __('Create') }}" class="btn btn-primary">
     </div>
-  
+
     {{ Form::close() }}
   </div>
-  
+
   {{-- CREATE CUSTOMER MODAL --}}
   <div class="modal fade" id="customerModal" tabindex="-1" aria-labelledby="productCategoryModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -661,7 +1045,7 @@
             <h5 class="modal-title" id="productUnitModalLabel">{{ __('Create Customer') }}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('Close') }}"></button>
           </div>
-  
+
           <div class="modal-body">
             <div class="row g-3">
               <div class="col-12">
@@ -670,9 +1054,9 @@
                   {{ Form::text('name', null, ['class' => 'form-control', 'required' => 'required']) }}
                 </div>
               </div>
-  
+
               <x-mobile div-class="col-12" name="contact" label="{{ __('Contact') }}" required></x-mobile>
-  
+
               <div class="col-12">
                 <div class="form-group">
                   {{ Form::label('email', __('Email'), ['class' => 'form-label']) }} <x-required/>
@@ -681,7 +1065,7 @@
               </div>
             </div>
           </div>
-  
+
           <div class="modal-footer">
             <input type="button" value="{{ __('Cancel') }}" class="btn btn-light" data-bs-dismiss="modal">
             <input type="submit" value="{{ __('Create') }}" class="btn btn-primary">
@@ -690,7 +1074,7 @@
       </div>
     </div>
   </div>
-  
+
 @php
     $plan = \App\Models\Utility::getChatGPTSettings();
 @endphp
@@ -762,7 +1146,7 @@
     $("#customerModal").modal("show");
 });
 $("#customerModal").on("hidden.bs.modal", function () {
-    $(".card").removeClass("blurred"); 
+    $(".card").removeClass("blurred");
 });
 $("#add_customer_form").submit(function (e) {
     e.preventDefault();
@@ -782,7 +1166,7 @@ $("#add_customer_form").submit(function (e) {
         success: function (response) {
             if (response.status == "1") {
                 $("#customerModal").modal("hide");
-                $("#add_customer_form")[0].reset(); 
+                $("#add_customer_form")[0].reset();
                 $("#customer").html(response.options);
                 show_toastr("success",response.message);
             } else {
@@ -818,20 +1202,20 @@ $(document).on('submit',"#add_product_form",function(e){
             if (response.status == "1") {
                 show_toastr("success",response.message);
                 $("#commonModal").modal("hide");
-                $("#add_product_form")[0].reset(); 
-                
+                $("#add_product_form")[0].reset();
+
                 $("body .repeater").find(".item").each(function() {
     $(this).append(new Option(response.name, response.id));
     });
 
             } else {
                 $("input[type='submit']").attr("disabled",false);
-                show_toastr("error",response.message); 
+                show_toastr("error",response.message);
             }
         },
         error: function (xhr, status, error) {
             $("input[type='submit']").attr("disabled",false);
-            show_toastr("error",error.message); 
+            show_toastr("error",error.message);
         }
     });
 })
@@ -857,7 +1241,7 @@ $("#add_category_form").submit(function (e) {
         success: function (response) {
             if (response.status == "1") {
                 $("#productCategoryModal").modal("hide");
-                $("#add_category_form")[0].reset(); 
+                $("#add_category_form")[0].reset();
                 $("#category_id").html(response.options);
                 show_toastr("success",response.message);
             }else{

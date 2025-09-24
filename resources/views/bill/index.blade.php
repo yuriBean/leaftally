@@ -15,7 +15,7 @@
 
 @section('action-btn')
 <style>
-  .sub-title{font-weight:600;background:
+  .sub-title{font-weight:600;background:#f8f9fa;}
   .mcheck{display:inline-flex;align-items:center;cursor:pointer;user-select:none}
   .mcheck input{position:absolute;opacity:0;width:0;height:0}
   .mcheck .box{width:20px;height:20px;border:2px solid
