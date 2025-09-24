@@ -48,44 +48,58 @@
     @endif
 
     <div class="row">
-                <form id="addProductForm" method="POST" action="{{ route('productservice.store') }}" class="flex flex-col gap-4">
+                <form id="addProductForm" method="POST" action="{{ route('productservice.store') }}">
                     @csrf
-                    <div class="flex flex-col gap-1">
-                        <label for="name" class="zameen-label">Name</label>
-                        <input type="text" class="zameen-input" id="name" name="name" required>
+                    <div class="form-group mb-2">
+                        <label class="d-block mb-1">Type</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="type" id="type_product" value="product" checked>
+                            <label class="form-check-label" for="type_product">Product</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="type" id="type_service" value="service">
+                            <label class="form-check-label" for="type_service">Service</label>
+                        </div>
                     </div>
-                    <div class="flex flex-col gap-1">
-                        <label for="sku" class="zameen-label">SKU</label>
-                        <input type="text" class="zameen-input" id="sku" name="sku">
+
+                    <div class="form-group mb-2">
+                        <label class="d-block mb-1">Material Classification</label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="material_classification" id="mc_raw" value="raw">
+                            <label class="form-check-label" for="mc_raw">Raw Material</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="material_classification" id="mc_finished" value="finished">
+                            <label class="form-check-label" for="mc_finished">Finished Product</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="material_classification" id="mc_both" value="both">
+                            <label class="form-check-label" for="mc_both">Both</label>
+                        </div>
+                        <div class="form-text text-muted" style="font-size: 13px;">Select material classification (required for Products)</div>
                     </div>
-                    <div class="flex flex-col gap-1">
-                        <label for="price" class="zameen-label">Price</label>
-                        <input type="number" class="zameen-input" id="price" name="price" required>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
                     </div>
-                    <div class="flex flex-col gap-1">
-                        <label for="quantity" class="zameen-label">Quantity</label>
-                        <input type="number" class="zameen-input" id="quantity" name="quantity">
+                    <div class="form-group">
+                        <label for="sku">SKU</label>
+                        <input type="text" class="form-control" id="sku" name="sku">
                     </div>
-                    <div class="flex flex-col gap-1">
-                        <label for="description" class="zameen-label">Description</label>
-                        <textarea class="zameen-input" id="description" name="description"></textarea>
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="number" class="form-control" id="price" name="price" required>
                     </div>
-                    <div class="modal-footer zameen-modal-footer flex justify-end gap-2 mt-4" style="border-top: none;">
-                        <button type="button" class="zameen-btn zameen-btn-cancel px-4 py-2" data-dismiss="modal" style="background: #e0e0e0; color: #333;">Cancel</button>
-                        <button type="submit" class="zameen-btn zameen-btn-primary px-4 py-2" style="background: #2e7d32; color: #fff;">Create</button>
+                    <div class="form-group">
+                        <label for="quantity">Quantity</label>
+                        <input type="number" class="form-control" id="quantity" name="quantity">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" name="description"></textarea>
                     </div>
                 </form>
-                <input class="form-check-input" type="radio" name="material_type" id="mt_raw" value="raw">
-                <label class="form-check-label" for="mt_raw">{{ __('Raw') }}</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="material_type" id="mt_finished" value="finished" checked>
-                <label class="form-check-label" for="mt_finished">{{ __('Finished') }}</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="material_type" id="mt_both" value="both">
-                <label class="form-check-label" for="mt_both">{{ __('Both') }}</label>
-            </div>
+                <!-- Removed duplicate material classification radio buttons -->
         </div>
 
         <div class="form-group col-md-6">
