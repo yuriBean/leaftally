@@ -330,18 +330,16 @@
 @section('content')
 
 <div class="modal-body" style="background: var(--zameen-background-section); padding: 1.5rem;">
-
-  <div style="background: linear-gradient(135deg, #007c38 0%, #10b981 100%); padding: 1.75rem 2rem 1.25rem; border-radius: 12px 12px 0 0; margin: 0 1.5rem;">
-    <div style="color: white; margin-bottom: 0.5rem;">
-      <h4 style="margin: 0; font-weight: 600; font-size: 1.5rem; color: white;">{{ __('Create Product & Service') }}</h4>
-      <p style="margin: 0; opacity: 0.9; font-size: 0.875rem;">{{ __('Add a new product or service to your inventory') }}</p>
-    </div>
-  </div>
-
-  <div style="padding: 2rem; background: white; margin: 0 1.5rem; border-radius: 0 0 12px 12px;">
-    <div style="display: flex; flex-direction: column; gap: 1.5rem;  margin: 0 auto; padding: 1.5rem;">
-
-    {{ Form::open(['url' => 'productservice', 'class'=>'needs-validation','novalidate']) }}
+        <!-- Removed duplicate header and subtitle -->
+    <div style="padding: 2rem; background: white; margin: 0 1.5rem; border-radius: 0 0 12px 12px;">
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;  margin: 0 auto; padding: 1.5rem;">
+        <div style="background: linear-gradient(135deg, #007c38 0%, #10b981 100%); padding: 1.25rem 1.5rem; color: white; text-align: center; border-radius: 12px 12px 0 0;">
+            <h4 style="margin: 0; font-weight: 600; font-size: 1.35rem; color: white;">{{ __('Create Product & Service') }}</h4>
+            <p style="margin: 0; opacity: 0.9; font-size: 0.875rem;">{{ __('Add a new product or service to your inventory') }}</p>
+        </div>
+        <div style="padding: 1.25rem 1.5rem; background: #f3f4f6; border-radius: 0 0 12px 12px;">
+            <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+                {{ Form::open(['url' => 'productservice', 'class'=>'needs-validation','novalidate']) }}
 
         @if (isset($plan->enable_chatgpt)  && $plan->enable_chatgpt == 'on')
             <div style="text-align: right; margin-bottom: 1rem;">
