@@ -419,13 +419,10 @@
             </div>
         </div>
 
+        <div class="modal-header" style="background: linear-gradient(90deg, #2e7d32 0%, #43a047 100%); color: #fff; border-top-left-radius: 8px; border-top-right-radius: 8px; padding: 18px 24px; margin-bottom: 0;">
+            <h5 class="modal-title" style="margin: 0; font-weight: 600; font-size: 1.15rem;">Pricing & Accounts</h5>
+        </div>
         <div class="zameen-form-section">
-            <h6 class="zameen-section-title">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display: inline; margin-right: 8px;">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
-                </svg>
-                {{ __('Pricing & Accounts') }}
-            </h6>
 
             <div class="zameen-form-group">
                 <label class="zameen-form-label">

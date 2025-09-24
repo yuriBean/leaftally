@@ -1,6 +1,9 @@
 <script src="{{ asset('js/unsaved.js') }}"></script>
 
 {{ Form::open(array('url' => 'payment','enctype' => 'multipart/form-data','class'=>'needs-validation','novalidate')) }}
+<div class="modal-header" style="background: linear-gradient(90deg, #2e7d32 0%, #43a047 100%); color: #fff; border-top-left-radius: 8px; border-top-right-radius: 8px; padding: 18px 24px; margin-bottom: 0;">
+    <h5 class="modal-title" style="margin: 0; font-weight: 600; font-size: 1.15rem;">Add New Payment</h5>
+</div>
 <div class="modal-body bg-[#FAFBFC]">
     <div class="bg-white p-6 rounded-[8px] border border-[#E5E7EB] shadow-sm overflow-hidden">
         <div class="row">

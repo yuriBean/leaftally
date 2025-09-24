@@ -4,6 +4,9 @@
     $plan = \App\Models\Utility::getChatGPTSettings();
 @endphp
 {{ Form::model($chartOfAccount, ['route' => ['chart-of-account.update', $chartOfAccount->id], 'method' => 'PUT','class'=>'needs-validation','novalidate']) }}
+<div class="modal-header" style="background: linear-gradient(90deg, #2e7d32 0%, #43a047 100%); color: #fff; border-top-left-radius: 8px; border-top-right-radius: 8px; padding: 18px 24px; margin-bottom: 0;">
+    <h5 class="modal-title" style="margin: 0; font-weight: 600; font-size: 1.15rem;">Edit Chart of Account</h5>
+</div>
 <div class="modal-body p-6 bg-[#FAFBFC]">
      <div class="bg-white rounded-[8px] border border-[#E5E7EB] shadow-sm overflow-hidden">
     <div class="row p-6">
@@ -18,16 +21,16 @@
                 </a>
             </div>
         @endif
-        <div class="form-group col-md-6">
+    <div class="flex flex-col gap-2 mb-3">
             {{ Form::label('name', __('Name'), ['class' => 'form-label']) }}<x-required></x-required>
             {{ Form::text('name', null, ['class' => 'form-control', 'required' => 'required']) }}
         </div>
-        <div class="form-group col-md-6">
+    <div class="flex flex-col gap-2 mb-3">
             {{ Form::label('code', __('Code'), ['class' => 'form-label']) }}<x-required></x-required>
             {{ Form::text('code', null, ['class' => 'form-control', 'required' => 'required']) }}
         </div>
 
-        <div class="form-group col-md-6">
+    <div class="flex flex-col gap-2 mb-3">
             {{ Form::label('is_enabled', __('Is Enabled'), ['class' => 'form-label']) }}
             <div class="form-check form-switch">
                 <input type="checkbox" class="form-check-input" name="is_enabled" id="is_enabled"
@@ -36,7 +39,7 @@
             </div>
         </div>
 
-        <div class="form-group col-md-12">
+    <div class="flex flex-col gap-2 mb-3">
             {{ Form::label('description', __('Description'), ['class' => 'form-label']) }}
             {!! Form::textarea('description', null, ['class' => 'form-control', 'rows' => '3']) !!}
         </div>
@@ -44,8 +47,8 @@
     </div>
     </div>
 </div>
-<div class="modal-footer border-t border-[#E5E5E5] bg-[#FAFAFA] px-6 py-4 flex justify-end gap-3">
-    <input type="button" value="{{ __('Cancel') }}" class="btn  btn-light" data-bs-dismiss="modal">
-    <input type="submit" value="{{ __('Update') }}" class="btn  btn-primary">
+<div class="modal-footer flex justify-end gap-2 mt-4" style="border-top: none; background: #f7f7f7;">
+    <button type="button" class="zameen-btn zameen-btn-cancel px-4 py-2" data-bs-dismiss="modal" style="background: #e0e0e0; color: #333;">{{ __('Cancel') }}</button>
+    <button type="submit" class="zameen-btn zameen-btn-primary px-4 py-2" style="background: #2e7d32; color: #fff;">{{ __('Update') }}</button>
 </div>
 {{ Form::close() }}
