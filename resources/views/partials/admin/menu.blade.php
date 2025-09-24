@@ -276,7 +276,7 @@
                         <a href="{{ route('userlogs.index') }}"
                         class="group flex items-center gap-3 rounded-lg px-3 py-2.5 transition-all
                                 {{ $isActive
-                                    ? 'bg-[#007C38] text-[#007C38] shadow-sm'
+                                    ? 'bg-[#007C38]/10 text-[#007C38] shadow-sm'
                                     : 'text-slate-600 hover:bg-[#007C38]/10 hover:text-[#007C38]' }}">
                         <span class="flex h-8 w-8 items-center justify-center rounded-md
                                     {{ $isActive ? 'bg-white/15' : 'bg-slate-100 group-hover:bg-[#007C38]/10' }}">

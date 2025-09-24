@@ -49,8 +49,8 @@
 
    .zameen-tab-link.active {
        background: #fff;
-       color: #059669;
-       border-bottom-color: #10b981;
+       color: #007c38;
+       border-bottom-color: #39b549;
        box-shadow: 0 2px 4px rgba(16, 185, 129, 0.1);
    }
 
@@ -116,7 +116,7 @@
        width: 48px;
        height: 48px;
        border-radius: 12px;
-       background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+       background: linear-gradient(135deg, #39b549 0%, #007c38 100%);
        display: flex;
        align-items: center;
        justify-content: center;
@@ -130,7 +130,7 @@
        font-weight: 800;
        color: #065f46;
        margin-bottom: 8px;
-       background: linear-gradient(135deg, #059669 0%, #047857 100%);
+       background: linear-gradient(135deg, #007c38 0%, #047857 100%);
        -webkit-background-clip: text;
        -webkit-text-fill-color: transparent;
        background-clip: text;
@@ -197,17 +197,17 @@
    }
 
    .btn-primary {
-       background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-       border-color: #10b981;
+       background: linear-gradient(135deg, #39b549 0%, #007c38 100%);
+       border-color: #39b549;
    }
 
    .btn-primary:hover {
-       background: linear-gradient(135deg, #059669 0%, #047857 100%);
-       border-color: #059669;
+       background: linear-gradient(135deg, #007c38 0%, #047857 100%);
+       border-color: #007c38;
    }
 
    .text-primary {
-       color: #059669 !important;
+       color: #007c38 !important;
    }
 
    /* Quick Actions Tab Styling */
@@ -404,7 +404,7 @@
            datasets: [{
                    label: 'Income',
                    data: {!! json_encode($incExpLineChartData['income']) !!},
-                   borderColor: '#10b981',
+                   borderColor: '#39b549',
                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
                    tension: 0.4,
                    fill: false,
@@ -414,7 +414,7 @@
                {
                    label: 'Expense',
                    data: {!! json_encode($incExpLineChartData['expense']) !!},
-                   borderColor: '#059669',
+                   borderColor: '#007c38',
                    backgroundColor: 'rgba(5, 150, 105, 0.2)',
                    tension: 0.4,
                    fill: true,
@@ -976,7 +976,7 @@ $showLatestExpense = !isset($customization['latest_expense']) || $customization[
                     <div class="zameen-stat-header">
                         <h3 class="zameen-stat-title">{{ __('Completed') }}</h3>
                         <div class="zameen-stat-icon">
-                            <i class="ti ti-check-circle"></i>
+                            <i class="ti ti-check"></i>
                         </div>
                     </div>
                     <div class="zameen-stat-value">
@@ -1072,7 +1072,7 @@ $showLatestExpense = !isset($customization['latest_expense']) || $customization[
                                                 <div style="font-size: 2rem; font-weight: 800; color: var(--zameen-primary); line-height: 1;">{{ number_format($percentage, 1) }}%</div>
                                                 <div style="font-size: 0.75rem; color: var(--zameen-text-medium); margin-top: 0.25rem;">
                                                     @if($status === 'completed')
-                                                        <span style="color: #059669; font-weight: 600;">✓ {{ __('Completed') }}</span>
+                                                        <span style="color: #007c38; font-weight: 600;">✓ {{ __('Completed') }}</span>
                                                     @elseif($status === 'progress')
                                                         <span style="color: #f59e0b; font-weight: 600;">⚡ {{ __('In Progress') }}</span>
                                                     @else
@@ -1083,7 +1083,7 @@ $showLatestExpense = !isset($customization['latest_expense']) || $customization[
                                         </div>
 
                                         <div style="width: 100%; background: #e5e7eb; border-radius: 999px; height: 12px; overflow: hidden; margin-bottom: 1rem;">
-                                            <div style="background: linear-gradient(90deg, var(--zameen-primary) 0%, #059669 100%); height: 100%; border-radius: 999px; transition: width 0.3s ease; width: {{ $percentage }}%; position: relative;">
+                                            <div style="background: linear-gradient(90deg, var(--zameen-primary) 0%, #007c38 100%); height: 100%; border-radius: 999px; transition: width 0.3s ease; width: {{ $percentage }}%; position: relative;">
                                                 @if($percentage > 10)
                                                     <div style="position: absolute; top: 50%; right: 8px; transform: translateY(-50%); color: white; font-size: 0.75rem; font-weight: 600;">{{ number_format($percentage, 0) }}%</div>
                                                 @endif
@@ -1128,7 +1128,7 @@ $showLatestExpense = !isset($customization['latest_expense']) || $customization[
                         </div>
                         <div class="col-md-6 text-end">
                             <div class="btn-group" role="group" style="background: #f3f4f6; border-radius: 8px; padding: 2px;">
-                                <button type="button" class="btn btn-sm invoice-period-btn active" data-period="weekly" style="background: #10b981; color: white; border: none; border-radius: 6px; padding: 6px 16px; font-size: 12px;">{{ __('Weekly') }}</button>
+                                <button type="button" class="btn btn-sm invoice-period-btn active" data-period="weekly" style="background: #39b549; color: white; border: none; border-radius: 6px; padding: 6px 16px; font-size: 12px;">{{ __('Weekly') }}</button>
                                 <button type="button" class="btn btn-sm invoice-period-btn" data-period="monthly" style="background: transparent; color: #6b7280; border: none; border-radius: 6px; padding: 6px 16px; font-size: 12px;">{{ __('Monthly') }}</button>
                             </div>
                         </div>
@@ -1164,7 +1164,7 @@ $showLatestExpense = !isset($customization['latest_expense']) || $customization[
                                         <span style="font-size: 14px; color: #1f2937; font-weight: 500;">{{ __('Paid') }}</span>
                                     </div>
                                     <div>
-                                        <span class="invoice-paid-amount" style="font-size: 18px; font-weight: 700; color: #10b981;">{{ \Auth::user()->priceFormat($monthlyInvoice['invoicePaid']) }}</span>
+                                        <span class="invoice-paid-amount" style="font-size: 18px; font-weight: 700; color: #39b549;">{{ \Auth::user()->priceFormat($monthlyInvoice['invoicePaid']) }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -1259,7 +1259,7 @@ $showLatestExpense = !isset($customization['latest_expense']) || $customization[
                         </div>
                         <div class="col-md-6 text-end">
                             <div class="btn-group" role="group" style="background: #f3f4f6; border-radius: 8px; padding: 2px;">
-                                <button type="button" class="btn btn-sm bill-period-btn active" data-period="weekly" style="background: #10b981; color: white; border: none; border-radius: 6px; padding: 6px 16px; font-size: 12px;">{{ __('Weekly') }}</button>
+                                <button type="button" class="btn btn-sm bill-period-btn active" data-period="weekly" style="background: #39b549; color: white; border: none; border-radius: 6px; padding: 6px 16px; font-size: 12px;">{{ __('Weekly') }}</button>
                                 <button type="button" class="btn btn-sm bill-period-btn" data-period="monthly" style="background: transparent; color: #6b7280; border: none; border-radius: 6px; padding: 6px 16px; font-size: 12px;">{{ __('Monthly') }}</button>
                             </div>
                         </div>
@@ -1295,7 +1295,7 @@ $showLatestExpense = !isset($customization['latest_expense']) || $customization[
                                         <span style="font-size: 14px; color: #1f2937; font-weight: 500;">{{ __('Paid') }}</span>
                                     </div>
                                     <div>
-                                        <span class="bill-paid-amount" style="font-size: 18px; font-weight: 700; color: #10b981;">{{ \Auth::user()->priceFormat($monthlyBill['billPaid']) }}</span>
+                                        <span class="bill-paid-amount" style="font-size: 18px; font-weight: 700; color: #39b549;">{{ \Auth::user()->priceFormat($monthlyBill['billPaid']) }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -2089,7 +2089,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             // Add active class to clicked button
-            this.style.background = '#10b981';
+            this.style.background = '#39b549';
             this.style.color = 'white';
             this.classList.add('active');
 
@@ -2123,7 +2123,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             // Add active class to clicked button
-            this.style.background = '#10b981';
+            this.style.background = '#39b549';
             this.style.color = 'white';
             this.classList.add('active');
 

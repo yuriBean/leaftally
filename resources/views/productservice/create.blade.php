@@ -1,8 +1,8 @@
 <style>
   :root {
-    --zameen-primary: #27a776;
-    --zameen-primary-light: #33c182;
-    --zameen-primary-dark: #1e8863;
+    --zameen-primary: #007c38;
+    --zameen-primary-light: #10b981;
+    --zameen-primary-dark: #007c38;
     --zameen-background-section: #f8f9fa;
     --zameen-background-light: #ffffff;
     --zameen-border: #e0e0e0;

@@ -1,8 +1,8 @@
 <style>
   :root {
-    --zameen-primary: #27a776;
-    --zameen-primary-light: #33c182;
-    --zameen-primary-dark: #1e8863;
+    --zameen-primary: #007c38;
+    --zameen-primary-light: #10b981;
+    --zameen-primary-dark: #007c38;
     --zameen-background-section: #f8f9fa;
     --zameen-background-light: #ffffff;
     --zameen-border: #e0e0e0;
@@ -149,9 +149,9 @@
 
 {{ Form::open(['url' => 'vender', 'method' => 'post', 'class'=>'needs-validation','novalidate']) }}
 
-<div class="modal-body" style="background: var(--zameen-background-section); padding: 1.5rem;">
+<div>
   
-  <div style="background: linear-gradient(135deg, #27a776 0%, #33c182 100%); padding: 1.75rem 2rem 1.25rem; border-radius: 12px 12px 0 0; margin: 0 1.5rem;">
+  <div style="background: linear-gradient(135deg,#007c38  0%, #10b981 100%); padding: 1.75rem 2rem 1.25rem;">
     <div style="color: white; margin-bottom: 0.5rem;">
       <h4 style="margin: 0; font-weight: 600; font-size: 1.5rem; color: white;">{{ __('Create New Vendor') }}</h4>
       <p style="margin: 0; opacity: 0.9; font-size: 0.875rem;">{{ __('Add a new vendor to your business') }}</p>
@@ -159,7 +159,7 @@
   </div>
 
   <div style="padding: 2rem; background: white; margin: 0 1.5rem; border-radius: 0 0 12px 12px;">
-    <div style="display: flex; flex-direction: column; gap: 1.5rem; max-width: 720px; margin: 0 auto; padding: 1.5rem;">
+    <div ">
 
       <div class="zameen-form-section">
         <h6 class="zameen-section-title">
@@ -290,141 +290,142 @@
               'placeholder' => __('Enter billing name')
             ]) }}
           </div>
-   </div>
+        </div>
 
-   <div style="display: flex; flex-direction: column; gap: 1.5rem;">
       
-      <div class="bg-white rounded-[8px] mb-6 border border-[#E5E7EB] shadow-sm overflow-hidden">
-         <div class="heading-cstm-form">
-            <h6 class="mb-0 flex items-center gap-2">
-               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pin-map" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8z"></path>
-                  <path fill-rule="evenodd" d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z"></path>
-               </svg>
-               {{__('BIlling Address')}}
-            </h6>
-         </div>
-         <div style="padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
-            <div class="form-group">
-               {{Form::label('billing_name',__('Name'),array('class'=>'form-label')) }}
-               <div class="form-icon-user">
-                  {{Form::text('billing_name',null,array('class'=>'form-control'))}}
-               </div>
-            </div>
-
-            <div class="form-group">
-               {{Form::label('billing_phone',__('Contact'),array('class'=>'form-label')) }}
-               <div class="form-icon-user">
-                  {{Form::text('billing_phone',null,array('class'=>'form-control'))}}
-               </div>
-            </div>
-
-            <div class="form-group">
-               {{Form::label('billing_address',__('Address'),array('class'=>'form-label')) }}
-               <div class="input-group">
-                  {{Form::textarea('billing_address',null,array('class'=>'form-control','rows'=>3))}}
-               </div>
-            </div>
-
-            <div class="form-group">
-               {{Form::label('billing_city',__('City'),array('class'=>'form-label')) }}
-               <div class="form-icon-user">
-                  {{Form::text('billing_city',null,array('class'=>'form-control'))}}
-               </div>
-            </div>
-
-            <div class="form-group">
-               {{Form::label('billing_state',__('State'),array('class'=>'form-label')) }}
-               <div class="form-icon-user">
-                  {{Form::text('billing_state',null,array('class'=>'form-control'))}}
-               </div>
-            </div>
-
-            <div class="form-group">
-               {{Form::label('billing_country',__('Country'),array('class'=>'form-label')) }}
-               <div class="form-icon-user">
-                  {{Form::text('billing_country',null,array('class'=>'form-control'))}}
-               </div>
-            </div>
-
-            <div class="form-group">
-               {{Form::label('billing_zip',__('Zip Code'),array('class'=>'form-label')) }}
-               <div class="form-icon-user">
-                  {{Form::text('billing_zip',null,array('class'=>'form-control','placeholder'=>__('')))}}
-               </div>
-            </div>
-         </div>
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+  
+          <div class="zameen-form-group">
+            <label class="zameen-form-label">{{ __('Contact') }}</label>
+            {{ Form::text('billing_phone', null, [
+              'class' => 'zameen-form-input',
+              'placeholder' => __('Enter contact number')
+            ]) }}
+          </div>
+        
+          <div class="zameen-form-group">
+            <label class="zameen-form-label">{{ __('Address') }}</label>
+            {{ Form::textarea('billing_address', null, [
+              'class' => 'zameen-form-input',
+              'rows' => 3,
+              'placeholder' => __('Enter address')
+            ]) }}
+          </div>
+        
+          <div class="zameen-form-group">
+            <label class="zameen-form-label">{{ __('City') }}</label>
+            {{ Form::text('billing_city', null, [
+              'class' => 'zameen-form-input',
+              'placeholder' => __('Enter city')
+            ]) }}
+          </div>
+        
+          <div class="zameen-form-group">
+            <label class="zameen-form-label">{{ __('State') }}</label>
+            {{ Form::text('billing_state', null, [
+              'class' => 'zameen-form-input',
+              'placeholder' => __('Enter state')
+            ]) }}
+          </div>
+        
+          <div class="zameen-form-group">
+            <label class="zameen-form-label">{{ __('Country') }}</label>
+            {{ Form::text('billing_country', null, [
+              'class' => 'zameen-form-input',
+              'placeholder' => __('Enter country')
+            ]) }}
+          </div>
+        
+          <div class="zameen-form-group">
+            <label class="zameen-form-label">{{ __('Zip Code') }}</label>
+            {{ Form::text('billing_zip', null, [
+              'class' => 'zameen-form-input',
+              'placeholder' => __('Enter zip code')
+            ]) }}
+          </div>
+        
+        </div>
+        
       </div>
 
       @if(App\Models\Utility::getValByName('shipping_display')=='on')
       
-      <div class="bg-white rounded-[8px] mb-6 border border-[#E5E7EB] shadow-sm overflow-hidden">
-         <div class="heading-cstm-form">
-            <h6 class="mb-0 flex items-center gap-2">
-               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pin-map" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8z"></path>
-                  <path fill-rule="evenodd" d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z"></path>
+      <div class="zameen-form-section">
+        <h6 class="zameen-section-title">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pin-map" viewBox="0 0 16 16" style="display: inline; margin-right: 8px;">
+                <path fill-rule="evenodd" d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8z"/>
+                <path fill-rule="evenodd" d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z"/>
                </svg>
                {{__('Shipping Address')}}
             </h6>
-         </div>
-         <div style="padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
-            <div class="form-group">
-               {{Form::label('shipping_name',__('Name'),array('class'=>'form-label')) }}
-               <div class="form-icon-user">
-                  {{Form::text('shipping_name',null,array('class'=>'form-control'))}}
-               </div>
-            </div>
+            <div style="text-align: right; margin-top: 1rem;">
+              <input type="button" id="billing_data" value="{{__('Shipping Same As Billing')}}" class="btn btn-primary">
+           </div>
 
-            <div class="form-group">
-               {{Form::label('shipping_phone',__('Contact'),array('class'=>'form-label')) }}
-               <div class="form-icon-user">
-                  {{Form::text('shipping_phone',null,array('class'=>'form-control'))}}
-               </div>
-            </div>
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
 
-            <div class="form-group">
-               {{Form::label('shipping_address',__('Address'),array('class'=>'form-label')) }}
-               <div class="input-group">
-                  {{Form::textarea('shipping_address',null,array('class'=>'form-control','rows'=>3))}}
-               </div>
+              <div class="zameen-form-group">
+                <label class="zameen-form-label">{{ __('Name') }}</label>
+                {{ Form::text('shipping_name', null, [
+                  'class' => 'zameen-form-input',
+                  'placeholder' => __('Enter shipping name')
+                ]) }}
+              </div>
+            
+              <div class="zameen-form-group">
+                <label class="zameen-form-label">{{ __('Contact') }}</label>
+                {{ Form::text('shipping_phone', null, [
+                  'class' => 'zameen-form-input',
+                  'placeholder' => __('Enter contact number')
+                ]) }}
+              </div>
+            
+              <div class="zameen-form-group">
+                <label class="zameen-form-label">{{ __('Address') }}</label>
+                {{ Form::textarea('shipping_address', null, [
+                  'class' => 'zameen-form-input',
+                  'rows' => 3,
+                  'placeholder' => __('Enter address')
+                ]) }}
+              </div>
+            
+              <div class="zameen-form-group">
+                <label class="zameen-form-label">{{ __('City') }}</label>
+                {{ Form::text('shipping_city', null, [
+                  'class' => 'zameen-form-input',
+                  'placeholder' => __('Enter city')
+                ]) }}
+              </div>
+            
+              <div class="zameen-form-group">
+                <label class="zameen-form-label">{{ __('State') }}</label>
+                {{ Form::text('shipping_state', null, [
+                  'class' => 'zameen-form-input',
+                  'placeholder' => __('Enter state')
+                ]) }}
+              </div>
+            
+              <div class="zameen-form-group">
+                <label class="zameen-form-label">{{ __('Country') }}</label>
+                {{ Form::text('shipping_country', null, [
+                  'class' => 'zameen-form-input',
+                  'placeholder' => __('Enter country')
+                ]) }}
+              </div>
+            
+              <div class="zameen-form-group">
+                <label class="zameen-form-label">{{ __('Zip Code') }}</label>
+                {{ Form::text('shipping_zip', null, [
+                  'class' => 'zameen-form-input',
+                  'placeholder' => __('Enter zip code')
+                ]) }}
+              </div>
+            
             </div>
+                  </div>
 
-            <div class="form-group">
-               {{Form::label('shipping_city',__('City'),array('class'=>'form-label')) }}
-               <div class="form-icon-user">
-                  {{Form::text('shipping_city',null,array('class'=>'form-control'))}}
-               </div>
-            </div>
-
-            <div class="form-group">
-               {{Form::label('shipping_state',__('State'),array('class'=>'form-label')) }}
-               <div class="form-icon-user">
-                  {{Form::text('shipping_state',null,array('class'=>'form-control'))}}
-               </div>
-            </div>
-
-            <div class="form-group">
-               {{Form::label('shipping_country',__('Country'),array('class'=>'form-label')) }}
-               <div class="form-icon-user">
-                  {{Form::text('shipping_country',null,array('class'=>'form-control'))}}
-               </div>
-            </div>
-
-            <div class="form-group">
-               {{Form::label('shipping_zip',__('Zip Code'),array('class'=>'form-label')) }}
-               <div class="form-icon-user">
-                  {{Form::text('shipping_zip',null,array('class'=>'form-control','placeholder'=>__('')))}}
-               </div>
-            </div>
-         </div>
-      </div>
-
-      <div style="text-align: right; margin-top: 1rem;">
-         <input type="button" id="billing_data" value="{{__('Shipping Same As Billing')}}" class="btn btn-primary">
-      </div>
+      
       @endif
-   </div>
   </div>
 </div>
 

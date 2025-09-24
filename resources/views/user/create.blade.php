@@ -1,8 +1,8 @@
 <style>
   :root {
-    --zameen-primary: #27a776;
-    --zameen-primary-light: #33c182;
-    --zameen-primary-dark: #1e8863;
+    --zameen-primary: #007c38;
+    --zameen-primary-light: #10b981;
+    --zameen-primary-dark: #007c38;
     --zameen-secondary: #3f51b5;
     --zameen-success: #4caf50;
     --zameen-danger: #f44336;
@@ -145,8 +145,8 @@
   }
 
   .zameen-avatar-preview {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     border: 3px solid var(--zameen-primary);
     object-fit: cover;
@@ -311,8 +311,8 @@
     'files' => true,
 ]) }}
 
-<div class="zameen-user-container">
-  <div class="zameen-user-card">
+<div >
+  <div >
     <div class="zameen-user-header">
       <h2>{{ __('Create New User') }}</h2>
       <p>{{ __('Add a new user to your team') }}</p>

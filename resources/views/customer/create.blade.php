@@ -1,8 +1,8 @@
 <style>
   :root {
-    --zameen-primary: #27a776;
-    --zameen-primary-light: #33c182;
-    --zameen-primary-dark: #1e8863;
+    --zameen-primary: #007c38;
+    --zameen-primary-light: #10b981;
+    --zameen-primary-dark: #007c38;
     --zameen-secondary: #3f51b5;
     --zameen-success: #4caf50;
     --zameen-danger: #f44336;
@@ -281,8 +281,8 @@
 
 {{ Form::open(['url' => 'customer', 'method' => 'post', 'class'=>'needs-validation','novalidate']) }}
 
-<div class="zameen-container">
-  <div class="zameen-card">
+<div class="" >
+  <div class="">
     <div class="zameen-header">
       <h2>{{ __('Create New Customer') }}</h2>
       <p>{{ __('Add a new customer to your business') }}</p>

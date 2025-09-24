@@ -24,7 +24,7 @@
   .mcheck input:checked + .box::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:2px solid white;border-top:0;border-left:0;transform:rotate(45deg);}
 </style>
 
-<div class="flex items-center gap-2 mt-2 sm:mt-0">
+<div class="flex items-center gap-2 my-4">
     <a href="#" style="border: 1px solid #007C38 !important"
        class="flex items-center gap-2 border border-[#007C38] text-[#007C38] bg-white px-4 py-2 rounded-[6px] text-[14px] font-[500] hover:bg-[#007C3808] transition-all duration-200 shadow-sm min-w-fit d-none"
        data-url="{{ route('vender.file.import') }}" data-ajax-popup="true" data-bs-toggle="tooltip"
