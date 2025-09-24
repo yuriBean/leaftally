@@ -48,33 +48,33 @@
     @endif
 
     <div class="row">
-    {{ Form::open(['id' => 'add_product_form', 'class' => 'w-100 needs-validation', 'novalidate']) }}
-
-        <div class="form-group col-md-6">
-            {{ Form::label('name', __('Product & Service Name'), ['class' => 'form-label']) }}<x-required></x-required>
-            {{ Form::text('name', '', ['class' => 'form-control', 'required' => true]) }}
-        </div>
-
-        <div class="form-group col-md-6">
-            {{ Form::label('sku', __('SKU'), ['class' => 'form-label']) }}<x-required></x-required>
-            {{ Form::text('sku', '', ['class' => 'form-control', 'required' => true]) }}
-        </div>
-
-        <div class="form-group col-md-6">
-            {{ Form::label('type', __('Type'), ['class' => 'form-label']) }}<x-required></x-required>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input type" type="radio" name="type" id="product" value="Product" checked>
-                <label class="form-check-label" for="product">{{ __('Product') }}</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input type" type="radio" name="type" id="service" value="Service">
-                <label class="form-check-label" for="service">{{ __('Service') }}</label>
-            </div>
-        </div>
-
-        <div class="form-group col-md-6 material-type-wrap">
-            {{ Form::label('material_type', __('Material Type'), ['class' => 'form-label']) }}<x-required></x-required>
-            <div class="form-check form-check-inline">
+                <form id="addProductForm" method="POST" action="{{ route('productservice.store') }}" class="flex flex-col gap-4">
+                    @csrf
+                    <div class="flex flex-col gap-1">
+                        <label for="name" class="zameen-label">Name</label>
+                        <input type="text" class="zameen-input" id="name" name="name" required>
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <label for="sku" class="zameen-label">SKU</label>
+                        <input type="text" class="zameen-input" id="sku" name="sku">
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <label for="price" class="zameen-label">Price</label>
+                        <input type="number" class="zameen-input" id="price" name="price" required>
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <label for="quantity" class="zameen-label">Quantity</label>
+                        <input type="number" class="zameen-input" id="quantity" name="quantity">
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <label for="description" class="zameen-label">Description</label>
+                        <textarea class="zameen-input" id="description" name="description"></textarea>
+                    </div>
+                    <div class="modal-footer zameen-modal-footer flex justify-end gap-2 mt-4" style="border-top: none;">
+                        <button type="button" class="zameen-btn zameen-btn-cancel px-4 py-2" data-dismiss="modal" style="background: #e0e0e0; color: #333;">Cancel</button>
+                        <button type="submit" class="zameen-btn zameen-btn-primary px-4 py-2" style="background: #2e7d32; color: #fff;">Create</button>
+                    </div>
+                </form>
                 <input class="form-check-input" type="radio" name="material_type" id="mt_raw" value="raw">
                 <label class="form-check-label" for="mt_raw">{{ __('Raw') }}</label>
             </div>
