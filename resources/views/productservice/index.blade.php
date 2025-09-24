@@ -59,6 +59,19 @@
             border: 1px solid
             border-radius: 4px !important;
         }
+
+        /* Override form-control focus states with green theme */
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #007C38 !important;
+            box-shadow: 0 0 0 0.2rem rgba(0, 124, 56, 0.25) !important;
+        }
+
+        .form-control:focus-visible,
+        .form-select:focus-visible {
+            border-color: #007C38 !important;
+            box-shadow: 0 0 0 0.2rem rgba(0, 124, 56, 0.25) !important;
+        }
     </style>
 
     <div class="flex items-center gap-2 mt-2 sm:mt-0">

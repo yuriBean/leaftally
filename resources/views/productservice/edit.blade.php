@@ -5,6 +5,42 @@
     $plan = \App\Models\Utility::getChatGPTSettings();
 @endphp
 
+<style>
+/* Green theme styling for edit product/service form */
+.modal-body .form-control:focus,
+.modal-body .form-select:focus {
+    border-color: #007C38 !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 124, 56, 0.25) !important;
+}
+
+.modal-body .form-control:focus-visible,
+.modal-body .form-select:focus-visible {
+    border-color: #007C38 !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 124, 56, 0.25) !important;
+}
+
+.modal-body .form-control,
+.modal-body .form-select {
+    border-color: #dee2e6;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.modal-body .form-control:hover,
+.modal-body .form-select:hover {
+    border-color: #007C38;
+}
+
+.modal-body .btn-primary {
+    background-color: #007C38;
+    border-color: #007C38;
+}
+
+.modal-body .btn-primary:hover {
+    background-color: #006b30;
+    border-color: #006b30;
+}
+</style>
+
 {{ Form::model($productService, ['route' => ['productservice.update', $productService->id], 'method' => 'PUT', 'class'=>'needs-validation','novalidate']) }}
 <div class="modal-body">
     <div class="row">

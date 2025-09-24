@@ -228,6 +228,22 @@
     gap: 1rem;
   }
 
+  /* Override Bootstrap form-control styles with green theme */
+  .form-control:focus {
+    border-color: #007C38 !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 124, 56, 0.25) !important;
+  }
+
+  .form-control:focus-visible {
+    border-color: #007C38 !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 124, 56, 0.25) !important;
+  }
+
+  .form-select:focus {
+    border-color: #007C38 !important;
+    box-shadow: 0 0 0 0.2rem rgba(0, 124, 56, 0.25) !important;
+  }
+
   /* Force button visibility */
   button[type="submit"].zameen-btn-primary,
   .zameen-btn-primary[type="submit"] {
@@ -305,7 +321,7 @@
     .zameen-form-row-3 {
       grid-template-columns: 1fr;
     }
-    
+
     .zameen-radio-group {
       flex-direction: column;
       gap: 1rem;
@@ -330,7 +346,7 @@
 @section('content')
 
 <div class="modal-body" style="background: var(--zameen-background-section); padding: 1.5rem;">
-  
+
   <div style="background: linear-gradient(135deg, #27a776 0%, #33c182 100%); padding: 1.75rem 2rem 1.25rem; border-radius: 12px 12px 0 0; margin: 0 1.5rem;">
     <div style="color: white; margin-bottom: 0.5rem;">
       <h4 style="margin: 0; font-weight: 600; font-size: 1.5rem; color: white;">{{ __('Create Product & Service') }}</h4>
@@ -511,7 +527,7 @@
             </div>
 
             @if($TAX_ENABLED)
-            
+
             <div class="zameen-form-group">
                 <label class="zameen-form-label">{{ __('Tax (Optional)') }}</label>
                 {{ Form::select('tax_id[]', $tax, null, ['class' => 'zameen-form-input', 'id' => 'choices-multiple1', 'multiple']) }}
@@ -544,7 +560,7 @@
             </h6>
 
             <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                
+
                 <div class="zameen-form-group quantity-field" style="flex: 1; min-width: 200px;">
                     <label class="zameen-form-label">
                         {{ __('Quantity') }}
