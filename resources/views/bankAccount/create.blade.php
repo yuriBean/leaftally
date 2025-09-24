@@ -15,7 +15,6 @@
 
   .zameen-card {
     background: white;
-    border-radius: 12px;
     box-shadow: var(--zameen-shadow);
     border: 1px solid var(--zameen-border-light);
     overflow: hidden;
@@ -116,7 +115,6 @@
 <script src="{{ asset('js/unsaved.js') }}"></script>
 
 {{ Form::open(['url' => 'bank-account','class'=>'needs-validation','novalidate']) }}
-<div class="modal-body" style="background: var(--zameen-background-section); padding: 2rem;">
     <div class="zameen-card">
         <div class="zameen-card-header">
             <h5 style="margin: 0; font-weight: 600; font-size: 1.25rem; color: white; display: flex; align-items: center; gap: 0.5rem;">

@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function(){
 @endpush
 
 @section('content')
-<div class="row">
+<div class="row mt-5">
   @if(isset($bomCount) && $bomCount === 0)
   <div class="col-12">
     <div class="alert alert-warning">
@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function(){
   <div class="col-12 mb-4">
     <div class="bg-white rounded border shadow-sm p-3 p-md-4 d-flex flex-wrap align-items-center justify-content-between gap-2">
       <div class="d-flex align-items-center gap-2">
-        <span class="rounded-circle bg-success" style="width:10px;height:10px;"></span>
+        <span class="rounded-circle bg-[#007c38] mt-1" style="width:12px;height:12px;"></span>
         <h5 class="mb-0 fw-bold fs-4">{{ __('Create Production Order') }}</h5>
       </div>
       <div class="d-flex gap-2">

@@ -4,21 +4,20 @@
 
 <style>
 :root {
-    --zameen-primary: #27a776;
+    --zameen-primary: #007c38;
     --zameen-primary-dark: #1e8a5f;
     --zameen-secondary: #f8fafc;
     --zameen-accent: #e2f4ed;
     --zameen-text: #2d3748;
     --zameen-border: #e2e8f0;
     --zameen-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    --zameen-gradient: linear-gradient(135deg, #27a776 0%, #2dd4aa 100%);
+    --zameen-gradient: linear-gradient(135deg, #007c38 0%, #10b981 100%);
 }
 
 .zameen-modal-header {
     background: var(--zameen-gradient);
     color: white;
     padding: 1.5rem 2rem;
-    border-radius: 12px 12px 0 0;
     border: none;
     display: flex;
     align-items: center;
@@ -120,8 +119,8 @@
     <h4 class="mb-0">{{ __('Create Transfer') }}</h4>
 </div>
 
-<div class="zameen-form-container">
-    <div class="row">
+<div class="zameen-form-container ">
+    <div class="row ">
         @if ($plan->enable_chatgpt == 'on')
             <div class="col-12 text-end mb-3">
                 <a href="#" data-size="md" data-ajax-popup-over="true"
@@ -134,38 +133,38 @@
             </div>
         @endif
         <div class="zameen-form-group col-md-6">
-            {{ Form::label('from_account', __('From Account'), ['class' => 'zameen-form-label']) }}<x-required></x-required>
-            <div class="zameen-input-icon" style="--icon: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 fill=%22%2327a776%22 viewBox=%220 0 24 24%22><path d=%22M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z%22/></svg>');">
+            {{ Form::label('from_account', __('From Account'), ['class' => 'zameen-form-label']) }}
+            <div class="zameen-input-icon" style="--icon: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 fill=%22%23007c38%22 viewBox=%220 0 24 24%22><path d=%22M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z%22/></svg>');">
                 {{ Form::select('from_account', $bankAccount, null, ['class' => 'zameen-form-control', 'required' => 'required']) }}
             </div>
         </div>
         <div class="zameen-form-group col-md-6">
-            {{ Form::label('to_account', __('To Account'), ['class' => 'zameen-form-label']) }}<x-required></x-required>
-            <div class="zameen-input-icon" style="--icon: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 fill=%22%2327a776%22 viewBox=%220 0 24 24%22><path d=%22M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z%22/></svg>');">
+            {{ Form::label('to_account', __('To Account*'), ['class' => 'zameen-form-label']) }}
+            <div class="zameen-input-icon" style="--icon: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 fill=%22%23007c38%22 viewBox=%220 0 24 24%22><path d=%22M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z%22/></svg>');">
                 {{ Form::select('to_account', $bankAccount, null, ['class' => 'zameen-form-control', 'required' => 'required']) }}
             </div>
         </div>
         <div class="zameen-form-group col-md-6">
-            {{ Form::label('amount', __('Amount'), ['class' => 'zameen-form-label']) }}<x-required></x-required>
-            <div class="zameen-input-icon" style="--icon: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 fill=%22%2327a776%22 viewBox=%220 0 24 24%22><path d=%22M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z%22/></svg>');">
+            {{ Form::label('amount', __('Amount*'), ['class' => 'zameen-form-label']) }}
+            <div class="zameen-input-icon" style="--icon: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 fill=%22%23007c38%22 viewBox=%220 0 24 24%22><path d=%22M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z%22/></svg>');">
                 {{ Form::number('amount', '', ['class' => 'zameen-form-control', 'required' => 'required', 'step' => '0.01']) }}
             </div>
         </div>
         <div class="zameen-form-group col-md-6">
-            {{ Form::label('date', __('Date'), ['class' => 'zameen-form-label']) }}<x-required></x-required>
-            <div class="zameen-input-icon" style="--icon: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 fill=%22%2327a776%22 viewBox=%220 0 24 24%22><path d=%22M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.1 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z%22/></svg>');">
+            {{ Form::label('date', __('Date*'), ['class' => 'zameen-form-label']) }}
+            <div class="zameen-input-icon" style="--icon: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 fill=%22%23007c38%22 viewBox=%220 0 24 24%22><path d=%22M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.1 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z%22/></svg>');">
                 {{ Form::date('date', date('Y-m-d'), ['class' => 'zameen-form-control', 'required' => 'required']) }}
             </div>
         </div>
         <div class="zameen-form-group col-md-12">
             {{ Form::label('reference', __('Reference'), ['class' => 'zameen-form-label']) }}
-            <div class="zameen-input-icon" style="--icon: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 fill=%22%2327a776%22 viewBox=%220 0 24 24%22><path d=%22M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z%22/></svg>');">
+            <div class="zameen-input-icon" style="--icon: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 fill=%22%23007c38%22 viewBox=%220 0 24 24%22><path d=%22M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z%22/></svg>');">
                 {{ Form::text('reference', '', ['class' => 'zameen-form-control']) }}
             </div>
         </div>
         <div class="zameen-form-group col-md-12 mb-0">
-            {{ Form::label('description', __('Description'), ['class' => 'zameen-form-label']) }}<x-required></x-required>
-            <div class="zameen-input-icon" style="--icon: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 fill=%22%2327a776%22 viewBox=%220 0 24 24%22><path d=%22M14,10H19.5L14,4.5V10M5,3H15L21,9V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V5C3,3.89 3.89,3 5,3M5,12V14H19V12H5M5,16V18H14V16H5Z%22/></svg>');">
+            {{ Form::label('description', __('Description*'), ['class' => 'zameen-form-label']) }}
+            <div class="zameen-input-icon" style="--icon: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 fill=%22%23007c38%22 viewBox=%220 0 24 24%22><path d=%22M14,10H19.5L14,4.5V10M5,3H15L21,9V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V5C3,3.89 3.89,3 5,3M5,12V14H19V12H5M5,16V18H14V16H5Z%22/></svg>');">
                 {{ Form::textarea('description', '', ['class' => 'zameen-form-control', 'rows' => 3, 'required' => 'required']) }}
             </div>
         </div>

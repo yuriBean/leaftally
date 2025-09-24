@@ -313,7 +313,7 @@
 {{ Form::open(['url' => 'roles','method' => 'post','class' => 'needs-validation','novalidate']) }}
 
 <div class="modal-header border-0 pb-0">
-  <h4 class="modal-title text-xl font-semibold text-[#27a776]">
+  <h4 class="modal-title text-xl font-semibold text-[#007c38]">
     <svg style="width: 20px; height: 20px; display: inline-block; margin-right: 0.5rem;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.196-2.12M17 20v-2a3 3 0 00-3-3h-4a3 3 0 00-3 3v2m17 0H7m10 0v-2a3 3 0 00-3-3m3 3h3m-3 0h-3"></path>
     </svg>

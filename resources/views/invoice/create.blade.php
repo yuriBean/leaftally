@@ -772,7 +772,7 @@
       <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
 
       {{-- HEADER / SHELL --}}
-      <div class="card border-0 shadow-sm rounded-3 overflow-hidden mb-4">
+      <div class="card border-0 shadow-sm rounded-3 overflow-hidden my-4">
         <div class="w-100" style="height:4px;background:#007C38;"></div>
         <div class="card-body p-3 p-md-4">
           <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">

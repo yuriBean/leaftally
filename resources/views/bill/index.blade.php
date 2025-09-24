@@ -83,7 +83,7 @@
 
                 <div class="col-md-4 col-sm-12 col-12">
                   <div class="btn-box">
-                    {{ Form::label('status', __('status'), ['class' => 'text-type block text-sm font-medium text-gray-700 mb-2']) }}
+                    {{ Form::label('status', __('Status'), ['class' => 'text-type block text-sm font-medium text-gray-700 mb-2']) }}
                     {{ Form::select('status', ['' => 'Select Status'] + $status, request('status',''), ['class' => 'form-control appearance-none bg-white border border-[#E5E7EB] rounded-[6px] px-3 py-2 pr-8 text-[14px] text-[#374151] focus:outline-none focus:ring-1 focus:ring-[#007C38] focus:border-[#007C38] duration-200 w-full']) }}
                   </div>
                 </div>

@@ -30,7 +30,7 @@
 @endpush
 
 @section('content')
-<div class="modal-dialog modal-xl" role="document">
+<div class="modal-dialog mx-10 mt-10" role="document">
   <div class="modal-content">
     <div class="modal-header bg-white border-bottom-0 pb-2 position-relative">
       <h5 class="modal-title fw-semibold">{{ __('Create Bill of Materials') }}</h5>

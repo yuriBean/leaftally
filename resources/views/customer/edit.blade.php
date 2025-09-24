@@ -9,7 +9,7 @@
 
 <div class="modal-body" style="background: var(--zameen-background-section); padding: 1.5rem;">
   
-  <div style="background: linear-gradient(135deg, #00b98d 0%, #00d4a3 100%); padding: 1.75rem 2rem 1.25rem; border-radius: 12px 12px 0 0; margin: 0 1.5rem;">
+  <div style="background: linear-gradient(135deg, #10b981 0%, #00d4a3 100%); padding: 1.75rem 2rem 1.25rem; border-radius: 12px 12px 0 0; margin: 0 1.5rem;">
     <div style="color: white; margin-bottom: 0.5rem;">
       <h4 style="margin: 0; font-weight: 600; font-size: 1.5rem; color: white;">{{ __('Edit Customer') }}</h4>
       <p style="margin: 0; opacity: 0.9; font-size: 0.875rem;">{{ __('Update customer information') }}</p>

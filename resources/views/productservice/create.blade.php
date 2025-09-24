@@ -265,9 +265,9 @@
 
   /* Specific styling for submit button */
   .zameen-submit-btn {
-    background: #27a776 !important;
+    background: #007c38 !important;
     color: white !important;
-    border: 2px solid #27a776 !important;
+    border: 2px solid #007c38 !important;
     display: inline-flex !important;
     opacity: 1 !important;
     visibility: visible !important;
@@ -285,9 +285,9 @@
   /* Force the button to always be visible with highest priority */
   .modal-footer .zameen-submit-btn,
   button.zameen-submit-btn {
-    background: #27a776 !important;
+    background: #007c38 !important;
     color: white !important;
-    border: 2px solid #27a776 !important;
+    border: 2px solid #007c38 !important;
     display: inline-flex !important;
     opacity: 1 !important;
     visibility: visible !important;
@@ -331,7 +331,7 @@
 
 <div class="modal-body" style="background: var(--zameen-background-section); padding: 1.5rem;">
 
-  <div style="background: linear-gradient(135deg, #27a776 0%, #33c182 100%); padding: 1.75rem 2rem 1.25rem; border-radius: 12px 12px 0 0; margin: 0 1.5rem;">
+  <div style="background: linear-gradient(135deg, #007c38 0%, #10b981 100%); padding: 1.75rem 2rem 1.25rem; border-radius: 12px 12px 0 0; margin: 0 1.5rem;">
     <div style="color: white; margin-bottom: 0.5rem;">
       <h4 style="margin: 0; font-weight: 600; font-size: 1.5rem; color: white;">{{ __('Create Product & Service') }}</h4>
       <p style="margin: 0; opacity: 0.9; font-size: 0.875rem;">{{ __('Add a new product or service to your inventory') }}</p>
@@ -339,7 +339,7 @@
   </div>
 
   <div style="padding: 2rem; background: white; margin: 0 1.5rem; border-radius: 0 0 12px 12px;">
-    <div style="display: flex; flex-direction: column; gap: 1.5rem; max-width: 720px; margin: 0 auto; padding: 1.5rem;">
+    <div style="display: flex; flex-direction: column; gap: 1.5rem;  margin: 0 auto; padding: 1.5rem;">
 
     {{ Form::open(['url' => 'productservice', 'class'=>'needs-validation','novalidate']) }}
 
@@ -506,7 +506,7 @@
                 {{ Form::select('category_id', $category, null, ['class' => 'zameen-form-select', 'required' => 'required']) }}
                 <div style="margin-top: 0.5rem;">
                     <small style="color: #6b7280;">{{ __('Need to add a new category? ') }}</small>
-                    <a href="#" id="add_category" style="color: #00b98d; font-weight: 600; text-decoration: none;">{{ __('Add Category') }}</a>
+                    <a href="#" id="add_category" style="color: #10b981; font-weight: 600; text-decoration: none;">{{ __('Add Category') }}</a>
                 </div>
             </div>
 
@@ -517,7 +517,7 @@
                 {{ Form::select('tax_id[]', $tax, null, ['class' => 'zameen-form-select', 'id' => 'choices-multiple1', 'multiple']) }}
                 <div style="margin-top: 0.5rem;">
                     <small style="color: #6b7280;">{{ __('Need to add a new tax rate? ') }}</small>
-                    <a href="#" onclick="openAddTaxModal()" style="color: #00b98d; font-weight: 600; text-decoration: none;">{{ __('Add Tax') }}</a>
+                    <a href="#" onclick="openAddTaxModal()" style="color: #10b981; font-weight: 600; text-decoration: none;">{{ __('Add Tax') }}</a>
                 </div>
             </div>
             @endif
@@ -530,7 +530,7 @@
                 {{ Form::select('unit_id', $unit, null, ['class' => 'zameen-form-select', 'required' => 'required']) }}
                 <div style="margin-top: 0.5rem;">
                     <small style="color: #6b7280;">{{ __('Need to add a new unit? ') }}</small>
-                    <a href="#" id="add_unit" style="color: #00b98d; font-weight: 600; text-decoration: none;">{{ __('Add Unit') }}</a>
+                    <a href="#" id="add_unit" style="color: #10b981; font-weight: 600; text-decoration: none;">{{ __('Add Unit') }}</a>
                 </div>
             </div>
         </div>
@@ -602,7 +602,7 @@
   <a href="{{ route('productservice.index') }}" class="zameen-btn zameen-btn-outline">
     {{ __('Cancel') }}
   </a>
-  <button type="submit" class="zameen-btn zameen-btn-primary zameen-submit-btn" style="background: #27a776 !important; color: white !important; border: 2px solid #27a776 !important; display: inline-flex !important; opacity: 1 !important; visibility: visible !important; padding: 0.75rem 1.5rem !important; font-weight: 500 !important; border-radius: 8px !important; position: relative !important; z-index: 10000 !important; min-width: 180px !important; height: auto !important;">
+  <button type="submit" class="zameen-btn zameen-btn-primary zameen-submit-btn" style="background: #007c38 !important; color: white !important; border: 2px solid #007c38 !important; display: inline-flex !important; opacity: 1 !important; visibility: visible !important; padding: 0.75rem 1.5rem !important; font-weight: 500 !important; border-radius: 8px !important; position: relative !important; z-index: 10000 !important; min-width: 180px !important; height: auto !important;">
     {{ __('Create Product/Service') }}
   </button>
 </div>

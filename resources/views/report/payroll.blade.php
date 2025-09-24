@@ -318,18 +318,18 @@
             <div class="card border-0 rounded-2xl shadow-md overflow-hidden my-3">
                 <div class="h-1 w-full" style="background:#007C38;"></div>
                 <div class="card-body table-border-style">
-                    <div class="table-responsive table-new-design bg-white px-4 pt-2">
-    <table class="table datatable border border-[#E5E5E5] rounded-[8px] mt-4" id="report-dataTable">
-        <thead>
-            <tr>
-                <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] text-md font-semibold">{{ __('Employee ID') }}</th>
-                <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] text-md font-semibold">{{ __('Employee') }}</th>
-                <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] text-md font-semibold">{{ __('Salary') }}</th>
-                <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] text-md font-semibold">{{ __('Net Salary') }}</th>
-                <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] text-md font-semibold">{{ __('Month') }}</th>
-                <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] text-md font-semibold">{{ __('Status') }}</th>
-            </tr>
-        </thead>
+                    <div class="table-responsive table-new-design bg-white p-4">
+                    <table class="table datatable border border-[#E5E5E5] rounded-[8px] mt-4" id="report-dataTable">
+                        <thead>
+                            <tr>
+                                <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] text-md font-semibold">{{ __('Employee ID') }}</th>
+                                <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] text-md font-semibold">{{ __('Employee') }}</th>
+                                <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] text-md font-semibold">{{ __('Salary') }}</th>
+                                <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] text-md font-semibold">{{ __('Net Salary') }}</th>
+                                <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] text-md font-semibold">{{ __('Month') }}</th>
+                                <th class="px-4 py-1 border border-[#E5E5E5] bg-[#F6F6F6] text-md font-semibold">{{ __('Status') }}</th>
+                            </tr>
+                        </thead>
                             <tbody>
                             @foreach($payslips as $payslip)
                                 <tr>

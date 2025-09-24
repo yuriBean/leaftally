@@ -81,9 +81,7 @@
                         </div>
                         <div class="col-md-2 col-12">
                         <div class="col-auto d-flex justify-content-end mt-4">
-                            <div class="row">
-                                <div class="col-auto">
-                                    <a href="#" class="btn btn-sm btn-primary me-2"
+                                    <a href="#" class="btn btn-sm btn-primary mr-2"
                                         onclick="document.getElementById('report_bill_summary').submit(); return false;"
                                         data-bs-toggle="tooltip" title="{{ __('Apply') }}"
                                         data-original-title="{{ __('Apply') }}">
@@ -96,9 +94,7 @@
                                         <span class="btn-inner--icon"><i
                                                 class="ti ti-refresh text-white-off"></i></span>
                                     </a>
-                                </div>
 
-                            </div>
                         </div>
                         </div>
                     </div>
