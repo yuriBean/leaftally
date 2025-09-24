@@ -34,6 +34,9 @@
 }
 </style>
 
+<div class="modal-header" style="background: linear-gradient(90deg, #2e7d32 0%, #43a047 100%); color: #fff; border-top-left-radius: 8px; border-top-right-radius: 8px; padding: 18px 24px; margin-bottom: 0;">
+    <h5 class="modal-title" style="margin: 0; font-weight: 600; font-size: 1.15rem;">Create Product & Service</h5>
+</div>
 <div class="modal-body">
     @if (isset($plan->enable_chatgpt) && $plan->enable_chatgpt == 'on')
         <div class="text-end mb-3">
