@@ -33,12 +33,13 @@
   }
 
   .zameen-form-label {
-    display: block;
-    font-weight: 500;
-    color: var(--zameen-text);
-    margin-bottom: 0.5rem;
-    font-size: 0.875rem;
+          {{ Form::text('name', null, [
+            'class' => 'zameen-form-input',
+            'placeholder' => __('Enter vendor name'),
+            'required' => 'required'
+          ]) }}
   }
+
 
   .zameen-form-input {
     width: 100%;
@@ -48,13 +49,17 @@
     font-size: 0.875rem;
     color: var(--zameen-text);
     background: white;
-    transition: all 0.2s ease;
+    transition: border-color 0.2s, box-shadow 0.2s;
   }
 
   .zameen-form-input:focus {
-    outline: none;
     border-color: var(--zameen-primary);
-    box-shadow: 0 0 0 3px rgba(0, 185, 141, 0.1);
+    box-shadow: 0 0 0 3px rgba(0, 124, 56, 0.15);
+    outline: none;
+  }
+
+  .zameen-form-input:hover {
+    border-color: var(--zameen-primary-light);
   }
 
   .zameen-form-input::placeholder {
@@ -63,11 +68,11 @@
 
   .zameen-form-error {
     color: #ef4444;
-    font-size: 0.75rem;
-    margin-top: 0.25rem;
-  }
-
-  .zameen-checkbox {
+          {{ Form::email('email', null, [
+            'class' => 'zameen-form-input',
+            'placeholder' => __('Enter email address'),
+            'required' => 'required'
+          ]) }}
     width: 18px;
     height: 18px;
     border: 2px solid var(--zameen-border);
@@ -282,7 +287,7 @@
           {{ __('Billing Address') }}
         </h6>
 
-        <div style="display: flex; flex-direction: column; gap: 1rem;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1rem;">
           <div class="zameen-form-group">
             <label class="zameen-form-label">{{ __('Name') }}</label>
             {{ Form::text('billing_name', null, [
@@ -290,11 +295,6 @@
               'placeholder' => __('Enter billing name')
             ]) }}
           </div>
-        </div>
-
-      
-        <div style="display: flex; flex-direction: column; gap: 1rem;">
-  
           <div class="zameen-form-group">
             <label class="zameen-form-label">{{ __('Contact') }}</label>
             {{ Form::text('billing_phone', null, [
@@ -302,6 +302,7 @@
               'placeholder' => __('Enter contact number')
             ]) }}
           </div>
+        </div>
         
           <div class="zameen-form-group">
             <label class="zameen-form-label">{{ __('Address') }}</label>
@@ -350,20 +351,18 @@
 
       @if(App\Models\Utility::getValByName('shipping_display')=='on')
       
-      <div class="zameen-form-section">
-        <h6 class="zameen-section-title">
+  <div class="zameen-form-section" style="margin-top: 2.5rem; padding: 0 2rem 0 2rem;">
+        <div style="margin-bottom: 1.5rem;">
+          <input type="button" id="billing_data" value="{{__('Shipping Same As Billing')}}" class="zameen-btn zameen-btn-primary" style="background: #007c38; color: #fff; border: none; border-radius: 8px; padding: 0.5rem 1.25rem; font-weight: 500; min-width: 180px; height: auto;">
+        </div>
+        <h6 class="zameen-section-title" style="margin-bottom: 2rem;">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pin-map" viewBox="0 0 16 16" style="display: inline; margin-right: 8px;">
                 <path fill-rule="evenodd" d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8z"/>
                 <path fill-rule="evenodd" d="M8 1a3 3 0 1 0 0 6 3 3 0 0 0 0-6M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z"/>
                </svg>
                {{__('Shipping Address')}}
             </h6>
-            <div style="text-align: right; margin-top: 1rem;">
-              <input type="button" id="billing_data" value="{{__('Shipping Same As Billing')}}" class="btn btn-primary">
-           </div>
-
-            <div style="display: flex; flex-direction: column; gap: 1rem;">
-
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1rem;">
               <div class="zameen-form-group">
                 <label class="zameen-form-label">{{ __('Name') }}</label>
                 {{ Form::text('shipping_name', null, [
@@ -371,7 +370,6 @@
                   'placeholder' => __('Enter shipping name')
                 ]) }}
               </div>
-            
               <div class="zameen-form-group">
                 <label class="zameen-form-label">{{ __('Contact') }}</label>
                 {{ Form::text('shipping_phone', null, [
@@ -379,64 +377,55 @@
                   'placeholder' => __('Enter contact number')
                 ]) }}
               </div>
-            
-              <div class="zameen-form-group">
+            </div>
+            <div class="zameen-form-group">
                 <label class="zameen-form-label">{{ __('Address') }}</label>
                 {{ Form::textarea('shipping_address', null, [
                   'class' => 'zameen-form-input',
                   'rows' => 3,
                   'placeholder' => __('Enter address')
                 ]) }}
-              </div>
-            
-              <div class="zameen-form-group">
+            </div>
+            <div class="zameen-form-group">
                 <label class="zameen-form-label">{{ __('City') }}</label>
                 {{ Form::text('shipping_city', null, [
                   'class' => 'zameen-form-input',
                   'placeholder' => __('Enter city')
                 ]) }}
-              </div>
-            
-              <div class="zameen-form-group">
+            </div>
+            <div class="zameen-form-group">
                 <label class="zameen-form-label">{{ __('State') }}</label>
                 {{ Form::text('shipping_state', null, [
                   'class' => 'zameen-form-input',
                   'placeholder' => __('Enter state')
                 ]) }}
-              </div>
-            
-              <div class="zameen-form-group">
+            </div>
+            <div class="zameen-form-group">
                 <label class="zameen-form-label">{{ __('Country') }}</label>
                 {{ Form::text('shipping_country', null, [
                   'class' => 'zameen-form-input',
                   'placeholder' => __('Enter country')
                 ]) }}
-              </div>
-            
-              <div class="zameen-form-group">
+            </div>
+            <div class="zameen-form-group">
                 <label class="zameen-form-label">{{ __('Zip Code') }}</label>
                 {{ Form::text('shipping_zip', null, [
                   'class' => 'zameen-form-input',
                   'placeholder' => __('Enter zip code')
                 ]) }}
-              </div>
-            
             </div>
-                  </div>
+        </div>
+      </div>
+    @endif
 
-      
-      @endif
-  </div>
-</div>
-
-<div class="modal-footer" style="background: var(--zameen-background-light); border-top: 1px solid var(--zameen-border-light); padding: 1.5rem 2rem; display: flex; justify-content: flex-end; gap: 1rem;">
-  <button type="button" class="zameen-btn zameen-btn-outline" data-bs-dismiss="modal">
-    {{ __('Cancel') }}
-  </button>
-  <button type="submit" class="zameen-btn zameen-btn-primary">
-    {{ __('Create Vendor') }}
-  </button>
-</div>
+    <div class="modal-footer" style="background: var(--zameen-background-light); border-top: 1px solid var(--zameen-border-light); padding: 1.5rem 2rem; display: flex; justify-content: flex-end; gap: 1rem;">
+      <button type="button" class="zameen-btn zameen-btn-outline" data-bs-dismiss="modal" style="padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 500; min-width: 120px;">
+        {{ __('Cancel') }}
+      </button>
+      <button type="submit" class="zameen-btn zameen-btn-primary" style="background: linear-gradient(135deg, #198754 0%, #20c997 100%); color: #fff; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: 500; min-width: 120px;">
+        {{ __('Create Vendor') }}
+      </button>
+    </div>
 
 {{ Form::close() }}
 

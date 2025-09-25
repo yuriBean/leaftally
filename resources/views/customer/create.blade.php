@@ -43,6 +43,7 @@
   }
 
   .zameen-header {
+    
     background: linear-gradient(135deg, var(--zameen-primary) 0%, var(--zameen-primary-light) 100%);
     padding: 2rem;
     color: white;
@@ -56,7 +57,7 @@
     margin-bottom: 0.5rem;
   }
 
-  .zameen-header p {
+  .zameen-header p {;
     margin: 0;
     opacity: 0.9;
     font-size: 1rem;

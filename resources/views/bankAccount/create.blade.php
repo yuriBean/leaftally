@@ -26,6 +26,13 @@
     padding: 1.5rem 2rem 1rem;
     border-bottom: none;
   }
+  .zameen-center-title {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    width: 100%;
+  }
 
   .zameen-form-group {
     margin-bottom: 1.5rem;
@@ -110,20 +117,43 @@
   .zameen-form-icon .zameen-form-input {
     padding-left: 2.5rem;
   }
+
+  /* Hide only the default modal header and title, but keep the close button visible */
+  #commonModal .modal-header, #commonModal .modal-title {
+    display: none !important;
+  }
+  /* Unhide the default close button */
+  #commonModal .btn-close {
+    display: block !important;
+    position: absolute;
+    right: 1.5rem;
+    top: 1.2rem;
+    color: white;
+    background: none;
+    font-size: 1.5rem;
+    opacity: 1;
+  }
+  #commonModal .btn-close:hover {
+    color: #f87171;
+    background: rgba(255,255,255,0.1);
+  }
+  #commonModal .modal-content {
+    padding-top: 0 !important;
+  }
 </style>
 
 <script src="{{ asset('js/unsaved.js') }}"></script>
 
 {{ Form::open(['url' => 'bank-account','class'=>'needs-validation','novalidate']) }}
     <div class="zameen-card">
-        <div class="zameen-card-header">
-            <h5 style="margin: 0; font-weight: 600; font-size: 1.25rem; color: white; display: flex; align-items: center; gap: 0.5rem;">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M2 4h20v4H2V4zm0 6h20v10H2V10zm4 2h12v2H6v-2zm0 4h8v2H6v-2z"/>
-                </svg>
-                {{ __('Bank Account Details') }}
-            </h5>
-        </div>
+    <div class="zameen-card-header">
+      <h5 class="zameen-center-title" style="margin: 0; font-weight: 600; font-size: 1.25rem; color: white; gap: 0.5rem;">
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M2 4h20v4H2V4zm0 6h20v10H2V10zm4 2h12v2H6v-2zm0 4h8v2H6v-2z"/>
+        </svg>
+        {{ __('Bank Account Details') }}
+      </h5>
+    </div>
         <div style="padding: 2rem;">
             <div class="row">
                 <div class="zameen-form-group col-md-6">

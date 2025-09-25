@@ -1,5 +1,15 @@
 <script src="{{ asset('js/unsaved.js') }}"></script>
 
+<style>
+  /* Hide default modal header and close button injected by AJAX system */
+  #commonModal .modal-header, #commonModal .modal-title, #commonModal .btn-close {
+    display: none !important;
+  }
+  #commonModal .modal-content {
+    padding-top: 0 !important;
+  }
+</style>
+
 {{ Form::model($tax, array('route' => array('taxes.update', $tax->id), 'method' => 'PUT','class'=>'needs-validation','novalidate')) }}
 <div class="modal-body bg-[#FAFBFC]">
     <div class="bg-white p-6 rounded-[8px] border border-[#E5E7EB] shadow-sm overflow-hidden">
@@ -26,8 +36,8 @@
     </div>
     </div>
 </div>
-<div class="modal-footer border-t border-[#E5E5E5] bg-[#FAFAFA] px-6 py-4 flex justify-end gap-3">
-    <input type="button" value="{{__('Cancel')}}" class="btn  btn-light" data-bs-dismiss="modal">
-    <input type="submit" value="{{__('Update')}}" class="btn  btn-primary">
+<div class="modal-footer" style="background: #f8f9fa; border-top: 1px solid #e0e0e0; padding: 1.5rem 2rem; display: flex; justify-content: flex-end; gap: 1rem; border-radius: 0 0 8px 8px;">
+    <input type="button" value="{{__('Cancel')}}" class="btn btn-light" data-bs-dismiss="modal" style="border-radius: 8px; padding: 0.75rem 1.5rem; border: 1.5px solid #e0e0e0; color: #2d3748; font-weight: 500; background: #fff;">
+    <input type="submit" value="{{__('Update')}}" class="btn btn-success" style="background: #007c38; color: #fff; border-radius: 8px; padding: 0.75rem 1.5rem; font-weight: 500; border: none;">
 </div>
 {{ Form::close() }}

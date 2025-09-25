@@ -342,7 +342,7 @@
             {{ __('Company Email') }}
             <span class="zameen-required">*</span>
           </label>
-          {{ Form::email('email', null, ['class' => 'zameen-input', 'placeholder' => __('Enter Company Email'), 'required' => 'required']) }}
+            {{ Form::text('name', null, ['class' => 'zameen-input', 'placeholder' => __('Enter Company Name'), 'required' => 'required']) }}
         </div>
 
         {!! Form::hidden('role', 'company') !!}
@@ -391,7 +391,7 @@
             {{ __('Email') }}
             <span class="zameen-required">*</span>
           </label>
-          {{ Form::text('email', null, ['class' => 'zameen-input', 'placeholder' => __('Enter Email'), 'required' => 'required']) }}
+            {{ Form::text('name', null, ['class' => 'zameen-input','placeholder' => __('Enter Name'),'required' => 'required']) }}
         </div>
 
         <div class="zameen-form-group">

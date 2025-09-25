@@ -659,9 +659,9 @@
             </div>
         </div>
 
-        <div class="modal-footer">
-            <input type="button" value="{{__('Cancel')}}" onclick="location.href = '{{route("retainer.index")}}';" class="btn btn-light mx-3">
-            <input type="submit" value="{{__('Update')}}" class="btn btn-primary">
+        <div class="modal-footer" style="background: #f8f9fa; border-top: 1px solid #e0e0e0; padding: 1.5rem 2rem; display: flex; justify-content: flex-end; gap: 1rem; border-radius: 0 0 8px 8px;">
+            <input type="button" value="{{__('Cancel')}}" onclick="location.href = '{{route("retainer.index")}}';" class="btn btn-light" style="border-radius: 8px; padding: 0.75rem 1.5rem; border: 1.5px solid #e0e0e0; color: #2d3748; font-weight: 500; background: #fff; margin-right: 1rem;">
+            <input type="submit" value="{{__('Update')}}" class="btn btn-success" style="background: #007c38; color: #fff; border-radius: 8px; padding: 0.75rem 1.5rem; font-weight: 500; border: none;">
         </div>
         {{ Form::close() }}
     </div>
