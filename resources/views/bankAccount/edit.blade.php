@@ -1,5 +1,14 @@
 <script src="{{ asset('js/unsaved.js') }}"></script>
 
+<div class="zameen-card-header" style="background: linear-gradient(135deg, #007c38 0%, #10b981 100%); color: white; padding: 1.5rem 2rem 1rem; border-bottom: none; position: relative;">
+    <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%;">
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" style="display: block;">
+            <path d="M2 4h20v4H2V4zm0 6h20v10H2V10zm4 2h12v2H6v-2zm0 4h8v2H6v-2z"/>
+        </svg>
+        <h5 style="margin: 0; font-weight: 600; font-size: 1.25rem; color: white; text-align: center;">{{ __('Edit Bank Account Details') }}</h5>
+    </div>
+</div>
+
 {{ Form::model($bankAccount, ['route' => ['bank-account.update', $bankAccount->id], 'method' => 'PUT','class'=>'needs-validation','novalidate']) }}
 <div class="modal-body bg-[#FAFBFC]">
     <div class="bg-white p-6 rounded-[8px] border border-[#E5E7EB] shadow-sm overflow-hidden">
@@ -66,9 +75,36 @@
 </div>
 </div>
 <div class="modal-footer border-t border-[#E5E5E5] bg-[#FAFAFA] px-6 py-4 flex justify-end gap-3">
-
-<div class="modal-footer">
     <input type="button" value="{{ __('Cancel') }}" class="btn  btn-light" data-bs-dismiss="modal">
     <input type="submit" value="{{ __('Update') }}" class="btn  btn-primary">
 </div>
 {{ Form::close() }}
+
+<style>
+  /* Hide only the default modal header and title, but keep the close button visible */
+  #commonModal .modal-header, #commonModal .modal-title {
+    display: none !important;
+  }
+  /* Unhide the default close button */
+  #commonModal .btn-close {
+    display: block !important;
+    position: absolute;
+    right: 1.5rem;
+    top: 1.2rem;
+    color: white;
+    background: none;
+    font-size: 1.5rem;
+    opacity: 1;
+  }
+  #commonModal .btn-close:hover {
+    color: #f87171;
+    background: rgba(255,255,255,0.1);
+  }
+  #commonModal .modal-content {
+    padding-top: 0 !important;
+  }
+  .zameen-close-btn:hover {
+    color: #f87171;
+    background: rgba(255,255,255,0.1);
+  }
+</style>

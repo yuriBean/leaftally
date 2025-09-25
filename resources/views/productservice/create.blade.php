@@ -1,316 +1,297 @@
+
 <style>
-  :root {
-    --zameen-primary: #007c38;
-    --zameen-primary-light: #10b981;
-    --zameen-primary-dark: #007c38;
-    --zameen-background-section: #f8f9fa;
-    --zameen-background-light: #ffffff;
-    --zameen-border: #e0e0e0;
-    --zameen-border-light: #f0f0f0;
-    --zameen-text: #2d3748;
-    --zameen-text-light: #718096;
-    --zameen-radius: 8px;
-    --zameen-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-
-  .zameen-form-section {
-    margin-bottom: 2rem;
-  }
-
-  .zameen-section-title {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: var(--zameen-text);
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--zameen-border-light);
-    display: flex;
-    align-items: center;
-  }
-
-  .zameen-form-group {
-    margin-bottom: 1.25rem;
-  }
-
-  .zameen-form-label {
-    display: block;
-    font-weight: 500;
-    color: var(--zameen-text);
-    margin-bottom: 0.5rem;
-    font-size: 0.875rem;
-  }
-
-  .zameen-form-input {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border: 2px solid var(--zameen-border);
-    border-radius: var(--zameen-radius);
-    font-size: 0.875rem;
-    color: var(--zameen-text);
-    background: white;
-    transition: all 0.2s ease;
-  }
-
-  .zameen-form-input:focus {
-    outline: none;
-    border-color: var(--zameen-primary);
-    box-shadow: 0 0 0 3px rgba(39, 167, 118, 0.1);
-  }
-
-  .zameen-form-input::placeholder {
-    color: var(--zameen-text-light);
-  }
-
-  .zameen-form-select {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border: 2px solid var(--zameen-border);
-    border-radius: var(--zameen-radius);
-    font-size: 0.875rem;
-    color: var(--zameen-text);
-    background: white;
-    transition: all 0.2s ease;
-  }
-
-  .zameen-form-select:focus {
-    outline: none;
-    border-color: var(--zameen-primary);
-    box-shadow: 0 0 0 3px rgba(39, 167, 118, 0.1);
-  }
-
-  .zameen-form-textarea {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border: 2px solid var(--zameen-border);
-    border-radius: var(--zameen-radius);
-    font-size: 0.875rem;
-    color: var(--zameen-text);
-    background: white;
-    transition: all 0.2s ease;
-    resize: vertical;
-    min-height: 100px;
-  }
-
-  .zameen-form-textarea:focus {
-    outline: none;
-    border-color: var(--zameen-primary);
-    box-shadow: 0 0 0 3px rgba(39, 167, 118, 0.1);
-  }
-
-  .zameen-form-error {
-    color: #ef4444;
-    font-size: 0.75rem;
-    margin-top: 0.25rem;
-  }
-
-  .zameen-radio-group {
-    display: flex;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-  }
-
-  .zameen-radio-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .zameen-radio {
-    width: 18px;
-    height: 18px;
-    border: 2px solid var(--zameen-border);
-    border-radius: 50%;
-    background: white;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    position: relative;
-  }
-
-  .zameen-radio:checked {
-    background: var(--zameen-primary);
-    border-color: var(--zameen-primary);
-  }
-
-  .zameen-radio:checked::after {
-    content: '';
-    position: absolute;
-    top: 3px;
-    left: 3px;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: white;
-  }
-
-  .zameen-checkbox {
-    width: 18px;
-    height: 18px;
-    border: 2px solid var(--zameen-border);
-    border-radius: 4px;
-    background: white;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    position: relative;
-    margin-right: 0.5rem;
-  }
-
-  .zameen-checkbox:checked {
-    background: var(--zameen-primary);
-    border-color: var(--zameen-primary);
-  }
-
-  .zameen-checkbox:checked::after {
-    content: '✓';
-    position: absolute;
-    top: -1px;
-    left: 2px;
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
-  }
-
-  .zameen-btn {
-    padding: 0.75rem 1.5rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    border-radius: var(--zameen-radius);
-    border: 2px solid transparent;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-decoration: none;
-    display: inline-flex !important;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    min-width: 120px;
-    opacity: 1 !important;
-    visibility: visible !important;
-  }
-
-  .zameen-btn-primary {
-    background: var(--zameen-primary);
-    color: white !important;
-    border-color: var(--zameen-primary);
-    opacity: 1 !important;
-    visibility: visible !important;
-    display: inline-flex !important;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-  }
-
-  .zameen-btn-primary:hover {
-    background: var(--zameen-primary-dark) !important;
-    border-color: var(--zameen-primary-dark) !important;
-    color: white !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-  }
-
-  .zameen-btn-outline {
-    background: white;
-    color: var(--zameen-text);
-    border-color: var(--zameen-border);
-  }
-
-  .zameen-btn-outline:hover {
-    background: #f8f9fa;
-    border-color: #adb5bd;
-  }
-
-  .zameen-form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-
-  .zameen-form-row-3 {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 1rem;
-  }
-
-  /* Force button visibility */
-  button[type="submit"].zameen-btn-primary,
-  .zameen-btn-primary[type="submit"] {
-    background: var(--zameen-primary) !important;
-    color: white !important;
-    border-color: var(--zameen-primary) !important;
-    display: inline-flex !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    z-index: 999 !important;
-    transition: background-color 0.3s ease, border-color 0.3s ease !important;
-  }
-
-  button[type="submit"].zameen-btn-primary:hover,
-  .zameen-btn-primary[type="submit"]:hover,
-  .modal-footer button[type="submit"].zameen-btn-primary:hover {
-    background: var(--zameen-primary-dark) !important;
-    border-color: var(--zameen-primary-dark) !important;
-    color: white !important;
-  }
-
-  .modal-footer .zameen-btn-primary {
-    background: var(--zameen-primary) !important;
-    color: white !important;
-    display: inline-flex !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    transition: background-color 0.3s ease, border-color 0.3s ease !important;
-  }
-
-  .modal-footer .zameen-btn-primary:hover {
-    background: var(--zameen-primary-dark) !important;
-    border-color: var(--zameen-primary-dark) !important;
-  }
-
-  /* Specific styling for submit button */
-  .zameen-submit-btn {
-    background: #007c38 !important;
-    color: white !important;
-    border: 2px solid #007c38 !important;
-    display: inline-flex !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-  }
-
-  .zameen-submit-btn:hover {
-    background: #1e8863 !important;
-    border-color: #1e8863 !important;
-    color: white !important;
-    display: inline-flex !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-  }
-
-  /* Force the button to always be visible with highest priority */
-  .modal-footer .zameen-submit-btn,
-  button.zameen-submit-btn {
-    background: #007c38 !important;
-    color: white !important;
-    border: 2px solid #007c38 !important;
-    display: inline-flex !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    z-index: 9999 !important;
-  }
-
-  .modal-footer .zameen-submit-btn:hover,
-  button.zameen-submit-btn:hover {
-    background: #1e8863 !important;
-    border-color: #1e8863 !important;
-  }
-
-  @media (max-width: 768px) {
-    .zameen-form-row,
-    .zameen-form-row-3 {
-      grid-template-columns: 1fr;
+:root {
+                --zameen-primary: #007c38;
+                --zameen-primary-light: #10b981;
+                --zameen-primary-dark: #007c38;
+                --zameen-background-section: #f8f9fa;
+                --zameen-background-light: #ffffff;
+                --zameen-border: #e0e0e0;
+                --zameen-border-light: #f0f0f0;
+                --zameen-text: #2d3748;
+                --zameen-text-light: #718096;
+                --zameen-radius: 8px;
+                --zameen-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    .zameen-form-section {
+        margin-bottom: 2rem;
     }
-
+    .zameen-section-title {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: var(--zameen-text);
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid var(--zameen-border-light);
+        display: flex;
+        align-items: center;
+    }
+    .zameen-form-group {
+        margin-bottom: 1.25rem;
+    }
+    .zameen-form-label {
+        display: block;
+        font-weight: 500;
+        color: var(--zameen-text);
+        margin-bottom: 0.5rem;
+        font-size: 0.875rem;
+    }
+        .zameen-form-input {
+                width: 100%;
+                padding: 0.75rem 1rem;
+                border: 2px solid var(--zameen-border);
+                border-radius: var(--zameen-radius);
+                font-size: 0.875rem;
+                color: var(--zameen-text);
+                background: white;
+                transition: all 0.2s ease;
+        }
+        .zameen-form-input:focus {
+                outline: none !important;
+                border-color: var(--zameen-primary) !important;
+                border-width: 2px !important;
+                border-style: solid !important;
+                background: white !important;
+                box-shadow: none !important;
+        }
+                /* Chrome autofill fix */
+                .zameen-form-input:-webkit-autofill,
+                .zameen-form-input:-webkit-autofill:focus {
+                                -webkit-box-shadow: 0 0 0 3px rgba(0, 124, 56, 0.15) !important;
+                                box-shadow: 0 0 0 3px rgba(0, 124, 56, 0.15) !important;
+                                border-color: var(--zameen-primary) !important;
+                                border-width: 2px !important;
+                                -webkit-text-fill-color: var(--zameen-text) !important;
+                                transition: background-color 5000s ease-in-out 0s;
+                }
+        .zameen-form-input::placeholder {
+                color: var(--zameen-text-light);
+        }
+        .zameen-form-select {
+                width: 100%;
+                padding: 0.75rem 1rem;
+                border: 2px solid var(--zameen-border);
+                border-radius: var(--zameen-radius);
+                font-size: 0.875rem;
+                color: var(--zameen-text);
+                background: white;
+                transition: all 0.2s ease;
+        }
+        .zameen-form-select:focus {
+                outline: none !important;
+                border-color: var(--zameen-primary) !important;
+                border-width: 2px !important;
+                border-style: solid !important;
+                box-shadow: none !important;
+        }
+        .zameen-form-textarea {
+                width: 100%;
+                padding: 0.75rem 1rem;
+                border: 2px solid var(--zameen-border);
+                border-radius: var(--zameen-radius);
+                font-size: 0.875rem;
+                color: var(--zameen-text);
+                background: white;
+                transition: all 0.2s ease;
+                resize: vertical;
+                min-height: 100px;
+        }
+        .zameen-form-textarea:focus {
+                outline: none !important;
+                border-color: var(--zameen-primary) !important;
+                border-width: 2px !important;
+                border-style: solid !important;
+                box-shadow: none !important;
+        }
+    .zameen-form-error {
+        color: #ef4444;
+        font-size: 0.75rem;
+        margin-top: 0.25rem;
+    }
     .zameen-radio-group {
-      flex-direction: column;
-      gap: 1rem;
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
     }
-  }
+    .zameen-radio-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    .zameen-radio {
+        width: 18px;
+        height: 18px;
+        border: 2px solid var(--zameen-border);
+        border-radius: 50%;
+        background: white;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        position: relative;
+    }
+    .zameen-radio:checked {
+        background: var(--zameen-primary);
+        border-color: var(--zameen-primary);
+    }
+    .zameen-radio:checked::after {
+        content: '';
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: white;
+    }
+    .zameen-checkbox {
+        width: 18px;
+        height: 18px;
+        border: 2px solid var(--zameen-border);
+        border-radius: 4px;
+        background: white;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        position: relative;
+        margin-right: 0.5rem;
+    }
+    .zameen-checkbox:checked {
+        background: var(--zameen-primary);
+        border-color: var(--zameen-primary);
+    }
+    .zameen-checkbox:checked::after {
+        content: '✓';
+        position: absolute;
+        top: -1px;
+        left: 2px;
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+    }
+    .zameen-btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        border-radius: var(--zameen-radius);
+        border: 2px solid transparent;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-decoration: none;
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        min-width: 120px;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    .zameen-btn-primary {
+        background: var(--zameen-primary);
+        color: white !important;
+        border-color: var(--zameen-primary);
+        opacity: 1 !important;
+        visibility: visible !important;
+        display: inline-flex !important;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+    .zameen-btn-primary:hover {
+        background: var(--zameen-primary-dark) !important;
+        border-color: var(--zameen-primary-dark) !important;
+        color: white !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    .zameen-btn-outline {
+        background: white;
+        color: var(--zameen-text);
+        border-color: var(--zameen-border);
+    }
+    .zameen-btn-outline:hover {
+        background: #f8f9fa;
+        border-color: #adb5bd;
+    }
+    .zameen-form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+    .zameen-form-row-3 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 1rem;
+    }
+    /* Force button visibility */
+    button[type="submit"].zameen-btn-primary,
+    .zameen-btn-primary[type="submit"] {
+        background: var(--zameen-primary) !important;
+        color: white !important;
+        border-color: var(--zameen-primary) !important;
+        display: inline-flex !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        z-index: 999 !important;
+        transition: background-color 0.3s ease, border-color 0.3s ease !important;
+    }
+    button[type="submit"].zameen-btn-primary:hover,
+    .zameen-btn-primary[type="submit"]:hover,
+    .modal-footer button[type="submit"].zameen-btn-primary:hover {
+        background: var(--zameen-primary-dark) !important;
+        border-color: var(--zameen-primary-dark) !important;
+        color: white !important;
+    }
+    .modal-footer .zameen-btn-primary {
+        background: var(--zameen-primary) !important;
+        color: white !important;
+        display: inline-flex !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transition: background-color 0.3s ease, border-color 0.3s ease !important;
+    }
+    .modal-footer .zameen-btn-primary:hover {
+        background: var(--zameen-primary-dark) !important;
+        border-color: var(--zameen-primary-dark) !important;
+    }
+    /* Specific styling for submit button */
+    .zameen-submit-btn {
+        background: #007c38 !important;
+        color: white !important;
+        border: 2px solid #007c38 !important;
+        display: inline-flex !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    .zameen-submit-btn:hover {
+        background: #1e8863 !important;
+        border-color: #1e8863 !important;
+        color: white !important;
+        display: inline-flex !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    /* Force the button to always be visible with highest priority */
+    .modal-footer .zameen-submit-btn,
+    button.zameen-submit-btn {
+        background: #007c38 !important;
+        color: white !important;
+        border: 2px solid #007c38 !important;
+        display: inline-flex !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        z-index: 9999 !important;
+    }
+    .modal-footer .zameen-submit-btn:hover,
+    button.zameen-submit-btn:hover {
+        background: #1e8863 !important;
+        border-color: #1e8863 !important;
+    }
+    @media (max-width: 768px) {
+        .zameen-form-row,
+        .zameen-form-row-3 {
+            grid-template-columns: 1fr;
+        }
+        .zameen-radio-group {
+            flex-direction: column;
+            gap: 1rem;
+        }
+    }
 </style>
 
 <script src="{{ asset('js/unsaved.js') }}"></script>
@@ -379,15 +360,15 @@
                 <label class="zameen-form-label">{{ __('Material Classification') }}</label>
                 <div style="display: flex; gap: 1.5rem; margin-top: 0.5rem; flex-wrap: wrap;">
                     <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
-                        <input type="radio" name="material_type" value="raw" style="margin: 0;">
+                        <input type="radio" name="material_type" value="raw" id="mt_raw" style="margin: 0;">
                         <span>{{ __('Raw Material') }}</span>
                     </label>
                     <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
-                        <input type="radio" name="material_type" value="finished" style="margin: 0;">
+                        <input type="radio" name="material_type" value="finished" id="mt_finished" style="margin: 0;">
                         <span>{{ __('Finished Product') }}</span>
                     </label>
                     <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
-                        <input type="radio" name="material_type" value="both" style="margin: 0;">
+                        <input type="radio" name="material_type" value="both" id="mt_both" style="margin: 0;">
                         <span>{{ __('Both') }}</span>
                     </label>
                 </div>
@@ -577,7 +558,7 @@
             <div class="zameen-form-group">
                 <label class="zameen-form-label">{{ __('Description') }}</label>
                 {!! Form::textarea('description', null, [
-                    'class' => 'zameen-form-input',
+                    'class' => 'zameen-form-textarea',
                     'rows' => '4',
                     'placeholder' => __('Enter product or service description...')
                 ]) !!}
@@ -630,11 +611,11 @@
         @endif
         <div class="form-group col-md-12">
             {{ Form::label('name', __('Category Name'), ['class' => 'form-label']) }}<x-required></x-required>
-            {{ Form::text('name', '', ['class' => 'zameen-form-input', 'required' => 'required']) }}
+            {{ Form::text('name', '', ['class' => 'zameen-input', 'required' => 'required']) }}
         </div>
         <div class="form-group col-md-12 account d-none">
             {{Form::label('chart_account_id',__('Account'),['class'=>'form-label'])}}
-            <select class="zameen-form-select" name="chart_account" id="chart_account"></select>
+            <select class="zameen-select" name="chart_account" id="chart_account"></select>
             <input type="hidden" name="type" value="product & service">
         </div>
         <div class="form-group col-md-12">
@@ -659,9 +640,9 @@
 
     </div>
 </div>
-<div class="modal-footer">
-    <input type="button" value="{{ __('Cancel') }}" class="btn  btn-light" data-bs-dismiss="modal">
-    <input type="submit" value="{{ __('Create') }}" class="btn  btn-primary">
+<div class="modal-footer" style="background: #f8f9fa; border-top: 1px solid #e0e0e0; padding: 1.5rem 2rem; display: flex; justify-content: flex-end; gap: 1rem; border-radius: 0 0 8px 8px;">
+    <input type="button" value="{{ __('Cancel') }}" class="zameen-btn zameen-btn-outline" data-bs-dismiss="modal">
+    <input type="submit" value="{{ __('Create') }}" class="zameen-btn zameen-btn-primary">
 </div>
 </form>
         </div>
@@ -680,7 +661,7 @@
                 <div class="row">
                     <div class="form-group col-md-12">
                         {{ Form::label('name', __('Unit Name'),['class'=>'form-label']) }}<x-required></x-required>
-                        {{ Form::text('name', '', array('class' => 'zameen-form-input','required'=>'required')) }}
+                        {{ Form::text('name', '', array('class' => 'zameen-input','required'=>'required')) }}
                         @error('name')
                             <small class="invalid-name" role="alert">
                                 <strong class="text-danger">{{ $message }}</strong>
@@ -690,8 +671,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <input type="button" value="{{__('Cancel')}}" class="btn btn-light" data-bs-dismiss="modal">
-                <input type="submit" value="{{__('Create')}}" class="btn btn-primary">
+                <input type="button" value="{{__('Cancel')}}" class="zameen-btn zameen-btn-outline" data-bs-dismiss="modal">
+                <input type="submit" value="{{__('Create')}}" class="zameen-btn zameen-btn-primary">
             </div>
 </form>
         </div>
@@ -829,3 +810,5 @@ function openAddTaxModal() {
 }
 </script>
 @endpush
+
+
