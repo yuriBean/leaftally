@@ -190,7 +190,7 @@
     </div>
 </div>
 
-<div class="modal-footer">
-    <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{ __('Cancel') }}</button>
-    <button type="button" class="btn btn-primary" id="submit_add_product">{{ __('Create') }}</button>
+<div class="modal-footer" style="background: #f8f9fa; border-top: 1px solid #e0e0e0; padding: 1.5rem 2rem; display: flex; justify-content: flex-end; gap: 1rem; border-radius: 0 0 8px 8px;">
+    <button type="button" class="btn btn-light" data-bs-dismiss="modal" style="border-radius: 8px; padding: 0.75rem 1.5rem; border: 1.5px solid #e0e0e0; color: #2d3748; font-weight: 500; background: #fff;">{{ __('Cancel') }}</button>
+    <button type="button" class="btn btn-success" id="submit_add_product" style="background: #007c38; color: #fff; border-radius: 8px; padding: 0.75rem 1.5rem; font-weight: 500; border: none;">{{ __('Create') }}</button>
 </div>

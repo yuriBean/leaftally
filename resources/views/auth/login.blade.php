@@ -21,16 +21,14 @@ button#login_button.btn-zameen {
     border: 2px solid #007C38 !important;
     border-color: #007C38 !important;
     color: #ffffff !important;
-    padding: 12px 24px !important;
-    border-radius: 6px !important;
+    padding: 25px 50px !important;
+    border-radius: 10px !important;
     font-size: 16px !important;
     font-weight: 600 !important;
     text-align: center !important;
     text-decoration: none !important;
     cursor: pointer !important;
     transition: all 0.3s ease !important;
-    display: block !important;
-    width: 100% !important;
     min-height: 48px !important;
     line-height: 1.5 !important;
     box-shadow: 0 2px 4px rgba(0, 124, 56, 0.2) !important;
@@ -41,17 +39,18 @@ button#login_button.btn-zameen {
     z-index: 1 !important;
 }
 
-.btn-zameen:hover,
-button.btn-zameen:hover,
-#login_button.btn-zameen:hover,
-button#login_button.btn-zameen:hover {
-    background: #006b30 !important;
-    background-color: #006b30 !important;
-    border-color: #006b30 !important;
-    color: #ffffff !important;
-    transform: translateY(-1px) !important;
-    box-shadow: 0 4px 8px rgba(0, 124, 56, 0.3) !important;
+.btn-zameen:link,
+.btn-zameen:visited,
+button.btn-zameen:link,
+button.btn-zameen:visited,
+#login_button.btn-zameen:link,
+#login_button.btn-zameen:visited,
+button#login_button.btn-zameen:link,
+button#login_button.btn-zameen:visited {
+    color: #fff !important;
 }
+
+
 
 .btn-zameen:focus,
 button.btn-zameen:focus,
@@ -183,7 +182,7 @@ button#login_button.btn-zameen:disabled {
             @endif
         </div>
         <div class="d-grid">
-            <button type="submit" class="btn btn-zameen btn-block mt-2" id="login_button">{{ __('Login') }}</button>
+            <button type="submit" class="btn-zameen" id="login_button" style="background:#007C38 !important; color:#fff !important; border:2px solid #007C38 !important; width:100% !important; padding: 6px 12px !important; border-radius: 6px !important;">{{ __('Login') }}</button>
 
         </div>
         @if ($settings['enable_signup'] == 'on')
