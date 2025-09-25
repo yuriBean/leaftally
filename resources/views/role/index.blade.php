@@ -26,7 +26,7 @@
     <div class="row table-new-data">
         <div class="col-xl-12">
             <div class="card border-0 rounded-2xl shadow-md overflow-hidden my-3">
-                <div class="h-1 w-full" style="background:#007C38;"></div>
+                <div class="h-1 w-full" style="background: #007C38;"></div>
                           <div class="card-body table-border-style table-border-style">
                 <div class="bg-white border rounded-lg shadow-sm p-4 pb-0">
                     <div class="table-responsive">

@@ -52,22 +52,37 @@
         <li class="list-group-item"><a class="btn btn-default handle"><i class="fa fa-arrows"></i></a></li>
     </ul>
 </div>
-<div class="modal right fade component_modal" tabindex="-1" role="dialog" aria-labelledby="setting-modal-label">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-
-            <div class="modal-header border-b-[0px]">
-
-                <h5 class="modal-title font-[700] text-[16px] text-black leading-[24px]" id="myModalLabel2">Section Setting</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<div class="modal fade component_modal" tabindex="-1" role="dialog" aria-labelledby="setting-modal-label" style="display: flex; align-items: center; justify-content: center;">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" style="border-radius: 20px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.12);">
+            <div style="background: linear-gradient(90deg, #198754 0%, #20c997 100%); padding: 2rem 2rem 1.25rem; position: relative;">
+                <div style="color: white; margin-bottom: 0.5rem;">
+                    <h4 style="margin: 0; font-weight: 600; font-size: 1.5rem; color: white;">Section Setting</h4>
+                    <p style="margin: 0; opacity: 0.9; font-size: 0.875rem;">Customize this section's settings</p>
+                </div>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position: absolute; top: 1.5rem; right: 2rem; color: white; font-size: 1.5rem; background: none; border: none;">&times;</button>
             </div>
-            <div class="modal-body">
-
+            <div style="padding: 2rem; background: white;">
                 <form enctype="multipart/form-data">
-                    <div class="card mb-2">
-                        <div class="card-header"><h6>Text</h6></div>
-                        <div class="card-body">
-                            <div class="row">
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label for="text-1" style="font-weight: 500; margin-bottom: 0.5rem;">Text</label>
+                        <input type="text" class="form-control" placeholder="Text-1" id="text-1" name="text_value[]" style="border-radius: 10px; border: 1px solid #20c997; padding: 0.75rem 1rem; margin-bottom: 1rem;">
+                        <input type="text" class="form-control" placeholder="Text-2" id="text-2" name="text_value[]" style="border-radius: 10px; border: 1px solid #20c997; padding: 0.75rem 1rem; margin-bottom: 1rem;">
+                        <input type="text" class="form-control" placeholder="Text-3" id="text-3" name="text_value[]" style="border-radius: 10px; border: 1px solid #20c997; padding: 0.75rem 1rem; margin-bottom: 1rem;">
+                        <textarea class="form-control" rows="5" id="text-4" name="text_value[]" style="border-radius: 10px; border: 1px solid #20c997; padding: 0.75rem 1rem; margin-bottom: 1rem;"></textarea>
+                        <textarea class="form-control" rows="3" id="text-5" name="text_value[]" style="border-radius: 10px; border: 1px solid #20c997; padding: 0.75rem 1rem; margin-bottom: 1rem;"></textarea>
+                        <textarea class="form-control" rows="5" id="text-6" name="text_value[]" style="border-radius: 10px; border: 1px solid #20c997; padding: 0.75rem 1rem; margin-bottom: 1rem;"></textarea>
+                        <textarea class="form-control" rows="3" id="text-7" name="text_value[]" style="border-radius: 10px; border: 1px solid #20c997; padding: 0.75rem 1rem; margin-bottom: 1rem;"></textarea>
+                        <textarea class="form-control" rows="3" id="text-8" name="text_value[]" style="border-radius: 10px; border: 1px solid #20c997; padding: 0.75rem 1rem; margin-bottom: 1rem;"></textarea>
+                    </div>
+                    <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+                        <button type="button" class="btn btn-light" data-dismiss="modal" style="border-radius: 8px; padding: 0.75rem 1.5rem; border: 1px solid #e0e7ff;">Cancel</button>
+                        <button class="btn btn-success" type="submit" style="background: #198754; color: white; border-radius: 8px; padding: 0.75rem 1.5rem; font-weight: 500;">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <input type="text" class="form-control" placeholder="Text-1" id="text-1" name="text_value[]">

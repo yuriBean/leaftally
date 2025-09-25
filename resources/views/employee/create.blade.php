@@ -227,13 +227,13 @@
 </div>
 
   {{-- Footer actions --}}
-  <div class="modal-footer border-t border-[#E5E5E5] bg-[#FAFAFA] px-6 py-4 flex justify-end gap-3 w-100">
+  <div class="modal-footer" style="background: #f8f9fa; border-top: 1px solid #e0e0e0; padding: 1.5rem 2rem; display: flex; justify-content: flex-end; gap: 1rem; border-radius: 0 0 8px 8px;">
     <a href="{{ route('employee.index') }}"
-       class="btn border border-[#E5E5E5] text-[#6B7280] bg-white hover:bg-[#F9FAFB] hover:border-[#D1D5DB] px-4 py-2 rounded-[4px] text-md font-[500]">
+       class="btn btn-light" style="border-radius: 8px; padding: 0.75rem 1.5rem; border: 1.5px solid #e0e0e0; color: #2d3748; font-weight: 500; background: #fff;">
       {{ __('Cancel') }}
     </a>
     <button type="submit"
-            class="btn bg-[#007C38] text-white hover:bg-[#005f2a] px-6 py-2 rounded-[4px] text-md font-[500] shadow-sm">
+            class="btn btn-success" style="background: #007c38; color: #fff; border-radius: 8px; padding: 0.75rem 1.5rem; font-weight: 500; border: none;">
       <i class="ti ti-plus text-md mr-1"></i> {{ __('Create Employee') }}
     </button>
   </div>
