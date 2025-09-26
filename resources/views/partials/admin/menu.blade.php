@@ -3,7 +3,7 @@
     use App\Services\Feature as PlanFeatureService;
     use App\Enum\PlanFeature as PF;
 
-    $logo = asset(Storage::url('uploads/logo/'));
+    $logo = \App\Models\Utility::get_file('uploads/logo/');
 
     if (\Auth::user()->type == 'super admin') {
         $company_logo = Utility::get_superadmin_logo();
