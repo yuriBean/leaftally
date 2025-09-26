@@ -1,16 +1,10 @@
 # Laravel Framework
 /.idea
-/.vscode
 /vendor
 /node_modules
 /public/storage
 /storage/*.key
-.env
-.env.*
 .env.backup
-.env.production
-.env.local
-.env.development
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
@@ -22,8 +16,6 @@ vendor/
 node_modules/
 
 # Environment files
-.env
-.env.*
 
 
 
@@ -189,10 +181,8 @@ bower_components
 ### Laravel ###
 /bootstrap/compiled.php
 .env.*.php
-.env.*
 /vendor
 /node_modules
-.env
 
 .htaccess
 .rnd
@@ -205,7 +195,6 @@ vendor
 
 # IDE
 .idea/
-.vscode/
 
 # Dependencies
 vendor/
@@ -215,8 +204,6 @@ node_modules/
 public/storage/
 
 # Secrets
-.env
-.env.*
 
 # Cached / misc
 .phpunit.result.cache
@@ -226,3 +213,4 @@ npm-debug.log
 Thumbs.db
 node_modules
 vendor
+config.bat
