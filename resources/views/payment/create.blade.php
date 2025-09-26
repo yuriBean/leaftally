@@ -1,8 +1,11 @@
 <script src="{{ asset('js/unsaved.js') }}"></script>
 
 {{ Form::open(array('url' => 'payment','enctype' => 'multipart/form-data','class'=>'needs-validation','novalidate')) }}
+<div class="modal-header" style="background: linear-gradient(135deg, #007c38 0%, #10b981 100%); padding: 1.5rem 2rem; color: white; text-align: center; flex-shrink: 0; border-radius: 0;">
+    <h5 class="modal-title" style="margin: 0; font-weight: 600; font-size: 1.15rem;">Add New Payment</h5>
+</div>
 <div class="modal-body bg-[#FAFBFC]">
-    <div class="bg-white p-6 rounded-[8px] border border-[#E5E7EB] shadow-sm overflow-hidden">
+    <div class="bg-white p-6 overflow-hidden">
         <div class="row">
         <div class="form-group col-md-6">
             {{ Form::label('date', __('Date'),['class'=>'form-label']) }}<x-required></x-required>
@@ -154,7 +157,7 @@ $("#add_category_form").submit(function (e) {
         success: function (response) {
             if (response.status == "1") {
                 $("#productCategoryModal").modal("hide");
-                $("#add_category_form")[0].reset(); 
+                $("#add_category_form")[0].reset();
                 $("#category_id").html(response.options);
                 show_toastr("success",response.message);
             }else{

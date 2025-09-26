@@ -3,9 +3,13 @@
     $plan = \App\Models\Utility::getChatGPTSettings();
 @endphp
 {{ Form::open(['url' => 'account-assets','class'=>'needs-validation','novalidate']) }}
-<div class="modal-body bg-[#FAFBFC]">
-    <div class="bg-white p-6 rounded-[8px] border border-[#E5E7EB] shadow-sm overflow-hidden">
-        <div class="row">
+<div  style="background: linear-gradient(135deg, #007c38 0%, #10b981 100%); padding: 1.5rem 2rem; color: white; text-align: center; flex-shrink: 0; border-radius: 0;">
+    <h5  style="margin: 0; font-weight: 600; font-size: 1.15rem;">Create New Assets</h5>
+</div>
+
+<div class="modal-body p-6 bg-[#FAFBFC]">
+    <div class="bg-white overflow-hidden">
+       <div class="row p-2">
         @if ($plan->enable_chatgpt == 'on')
             <div>
                 <a href="#" data-size="md" data-ajax-popup-over="true" data-url="{{ route('generate', ['assets']) }}"
@@ -47,7 +51,7 @@
 </div>
 
 <div class="modal-footer border-t border-[#E5E5E5] bg-[#FAFAFA] px-6 py-4 flex justify-end gap-3">
-    <input type="button" value="{{ __('Cancel') }}" class="btn  btn-light" data-bs-dismiss="modal">
-    <input type="submit" value="{{ __('Create') }}" class="btn  btn-primary">
+    <input type="button" value="{{__('Cancel')}}" class="btn  btn-light" data-bs-dismiss="modal">
+    <input type="submit" value="{{__('Create')}}" class="btn  btn-primary">
 </div>
 {{ Form::close() }}

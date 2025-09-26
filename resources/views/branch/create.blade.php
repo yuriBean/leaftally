@@ -1,6 +1,10 @@
 <script src="{{ asset('js/unsaved.js') }}"></script>
 
 {{Form::open(array('url'=>'branch','method'=>'post', 'class'=>'needs-validation', 'novalidate'))}}
+<div  style="background: linear-gradient(135deg, #007c38 0%, #10b981 100%); padding: 1.5rem 2rem; color: white; text-align: center; flex-shrink: 0; border-radius: 0;">
+    <h5  style="margin: 0; font-weight: 600; font-size: 1.15rem;">Create New Branch</h5>
+</div>
+
 <div class="modal-body">
 
     <div class="row">

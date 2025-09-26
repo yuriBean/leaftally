@@ -1,6 +1,10 @@
 {{ Form::open(array('url' => 'goal','class'=>'needs-validation','novalidate')) }}
+<div  style="background: linear-gradient(135deg, #007c38 0%, #10b981 100%); padding: 1.5rem 2rem; color: white; text-align: center; flex-shrink: 0; border-radius: 0;">
+    <h5  style="margin: 0; font-weight: 600; font-size: 1.15rem; ">Create New Goal</h5>
+</div>
+
 <div class="modal-body bg-[#FAFBFC]">
-    <div class="bg-white p-6 rounded-[8px] border border-[#E5E7EB] shadow-sm overflow-hidden">
+    <div class="bg-white p-2 overflow-hidden">
         <div class="row">
         <div class="form-group col-md-6">
             {{ Form::label('name', __('Name'),['class'=>'form-label']) }}<x-required></x-required>

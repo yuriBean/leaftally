@@ -152,7 +152,7 @@
 <div>
   
   <div style="background: linear-gradient(135deg,#007c38  0%, #10b981 100%); padding: 1.75rem 2rem 1.25rem;">
-    <div style="color: white; margin-bottom: 0.5rem;">
+    <div style="color: white; margin-bottom: 0.5rem; text-align:center">
       <h4 style="margin: 0; font-weight: 600; font-size: 1.5rem; color: white;">{{ __('Create New Vendor') }}</h4>
       <p style="margin: 0; opacity: 0.9; font-size: 0.875rem;">{{ __('Add a new vendor to your business') }}</p>
     </div>
